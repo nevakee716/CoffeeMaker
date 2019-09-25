@@ -1,0 +1,21 @@
+{
+  "name": "Custom Layout Configuration",
+  "version": "0.0.0",
+  "description": "Allow you to configure specifics directly in evolve",
+  "main": "src/CoffeMaker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nevakee716/CoffeeMaker.git"
+  },
+  "author": "Mathias Pfauwadel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nevakee716/cwCoffeeMaker/issues"
+  },
+  "homepage": "https://github.com/nevakee716/cwCoffeeMaker/wiki",
+  "wiki": "https://github.com/nevakee716/cwCoffeeMaker/wiki",
+  "evolve-version": "4.2 - 4.x"
+}
