@@ -1,0 +1,14 @@
+<div>
+  <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :</div>
+    <div class="row-cell row-cell-value">
+      <select ng-change="configInit()" ng-options="v as (v.name + ' (' + v.cwView + ')')  for v in objectpages | orderBy:'name'" ng-model="currentView"></select>
+    </div>
+  </div>
+  <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('redirect_evolve_view')}} :</div>
+    <div class="row-cell row-cell-value">
+      <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')') for v in redirectViews | orderBy:'name'" ng-model="config[currentView.cwView].default"></select>
+    </div>
+  </div>
+</div>

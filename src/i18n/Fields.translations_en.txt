@@ -1,0 +1,9 @@
+redirectEdit = Redirect Edit
+evolve_view = Evolve view
+redirect_evolve_view = Redirect to
+duplicateButton = Duplication button
+view_to_activate_duplicate_button = Activate the button on the following views
+duplicate_button_view_to_configure = Configuring the view
+duplicate_button_association_with_main_object = Association to the original object
+duplicate_button_property_to_exclude = Property to exclude from duplication
+duplicate_button_association_to_exclude = Associations to exclude from duplication

@@ -1,0 +1,14 @@
+{
+  "Name": "Custom Layout Configuration",
+  "DisplayName": "Custom Layout Configuration",
+  "Description": "Allow to configure some custom layout directly in evolve",
+  "JavaScriptClassName": "cwCoffeeMaker",
+  "Options": [
+    {
+      "Id": "config",
+      "DisplayName": "Json Configuration",
+      "Description": "Copy here the configuration from the evolve site",
+      "Type": 0
+    }
+  ]
+}
