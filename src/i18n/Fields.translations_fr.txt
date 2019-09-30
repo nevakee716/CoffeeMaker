@@ -7,3 +7,7 @@ duplicate_button_view_to_configure = Configuration de la vue
 duplicate_button_association_with_main_object = Association vers l''objet original
 duplicate_button_property_to_exclude = Propriété à exclure de la duplication
 duplicate_button_association_to_exclude = Associations à exclure de la duplication
+homepage_custom_remove_my_menu = Deactiver la fonctionnalité Mon Menu
+homepage_custom_activate_last_modified_objects = Afficher les derniers objets modifiés en page d'accueil
+homepage_custom_objectType_to_select = ObjetTypes à afficher
+homePage = Page d''Accueil

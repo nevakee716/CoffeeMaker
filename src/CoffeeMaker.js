@@ -14,11 +14,15 @@
   }
 
   cwCoffeeMaker.prototype.construct = function(options) {
-    try {
-      this.config = JSON.parse(options.CustomOptions.config);
-    } catch (e) {
-      this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} } };
+    this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
+    if (this.config === null) {
+      this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} }, homePage: { objectTypeToSelect: [] } };
     }
+    if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
+    if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
+    if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
+
+    cwApi.customLibs.utils.customLayoutConfiguration = this.config;
   };
 
   // obligatoire appeler par le system
@@ -86,59 +90,10 @@
     });
   };
 
-  cwCoffeeMaker.prototype.controller_duplicateButton = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_homePage = function($container, templatePath, $scope) {
     var objectpages = [];
     let config = $scope.config;
-    for (let v in $scope.views) {
-      if ($scope.views.hasOwnProperty(v)) {
-        if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) objectpages.push($scope.views[v]);
-      }
-    }
-    $scope.currentView = objectpages[0];
-    $scope.objectpages = objectpages;
-
-    $scope.updateConfig = function(c, view) {
-      $scope.toggle(c, view);
-      if ($scope.config.hasOwnProperty(view)) delete $scope.config[view];
-      else {
-        $scope.config[view] = {
-          associationScriptNameToExclude: ["anyobjectexplodedasdiagram", "anyobjectshownasshapeindiagram"],
-          propertyScriptNameToExclude: ["cwtotalcomment", "cwaveragerating", "whoowns", "whoupdated", "whocreated", "whencreated", "whenupdated", "exportflag", "id", "datevalidated", "uniqueidentifier", "template"],
-          associationToTheMainObject: {},
-        };
-      }
-    };
-
-    return;
-  };
-
-  cwCoffeeMaker.prototype.controller_redirectEdit = function($container, templatePath, $scope) {
-    var objectpages = [];
-    var views = cwAPI.cwConfigs.Pages;
-    for (let v in views) {
-      if (views.hasOwnProperty(v)) {
-        if (views[v].type === "Single" && views[v].name.indexOf("|>B")) objectpages.push(views[v]);
-      }
-    }
-
-    $scope.objectpages = objectpages;
-    $scope.redirectViews = [];
-    $scope.configInit = function() {
-      if($scope.currentView.cwView) {
-        if ($scope.config[$scope.currentView.cwView] === undefined) {
-          $scope.config[$scope.currentView.cwView] = {};
-        }
-        let r = [];
-        cwApi.cwConfigs.SingleViewsByObjecttype[$scope.currentView.rootObjectType].forEach(function(v) {
-          r.push(cwApi.getView(v));
-        });
-        $scope.redirectViews = r;
-      }
-
-
-    };
-
-    $scope.cwApi = cwApi;
+    $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
 
     return;
   };

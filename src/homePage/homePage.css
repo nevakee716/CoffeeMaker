@@ -1,0 +1,8 @@
+.lastUpdateObjectsTable {
+  width: 50%;
+  margin: 20px;
+}
+
+.lastUpdateObjectsTable table.cwPropertiesTable td {
+  width: inherit;
+}
