@@ -114,7 +114,7 @@
             if (
               rootNode.associations.hasOwnProperty(assNode) &&
               config.associationScriptNameToExclude.indexOf(viewSchema.NodesByID[assNode].AssociationTypeScriptName.toLowerCase()) === -1 &&
-              (config.associationToTheMainObject == undefined || config.associationToTheMainObject.associationTypeScriptName || (config.associationToTheMainObject && viewSchema.NodesByID[assNode].AssociationTypeScriptName !== config.associationToTheMainObject.associationTypeScriptName.toLowerCase()))
+              (config.associationToTheMainObject == undefined || config.associationToTheMainObject.associationTypeScriptName === undefined || (config.associationToTheMainObject && viewSchema.NodesByID[assNode].AssociationTypeScriptName !== config.associationToTheMainObject.associationTypeScriptName.toLowerCase()))
             ) {
               let associationTypeScriptName = viewSchema.NodesByID[assNode].AssociationTypeScriptName.toLowerCase();
               rootNode.associations[assNode].forEach(function(o) {
