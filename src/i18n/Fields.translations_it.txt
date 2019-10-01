@@ -12,3 +12,4 @@ homepage_custom_remove_my_menu = Disattiva la funzione Mio menu
 homepage_custom_activate_last_modified_objects = Mostra gli ultimi oggetti modificati sulla home page
 homepage_custom_objectType_to_select = ObjectTypes da visualizzare
 homePage = Pagina iniziale
+save_configuration = La configurazione è stata copiata negli appunti, copiarla qui
