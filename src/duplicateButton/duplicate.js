@@ -141,6 +141,8 @@
             }
           }
 
+          cwAPI.siteLoadingPageStart();
+          cwAPI.notificationManager.addNotification($.i18n.prop("duplicate_button_creating_association"));
           // Association to original Object
           if (config.associationToTheMainObject && config.associationToTheMainObject.associationTypeScriptName) {
             let dataServiceFunction = function(callback) {
@@ -152,16 +154,10 @@
           }
           async.series(associationsCalls, function(err, results) {
             setTimeout(function() {
+              cwAPI.siteLoadingPageFinish();
               window.location.hash = cwApi.getSingleViewHash(newObj.objectTypeScriptName, newObj.object_id);
             }, 1000);
           });
-          //  cwAPI.CwEditSave.setPopoutContentForGrid(cwApi.CwPendingChangeset.ActionType.Update, newObj, newNewObj, newObj.object_id, newObj.objectTypeScriptName, function(response) {
-          //    if (!cwApi.statusIsKo(response)) {
-          //      setTimeout(function() {
-          //        window.location.hash = cwApi.getSingleViewHash(newObj.objectTypeScriptName, newObj.object_id);
-          //      }, 1000);
-          //    }
-          //  });
         }
       });
     });
