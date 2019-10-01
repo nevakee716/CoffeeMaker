@@ -14,21 +14,23 @@
   }
 
   cwCoffeeMaker.prototype.construct = function(options) {
-    this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
-    if (this.config === null) {
-      this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} }, homePage: { objectTypeToSelect: [] } };
-    }
-    if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
-    if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
-    if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5) {
+      this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
+      if (this.config === null) {
+        this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} }, homePage: { objectTypeToSelect: [] } };
+      }
+      if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
+      if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
+      if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
 
-    cwApi.customLibs.utils.customLayoutConfiguration = this.config;
+      cwApi.customLibs.utils.customLayoutConfiguration = this.config;
+    }
   };
 
   // obligatoire appeler par le system
   cwCoffeeMaker.prototype.drawAssociations = function(output, associationTitleText, object) {
-    if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.4)) {
-      output.push("<h1> Please Install Utils 1.4");
+    if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5)) {
+      output.push("<h1> Please Install Utils 1.5 or Higher");
     } else {
       var self = this;
       output.push('<div id="CoffeeMaker_' + this.nodeID + '" class="CoffeeMaker">');
