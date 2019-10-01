@@ -153,10 +153,8 @@
             associationsCalls.push(dataServiceFunction);
           }
           async.series(associationsCalls, function(err, results) {
-            setTimeout(function() {
-              cwAPI.siteLoadingPageFinish();
-              window.location.hash = cwApi.getSingleViewHash(newObj.objectTypeScriptName, newObj.object_id);
-            }, 1000);
+            cwAPI.siteLoadingPageFinish();
+            window.location.hash = cwApi.getSingleViewHash(newObj.objectTypeScriptName, newObj.object_id);
           });
         }
       });
