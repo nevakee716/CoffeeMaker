@@ -11,7 +11,13 @@
       <input ng-model="config.displayLastMdifiedObject" type="checkbox" />
     </div>
   </div>
-  <div class="row bootstrap-iso">
+  <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_objects_delay')}} :</div>
+    <div class="row-cell row-cell-value ">
+      <input ng-model="config.delay" type="text" />
+    </div>
+  </div>
+  <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_objectType_to_select')}} :</div>
     <div class="row-cell row-cell-value row-cell-max-width">
       <div class="cell-content-wrapper filter-wrapper propertieslist">

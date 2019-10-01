@@ -12,4 +12,5 @@ homepage_custom_remove_my_menu = Deactivate the My Menu feature
 homepage_custom_activate_last_modified_objects = Show last modified objects on home page
 homepage_custom_objectType_to_select = ObjectTypes to display
 homePage = Homepage
+homepage_last_updated_objects = Last Updated Objects
 save_configuration = Configuration has been copied to your clipboard, please copy it here :

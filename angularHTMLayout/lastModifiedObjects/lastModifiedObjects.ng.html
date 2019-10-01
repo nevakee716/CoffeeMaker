@@ -1,10 +1,13 @@
-<div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">Last Updated Objets</div>
-<table class="cwPropertiesTable">
-  <tbody>
-    <tr ng-repeat="o in objects | orderBy: 'date' : true">
-      <th style="white-space: nowrap"><span class="cw-property-type-name-with-help" ng-bind-html="displayItemString(o.cds)"></span></th>
-      <td>{{o.objectTypeLabel}}</td>
-      <td>{{o.date | date}}</td>
-    </tr>
-  </tbody>
-</table>
+<div>
+  <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">{{$root.i18n('last_updated_objects')}}<input class="homePageDate" type="date" id="dateID" name="input" ng-model="vm.selectedDate" placeholder="yyyy-MM-dd" /></div>
+
+  <table class="cwPropertiesTable">
+    <tbody>
+      <tr ng-repeat="o in objects | orderBy: 'date' : true | filter:filterDate">
+        <th style="white-space: nowrap"><span class="cw-property-type-name-with-help" ng-bind-html="displayItemString(o.cds)"></span></th>
+        <td>{{o.objectTypeLabel}}</td>
+        <td>{{o.date | date}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

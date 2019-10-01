@@ -106,8 +106,17 @@
               $scope.$apply();
             });
 
+            var dateOffset = 24 * 60 * 60 * 1000 * config.delay; //5 days
+            $scope.vm = { selectedDate: "" };
+            $scope.vm.selectedDate = new Date();
+            $scope.vm.selectedDate.setTime($scope.vm.selectedDate.getTime() - dateOffset);
+
             $scope.displayItemString = function(item) {
               return $sce.trustAsHtml(item);
+            };
+
+            $scope.filterDate = function(date, date2) {
+              return date.date > $scope.vm.selectedDate;
             };
 
             $scope.toggle = function(c, e) {
