@@ -66,7 +66,7 @@
   
   <meta name="pjax-timeout" content="1000">
   
-  <meta name="request-id" content="DDC9:1D3AB:5E18C8:8E3515:5D93075E" data-pjax-transient>
+  <meta name="request-id" content="F160:28647:45F1F86:6A77376:5D934E8A" data-pjax-transient>
 
 
   
@@ -77,7 +77,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-  <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="DDC9:1D3AB:5E18C8:8E3515:5D93075E" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="7991432923801913182" />
+  <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="F160:28647:45F1F86:6A77376:5D934E8A" /><meta name="octolytics-dimension-region_edge" content="ams" /><meta name="octolytics-dimension-region_render" content="iad" /><meta name="octolytics-dimension-ga_id" content="" class="js-octo-ga-id" /><meta name="octolytics-dimension-visitor_id" content="844443722183822986" />
 
 
 
@@ -95,11 +95,11 @@
     <meta name="user-login" content="">
 
       <meta name="expected-hostname" content="github.com">
-    <meta name="js-proxy-site-detection-payload" content="NGFkYjc2YmIwMDQxNGI0ZjY1YjdhYTk2MDkwNTQxMTVmMmY3ZWVjM2UyNmU3MGQ2NzFmNTA2NzQyZWZkMWU1MHx7InJlbW90ZV9hZGRyZXNzIjoiODQuMjMzLjE0NC4xODYiLCJyZXF1ZXN0X2lkIjoiRERDOToxRDNBQjo1RTE4Qzg6OEUzNTE1OjVEOTMwNzVFIiwidGltZXN0YW1wIjoxNTY5OTE2NzY2LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+    <meta name="js-proxy-site-detection-payload" content="M2QwNmZmNzRhMDQ2NGJmMTc1NzA2Zjc3Y2JjYjU5ZmRjMzViZmE5MDgxYzQxMTM4YzZkYTdhOWNhOGY4NjY3Mnx7InJlbW90ZV9hZGRyZXNzIjoiODQuMjMzLjE0NC4xODYiLCJyZXF1ZXN0X2lkIjoiRjE2MDoyODY0Nzo0NUYxRjg2OjZBNzczNzY6NUQ5MzRFOEEiLCJ0aW1lc3RhbXAiOjE1Njk5MzQ5ODYsImhvc3QiOiJnaXRodWIuY29tIn0=">
 
     <meta name="enabled-features" content="ACTIONS_V2_ON_MARKETPLACE,MARKETPLACE_FEATURED_BLOG_POSTS,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS,MARKETPLACE_PENDING_INSTALLATIONS">
 
-  <meta name="html-safe-nonce" content="4c0869072d657d4c2431357e40d3474a1560d283">
+  <meta name="html-safe-nonce" content="bc079ead9ea022faf8071c4320e694a81ee81a95">
 
   <meta http-equiv="x-pjax-version" content="d1e2eee64de5ad3c93ba4d9cd739c4b0">
   
@@ -153,7 +153,7 @@
         <div class="d-flex flex-items-center">
             <a href="/join?source=header"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
-              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;DDC9:1D3AB:5E18C8:8E3515:5D93075E&quot;,&quot;originating_url&quot;:&quot;https://github.com/nevakee716/cwCoffeeMaker/wiki/Home.md&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="66f452edb4e8b532d6e5d238dab01169f43cebb9996cf63f2430cd7158f5cb67"
+              data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;F160:28647:45F1F86:6A77376:5D934E8A&quot;,&quot;originating_url&quot;:&quot;https://github.com/nevakee716/cwCoffeeMaker/wiki/Home.md&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="f4d7a196ab07d111dcc3ca2f57f77c57bb0eee5753704a4e79b9819cdcf52f94"
               data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
               Sign&nbsp;up
             </a>
@@ -296,7 +296,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=Qeznms3vcdU0aftQPyLL8Wiu445NxNXQgXtHOq5PWNCMIvf8NgwmEyOKdgwg1maXSNgVd8yC3ZhM13/b9By9Hg=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=W9fRpiX4wHPiAcwuaRzX74SKbDG3bNLysccJQWSbafkt8nqRVdBXbyhkT53pR68gi0AA3NVzg8SPzVl/xq4dUA=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -423,13 +423,13 @@
 
         <a href="/login?return_to=%2Fnevakee716%2FcwCoffeeMaker%2Fwiki%2FHome.md"
           class="HeaderMenu-link no-underline mr-3"
-          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;DDC9:1D3AB:5E18C8:8E3515:5D93075E&quot;,&quot;originating_url&quot;:&quot;https://github.com/nevakee716/cwCoffeeMaker/wiki/Home.md&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="9aa87585dd69f5f53cbaa7acb204ba31fc831de3848284b6f23bdbea03b12ac2"
+          data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;F160:28647:45F1F86:6A77376:5D934E8A&quot;,&quot;originating_url&quot;:&quot;https://github.com/nevakee716/cwCoffeeMaker/wiki/Home.md&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="2e5a53051d2d2ae76425b7b55aa339d6f0d5b8392db0adf27573a10159630304"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
         </a>
           <a href="/join?source=header"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
-            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;DDC9:1D3AB:5E18C8:8E3515:5D93075E&quot;,&quot;originating_url&quot;:&quot;https://github.com/nevakee716/cwCoffeeMaker/wiki/Home.md&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="9aa87585dd69f5f53cbaa7acb204ba31fc831de3848284b6f23bdbea03b12ac2"
+            data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;F160:28647:45F1F86:6A77376:5D934E8A&quot;,&quot;originating_url&quot;:&quot;https://github.com/nevakee716/cwCoffeeMaker/wiki/Home.md&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}" data-hydro-click-hmac="2e5a53051d2d2ae76425b7b55aa339d6f0d5b8392db0adf27573a10159630304"
             data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
             Sign&nbsp;up
           </a>
