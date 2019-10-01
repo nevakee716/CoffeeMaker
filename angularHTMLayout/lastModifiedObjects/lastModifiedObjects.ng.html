@@ -1,0 +1,10 @@
+<div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">Last Updated Objets</div>
+<table class="cwPropertiesTable">
+  <tbody>
+    <tr ng-repeat="o in objects | orderBy: 'date' : true">
+      <th style="white-space: nowrap"><span class="cw-property-type-name-with-help" ng-bind-html="displayItemString(o.cds)"></span></th>
+      <td>{{o.objectTypeLabel}}</td>
+      <td>{{o.date | date}}</td>
+    </tr>
+  </tbody>
+</table>
