@@ -21,7 +21,9 @@
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_association_with_main_object')}} :</div>
     <div class="row-cell row-cell-value">
       <select ng-model="config[configSelected].associationToTheMainObject.associationTypeScriptName">
-        <option ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'" ng-if="a.TargetObjectTypeScriptName.toLowerCase() === views[configSelected].rootObjectType" value="{{a.ScriptName.toLowerCase()}}">{{a.DisplayName}}</option>
+        <option ng-selected="{{a.ScriptName.toLowerCase() == config[configSelected].associationToTheMainObject.associationTypeScriptName}}" ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'" ng-if="a.TargetObjectTypeScriptName.toLowerCase() === views[configSelected].rootObjectType" value="{{a.ScriptName.toLowerCase()}}"
+          >{{a.DisplayName}}</option
+        >
       </select>
     </div>
   </div>
