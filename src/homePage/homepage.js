@@ -33,8 +33,9 @@
 
   cwAPI.CwHomePage.outputFirstPageOld = cwAPI.CwHomePage.outputFirstPage;
   cwAPI.CwHomePage.outputFirstPage = function(callback) {
+    let config;
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
-      let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
+      config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     }
     if (!(config && (config.removeMyMenu === true || config.displayLastMdifiedObject === true))) {
       cwAPI.CwHomePage.outputFirstPageOld(callback);
