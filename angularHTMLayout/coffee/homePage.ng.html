@@ -12,10 +12,11 @@
     </div>
   </div>
   <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_objects_delay')}} :</div>
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_objects_delay')}}</div>
     <div class="row-cell row-cell-value ">
       <input ng-model="config.delay" type="text" />
     </div>
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_objects_delay2')}}</div>
   </div>
   <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_objectType_to_select')}} :</div>

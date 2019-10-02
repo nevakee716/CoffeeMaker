@@ -13,4 +13,6 @@ homepage_custom_activate_last_modified_objects = Show last modified objects on h
 homepage_custom_objectType_to_select = ObjectTypes to display
 homePage = Homepage
 homepage_last_updated_objects = Last Updated Objects
+homepage_last_modified_objects_delay = Display Objects which have been modified since
+homepage_last_modified_objects_delay2 = days  
 save_configuration = Configuration has been copied to your clipboard, please copy it here :
