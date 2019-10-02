@@ -13,9 +13,9 @@
   "author": "Mathias Pfauwadel",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nevakee716/cwCoffeeMaker/issues"
+    "url": "https://github.com/nevakee716/CoffeeMaker/issues"
   },
-  "homepage": "https://github.com/nevakee716/cwCoffeeMaker/wiki",
-  "wiki": "https://github.com/nevakee716/cwCoffeeMaker/wiki",
+  "homepage": "https://github.com/nevakee716/CoffeeMaker/wiki",
+  "wiki": "https://github.com/nevakee716/CoffeeMaker/wiki",
   "evolve-version": "4.2 - 4.x"
 }
