@@ -106,17 +106,17 @@
               $scope.$apply();
             });
 
-            var dateOffset = 24 * 60 * 60 * 1000 * config.delay; //5 days
-            $scope.vm = { selectedDate: "" };
-            $scope.vm.selectedDate = new Date();
-            $scope.vm.selectedDate.setTime($scope.vm.selectedDate.getTime() - dateOffset);
+
+            $scope.vm = { selectedDelay: 30 };
+            if(config.delay) $scope.vm.selectedDelay =  config.delay;
+
 
             $scope.displayItemString = function(item) {
               return $sce.trustAsHtml(item);
             };
 
-            $scope.filterDate = function(date, date2) {
-              return date.date > $scope.vm.selectedDate;
+            $scope.filterDate = function(date) {
+              return date.date > new Date() - 24 * 60 * 60 * 1000 * $scope.vm.selectedDelay;
             };
 
             $scope.toggle = function(c, e) {

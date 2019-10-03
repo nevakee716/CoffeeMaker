@@ -92,6 +92,8 @@ div.CoffeeMakerTabs {
   min-height: 30px;
   resize: vertical;
 }
+
+
 .CoffeeMaker div.row div.row-cell-value.row-cell-max-width {
   width: 85%;
 }
@@ -124,6 +126,10 @@ div.CoffeeMakerTabs {
 
 .CoffeeMaker .largeCell {
   width: 500px;
+}
+
+.CoffeeMaker .smallCell {
+  width:70px;
 }
 
 .CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-content {
