@@ -9,3 +9,17 @@
 .homePageDate {
   float: right;
 }
+
+.lastUpdateObjectsTable .filterDate {
+  border-width: 0px 1px 1px;
+  border-style: solid;
+  border-color: rgb(191, 191, 191);
+  border-image: initial;
+  padding: 5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
