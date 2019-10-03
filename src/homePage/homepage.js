@@ -19,7 +19,8 @@
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     if (config && config.removeMyMenu === true) {
       var menus = document.querySelectorAll("div.menuText");
-      menus.forEach(function(menu) {
+      for (var i = 0; i < menus; i++) {
+        let menu = menus[i];
         if (menu.innerHTML == $.i18n.prop("menu_homeLink")) {
           try {
             menu.parentElement.parentElement.parentElement.parentElement.remove();
@@ -27,7 +28,7 @@
             console.log(e);
           }
         }
-      });
+      }
     }
   };
 
@@ -47,7 +48,8 @@
       if (config.removeMyMenu === true) {
         cwCustomerSiteActions.removeMonMenu();
         let menus = document.querySelectorAll(".cw-home-title");
-        menus.forEach(function(menu) {
+        for (var i = 0; i < menus; i++) {
+          let menu = menus[i];
           if (menu.innerHTML == $.i18n.prop("menu_homeLink").toLowerCase()) {
             try {
               menu.parentElement.remove();
@@ -55,7 +57,7 @@
               console.log(e);
             }
           }
-        });
+        };
       }
       if (config.displayLastMdifiedObject === true) {
         let homeContainer = document.querySelector(".cw-zone.cw-home-navigation");
@@ -65,7 +67,7 @@
         let container = document.createElement("div");
         container.id = "lastUpdateObjects_homepage";
         container.className = "lastUpdateObjectsTable";
-        homeContainer.append(container);
+        homeContainer.appendChild(container);
 
         cwApi.CwAsyncLoader.load("angular", function() {
           var loader = cwApi.CwAngularLoader;
@@ -106,10 +108,8 @@
               $scope.$apply();
             });
 
-
             $scope.vm = { selectedDelay: 30 };
-            if(config.delay) $scope.vm.selectedDelay =  config.delay;
-
+            if (config.delay) $scope.vm.selectedDelay = config.delay;
 
             $scope.displayItemString = function(item) {
               return $sce.trustAsHtml(item);
