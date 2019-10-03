@@ -19,7 +19,7 @@
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     if (config && config.removeMyMenu === true) {
       var menus = document.querySelectorAll("div.menuText");
-      for (var i = 0; i < menus; i++) {
+      for (let i = 0; i < menus.length; i++) {
         let menu = menus[i];
         if (menu.innerHTML == $.i18n.prop("menu_homeLink")) {
           try {
@@ -48,7 +48,7 @@
       if (config.removeMyMenu === true) {
         cwCustomerSiteActions.removeMonMenu();
         let menus = document.querySelectorAll(".cw-home-title");
-        for (var i = 0; i < menus; i++) {
+        for (let i = 0; i < menus.length; i++) {
           let menu = menus[i];
           if (menu.innerHTML == $.i18n.prop("menu_homeLink").toLowerCase()) {
             try {
@@ -57,7 +57,7 @@
               console.log(e);
             }
           }
-        };
+        }
       }
       if (config.displayLastMdifiedObject === true) {
         let homeContainer = document.querySelector(".cw-zone.cw-home-navigation");

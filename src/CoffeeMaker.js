@@ -58,7 +58,8 @@
       loader.setup();
 
       let matches = document.querySelectorAll(".CoffeeMakerTab");
-      matches.forEach(function(t) {
+      for (let i = 0; i < matches.length; i++) {
+        let t = matches[i];
         t.addEventListener("click", function(event) {
           loader.setup();
 
@@ -88,7 +89,7 @@
             if (self["controller_" + t.dataset.id] && $scope.config) self["controller_" + t.dataset.id]($container, templatePath, $scope);
           });
         });
-      });
+      }
     });
   };
 
@@ -102,9 +103,10 @@
 
   cwCoffeeMaker.prototype.unselectTabs = function(tabs) {
     let matches = document.querySelectorAll(".CoffeeMakerTab");
-    matches.forEach(function(t) {
+    for (let i = 0; i < matches.length; i++) {
+      let t = matches[i];
       t.className = t.className.replaceAll(" selected", "");
-    });
+    }
   };
 
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;
