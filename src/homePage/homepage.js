@@ -32,13 +32,125 @@
     }
   };
 
+  var removeMyMenuHomepage = function(config, callback) {
+    cwCustomerSiteActions.removeMonMenu();
+    let menus = document.querySelectorAll(".cw-home-title");
+    for (let i = 0; i < menus.length; i++) {
+      let menu = menus[i];
+      if (menu.innerHTML == $.i18n.prop("menu_homeLink").toLowerCase()) {
+        try {
+          menu.parentElement.remove();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+  };
+
+  var getDescription = function(config, callback) {
+    let query = {
+      ObjectTypeScriptName: config.descriptionObjectTypeScriptname.toUpperCase(),
+      PropertiesToLoad: ["NAME", "DESCRIPTION"],
+      Where: [{ PropertyScriptName: "ID", Value: config.descriptionObjectID }],
+    };
+
+    cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+      if (err) {
+        console.log(err);
+        callback("", err);
+        return;
+      }
+      callback(cwApi.cwPropertiesGroups.formatMemoProperty(res[0].properties.description), err);
+    });
+  };
+
+  var loadLastModifiedObjects = function(config, callback) {
+    cwApi.CwAsyncLoader.load("angular", function() {
+      var loader = cwApi.CwAngularLoader;
+      loader.setup();
+
+      let templatePath = cwAPI.getCommonContentPath() + "/html/lastModifiedObjects/lastModifiedObjects.ng.html" + "?" + Math.random();
+      loader.loadControllerWithTemplate("lastUpdateObjects_homepage", $("#lastUpdateObjects_homepage"), templatePath, function($scope, $sce) {
+        $scope.metamodel = cwAPI.mm.getMetaModel();
+        self.angularScope = $scope;
+        $scope.cwApi = cwApi;
+        var objects = [];
+        let objectTypeScriptNameToGet = config.objectTypeToSelect;
+        let associationsCalls = [];
+
+        for (let ots in objectTypeScriptNameToGet) {
+          if (objectTypeScriptNameToGet.hasOwnProperty(ots) && objectTypeScriptNameToGet[ots].enable === true) {
+            var regex = /({[a-z]+})/g;
+            var found = objectTypeScriptNameToGet[ots].cds.match(regex);
+            var pToLoad = ["WHENUPDATED"];
+            found.forEach(function(f) {
+              f = f.replace("{", "").replace("}", "");
+              pToLoad.push(f.toUpperCase());
+            });
+
+            let query = {
+              ObjectTypeScriptName: ots.toUpperCase(),
+              PropertiesToLoad: pToLoad,
+              Where: [],
+            };
+
+            let dataServiceFunction = function(callback) {
+              cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+                if (err) {
+                  console.log(err);
+                  callback(null, err);
+                  return;
+                }
+                res.forEach(function(o) {
+                  o.date = new Date(o.properties.whenupdated);
+                  o.cds = cwApi.customLibs.utils.getCustomDisplayString(objectTypeScriptNameToGet[ots].cds, o);
+                  o.objectTypeLabel = cwAPI.mm.getObjectType(o.objectTypeScriptName).name;
+                  objects.push(o);
+                });
+                callback(null, err);
+              });
+            };
+            associationsCalls.push(dataServiceFunction);
+          }
+        }
+
+        async.series(associationsCalls, function(err, results) {
+          $scope.objects = objects;
+          $scope.$apply();
+        });
+
+        $scope.vm = { selectedDelay: 30 };
+        if (config.delay) $scope.vm.selectedDelay = config.delay;
+
+        $scope.displayItemString = function(item) {
+          return $sce.trustAsHtml(item);
+        };
+
+        $scope.filterDate = function(date) {
+          return date.date > new Date() - 24 * 60 * 60 * 1000 * $scope.vm.selectedDelay;
+        };
+
+        $scope.toggle = function(c, e) {
+          if (c.hasOwnProperty(e)) delete c[e];
+          else c[e] = true;
+        };
+
+        $scope.toggleArray = function(c, e) {
+          var i = c.indexOf(e);
+          if (i === -1) c.push(e);
+          else c.splice(i, 1);
+        };
+      });
+    });
+  };
+
   cwAPI.CwHomePage.outputFirstPageOld = cwAPI.CwHomePage.outputFirstPage;
   cwAPI.CwHomePage.outputFirstPage = function(callback) {
     let config;
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     }
-    if (!(config && (config.removeMyMenu === true || config.displayLastMdifiedObject === true))) {
+    if (!(config && (config.removeMyMenu === true || config.displayLastMdifiedObject === true || config.displayDescription == true))) {
       cwAPI.CwHomePage.outputFirstPageOld(callback);
       return;
     }
@@ -46,93 +158,44 @@
     var homePage;
     var doActions = function(callback) {
       if (config.removeMyMenu === true) {
-        cwCustomerSiteActions.removeMonMenu();
-        let menus = document.querySelectorAll(".cw-home-title");
-        for (let i = 0; i < menus.length; i++) {
-          let menu = menus[i];
-          if (menu.innerHTML == $.i18n.prop("menu_homeLink").toLowerCase()) {
-            try {
-              menu.parentElement.remove();
-            } catch (e) {
-              console.log(e);
-            }
-          }
-        }
+        removeMyMenuHomepage();
       }
-      if (config.displayLastMdifiedObject === true) {
-        let homeContainer = document.querySelector(".cw-zone.cw-home-navigation");
-        homeContainer.style.display = "flex";
-        homeContainer.firstElementChild.style.width = "70%";
 
-        let container = document.createElement("div");
-        container.id = "lastUpdateObjects_homepage";
-        container.className = "lastUpdateObjectsTable";
-        homeContainer.appendChild(container);
+      let homeContainer = document.querySelector(".cw-zone.cw-home-navigation");
+      let descriptionContainer = document.createElement("div");
+      let bottomContainer = document.createElement("div");
+      bottomContainer.style.display = "flex";
+      homeContainer.firstElementChild.style.width = "70%";
+      bottomContainer.appendChild(homeContainer.firstElementChild);
 
-        cwApi.CwAsyncLoader.load("angular", function() {
-          var loader = cwApi.CwAngularLoader;
-          loader.setup();
+      let container = document.createElement("div");
+      container.id = "lastUpdateObjects_homepage";
+      container.className = "lastUpdateObjectsTable";
 
-          let templatePath = cwAPI.getCommonContentPath() + "/html/lastModifiedObjects/lastModifiedObjects.ng.html" + "?" + Math.random();
-          loader.loadControllerWithTemplate("lastUpdateObjects_homepage", $("#lastUpdateObjects_homepage"), templatePath, function($scope, $sce) {
-            $scope.metamodel = cwAPI.mm.getMetaModel();
-            self.angularScope = $scope;
-            $scope.cwApi = cwApi;
-            var objects = [];
-            let objectTypeScriptNameToGet = config.objectTypeToSelect;
-            let associationsCalls = [];
-
-            objectTypeScriptNameToGet.forEach(function(ots) {
-              let query = {
-                ObjectTypeScriptName: ots.toUpperCase(),
-                PropertiesToLoad: ["NAME", "WHENUPDATED"],
-                Where: [],
-              };
-
-              let dataServiceFunction = function(callback) {
-                cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
-                  res.forEach(function(o) {
-                    o.date = new Date(o.properties.whenupdated);
-                    o.cds = cwApi.customLibs.utils.getCustomDisplayString("{name}", o);
-                    o.objectTypeLabel = cwAPI.mm.getObjectType(o.objectTypeScriptName).name;
-                    objects.push(o);
-                  });
-                  callback(null, err);
-                });
-              };
-              associationsCalls.push(dataServiceFunction);
-            });
-
-            async.series(associationsCalls, function(err, results) {
-              $scope.objects = objects;
-              $scope.$apply();
-            });
-
-            $scope.vm = { selectedDelay: 30 };
-            if (config.delay) $scope.vm.selectedDelay = config.delay;
-
-            $scope.displayItemString = function(item) {
-              return $sce.trustAsHtml(item);
-            };
-
-            $scope.filterDate = function(date) {
-              return date.date > new Date() - 24 * 60 * 60 * 1000 * $scope.vm.selectedDelay;
-            };
-
-            $scope.toggle = function(c, e) {
-              if (c.hasOwnProperty(e)) delete c[e];
-              else c[e] = true;
-            };
-
-            $scope.toggleArray = function(c, e) {
-              var i = c.indexOf(e);
-              if (i === -1) c.push(e);
-              else c.splice(i, 1);
-            };
+      homeContainer.appendChild(descriptionContainer);
+      homeContainer.appendChild(bottomContainer);
+      bottomContainer.appendChild(container);
+      var asynFunction = [];
+      if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
+      if (config.displayDescription) {
+        asynFunction.push(function(callback) {
+          getDescription(config, function(res, err) {
+            descriptionContainer.innerHTML = res;
+            callback(null, err);
           });
         });
       }
-      callback(null);
+
+      if (config.displayLastMdifiedObject) {
+        asynFunction.push(function(callback) {
+          loadLastModifiedObjects(config, function() {
+            callback(null, err);
+          });
+        });
+      }
+      async.series(asynFunction, function(err, results) {
+        callback(null);
+      });
     };
 
     if (cwApi.isLive()) {
@@ -156,6 +219,7 @@
           homePage.showLeveL0();
           cwApi.CwHomePage.outputHomePageCustom();
           cwApi.pluginManager.execute("outputHomePageCustom");
+
           return doActions(callback);
         });
       }

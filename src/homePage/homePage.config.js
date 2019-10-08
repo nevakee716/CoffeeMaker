@@ -17,7 +17,45 @@
     var objectpages = [];
     let config = $scope.config;
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
+    $scope.OT = [];
+    for (let o in $scope.objectTypes) {
+      if ($scope.objectTypes.hasOwnProperty(o) && !$scope.objectTypes[o].properties.hasOwnProperty("allowautomaticdeletion")) {
+        $scope.OT.push($scope.objectTypes[o]);
+      }
+    }
 
+    $scope.OTsSelected = Object.keys($scope.config.objectTypeToSelect);
+
+    $scope.toggleHM = function(c, e) {
+      if (c.hasOwnProperty(e)) c[e].enable = !c[e].enable;
+      else {
+        c[e] = { enable: true, cds: "{name}" };
+      }
+      $scope.OTsSelected = Object.keys($scope.config.objectTypeToSelect);
+    };
+    $scope.sortOT = function(o) {
+      return $scope.objectTypes[o].name;
+    };
+
+    //cwPropertiesGroups.formatMemoProperty(value);
+    $scope.getObjects = function(o) {
+      let query = {
+        ObjectTypeScriptName: o.toUpperCase(),
+        PropertiesToLoad: ["NAME"],
+        Where: [],
+      };
+
+      cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        $scope.objDescription = res;
+        $scope.$apply();
+      });
+    };
+
+    if ($scope.config.descriptionObjectTypeScriptname) $scope.getObjects($scope.config.descriptionObjectTypeScriptname);
     return;
   };
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;

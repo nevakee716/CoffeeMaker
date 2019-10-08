@@ -17,7 +17,7 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5) {
       this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
       if (this.config === null) {
-        this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} }, homePage: { objectTypeToSelect: [] } };
+        this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} }, homePage: { objectTypeToSelect: {} } };
       }
       if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
       if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };

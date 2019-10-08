@@ -6,6 +6,21 @@
     </div>
   </div>
   <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_displaydescription')}} :</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.displayDescription" type="checkbox" />
+    </div>
+  </div>
+  <div ng-if="config.displayDescription" class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_displaydescriptionSelect')}}</div>
+    <div class="row-cell row-cell-value">
+      <select ng-options="o.scriptName as o.name for o in OT" ng-model="config.descriptionObjectTypeScriptname" ng-change="getObjects(config.descriptionObjectTypeScriptname)"></select>
+    </div>
+    <div class="row-cell row-cell-value">
+      <select ng-options="o.object_id as o.name for o in objDescription |  orderBy:'name'" ng-model="config.descriptionObjectID"></select>
+    </div>
+  </div>
+  <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_activate_last_modified_objects')}} :</div>
     <div class="row-cell row-cell-value">
       <input ng-model="config.displayLastMdifiedObject" type="checkbox" />
@@ -23,9 +38,18 @@
     <div class="row-cell row-cell-value row-cell-max-width">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="add-filter-button" ng-repeat="(k,p) in objectTypes | orderBy:'name'">
-          <a ng-if="!p.properties.hasOwnProperty('allowautomaticdeletion')" class="btn-add-filter btn page-action" ng-class="config.objectTypeToSelect.indexOf(p.scriptName) !== -1? ['selected'] : []" ng-click="toggleArray(config.objectTypeToSelect,p.scriptName)">{{p.name}}</a>
+          <a ng-if="!p.properties.hasOwnProperty('allowautomaticdeletion')" class="btn-add-filter btn page-action" ng-class="(config.objectTypeToSelect[p.scriptName] && config.objectTypeToSelect[p.scriptName].enable) ? ['selected'] : []" ng-click="toggleHM(config.objectTypeToSelect,p.scriptName)">{{p.name}}</a>
         </div>
       </div>
+    </div>
+  </div>
+  <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">Custom Display String of</div>
+    <div class="row-cell row-cell-value">
+      <select ng-options="objectTypes[s].name for s in OTsSelected | orderBy:sortOT" ng-model="cdsSelected"></select>
+    </div>
+    <div class="row-cell row-cell-value largeCell">
+      <input class="largeCell" ng-model="config.objectTypeToSelect[cdsSelected].cds" />
     </div>
   </div>
 </div>
