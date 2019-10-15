@@ -30,9 +30,6 @@
       let propertiesScriptnames = {};
       $scope.properties = [];
       let schema = cwAPI.ViewSchemaManager.getPageSchema(view.cwView);
-      if (!self.config[view.cwView]) {
-        self.config[view.cwView] = {};
-      }
       let rootSchema = schema.NodesByID[schema.RootNodesId];
       $scope.associations = rootSchema.AssociationsTargetObjectTypes;
       let pgSchema = rootSchema.PropertiesGroups;
@@ -41,7 +38,6 @@
           pgSchema[pgk].properties.forEach(function(p) {
             if (!propertiesScriptnames.hasOwnProperty(p)) {
               propertiesScriptnames[p] = true;
-              if (!self.config[view.cwView][p]) self.config[view.cwView][p] = {};
               $scope.properties.push(cwAPI.mm.getProperty(view.rootObjectType, p));
             }
           });
