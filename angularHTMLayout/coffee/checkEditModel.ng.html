@@ -19,8 +19,8 @@
         </tr>
         <tr ng-repeat="p in properties">
           <th class="cw-edit-property-value">{{p.name}}({{p.scriptName}})</th>
-          <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView][p].unique" type="checkbox" /></td>
-          <td class="cw-edit-property-value"><input class="cw-edit-attr" ng-model="config[currentView][p].automaticValue" type="text" /></td>
+          <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView.cwView][p.scriptName].unique" type="checkbox" /></td>
+          <td class="cw-edit-property-value"><input class="cw-edit-attr" ng-model="config[currentView.cwView][p.scriptName].automaticValue" type="text" /></td>
         </tr>
       </tbody>
     </table>
@@ -38,8 +38,8 @@
         </tr>
         <tr ng-repeat="a in associations">
           <th class="cw-edit-property-value">{{a.displayNodeName}} ({{a.nodeID}})</th>
-          <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView][a.nodeID].min" type="number" /></td>
-          <td class="cw-edit-property-value  tableCheckbox"><input class="cw-edit-attr" ng-model="config[currentView][a.nodeID].max" type="number" /></td>
+          <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView.cwView][a.nodeID].min" type="number" /></td>
+          <td class="cw-edit-property-value  tableCheckbox"><input class="cw-edit-attr" ng-model="config[currentView.cwView][a.nodeID].max" type="number" /></td>
         </tr>
       </tbody>
     </table>
