@@ -17,12 +17,14 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5) {
       this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
       if (this.config === null) {
-        this.config = { redirectEdit: {}, duplicateButton: { pageWithDuplicateButton: {} }, homePage: { objectTypeToSelect: {} } };
+        this.config = {};
       }
       if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
       if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
       if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
-
+      if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = {};
+      if (this.config.hideElementIf === undefined) this.config.hideElementIf = {};
+      if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };

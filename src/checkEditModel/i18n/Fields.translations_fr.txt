@@ -1,0 +1,15 @@
+﻿editmode_pleaseEnterValuesForTheFollowingMandatoryPropertiesAndAssociations = Il y a un problème sur les propriétés et associations suivantes :
+editmode_xCannotBeCreatedUntilAllMandatoryPropertiesAndAssociationsAreCompleted = Impossible de créer {0} tant que toutes les propriétés et associations ne sont pas correctes
+editmode_xCannotBeUpdatedUntilAllMandatoryPropertiesAndAssociationsAreCompleted = Impossible de mettre à jour {0} tant que toutes les propriétés et associations ne sont pas correctes
+editmode_pleaseEnterValuesForTheFollowingMandatoryProperties = Veuillez saisir correctement les valeurs pour les propriétés suivantes :
+editmode_xCannotBeCreatedUntilAllMandatoryPropertiesAreCompleted = Impossible de créer l'objet {0} tant que toutes les propriétés ne sont pas spécifiées correctement
+editmode_xCannotBeUpdatedUntilAllMandatoryPropertiesAreCompleted = Impossible de mettre à jour l'objet {0} tant que toutes les propriétés ne sont pas spécifiées correctement
+editmode_pleaseEnterValuesForTheFollowingMandatoryAssociations = Veuillez associer le bon nombre d'objets pour les associations obligatoires suivantes :
+editmode_xCannotBeCreatedUntilAllMandatoryAssociationsAreCompleted = Impossible de créer {0} tant que toutes les associations ne sont pas spécifiées correctement
+editmode_xCannotBeUpdatedUntilAllMandatoryAssociationsAreCompleted = Impossible de modifier {0} tant que toutes les associations ne sont pas spécifiées correctement
+editmode_UnableToRemoveTheLastAssociatedObject = Impossible de modifier {0} tant que toutes les associations ne sont pas spécifiées correctement 
+checkeditmode_propertywihtoutvalue = Propriété Sans Valeur
+checkeditmode_notuniquevalue = La valeur n'est pas unique
+checkeditmode_minimunassociatedobjects = objets associés minimum
+checkeditmode_maximumassociatedobjects = objets associés maximum
+editmode_Automatique = (Automatiquement Remplie)
