@@ -22,7 +22,7 @@
       if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
       if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
       if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
-      if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = {};
+      if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = {"defaultIcon":"fa fa-external-link"};
       if (this.config.hideElementIf === undefined) this.config.hideElementIf = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;

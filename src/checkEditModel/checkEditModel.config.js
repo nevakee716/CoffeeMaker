@@ -13,8 +13,9 @@
     };
   }
 
-  cwCoffeeMaker.prototype.controller_duplicateButton = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_checkEditModel = function($container, templatePath, $scope) {
     var objectpages = [];
+    var self = this;
     let config = $scope.config;
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
@@ -23,18 +24,31 @@
     }
     $scope.currentView = objectpages[0];
     $scope.objectpages = objectpages;
-
-    $scope.updateConfig = function(c, view) {
-      $scope.toggle(c, view);
-      if ($scope.config.hasOwnProperty(view) === false) {
-        $scope.config[view] = {
-          associationScriptNameToExclude: ["anyobjectexplodedasdiagram", "anyobjectshownasshapeindiagram"],
-          propertyScriptNameToExclude: ["cwtotalcomment", "cwaveragerating", "whoowns", "whoupdated", "whocreated", "whencreated", "whenupdated", "exportflag", "id", "datevalidated", "uniqueidentifier", "template"],
-          associationToTheMainObject: {},
-        };
+    $scope.associations = [];
+    $scope.properties = [];
+    $scope.updateCurrentView = function(view) {
+      let propertiesScriptnames = {};
+      $scope.properties = [];
+      let schema = cwAPI.ViewSchemaManager.getPageSchema(view.cwView);
+      if (!self.config[view.cwView]) {
+        self.config[view.cwView] = {};
+      }
+      let rootSchema = schema.NodesByID[schema.RootNodesId];
+      $scope.associations = rootSchema.AssociationsTargetObjectTypes;
+      let pgSchema = rootSchema.PropertiesGroups;
+      for (let pgk in pgSchema) {
+        if (pgSchema[pgk]) {
+          pgSchema[pgk].properties.forEach(function(p) {
+            if (!propertiesScriptnames.hasOwnProperty(p)) {
+              propertiesScriptnames[p] = true;
+              if (!self.config[view.cwView][p]) self.config[view.cwView][p] = {};
+              $scope.properties.push(cwAPI.mm.getProperty(view.rootObjectType, p));
+            }
+          });
+        }
       }
     };
-
+    $scope.updateCurrentView($scope.currentView);
     return;
   };
 
