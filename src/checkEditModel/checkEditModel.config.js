@@ -15,13 +15,17 @@
 
   cwCoffeeMaker.prototype.controller_checkEditModel = function($container, templatePath, $scope) {
     var objectpages = [];
+    var indexPages = [];
     var self = this;
     let config = $scope.config;
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
         if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) objectpages.push($scope.views[v]);
+        if ($scope.views[v].type === "Index" && $scope.views[v].name.indexOf("|>B")) indexPages.push($scope.views[v]);
       }
     }
+
+    $scope.indexpages = indexPages;
     $scope.currentView = objectpages[0];
     $scope.objectpages = objectpages;
     $scope.associations = [];
