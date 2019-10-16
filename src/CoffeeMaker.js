@@ -22,7 +22,7 @@
       if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
       if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
       if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
-      if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = {"defaultIcon":"fa fa-external-link"};
+      if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = { defaultIcon: "fa fa-external-link" };
       if (this.config.hideElementIf === undefined) this.config.hideElementIf = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
@@ -77,6 +77,9 @@
             self.angularScope = $scope;
             $scope.config = self.config[t.dataset.id];
             $scope.cwApi = cwApi;
+
+            $scope.FilterOperators = ["Equal", "NotEqual", "GreaterThan", "LessThan", "GreaterThanEqual", "LessThanEqual", "In"];
+
             $scope.toggle = function(c, e) {
               if (c.hasOwnProperty(e)) delete c[e];
               else c[e] = true;
@@ -109,6 +112,27 @@
       let t = matches[i];
       t.className = t.className.replaceAll(" selected", "");
     }
+  };
+
+  cwCoffeeMaker.prototype.getPropertiesFromNode = function(node) {
+    let result = [];
+    let propertiesScriptnames = {};
+    node.PropertiesSelected.forEach(function(p) {
+      propertiesScriptnames[p.toLowerCase()] = true;
+      result.push(cwApi.mm.getProperty(node.ObjectTypeScriptName, p));
+    });
+    let pgSchema = node.PropertiesGroups;
+    for (let pgk in pgSchema) {
+      if (pgSchema[pgk]) {
+        pgSchema[pgk].properties.forEach(function(p) {
+          if (!propertiesScriptnames.hasOwnProperty(p)) {
+            propertiesScriptnames[p] = true;
+            result.push(cwAPI.mm.getProperty(node.ObjectTypeScriptName, p));
+          }
+        });
+      }
+    }
+    return result;
   };
 
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;

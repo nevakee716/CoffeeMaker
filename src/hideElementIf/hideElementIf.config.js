@@ -13,27 +13,90 @@
     };
   }
 
-  cwCoffeeMaker.prototype.controller_duplicateButton = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_hideElementIf = function($container, templatePath, $scope) {
     var objectpages = [];
+    var self = this;
     let config = $scope.config;
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
         if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) objectpages.push($scope.views[v]);
       }
     }
-    $scope.currentView = objectpages[0];
-    $scope.objectpages = objectpages;
 
-    $scope.updateConfig = function(c, view) {
-      $scope.toggle(c, view);
-      if ($scope.config.hasOwnProperty(view) === false) {
-        $scope.config[view] = {
-          associationScriptNameToExclude: ["anyobjectexplodedasdiagram", "anyobjectshownasshapeindiagram"],
-          propertyScriptNameToExclude: ["cwtotalcomment", "cwaveragerating", "whoowns", "whoupdated", "whocreated", "whencreated", "whenupdated", "exportflag", "id", "datevalidated", "uniqueidentifier", "template"],
-          associationToTheMainObject: {},
-        };
+    $scope.selectOperation = function(i) {
+      $scope.currentConfig.map(function(c, ii) {
+        if (i == ii) c.selected = true;
+        else c.selected = false;
+      });
+    };
+
+    $scope.selectConfig = function(i) {
+      if (!$scope.config[$scope.currentView.cwView]) {
+        $scope.config[$scope.currentView.cwView] = [];
+      }
+      $scope.currentConfig = $scope.config[$scope.currentView.cwView];
+      $scope.currentSchema = cwApi.ViewSchemaManager.getPageSchema($scope.currentView.cwView);
+      $scope.objectType = cwAPI.mm.getObjectType($scope.currentView.rootObjectType);
+      $scope.rootNode = $scope.currentSchema.NodesByID[$scope.currentSchema.RootNodesId];
+      $scope.properties = self.getPropertiesFromNode($scope.rootNode);
+
+      $scope.currentRedirectViews = [];
+      cwApi.cwConfigs.SingleViewsByObjecttype[$scope.currentView.rootObjectType].forEach(function(v) {
+        $scope.currentRedirectViews.push(cwApi.getView(v));
+      });
+    };
+
+    $scope.addOperation = function() {
+      $scope.currentConfig.push({ label: "New Operation", order: $scope.currentConfig.length * 10, filters: [] });
+      $scope.selectOperation($scope.currentConfig.length - 1);
+    };
+
+    $scope.removeOperation = function(i) {
+      $scope.currentConfig.splice(i, 1);
+    };
+
+    $scope.addFilter = function(i) {
+      $scope.currentConfig[i].filters.push({});
+    };
+    $scope.getPropertyDataType = function(ot, scriptname) {
+      if (cwApi.isUndefined(ot)) {
+        return "";
+      }
+      if (scriptname) {
+        var p = cwApi.mm.getProperty(ot.scriptName, scriptname);
+        if (cwApi.isUndefined(p)) {
+          return "";
+        }
+        switch (p.type) {
+          case "Boolean":
+            return "checkbox";
+          case "Integer":
+          case "Double":
+            return "number";
+          case "Lookup":
+            return "lookup";
+          default:
+            return "text";
+        }
+      } else return "number";
+    };
+    $scope.processFilter = function(f) {
+      let s = f.id.split("_");
+      if (s[0] === "prop") {
+        f.type = "property";
+        delete f.nodeID;
+        f.scriptname = s[1];
+      } else {
+        delete f.scriptname;
+        f.type = "association";
+        f.nodeID = s[1];
       }
     };
+
+    $scope.currentView = objectpages[0];
+    $scope.objectpages = objectpages;
+    $scope.selectConfig(0);
+    $scope.typeOftarget = ["tab", "propertygroup", "view", "cssClass", "htmlId", "jQuerySelector"];
 
     return;
   };
