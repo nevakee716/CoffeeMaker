@@ -13,7 +13,7 @@
     };
   }
 
-  cwCoffeeMaker.prototype.controller_hideElementIf = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_actionOnObjectPage = function($container, templatePath, $scope) {
     var objectpages = [];
     var self = this;
     let config = $scope.config;
@@ -47,7 +47,7 @@
     };
 
     $scope.addOperation = function() {
-      $scope.currentConfig.push({ label: "New Operation", order: $scope.currentConfig.length * 10, filters: [] });
+      $scope.currentConfig.push({ label: "New Operation", order: $scope.currentConfig.length * 10, filters: [], tabs: [], propertygroups: [], views: [] });
       $scope.selectOperation($scope.currentConfig.length - 1);
     };
 
@@ -96,7 +96,7 @@
     $scope.currentView = objectpages[0];
     $scope.objectpages = objectpages;
     $scope.selectConfig(0);
-    $scope.typeOftarget = ["tab", "propertygroup", "view", "cssClass", "htmlId", "jQuerySelector"];
+    $scope.typeOftarget = ["tabs", "propertygroups", "views", "cssClass", "htmlId", "jQuerySelector"];
 
     return;
   };

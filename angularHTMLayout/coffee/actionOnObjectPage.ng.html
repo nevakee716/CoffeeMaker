@@ -11,8 +11,7 @@
       <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('label_add_operation')}}" ng-click="addOperation()"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </div>
   </div>
-  <div class="tabContent" ng-if="op.selected" ng-repeat="(i, op) in config[currentView.cwView]" id="{{op.Id}}">
-    <!-- <div class="" > -->
+  <div class="tabContent" ng-if="op.selected" ng-repeat="(i, op) in config[currentView.cwView]">
     <div class="remove-operation">
       <a class="btn-remove btn page-action no-text" data-id="{{op.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeOperation(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
     </div>
@@ -48,7 +47,7 @@
                   <option ng-selected="'prop_' + x.scriptName === f.id" value="prop_{{x.scriptName}}" ng-repeat="x in properties">{{x.name}} </option>
                 </optgroup>
                 <optgroup label="{{$root.i18n('associations')}}">
-                  <option ng-selected="'prop_' + x.scriptName === f.id" value="asso_{{n.nodeID}}" ng-repeat="n in rootNode.AssociationsTargetObjectTypes">{{n.displayNodeName}} </option>
+                  <option ng-selected="'asso_' + n.nodeID === f.id" value="asso_{{n.nodeID}}" ng-repeat="n in rootNode.AssociationsTargetObjectTypes">{{n.displayNodeName}} </option>
                 </optgroup>
               </select>
             </div>
@@ -79,22 +78,31 @@
         <select ng-options="t as t for t in typeOftarget" ng-model="op.type"></select>
       </div>
     </div>
-    <div ng-if="op.type === 'tab'" class="row bootstrap-iso">
-      <div class="row-cell row-cell-label">{{$root.i18n('hideElement_tab')}} :</div>
-      <div class="row-cell row-cell-value">
-        <select ng-options="t.id as (t.Name + ' (' + t.Id + ')')  for t in currentSchema.Tab.Tabs | orderBy:'name'" ng-model="op.tab"></select>
+    <div class="row bootstrap-iso">
+      <div ng-if="op.type === 'tabs'" class="row-cell row-cell-value row-cell-max-width ">
+        <div class="cell-content-wrapper filter-wrapper propertieslist">
+          <div class="add-filter-button" ng-repeat="t in currentSchema.Tab.Tabs | orderBy:'name'">
+            <a class="btn-add-filter btn page-action" ng-class="op.tabs.indexOf(t.Id) !== -1? ['selected'] : []" ng-click="toggleArray(op.tabs,t.Id)">{{(t.Name + ' (' + t.Id + ')')}}</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div ng-if="op.type === 'view'" class="row bootstrap-iso">
-      <div class="row-cell row-cell-label">{{$root.i18n('hideElement_view')}} :</div>
-      <div class="row-cell row-cell-value">
-        <select ng-options="v as (v.name + ' (' + v.cwView + ')')  for v in currentRedirectViews | orderBy:'name'" ng-model="op.view"></select>
+    <div class="row bootstrap-iso">
+      <div ng-if="op.type === 'views'" class="row-cell row-cell-value row-cell-max-width ">
+        <div class="cell-content-wrapper filter-wrapper propertieslist">
+          <div class="add-filter-button" ng-repeat="v in currentRedirectViews | orderBy:'name'">
+            <a class="btn-add-filter btn page-action" ng-class="op.views.indexOf(v.cwView) !== -1? ['selected'] : []" ng-click="toggleArray(op.views,v.cwView)">{{(v.name + ' (' + v.cwView + ')')}}</a>
+          </div>
+        </div>
       </div>
     </div>
-    <div ng-if="op.type === 'propertygroup'" class="row bootstrap-iso">
-      <div class="row-cell row-cell-label">{{$root.i18n('hideElement_propertygroup')}} :</div>
-      <div class="row-cell row-cell-value">
-        <select ng-options="v.id as v.name  for v in rootNode.PropertiesGroups | orderBy:'name'" ng-model="op.propertyGroup"></select>
+    <div class="row bootstrap-iso">
+      <div ng-if="op.type === 'propertygroups'" class="row-cell row-cell-value row-cell-max-width ">
+        <div class="cell-content-wrapper filter-wrapper propertieslist">
+          <div class="add-filter-button" ng-repeat="p in rootNode.PropertiesGroups | orderBy:'name'">
+            <a class="btn-add-filter btn page-action" ng-class="op.propertygroups.indexOf(p.id) !== -1? ['selected'] : []" ng-click="toggleArray(op.propertygroups,p.id)">{{(p.name + ' (' + p.id + ')')}}</a>
+          </div>
+        </div>
       </div>
     </div>
     <div ng-if="op.type === 'cssClass'" class="row bootstrap-iso">

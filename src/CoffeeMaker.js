@@ -23,7 +23,7 @@
       if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
       if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
       if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = { defaultIcon: "fa fa-external-link" };
-      if (this.config.hideElementIf === undefined) this.config.hideElementIf = {};
+      if (this.config.actionOnObjectPage === undefined) this.config.actionOnObjectPage = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
@@ -78,7 +78,7 @@
             $scope.config = self.config[t.dataset.id];
             $scope.cwApi = cwApi;
 
-            $scope.FilterOperators = ["Equal", "NotEqual", "GreaterThan", "LessThan", "GreaterThanEqual", "LessThanEqual", "In"];
+            $scope.FilterOperators = ["=", "!=", ">", "<", "In"];
 
             $scope.toggle = function(c, e) {
               if (c.hasOwnProperty(e)) delete c[e];
