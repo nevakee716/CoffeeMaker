@@ -22,14 +22,16 @@
   };
 
   actionOnObjectPage.do = function(rootNode) {
-    var config, i;
+    var config,
+      i,
+      self = this;
     this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("actionOnObjectPage");
     this.viewName = cwAPI.getCurrentView().cwView;
     var doAction = true;
     if (this.config && this.config.hasOwnProperty(this.viewName)) {
       this.config[this.viewName].forEach(function(currenConfig) {
-        if (this.isActionToDo(rootNode, currenConfig)) {
-          this.execute(currenConfig);
+        if (self.isActionToDo(rootNode, currenConfig)) {
+          self.execute(currenConfig);
         }
       });
     }
@@ -48,7 +50,7 @@
         }
       }
 
-      return config.every.forEach(function(filter) {
+      return config.filters.every(function(filter) {
         return self.matchFilter(rootNode, filter);
       });
     }
@@ -60,27 +62,34 @@
   };
 
   actionOnObjectPage.matchPropertyFilter = function(rootNode, filter) {
-    if (filter.type === "property") {
+    let propertyType = cwApi.mm.getProperty(rootNode.objectTypeScriptName, filter.scriptname);
+    let objPropertyValue;
+    if (filter.scriptname === "id") {
       // changing id to make usable like other property
       objPropertyValue = rootNode.object_id;
     } else {
-      objPropertyValue = rootNode.properties[config.scriptname];
+      if (propertyType.type === "Lookup") {
+        objPropertyValue = rootNode.properties[filter.scriptname + "_id"];
+      } else {
+        objPropertyValue = rootNode.properties[filter.scriptname];
+      }
     }
+
     switch (filter.Operator) {
       case "=":
-        if (objPropertyValue == config.Value) return true;
+        if (objPropertyValue == filter.Value) return true;
         break;
       case "<":
-        if (objPropertyValue < config.Value) return true;
+        if (objPropertyValue < filter.Value) return true;
         break;
       case "<=":
-        if (objPropertyValue <= config.value) return true;
+        if (objPropertyValue <= filter.value) return true;
         break;
       case ">":
-        if (objPropertyValue > config.value) return true;
+        if (objPropertyValue > filter.value) return true;
         break;
       case "!=":
-        if (objPropertyValue != config.value) return true;
+        if (objPropertyValue != filter.value) return true;
         break;
       default:
         return false;
@@ -89,24 +98,25 @@
   };
 
   actionOnObjectPage.matchAssociationFilter = function(rootNode, filter) {
-    if (rootNode[filter.nodeID]) {
-      objPropertyValue = rootNode[filter.nodeID].length;
-    }
+    let objPropertyValue;
+    if (rootNode.associations[filter.nodeID]) {
+      objPropertyValue = rootNode.associations[filter.nodeID].length;
+    } else return;
     switch (filter.Operator) {
       case "=":
-        if (objPropertyValue == config.Value) return true;
+        if (objPropertyValue == filter.Value) return true;
         break;
       case "<":
-        if (objPropertyValue < config.Value) return true;
+        if (objPropertyValue < filter.Value) return true;
         break;
       case "<=":
-        if (objPropertyValue <= config.value) return true;
+        if (objPropertyValue <= filter.value) return true;
         break;
       case ">":
-        if (objPropertyValue > config.value) return true;
+        if (objPropertyValue > filter.value) return true;
         break;
       case "!=":
-        if (objPropertyValue != config.value) return true;
+        if (objPropertyValue != filter.value) return true;
         break;
       default:
         return false;

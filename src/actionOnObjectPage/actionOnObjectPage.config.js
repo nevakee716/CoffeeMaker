@@ -81,12 +81,14 @@
       } else return "number";
     };
     $scope.processFilter = function(f) {
-      let s = f.id.split("_");
-      if (s[0] === "prop") {
+      let s;
+      if (f.id.indexOf("prop") !== -1) {
+        s = f.id.split("prop_");
         f.type = "property";
         delete f.nodeID;
         f.scriptname = s[1];
       } else {
+        s = f.id.split("asso_");
         delete f.scriptname;
         f.type = "association";
         f.nodeID = s[1];
