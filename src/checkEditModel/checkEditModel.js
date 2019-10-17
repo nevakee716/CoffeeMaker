@@ -2,64 +2,13 @@
 /*global cwAPI, jQuery, cwTabManager*/
 (function(cwApi, $) {
   "use strict";
-  var globalConfig2 = {
-    applicationflow_edit_received: {
-      automaticProperty: {
-        name: "T_<§is_application_20027_1059939990.applicationname(zcheck_isapplication)§>_<§application_flow_20026_1971147733.applicationname(zcheck_isapplication)§>_({label})",
-        type: "Application Flow",
-      },
-      uniqueProperty: {},
-      associations: {
-        is_application_20027_1059939990: {
-          min: 1,
-          max: 1,
-        },
-      },
-    },
-    applicationflow_edit_sent: {
-      automaticProperty: {
-        name: "T_<§application_flow_20027_1181631625.applicationname(zcheck_isapplication)§>_<§is_application_20026_2083245639.applicationname(zcheck_isapplication)§>_({label})",
-        type: "Application Flow",
-      },
-      uniqueProperty: {},
-      associations: {
-        is_application_20026_2083245639: {
-          min: 1,
-          max: 1,
-        },
-      },
-    },
-    applicationflow_edit: {
-      automaticProperty: {
-        name: "T_<§is_application_20027_620796804.applicationname(zcheck_isapplication)§>_<§is_application_20026_161547901.applicationname(zcheck_isapplication)§>_({label})",
-      },
-      uniqueProperty: {},
-      associations: {
-        is_application_20027_620796804: {
-          min: 1,
-          max: 1,
-        },
-        is_application_20026_161547901: {
-          min: 1,
-          max: 1,
-        },
-      },
-    },
-    isapplication_edit_creation: {
-      automaticProperty: {},
-      uniqueProperty: {
-        applicationname: "zcheck_is_applications",
-      },
-      associations: {},
-    },
-  };
 
   cwApi.CwMandatoryValueChange.prototype.checkMandatoryValues = function() {
     var config,
       view = cwAPI.getCurrentView();
     let globalConfig = cwAPI.customLibs.utils.getCustomLayoutConfiguration("checkEditModel");
 
-    if (view && globalConfig[view.cwView]) {
+    if (view && globalConfig && globalConfig[view.cwView]) {
       config = globalConfig[view.cwView];
       if (config) {
         this.modifyAutomaticProperty(config);
