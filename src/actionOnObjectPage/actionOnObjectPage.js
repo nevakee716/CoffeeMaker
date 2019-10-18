@@ -77,20 +77,20 @@
 
     switch (filter.Operator) {
       case "=":
-        if (objPropertyValue == filter.Value) return true;
+        return objPropertyValue == filter.Value;
         break;
       case "<":
-        if (objPropertyValue < filter.Value) return true;
+        return objPropertyValue < filter.Value;
         break;
       case "<=":
-        if (objPropertyValue <= filter.value) return true;
-        break;
+        return objPropertyValue <= filter.value;
       case ">":
-        if (objPropertyValue > filter.value) return true;
+        return objPropertyValue > filter.value;
         break;
       case "!=":
-        if (objPropertyValue != filter.value) return true;
-        break;
+        return objPropertyValue != filter.value;
+      case "In":
+        return filter.value.indexOf(objPropertyValue) !== -1;
       default:
         return false;
     }
@@ -104,20 +104,20 @@
     } else return;
     switch (filter.Operator) {
       case "=":
-        if (objPropertyValue == filter.Value) return true;
+        return objPropertyValue == filter.Value;
         break;
       case "<":
-        if (objPropertyValue < filter.Value) return true;
+        return objPropertyValue < filter.Value;
         break;
       case "<=":
-        if (objPropertyValue <= filter.value) return true;
-        break;
+        return objPropertyValue <= filter.value;
       case ">":
-        if (objPropertyValue > filter.value) return true;
+        return objPropertyValue > filter.value;
         break;
       case "!=":
-        if (objPropertyValue != filter.value) return true;
-        break;
+        return objPropertyValue != filter.value;
+      case "In":
+        return filter.value.indexOf(objPropertyValue) !== -1;
       default:
         return false;
     }
