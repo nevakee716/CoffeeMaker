@@ -25,6 +25,37 @@ div.CoffeeMakerTabs {
   box-shadow: inset 0 -2px @cwAccordionHeaderBackgroundColor;
 }
 
+.CoffeeMaker .tabs {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* Style the buttons inside the tab */
+  /* Change background color of buttons on hover */
+  /* Create an active/current tablink class */
+}
+
+.CoffeeMaker .tabs .tab-link {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+.CoffeeMaker .tabs .tab-link:hover {
+  background-color: #d8d8d8;
+}
+.CoffeeMaker .tabs .tab-link.active {
+  background-color: #ccc;
+}
+.CoffeeMaker .tabs .add-tab-link {
+  float: right;
+  padding: 6px;
+}
 .CoffeeMaker .tabContent {
   padding: 6px 12px;
   border: 1px solid #ccc;
@@ -35,6 +66,7 @@ div.CoffeeMakerTabs {
 .CoffeeMaker .tabContent .remove-operation {
   float: right;
 }
+
 .CoffeeMaker div.row {
   display: block;
   margin: 5px 0px;

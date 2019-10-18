@@ -20,12 +20,12 @@
         <tr>
           <th class="tableName">{{$root.i18n('name')}}</th>
           <th class="tableCheckbox">{{$root.i18n('unique')}}</th>
-          <th class="largeCell">{{$root.i18n('Automatic Value')}}</th>
+          <th>{{$root.i18n('Automatic Value')}}</th>
         </tr>
         <tr ng-repeat="p in properties">
           <th class="cw-edit-property-value tableName">{{p.name}} ({{p.scriptName}})</th>
           <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView.cwView][p.scriptName].unique" type="checkbox" /></td>
-          <td class="cw-edit-property-value largeCell"><input class="cw-edit-attr" ng-model="config[currentView.cwView][p.scriptName].automaticValue" type="text" /></td>
+          <td class="cw-edit-property-value"><input class="cw-edit-attr" ng-model="config[currentView.cwView][p.scriptName].automaticValue" type="text" /></td>
         </tr>
       </tbody>
     </table>
