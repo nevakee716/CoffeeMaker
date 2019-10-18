@@ -156,19 +156,19 @@
       });
     }
 
-    if (config.cssClass) {
+    if (config.class) {
       doForElementOrArray(config.class, function(c) {
         self.actionOnClass(config.style, config.styleValue, c);
       });
     }
-    if (config.cssClass) {
-      doForElementOrArray(config.id, function(id) {
+    if (config.htmlId) {
+      doForElementOrArray(config.htmlId, function(id) {
         self.actionOnId(config.style, config.styleValue, id);
       });
     }
-    if (config.cssClass) {
-      doForElementOrArray(config.class, function(c) {
-        self.actionOnClass(config.style, config.styleValue, c);
+    if (config.jQuerySelector) {
+      doForElementOrArray(config.jQuerySelector, function(q) {
+        self.actionWithQuery(config.style, config.styleValue, q);
       });
     }
   };

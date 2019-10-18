@@ -191,6 +191,11 @@ div.CoffeeMakerTabs {
 }
 
 .CoffeeMaker .tableCheckbox {
-  width: 40px;
+  width: 50px;
+  text-align: center;
+}
+
+.CoffeeMaker .tableName {
+  width: 150px;
   text-align: center;
 }
