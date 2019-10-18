@@ -126,7 +126,8 @@
 
   actionOnObjectPage.execute = function(config) {
     var self = this;
-
+    config.style = "display";
+    config.styleValue = "none";
     function doForElementOrArray(elem, callback) {
       if (Array.isArray(elem)) {
         for (var i = 0; i < elem.length; i += 1) {
@@ -137,41 +138,38 @@
       }
     }
 
-    switch (config.type.toLowerCase()) {
-      case "tab":
-        doForElementOrArray(config.id, function(id) {
-          self.actionOnId(config.style, config.styleValue, self.viewName + "-tab-" + id);
-        });
-        break;
-      case "jQuerySelector":
-        doForElementOrArray(config.query, function(q) {
-          self.actionWithQuery(config.style, config.styleValue, q);
-        });
-        break;
-      case "propertygroup":
-        doForElementOrArray(config.id, function(id) {
-          self.actionOnClassAndId(config.style, config.styleValue, "cwPropertiesTableContainer", id.toLowerCase());
-        });
-        break;
-      case "cssClass":
-        doForElementOrArray(config.class, function(c) {
-          self.actionOnClass(config.style, config.styleValue, c);
-        });
-        break;
-      case "htmlId":
-        doForElementOrArray(config.id, function(id) {
-          self.actionOnId(config.style, config.styleValue, id);
-        });
+    if (config.tabs) {
+      config.tabs.forEach(function(t) {
+        self.actionOnId(config.style, config.styleValue, self.viewName + "-tab-" + t);
+      });
+    }
 
-        break;
-      case "view":
-        doForElementOrArray(config.id, function(id) {
-          self.actionOnId(config.style, config.styleValue, "navview-" + id);
-        });
+    if (config.views) {
+      config.views.forEach(function(v) {
+        self.actionOnId(config.style, config.styleValue, "navview-" + v);
+      });
+    }
 
-        break;
-      default:
-        return false;
+    if (config.propertygroups) {
+      config.propertygroups.forEach(function(p) {
+        self.actionWithQuery(config.style, config.styleValue, "[id^=pg-" + p + "]");
+      });
+    }
+
+    if (config.cssClass) {
+      doForElementOrArray(config.class, function(c) {
+        self.actionOnClass(config.style, config.styleValue, c);
+      });
+    }
+    if (config.cssClass) {
+      doForElementOrArray(config.id, function(id) {
+        self.actionOnId(config.style, config.styleValue, id);
+      });
+    }
+    if (config.cssClass) {
+      doForElementOrArray(config.class, function(c) {
+        self.actionOnClass(config.style, config.styleValue, c);
+      });
     }
   };
 
