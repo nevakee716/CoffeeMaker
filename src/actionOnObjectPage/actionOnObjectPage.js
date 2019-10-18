@@ -126,8 +126,7 @@
 
   actionOnObjectPage.execute = function(config) {
     var self = this;
-    config.style = "display";
-    config.styleValue = "none";
+    this.getStyleFromConfiguration(config);
     function doForElementOrArray(elem, callback) {
       if (Array.isArray(elem)) {
         for (var i = 0; i < elem.length; i += 1) {
@@ -170,6 +169,17 @@
       doForElementOrArray(config.jQuerySelector, function(q) {
         self.actionWithQuery(config.style, config.styleValue, q);
       });
+    }
+  };
+
+  actionOnObjectPage.getStyleFromConfiguration = function(config) {
+    if (config.actionType === "hide") {
+      config.style = "display";
+      config.styleValue = "none";
+    }
+    if (config.actionType === "highlight") {
+      config.style = "border";
+      config.styleValue = "2px solid " + config.highlightColor;
     }
   };
 
