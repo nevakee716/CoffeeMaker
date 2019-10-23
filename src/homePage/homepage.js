@@ -162,19 +162,19 @@
       }
 
       let homeContainer = document.querySelector(".cw-zone.cw-home-navigation");
-      let descriptionContainer = document.createElement("div");
-      let bottomContainer = document.createElement("div");
-      bottomContainer.style.display = "flex";
+      homeContainer.style.display = "flex";
       homeContainer.firstElementChild.style.width = "70%";
-      bottomContainer.appendChild(homeContainer.firstElementChild);
-
+      let descriptionContainer = document.createElement("div");
+      let leftContainer = document.createElement("div");
+      leftContainer.appendChild(descriptionContainer);
+      leftContainer.appendChild(homeContainer.firstElementChild);
       let container = document.createElement("div");
       container.id = "lastUpdateObjects_homepage";
       container.className = "lastUpdateObjectsTable";
 
-      homeContainer.appendChild(descriptionContainer);
-      homeContainer.appendChild(bottomContainer);
-      bottomContainer.appendChild(container);
+      homeContainer.appendChild(leftContainer);
+      homeContainer.appendChild(container);
+
       var asynFunction = [];
       if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
       if (config.displayDescription) {
