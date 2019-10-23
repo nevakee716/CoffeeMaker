@@ -160,12 +160,10 @@
       if (config.removeMyMenu === true) {
         removeMyMenuHomepage();
       }
-
-      let homeContainer = document.querySelector(".cw-zone.cw-home-navigation");
-      homeContainer.style.display = "flex";
-      homeContainer.firstElementChild.style.width = "70%";
+      let homeContainer = document.querySelector("#cw-home-navigation");
       let descriptionContainer = document.createElement("div");
       let leftContainer = document.createElement("div");
+      leftContainer.style.width = "70%";
       leftContainer.appendChild(descriptionContainer);
       leftContainer.appendChild(homeContainer.firstElementChild);
       let container = document.createElement("div");
@@ -174,6 +172,7 @@
 
       homeContainer.appendChild(leftContainer);
       homeContainer.appendChild(container);
+      homeContainer.style.display = "flex";
 
       var asynFunction = [];
       if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);

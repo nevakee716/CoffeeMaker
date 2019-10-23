@@ -21,7 +21,7 @@
       }
       if (this.config.redirectEdit === undefined) this.config.redirectEdit = {};
       if (this.config.duplicateButton === undefined) this.config.duplicateButton = { pageWithDuplicateButton: {} };
-      if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: [] };
+      if (this.config.homePage === undefined) this.config.homePage = { objectTypeToSelect: {} };
       if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = { defaultIcon: "fa fa-external-link" };
       if (this.config.actionOnObjectPage === undefined) this.config.actionOnObjectPage = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
@@ -31,8 +31,8 @@
 
   // obligatoire appeler par le system
   cwCoffeeMaker.prototype.drawAssociations = function(output, associationTitleText, object) {
-    if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5)) {
-      output.push("<h1> Please Install Utils 1.5 or Higher");
+    if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.6)) {
+      output.push("<h1> Please Install Utils 1.6 or Higher");
     } else {
       var self = this;
       output.push('<div id="CoffeeMaker_' + this.nodeID + '" class="CoffeeMaker">');
