@@ -35,3 +35,6 @@ min = minimo
 max = massimo
 checkEditModel = Check Edit Model
 properties = Proprietà
+hideElement_css_class = Class HTML
+hideElement_html_id = ID HTML
+hideElement_jQuerySelector = jQuery Selector
