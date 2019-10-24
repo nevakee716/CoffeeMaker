@@ -120,7 +120,18 @@
         });
 
         $scope.vm = { selectedDelay: 30 };
-        if (config.delay) $scope.vm.selectedDelay = config.delay;
+
+        $scope.vm.dateIsArray = false;
+        if (config.delay) {
+          if (config.delay.indexOf(",")) {
+            $scope.vm.dateIsArray = true;
+            $scope.vm.dateOptions = config.delay.split(",");
+            $scope.vm.selectedDelay = $scope.vm.dateOptions[0];
+            $scope.vm.dateOptions.sort();
+          } else {
+            $scope.vm.selectedDelay = config.delay;
+          }
+        }
 
         $scope.displayItemString = function(item) {
           return $sce.trustAsHtml(item);
