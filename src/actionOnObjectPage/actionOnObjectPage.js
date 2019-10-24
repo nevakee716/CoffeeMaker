@@ -64,12 +64,26 @@
   actionOnObjectPage.matchPropertyFilter = function(rootNode, filter) {
     let propertyType = cwApi.mm.getProperty(rootNode.objectTypeScriptName, filter.scriptname);
     let objPropertyValue;
+    let value = filter.value;
     if (filter.scriptname === "id") {
       // changing id to make usable like other property
       objPropertyValue = rootNode.object_id;
     } else {
       if (propertyType.type === "Lookup") {
         objPropertyValue = rootNode.properties[filter.scriptname + "_id"];
+      } else if (property.type === "Date") {
+        value = new Date(filter.value);
+        value = value.getTime();
+        let d = rootNode.properties[filter.scriptname];
+        if (d.indexOf("{@currentDate}")) {
+          d = d.split("-");
+          let dateOffset = 24 * 60 * 60 * 1000 * parseInt(d[1]); //5 days
+          let today = new Date();
+          objPropertyValue = today.getTime() - dateOffset;
+        } else {
+          d = new Date(d);
+          objPropertyValue = d.getTime();
+        }
       } else {
         objPropertyValue = rootNode.properties[filter.scriptname];
       }
@@ -77,18 +91,13 @@
 
     switch (filter.Operator) {
       case "=":
-        return objPropertyValue == filter.Value;
-        break;
+        return objPropertyValue == value;
       case "<":
-        return objPropertyValue < filter.Value;
-        break;
-      case "<=":
-        return objPropertyValue <= filter.value;
+        return objPropertyValue < value;
       case ">":
-        return objPropertyValue > filter.value;
-        break;
+        return objPropertyValue > value;
       case "!=":
-        return objPropertyValue != filter.value;
+        return objPropertyValue != value;
       case "In":
         return filter.value.indexOf(objPropertyValue) !== -1;
       default:
