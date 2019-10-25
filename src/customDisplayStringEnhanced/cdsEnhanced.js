@@ -32,8 +32,8 @@
       }
     }
 
-    if (config && config.displayPopoutByDefault) {
-      if (itemDisplayName.indexOf("<#") === -1 && itemDisplayName.indexOf("<@") === -1) {
+    if (config) {
+      if (config.displayPopoutByDefault && itemDisplayName.indexOf("<#") === -1 && itemDisplayName.indexOf("<@") === -1) {
         popOutText = '<i class="' + config.defaultIcon + '" aria-hidden="true"></i>';
         popOutName = cwApi.replaceSpecialCharacters(item.objectTypeScriptName) + "_diagram_popout";
         if (cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
