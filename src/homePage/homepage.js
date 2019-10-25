@@ -127,7 +127,7 @@
             $scope.vm.dateIsArray = true;
             $scope.vm.dateOptions = config.delay.split(",");
             $scope.vm.selectedDelay = $scope.vm.dateOptions[0];
-            $scope.vm.dateOptions.sort();
+            $scope.vm.dateOptions.sort((a, b) => a - b);
           } else {
             $scope.vm.selectedDelay = config.delay;
           }
