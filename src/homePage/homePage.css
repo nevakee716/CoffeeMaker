@@ -2,18 +2,16 @@
   width: 50%;
   margin: 20px;
 }
-
 .lastUpdateObjectsTable table.cwPropertiesTable td {
   width: inherit;
 }
 .homePageDate {
   float: right;
 }
-
 .lastUpdateObjectsTable .filterDate {
   border-width: 0px 1px 1px;
   border-style: solid;
-  border-color: rgb(191, 191, 191);
+  border-color: #bfbfbf;
   border-image: initial;
   padding: 5px;
   white-space: pre-wrap;
@@ -23,7 +21,6 @@
   border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
-
 .lastUpdateObjectsTable .smallCell {
   width: 60px;
 }
