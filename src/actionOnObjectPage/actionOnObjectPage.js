@@ -64,7 +64,7 @@
   actionOnObjectPage.matchPropertyFilter = function(rootNode, filter) {
     let propertyType = cwApi.mm.getProperty(rootNode.objectTypeScriptName, filter.scriptname);
     let objPropertyValue;
-    let value = filter.value;
+    let value = filter.Value;
     if (filter.scriptname === "id") {
       // changing id to make usable like other property
       objPropertyValue = rootNode.object_id;
@@ -72,7 +72,7 @@
       if (propertyType.type === "Lookup") {
         objPropertyValue = rootNode.properties[filter.scriptname + "_id"];
       } else if (property.type === "Date") {
-        value = new Date(filter.value);
+        value = new Date(filter.Value);
         value = value.getTime();
         let d = rootNode.properties[filter.scriptname];
         if (d.indexOf("{@currentDate}")) {
