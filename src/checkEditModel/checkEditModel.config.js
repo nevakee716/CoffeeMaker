@@ -24,6 +24,14 @@
         if ($scope.views[v].type === "Index" && $scope.views[v].name.indexOf("|>B")) indexPages.push($scope.views[v]);
       }
     }
+    $scope.roles = [];
+    let url = cwApi.getIndexViewDataUrl("index_gov_roles");
+    $.getJSON(url, function(json) {
+      if (json.cw_role) {
+        $scope.roles = json.cw_role;
+        $scope.$apply();
+      }
+    });
 
     $scope.indexpages = indexPages;
     $scope.currentView = objectpages[0];

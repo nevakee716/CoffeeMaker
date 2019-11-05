@@ -11,21 +11,29 @@
       <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'" ng-model="config[currentView.cwView].unicityView"></select>
     </div>
   </div>
-  <div class="cwPropertiesTableContainer">
+  <div class="cwPropertiesTableContainer nolimit bootstrap-iso">
     <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
       {{$root.i18n('properties')}}
     </div>
     <table class="cwPropertiesTable">
       <tbody>
         <tr>
-          <th class="tableName">{{$root.i18n('name')}}</th>
+          <th class="largeMediumCell">{{$root.i18n('name')}}</th>
           <th class="tableCheckbox">{{$root.i18n('unique')}}</th>
-          <th>{{$root.i18n('Automatic Value')}}</th>
+          <th class="largeMediumCell">{{$root.i18n('Automatic Value')}}</th>
+          <th class="mediumCell" ng-repeat="r in roles">{{r.name}}</th>
         </tr>
         <tr ng-repeat="p in properties">
-          <th class="cw-edit-property-value tableName">{{p.name}} ({{p.scriptName}})</th>
+          <th class="cw-edit-property-value ">{{p.name}} ({{p.scriptName}})</th>
           <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView.cwView][p.scriptName].unique" type="checkbox" /></td>
           <td class="cw-edit-property-value"><input class="cw-edit-attr" ng-model="config[currentView.cwView][p.scriptName].automaticValue" type="text" /></td>
+          <td class="cw-edit-property-value tableCheckbox" ng-repeat="r in roles">
+            <select class="cw-edit-attr cw-edit-attr-combobox mediumCell">
+              <option>No Read</option>
+              <option>Read Only</option>
+              <option>Read/Write</option>
+            </select>
+          </td>
         </tr>
       </tbody>
     </table>
