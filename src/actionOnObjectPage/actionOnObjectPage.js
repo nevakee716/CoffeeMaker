@@ -31,7 +31,7 @@
     if (this.config && this.config.hasOwnProperty(this.viewName)) {
       this.config[this.viewName].forEach(function(currenConfig) {
         if (self.isActionToDo(rootNode, currenConfig)) {
-          self.execute(currenConfig);
+          self.execute(currenConfig, rootNode);
         }
       });
     }
@@ -71,18 +71,18 @@
     } else {
       if (propertyType.type === "Lookup") {
         objPropertyValue = rootNode.properties[filter.scriptname + "_id"];
-      } else if (property.type === "Date") {
-        value = new Date(filter.Value);
-        value = value.getTime();
-        let d = rootNode.properties[filter.scriptname];
-        if (d.indexOf("{@currentDate}")) {
+      } else if (propertyType.type === "Date") {
+        objPropertyValue = new Date(rootNode.properties[filter.scriptname]);
+        objPropertyValue = objPropertyValue.getTime();
+        let d = filter.Value;
+        if (d.indexOf("{@currentDate}") !== -1) {
           d = d.split("-");
           let dateOffset = 24 * 60 * 60 * 1000 * parseInt(d[1]); //5 days
           let today = new Date();
-          objPropertyValue = today.getTime() - dateOffset;
+          value = today.getTime() - dateOffset;
         } else {
           d = new Date(d);
-          objPropertyValue = d.getTime();
+          value = d.getTime();
         }
       } else {
         objPropertyValue = rootNode.properties[filter.scriptname];
@@ -133,7 +133,7 @@
     return false;
   };
 
-  actionOnObjectPage.execute = function(config) {
+  actionOnObjectPage.execute = function(config, mainObject) {
     var self = this;
     this.getStyleFromConfiguration(config);
     function doForElementOrArray(elem, callback) {
@@ -144,6 +144,10 @@
       } else {
         callback(elem);
       }
+    }
+    if (config.actionType === "displaymsg") {
+      this.displaymsg(config, mainObject);
+      return;
     }
 
     if (config.tabs) {
@@ -221,6 +225,28 @@
     for (i = 0; i < elements.length; i++) {
       if (elements[i].id.indexOf(id) !== -1) {
         elements[i].style[style] = value;
+      }
+    }
+  };
+
+  actionOnObjectPage.displaymsg = function(config, mainObject) {
+    var elems = document.getElementsByClassName("tab-content");
+
+    if (elems && elems[0]) {
+      var p = new cwApi.CwDisplayProperties(config.htmlMessage, false);
+      let itemLabel = p.getDisplayString(mainObject);
+
+      if (itemLabel !== "") {
+        if (config.fontAwesome && config.fontAwesome.icon) {
+          let color = "";
+          if (config.fontAwesome.color) color = 'style="color : ' + config.fontAwesome.color + '" ';
+          itemLabel = '<i ' + color + 'class="' + config.fontAwesome.icon + '" aria-hidden="true"></i>' + itemLabel;
+        }
+        if (config.imageUrl && config.imageUrl !== "") {
+          itemLabel = "<img src='" + config.imageUrl + "'</img>" + itemLabel;
+        }
+        let html = '<div class="cw-visible CwPropertiesLayoutHelpText"><span>' + itemLabel + "</span></div>";
+        elems[0].innerHTML = html + elems[0].innerHTML;
       }
     }
   };

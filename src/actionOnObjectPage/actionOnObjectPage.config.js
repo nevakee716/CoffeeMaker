@@ -95,11 +95,18 @@
       }
     };
 
+    $scope.bootstrapFilter = function(id, icon) {
+      window.setTimeout(function(params) {
+        $("#" + id).selectpicker();
+        $("#" + id).selectpicker("val", icon);
+      }, 1000);
+    };
+
     $scope.currentView = objectpages[0];
     $scope.objectpages = objectpages;
     $scope.selectConfig(0);
     $scope.typeOftarget = ["tabs", "propertygroups", "views", "cssClass", "htmlId", "jQuerySelector"];
-    $scope.actionType = ["hide", "highlight"];
+    $scope.actionType = ["hide", "highlight", "displaymsg"];
     return;
   };
 
