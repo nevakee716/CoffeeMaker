@@ -83,19 +83,32 @@
 }
 .CoffeeMaker div.row {
   display: block;
+}
+.CoffeeMaker div.rowFlex {
+  display: flex;
+}
+.CoffeeMaker div.rowFlex div.row-cell {
+  align-self: center;
+}
+.CoffeeMaker div.row,
+.CoffeeMaker div.rowFlex {
   margin: 5px 0px;
 }
-.CoffeeMaker div.row div.row-cell {
+.CoffeeMaker div.row div.row-cell,
+.CoffeeMaker div.rowFlex div.row-cell {
   display: inline-block;
 }
-.CoffeeMaker div.row div.row-ceall-label {
-  width: 100px;
+.CoffeeMaker div.row div.row-cell-label,
+.CoffeeMaker div.rowFlex div.row-cell-label {
+  /* width: 100px; */
   vertical-align: top;
 }
-.CoffeeMaker div.row div.row-cell-value-textarea {
+.CoffeeMaker div.row div.row-cell-value-textarea,
+.CoffeeMaker div.rowFlex div.row-cell-value-textarea {
   width: 80%;
 }
-.CoffeeMaker div.row div.row-cell-value select {
+.CoffeeMaker div.row div.row-cell-value select,
+.CoffeeMaker div.rowFlex div.row-cell-value select {
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -103,7 +116,8 @@
   padding: 0px 5px;
   height: 30px;
 }
-.CoffeeMaker div.row div.row-cell-value input {
+.CoffeeMaker div.row div.row-cell-value input,
+.CoffeeMaker div.rowFlex div.row-cell-value input {
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -111,7 +125,8 @@
   padding: 0px 5px;
   height: 30px;
 }
-.CoffeeMaker div.row div.row-cell-value textarea {
+.CoffeeMaker div.row div.row-cell-value textarea,
+.CoffeeMaker div.rowFlex div.row-cell-value textarea {
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -120,10 +135,12 @@
   min-height: 30px;
   resize: vertical;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width {
   width: 85%;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.cell-content-wrapper {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.cell-content-wrapper,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.cell-content-wrapper {
   width: 100%;
   border: 1px solid #cccccc;
   -webkit-border-radius: 4px;
@@ -131,32 +148,39 @@
   border-radius: 4px;
   padding: 0px 5px;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.properties-wrapper {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.properties-wrapper,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.properties-wrapper {
   overflow: auto;
   max-height: 350px;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.properties-wrapper input {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.properties-wrapper input,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.properties-wrapper input {
   vertical-align: middle;
   margin-right: 5px;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-wrapper div.filter-cell {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-wrapper div.filter-cell,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.filter-wrapper div.filter-cell {
   display: inline-block;
   margin: 5px;
   width: 180px;
   text-align: center;
   vertical-align: middle;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-wrapper div.filter-cell input[type="checkbox"] {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-wrapper div.filter-cell input[type="checkbox"],
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.filter-wrapper div.filter-cell input[type="checkbox"] {
   margin: 0px;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-content {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.filter-content,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.filter-content {
   border-bottom: 1px solid #cccccc;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.header-cell {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.header-cell,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.header-cell {
   text-align: center;
   font-weight: bold;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter {
   color: #78909c;
   border-radius: 20px;
   width: 36px;
@@ -167,17 +191,21 @@
   box-shadow: none;
   padding: 0px;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter i {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter i,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter i {
   color: #03a0ce;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter:hover {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter:hover,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter:hover {
   background-color: #03b4e7;
   border-color: #546e7a;
 }
-.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter:hover i {
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter:hover i,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.remove-filter-button a.btn-remove-filter:hover i {
   color: #03a0ce;
 }
-.CoffeeMaker div.row div.add-filter-button a.btn-add-filter {
+.CoffeeMaker div.row div.add-filter-button a.btn-add-filter,
+.CoffeeMaker div.rowFlex div.add-filter-button a.btn-add-filter {
   height: auto;
   width: auto;
   margin: 5px;

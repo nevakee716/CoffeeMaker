@@ -21,20 +21,17 @@
         if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) objectpages.push($scope.views[v]);
       }
     }
-    $scope.filterId = this.nodeID + "_cds_default_icon_filer"
+    $scope.filterId = this.nodeID + "_cds_default_icon_filer";
     $scope.objectpages = objectpages;
     $scope.bootstrapFilter = function(id) {
       window.setTimeout(function(params) {
-          $("#" + id).selectpicker();
-          $("#" + id).selectpicker("val", config.defaultIcon);
-        }, 1000);
-      };
-    
+        $("#" + id).selectpicker();
+        $("#" + id).selectpicker("val", config.defaultIcon);
+      }, 1000);
+    };
 
     return;
   };
-
-
 
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;
 })(cwAPI, jQuery);

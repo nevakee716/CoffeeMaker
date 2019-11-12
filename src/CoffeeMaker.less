@@ -63,11 +63,22 @@
   }
   div.row {
     display: block;
+  }
+  div.rowFlex {
+    display: flex;
+
+    div.row-cell {
+      align-self: center;
+    }
+  }
+
+  div.row,
+  div.rowFlex {
     margin: 5px 0px;
     div.row-cell {
       display: inline-block;
     }
-    div.row-ceall-label {
+    div.row-cell-label {
       width: 100px;
       vertical-align: top;
     }
