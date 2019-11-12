@@ -1,6 +1,6 @@
 <div>
   <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    {{$root.i18n('homepage_last_updated_objects')}}
+    {{$root.i18n('homepage_last_modified_objects_delay')}}
     <input ng-if="vm.dateIsArray === false" class="filterDate smallCell" type="number" id="dateID" name="input" ng-model="vm.selectedDelay" />
     <select ng-if="vm.dateIsArray === true" class="filterDate smallCell" id="dateID" ng-model="vm.selectedDelay" ng-options="d as d for d in vm.dateOptions"></select>
     {{$root.i18n('homepage_last_modified_objects_delay2')}}
