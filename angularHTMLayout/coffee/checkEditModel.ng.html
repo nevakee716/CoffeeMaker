@@ -21,13 +21,13 @@
           <th class="largeMediumCell">{{$root.i18n('name')}}</th>
           <th class="tableCheckbox">{{$root.i18n('unique')}}</th>
           <th class="largeMediumCell">{{$root.i18n('Automatic Value')}}</th>
-          <th class="mediumCell" ng-repeat="r in roles">{{r.name}}</th>
+          <th class="mediumCell cw-hidden" ng-repeat="r in roles">{{r.name}}</th>
         </tr>
         <tr ng-repeat="p in properties">
           <th class="cw-edit-property-value ">{{p.name}} ({{p.scriptName}})</th>
           <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView.cwView][p.scriptName].unique" type="checkbox" /></td>
           <td class="cw-edit-property-value"><input class="cw-edit-attr" ng-model="config[currentView.cwView][p.scriptName].automaticValue" type="text" /></td>
-          <td class="cw-edit-property-value tableCheckbox" ng-repeat="r in roles">
+          <td class="cw-hidden cw-edit-property-value tableCheckbox" ng-repeat="r in roles">
             <select class="cw-edit-attr cw-edit-attr-combobox mediumCell">
               <option>No Read</option>
               <option>Read Only</option>
