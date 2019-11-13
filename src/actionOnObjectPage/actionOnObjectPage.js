@@ -240,13 +240,16 @@
         if (config.fontAwesome && config.fontAwesome.icon) {
           let color = "";
           if (config.fontAwesome.color) color = 'style="color : ' + config.fontAwesome.color + '" ';
-          itemLabel = '<i ' + color + 'class="' + config.fontAwesome.icon + '" aria-hidden="true"></i>' + itemLabel;
+          itemLabel = "<i " + color + 'class="' + config.fontAwesome.icon + '" aria-hidden="true"></i>' + itemLabel;
         }
         if (config.imageUrl && config.imageUrl !== "") {
           itemLabel = "<img src='" + config.imageUrl + "'</img>" + itemLabel;
         }
         let html = '<div class="cw-visible CwPropertiesLayoutHelpText"><span>' + itemLabel + "</span></div>";
-        elems[0].innerHTML = html + elems[0].innerHTML;
+        let d = document.createElement("div");
+        d.innerHTML = html;
+        //elems[0].innerHTML = html + elems[0].innerHTML;
+        elems[0].insertBefore(d, elems[0].firstChild);
       }
     }
   };
