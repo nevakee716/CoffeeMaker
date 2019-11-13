@@ -1,6 +1,8 @@
 <div>
   <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('view_to_activate_duplicate_button')}} :</div>
+    <div class="row-cell row-cell-label labelTitle">{{$root.i18n('view_to_activate_duplicate_button')}} :</div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-max-width ">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="add-filter-button" ng-repeat="v in objectpages | orderBy:'name'">
@@ -9,16 +11,16 @@
       </div>
     </div>
   </div>
-  <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_view_to_configure')}} :</div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_view_to_configure')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <select ng-model="configSelected">
         <option value="{{v.cwView}}" ng-if="config.pageWithDuplicateButton.hasOwnProperty(v.cwView)" ng-repeat="v in objectpages track by v.cwView"> {{v.name}} ({{v.cwView}})</option>
       </select>
     </div>
   </div>
-  <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_association_with_main_object')}} :</div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_association_with_main_object')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <select ng-model="config[configSelected].associationToTheMainObject.associationTypeScriptName">
         <option ng-selected="{{a.ScriptName.toLowerCase() == config[configSelected].associationToTheMainObject.associationTypeScriptName}}" ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'" ng-if="a.TargetObjectTypeScriptName.toLowerCase() === views[configSelected].rootObjectType" value="{{a.ScriptName.toLowerCase()}}"
@@ -29,6 +31,8 @@
   </div>
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_property_to_exclude')}} :</div>
+  </div>
+  <div class="row bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-max-width ">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="add-filter-button" ng-repeat="p in metamodel.objectTypes[views[configSelected].rootObjectType].properties | orderBy:'name'">
@@ -39,6 +43,8 @@
   </div>
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_association_to_exclude')}} :</div>
+  </div>
+  <div class="row bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-max-width ">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="add-filter-button" ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'">

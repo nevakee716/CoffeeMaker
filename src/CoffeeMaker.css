@@ -100,8 +100,11 @@
 }
 .CoffeeMaker div.row div.row-cell-label,
 .CoffeeMaker div.rowFlex div.row-cell-label {
-  /* width: 100px; */
+  max-width: 400px;
   vertical-align: top;
+  font-size: large;
+  font-weight: 700;
+  color: #03a0ce;
 }
 .CoffeeMaker div.row div.row-cell-value-textarea,
 .CoffeeMaker div.rowFlex div.row-cell-value-textarea {

@@ -1,6 +1,6 @@
 <div>
   <div class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :</div>
+    <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <select ng-change="selectConfig()" ng-options="v as (v.name + ' (' + v.cwView + ')')  for v in objectpages | orderBy:'name'" ng-model="currentView"></select>
     </div>
@@ -15,8 +15,8 @@
     <div class="remove-operation">
       <a class="btn-remove btn page-action no-text" data-id="{{op.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeOperation(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
     </div>
-    <div class="bootstrap-iso row">
-      <div class="row-cell row-cell-label">{{$root.i18n('label_name')}} :</div>
+    <div class="bootstrap-iso rowFlex">
+      <div class="row-cell row-cell-label">{{$root.i18n('label_name')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input ng-model="op.label" /></div>
     </div>
     <div class="bootstrap-iso row">
@@ -25,8 +25,8 @@
     <div class="row bootstrap-iso">
       <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="op.description"></textarea></div>
     </div>
-    <div class="bootstrap-iso row">
-      <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :</div>
+    <div class="bootstrap-iso rowFlex">
+      <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input type="number" ng-model="op.order" /></div>
     </div>
     <div class="bootstrap-iso row">
@@ -73,15 +73,15 @@
       </div>
     </div>
     <div class="rowFlex bootstrap-iso">
-      <div class="row-cell row-cell-label">{{$root.i18n('hideElement_action_type')}} :</div>
+      <div class="row-cell row-cell-label">{{$root.i18n('hideElement_action_type')}} :&nbsp;</div>
       <div class="row-cell row-cell-value" style="display:inline-flex">
         <select ng-options="t as t for t in actionType" ng-model="op.actionType"></select>
         <input ng-if="op.actionType === 'highlight'" type="color" ng-model="op.highlightColor" />
       </div>
     </div>
     <div ng-if="op.actionType !== 'displaymsg'">
-      <div class="row bootstrap-iso">
-        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_type')}} :</div>
+      <div class="rowFlex bootstrap-iso">
+        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_type')}} :&nbsp;</div>
         <div class="row-cell row-cell-value">
           <select ng-options="t as t for t in typeOftarget" ng-model="op.type"></select>
         </div>
@@ -148,7 +148,7 @@
         <div class="row-cell row-cell-label">{{$root.i18n('html_text')}} :&nbsp;</div>
         <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="op.htmlMessage"></textarea></div>
       </div>
-      <div class="bootstrap-iso">
+      <div class="bootstrap-iso row">
         <div class="row-cell row-cell-label">{{$root.i18n('result_preview')}} :&nbsp;</div>
         <div class="cw-visible CwPropertiesLayoutHelpText">
           <span>
