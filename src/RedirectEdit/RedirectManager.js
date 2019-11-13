@@ -70,15 +70,23 @@
     return null;
   }
 
-  function getPageNavigationForSinglePage(item, objectTypeScriptName) {
-    var views, o, i, v, tabCount, viewsLoaded, currentViewName, navView, viewSchema, j, tab, navTab, questionnaireQueTab, questionnaireResultTab;
+  function getPageNavigationForSinglePage(item, objectTypeScriptName, targetView) {
+    var views, viewsFiltered, o, i, v, tabCount, viewsLoaded, currentViewName, navView, viewSchema, j, tab, navTab, questionnaireQueTab, questionnaireResultTab;
     if (cwApi.cwConfigs.SingleViewsByObjecttype === null) {
       return [];
     }
 
     views = cwApi.cwConfigs.SingleViewsByObjecttype[objectTypeScriptName.toLowerCase()];
-
-    viewsLoaded = views.map(function(v) {
+    if (targetView) {
+      viewsFiltered = views.filter(function(v) {
+        return v === targetView;
+      });
+    } else {
+      viewsFiltered = views.filter(function(v) {
+        return v.indexOf("z_") !== 0;
+      });
+    }
+    viewsLoaded = viewsFiltered.map(function(v) {
       return cwApi.getView(v);
     });
     viewsLoaded = cwApi.sortBy(viewsLoaded, function(v) {
@@ -191,7 +199,7 @@
             cwApi.updateURLHash(url);
 
             var $ulView = $('<ul class="navViews"></ul>');
-            var pageNavigation = getPageNavigationForSinglePage(that.editPropertyManager.item, that.editPropertyManager.item.objectTypeScriptName);
+            var pageNavigation = getPageNavigationForSinglePage(that.editPropertyManager.item, that.editPropertyManager.item.objectTypeScriptName, targetRedirection.view);
             $("#page-options").html($ulView);
             for (i = 0; i < pageNavigation.length; i += 1) {
               if (pageNavigation[i].viewName === targetRedirection.view) {
@@ -207,7 +215,7 @@
   };
 
   function outputPageNavigation(navView, $ulViewLocal, item) {
-    var $li = cwApi.cwDisplayManager.getViewNav$(navView.viewName, navView.label, "#");
+    var $li = cwApi.cwDisplayManager.getViewNav$(navView.viewName, navView.label, cwAPI.getSingleViewHash(navView.viewName, item.object_id));
     cwApi.createMainAndSubNavMenus($li, $ulViewLocal, navView, item);
 
     if (!$li.children("a").hasClass("hassub")) {
