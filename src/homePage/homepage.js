@@ -82,7 +82,13 @@
           if (objectTypeScriptNameToGet.hasOwnProperty(ots) && objectTypeScriptNameToGet[ots].enable === true) {
             var regex = /({[a-z]+})/g;
             var found = objectTypeScriptNameToGet[ots].cds.match(regex);
-            var pToLoad = ["WHENUPDATED"];
+            var pToLoad;
+            var timeP = "whenupdated";
+            if (objectTypeScriptNameToGet[ots].timeProperty) {
+              timeP = objectTypeScriptNameToGet[ots].timeProperty;
+            }
+            pToLoad = [timeP.toUpperCase()];
+
             found.forEach(function(f) {
               f = f.replace("{", "").replace("}", "");
               pToLoad.push(f.toUpperCase());
@@ -102,8 +108,12 @@
                   return;
                 }
                 res.forEach(function(o) {
-                  o.date = new Date(o.properties.whenupdated);
-                  o.cds = cwApi.customLibs.utils.getCustomDisplayString(objectTypeScriptNameToGet[ots].cds, o);
+                  let timePe = "whenupdated";
+                  if (objectTypeScriptNameToGet[o.objectTypeScriptName].timeProperty) {
+                    timePe = objectTypeScriptNameToGet[o.objectTypeScriptName].timeProperty;
+                  }
+                  o.date = new Date(o.properties[timePe]);
+                  o.cds = cwApi.customLibs.utils.getCustomDisplayString(objectTypeScriptNameToGet[o.objectTypeScriptName].cds, o);
                   o.objectTypeLabel = cwAPI.mm.getObjectType(o.objectTypeScriptName).name;
                   objects.push(o);
                 });

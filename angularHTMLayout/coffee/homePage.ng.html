@@ -44,12 +44,24 @@
     </div>
   </div>
   <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">Custom Display String</div>
+    <div class="row-cell row-cell-label">Confgure :</div>
     <div class="row-cell row-cell-value">
-      <select ng-options="objectTypes[s].name for s in OTsSelected | orderBy:sortOT" ng-model="cdsSelected"></select>
+      <select ng-options="objectTypes[s].name for s in OTsSelected | orderBy:sortOT" ng-model="op.cdsSelected"></select>
     </div>
+  </div>
+
+  <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">Custom Display String :</div>
     <div class="row-cell row-cell-value largeCell">
-      <input class="largeCell" ng-model="config.objectTypeToSelect[cdsSelected].cds" />
+      <input class="largeCell" ng-model="config.objectTypeToSelect[op.cdsSelected].cds" />
+    </div>
+  </div>
+  <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('property')}} :</div>
+    <div class="row-cell row-cell-value largeCell">
+      <select ng-model="config.objectTypeToSelect[op.cdsSelected].timeProperty">
+        <option ng-if="p.type==='Date'" value="{{sp}}" ng-repeat="(sp, p) in objectTypes[op.cdsSelected].properties">{{p.name}}</option>
+      </select>
     </div>
   </div>
 </div>

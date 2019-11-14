@@ -25,7 +25,7 @@
     }
 
     $scope.OTsSelected = Object.keys($scope.config.objectTypeToSelect);
-
+    $scope.op = {};
     $scope.toggleHM = function(c, e) {
       if (c.hasOwnProperty(e)) c[e].enable = !c[e].enable;
       else {
