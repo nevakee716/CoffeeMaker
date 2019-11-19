@@ -136,6 +136,10 @@
       <div class="bootstrap-iso rowFlex">
         <div class="row-cell row-cell-label">{{$root.i18n('image_url')}} :&nbsp;</div>
         <div class="row-cell row-cell-value"><input class="largeCell" ng-model="op.imageUrl" /></div>
+        <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
+        <div class="row-cell row-cell-value"><input ng-model="op.width" /></div>
+        <div class="row-cell row-cell-label">{{$root.i18n('height')}} :&nbsp;</div>
+        <div class="row-cell row-cell-value"><input ng-model="op.height" /></div>
       </div>
       <div class="bootstrap-iso rowFlex">
         <div class="row-cell row-cell-label">{{$root.i18n('fontawesome_icon')}} :&nbsp;</div>
@@ -153,7 +157,7 @@
         <div class="cw-visible CwPropertiesLayoutHelpText">
           <span>
             <i ng-style="{'color' : op.fontAwesome.color}" ng-if="op.fontAwesome.icon" ng-class="op.fontAwesome.icon" aria-hidden="true"></i>
-            <img ng-if="op.imageUrl" src="{{op.imageUrl}}" aria-hidden="true" />
+            <img ng-if="op.imageUrl" src="{{op.imageUrl}}" height="{{op.height}}" width="{{op.width}}" aria-hidden="true" />
             {{op.htmlMessage}}
           </span>
         </div>

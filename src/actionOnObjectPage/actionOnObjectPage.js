@@ -237,13 +237,17 @@
       let itemLabel = p.getDisplayString(mainObject);
 
       if (itemLabel !== "") {
-        if (config.fontAwesome && config.fontAwesome.icon) {
+        if (config.fontAwesome && config.fontAwesome.icon && config.fontAwesome.icon !== "0") {
           let color = "";
           if (config.fontAwesome.color) color = 'style="color : ' + config.fontAwesome.color + '" ';
           itemLabel = "<i " + color + 'class="' + config.fontAwesome.icon + '" aria-hidden="true"></i>' + itemLabel;
         }
         if (config.imageUrl && config.imageUrl !== "") {
-          itemLabel = "<img src='" + config.imageUrl + "'</img>" + itemLabel;
+          let widthString = "";
+          let heightString = "";
+          if (config.width) widthString = " width='" + config.width + "' ";
+          if (config.height) heightString = " height='" + config.height + "' ";
+          itemLabel = "<img" + widthString + heightString + " src='" + config.imageUrl + "'</img>" + itemLabel;
         }
         let html = '<div class="cw-visible CwPropertiesLayoutHelpText"><span>' + itemLabel + "</span></div>";
         let d = document.createElement("div");
