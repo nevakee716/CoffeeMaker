@@ -130,7 +130,7 @@
         });
 
         $scope.vm = { selectedDelay: 30 };
-
+        $scope.config = config;
         $scope.vm.dateIsArray = false;
         if (config.delay) {
           if (config.delay.indexOf(",")) {

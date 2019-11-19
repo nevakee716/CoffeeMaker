@@ -5,7 +5,12 @@
 .lastUpdateObjectsTable table.cwPropertiesTable td {
   width: inherit;
 }
-.homePageDate {
+.lastUpdateObjectsTable .see_more_link {
+  float: right;
+  text-decoration: underline;
+  line-height: 33px;
+}
+.lastUpdateObjectsTable .homePageDate {
   float: right;
 }
 .lastUpdateObjectsTable .filterDate {

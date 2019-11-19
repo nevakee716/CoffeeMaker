@@ -1,12 +1,12 @@
 <div>
-  <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_remove_my_menu')}} :</div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_remove_my_menu')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <input ng-model="config.removeMyMenu" type="checkbox" />
     </div>
   </div>
-  <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('homepage_displaydescription')}} :</div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_displaydescription')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <input ng-model="config.displayDescription" type="checkbox" />
     </div>
@@ -24,6 +24,24 @@
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_activate_last_modified_objects')}} :</div>
     <div class="row-cell row-cell-value">
       <input ng-model="config.displayLastMdifiedObject" type="checkbox" />
+    </div>
+  </div>
+  <div ng-if="config.displayLastMdifiedObject" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_display_index_page')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.lastModifiedObjectIndexpage" type="checkbox" />
+    </div>
+  </div>
+  <div ng-if="config.lastModifiedObjectIndexpage" class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_index_page_link')}} :</div>
+    <div class="row-cell row-cell-value">
+      <input class="largeCell" ng-model="config.lastModifiedObjectIndexpage_link" />
+    </div>
+  </div>
+  <div ng-if="config.lastModifiedObjectIndexpage" class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_index_page_text')}} :</div>
+    <div class="row-cell row-cell-value">
+      <input class="largeCell" ng-model="config.lastModifiedObjectIndexpage_text" />
     </div>
   </div>
   <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
@@ -50,13 +68,13 @@
     </div>
   </div>
 
-  <div class="row bootstrap-iso">
+  <div ng-if="op.cdsSelected" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">Custom Display String :</div>
     <div class="row-cell row-cell-value largeCell">
       <input class="largeCell" ng-model="config.objectTypeToSelect[op.cdsSelected].cds" />
     </div>
   </div>
-  <div class="row bootstrap-iso">
+  <div ng-if="op.cdsSelected" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('property')}} :</div>
     <div class="row-cell row-cell-value largeCell">
       <select ng-model="config.objectTypeToSelect[op.cdsSelected].timeProperty">
