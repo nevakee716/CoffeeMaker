@@ -14,13 +14,13 @@
     cursor: pointer;
   }
   .CoffeeMakerTab.selected {
-    box-shadow: inset 0 -2px @cwAccordionHeaderBackgroundColor;
+    box-shadow: inset 0 -2px @cwJVectorMapPathFilledBackgroundColor;
   }
   .CoffeeMakerTabs {
     display: flex;
     .CoffeeMakerTab {
       &:hover {
-        box-shadow: inset 0 -2px @cwAccordionHeaderBackgroundColor;
+        box-shadow: inset 0 -2px @cwJVectorMapPathFilledBackgroundColor;
       }
     }
   }
@@ -83,7 +83,7 @@
       vertical-align: top;
       font-size: large;
       font-weight: 700;
-      color: @cwAccordionHeaderBackgroundColor;
+      color: @cwJVectorMapPathFilledBackgroundColor;
     }
     div.row-cell-value-textarea {
       width: 80%;
@@ -133,11 +133,18 @@
           margin-right: 5px;
         }
       }
-      div.filter-wrapper {
-        div.filter-cell {
-          display: inline-block;
-          margin: 5px;
+      .filter-wrapper {
+        .filter-content {
           width: 180px;
+        }
+        .filter-value {
+          width: 180px;
+        }
+        .filter-operator {
+          width: 100px;
+        }
+        .filter-cell {
+          margin: 5px;
           text-align: center;
           vertical-align: middle;
           input[type="checkbox"] {
@@ -145,38 +152,12 @@
           }
         }
       }
-      div.filter-content {
-        border-bottom: 1px solid #cccccc;
-      }
-      div.header-cell {
+      .header-cell {
         text-align: center;
         font-weight: bold;
       }
-      div.remove-filter-button {
-        a.btn-remove-filter {
-          color: #78909c;
-          border-radius: 20px;
-          width: 36px;
-          height: 36px;
-          line-height: 34px;
-          border: 1px solid transparent;
-          background-color: transparent;
-          box-shadow: none;
-          padding: 0px;
-          i {
-            color: @cwColor1;
-          }
-          &:hover {
-            background-color: lighten(@cwDiagramBreadCrumbBackgroundColor, 5%);
-            border-color: @cwColor1Shade;
-            i {
-              color: @cwButtonIconColor;
-            }
-          }
-        }
-      }
     }
-    div.add-filter-button {
+    .add-filter-button {
       a.btn-add-filter {
         height: auto;
         width: auto;

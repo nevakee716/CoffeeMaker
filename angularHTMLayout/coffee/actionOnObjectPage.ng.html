@@ -32,16 +32,16 @@
     <div class="bootstrap-iso row">
       <div class="row-cell row-cell-label">{{$root.i18n('label_filter')}} :</div>
     </div>
-    <div class="row bootstrap-iso">
+    <div class="row">
       <div class="row-cell row-cell-value row-cell-max-width">
-        <div class="cell-content-wrapper filter-wrapper">
-          <div class="filter-row filter-header">
-            <div class="filter-cell header-cell header-property">{{$root.i18n('label_pt_filter_column_property')}}</div>
-            <div class="filter-cell header-cell header-operator">{{$root.i18n('label_pt_filter_column_operator')}}</div>
-            <div class="filter-cell header-cell header-value">{{$root.i18n('label_pt_filter_column_value')}}</div>
-          </div>
-          <div class="filter-row filter-content" ng-repeat="f in currentConfig[i].filters">
-            <div class="filter-property-scriptname filter-cell">
+        <table class="cell-content-wrapper filter-wrapper">
+          <tr class="filter-row filter-header bootstrap-iso">
+            <th class="filter-cell filter-content header-cell header-property">{{$root.i18n('label_pt_filter_column_property')}}</th>
+            <th class="filter-cell filter-operator header-cell header-operator">{{$root.i18n('label_pt_filter_column_operator')}}</th>
+            <th class="filter-cell filter-value header-cell header-value">{{$root.i18n('label_pt_filter_column_value')}}</th>
+          </tr>
+          <tr class="filter-row filter-content filter-cell" ng-repeat="f in currentConfig[i].filters">
+            <td class="filter-property-scriptname filter-cell">
               <select ng-model="f.id" ng-change="processFilter(f)">
                 <optgroup label="{{$root.i18n('properties')}}">
                   <option ng-selected="'prop_' + x.scriptName === f.id" value="prop_{{x.scriptName}}" ng-repeat="x in properties">{{x.name}} </option>
@@ -50,116 +50,119 @@
                   <option ng-selected="'asso_' + n.nodeID === f.id" value="asso_{{n.nodeID}}" ng-repeat="n in rootNode.AssociationsTargetObjectTypes">{{n.displayNodeName}} </option>
                 </optgroup>
               </select>
-            </div>
+            </td>
 
-            <div ng-if="f.id" class="filter-operator filter-cell">
+            <td ng-if="f.id" class="filter-operator filter-cell">
               <select ng-model="f.Operator" ng-options="x for x in FilterOperators"></select>
-            </div>
-            <div ng-if="f.id" class="filter-value filter-cell">
+            </td>
+            <td ng-if="f.id" class="filter-value filter-cell">
               <input class="largeCell" ng-model="f.Value" ng-if="getPropertyDataType(objectType, f.scriptname)==='text'" />
               <input ng-model="f.Value" type="checkbox" ng-if="getPropertyDataType(objectType, f.scriptname)==='checkbox'" />
               <input ng-model="f.Value" type="date" ng-if="getPropertyDataType(objectType, f.scriptname)==='date'" />
               <input ng-model="f.Value" type="number" ng-if="getPropertyDataType(objectType, f.scriptname)==='number'" />
               <select ng-model="f.Value" ng-if="getPropertyDataType(objectType, f.scriptname)==='lookup' && f.Operator != 'In'" ng-options="x.id as x.name for x in objectType.properties[f.scriptname].lookups"></select>
               <select style="height:initial" multiple size="{{objectType.properties[f.scriptname].lookups.length}}" ng-model="f.Value" ng-if="getPropertyDataType(objectType, f.scriptname)==='lookup' && f.Operator == 'In'" ng-options="x.id as x.name for x in objectType.properties[f.scriptname].lookups"></select>
-            </div>
-            <div class="remove-filter-button filter-cell">
-              <a class="btn no-text page-action btn-remove-filter" ng-click="currentConfig[i].filters.splice($index,1)"><i class="fa fa-times" aria-hidden="true"></i></a>
-            </div>
-          </div>
-          <div class="add-filter-button"><a class="btn-add-filter btn page-action" ng-click="addFilter(i)">{{$root.i18n('label_pt_filter_add_new')}}</a></div>
-          <!-- </div> -->
-        </div>
+            </td>
+            <td class="filter-cell">
+              <a class="btn page-action no-text" ng-click="currentConfig[i].filters.splice($index,1)"><i class="fa fa-times" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+          <tr>
+            <td class="add-filter-button bootstrap-iso">
+              <a class="btn-add-filter btn page-action" ng-click="addFilter(i)">{{$root.i18n('label_pt_filter_add_new')}}</a>
+            </td>
+          </tr>
+        </table>
       </div>
-    </div>
-    <div class="rowFlex bootstrap-iso">
-      <div class="row-cell row-cell-label">{{$root.i18n('hideElement_action_type')}} :&nbsp;</div>
-      <div class="row-cell row-cell-value" style="display:inline-flex">
-        <select ng-options="t as t for t in actionType" ng-model="op.actionType"></select>
-        <input ng-if="op.actionType === 'highlight'" type="color" ng-model="op.highlightColor" />
-      </div>
-    </div>
-    <div ng-if="op.actionType !== 'displaymsg'">
       <div class="rowFlex bootstrap-iso">
-        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_type')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value">
-          <select ng-options="t as t for t in typeOftarget" ng-model="op.type"></select>
+        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_action_type')}} :&nbsp;</div>
+        <div class="row-cell row-cell-value" style="display:inline-flex">
+          <select ng-options="t as t for t in actionType" ng-model="op.actionType"></select>
+          <input ng-if="op.actionType === 'highlight'" type="color" ng-model="op.highlightColor" />
         </div>
       </div>
-      <div class="row bootstrap-iso">
-        <div ng-if="op.type === 'tabs'" class="row-cell row-cell-value row-cell-max-width ">
-          <div class="cell-content-wrapper filter-wrapper propertieslist">
-            <div class="add-filter-button" ng-repeat="t in currentSchema.Tab.Tabs | orderBy:'name'">
-              <a class="btn-add-filter btn page-action" ng-class="op.tabs.indexOf(t.Id) !== -1? ['selected'] : []" ng-click="toggleArray(op.tabs,t.Id)">{{(t.Name + ' (' + t.Id + ')')}}</a>
+      <div ng-if="op.actionType !== 'displaymsg'">
+        <div class="rowFlex bootstrap-iso">
+          <div class="row-cell row-cell-label">{{$root.i18n('hideElement_type')}} :&nbsp;</div>
+          <div class="row-cell row-cell-value">
+            <select ng-options="t as t for t in typeOftarget" ng-model="op.type"></select>
+          </div>
+        </div>
+        <div class="row bootstrap-iso">
+          <div ng-if="op.type === 'tabs'" class="row-cell row-cell-value row-cell-max-width ">
+            <div class="cell-content-wrapper filter-wrapper propertieslist">
+              <div class="add-filter-button" ng-repeat="t in currentSchema.Tab.Tabs | orderBy:'name'">
+                <a class="btn-add-filter btn page-action" ng-class="op.tabs.indexOf(t.Id) !== -1? ['selected'] : []" ng-click="toggleArray(op.tabs,t.Id)">{{(t.Name + ' (' + t.Id + ')')}}</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row bootstrap-iso">
-        <div ng-if="op.type === 'views'" class="row-cell row-cell-value row-cell-max-width ">
-          <div class="cell-content-wrapper filter-wrapper propertieslist">
-            <div class="add-filter-button" ng-repeat="v in currentRedirectViews | orderBy:'name'">
-              <a class="btn-add-filter btn page-action" ng-class="op.views.indexOf(v.cwView) !== -1? ['selected'] : []" ng-click="toggleArray(op.views,v.cwView)">{{(v.name + ' (' + v.cwView + ')')}}</a>
+        <div class="row bootstrap-iso">
+          <div ng-if="op.type === 'views'" class="row-cell row-cell-value row-cell-max-width ">
+            <div class="cell-content-wrapper filter-wrapper propertieslist">
+              <div class="add-filter-button" ng-repeat="v in currentRedirectViews | orderBy:'name'">
+                <a class="btn-add-filter btn page-action" ng-class="op.views.indexOf(v.cwView) !== -1? ['selected'] : []" ng-click="toggleArray(op.views,v.cwView)">{{(v.name + ' (' + v.cwView + ')')}}</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row bootstrap-iso">
-        <div ng-if="op.type === 'propertygroups'" class="row-cell row-cell-value row-cell-max-width ">
-          <div class="cell-content-wrapper filter-wrapper propertieslist">
-            <div class="add-filter-button" ng-repeat="p in rootNode.PropertiesGroups | orderBy:'name'">
-              <a class="btn-add-filter btn page-action" ng-class="op.propertygroups.indexOf(p.id) !== -1? ['selected'] : []" ng-click="toggleArray(op.propertygroups,p.id)">{{(p.name + ' (' + p.id + ')')}}</a>
+        <div class="row bootstrap-iso">
+          <div ng-if="op.type === 'propertygroups'" class="row-cell row-cell-value row-cell-max-width ">
+            <div class="cell-content-wrapper filter-wrapper propertieslist">
+              <div class="add-filter-button" ng-repeat="p in rootNode.PropertiesGroups | orderBy:'name'">
+                <a class="btn-add-filter btn page-action" ng-class="op.propertygroups.indexOf(p.id) !== -1? ['selected'] : []" ng-click="toggleArray(op.propertygroups,p.id)">{{(p.name + ' (' + p.id + ')')}}</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div ng-if="op.type === 'cssClass'" class="row bootstrap-iso">
-        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_css_class')}} :</div>
-        <div class="row-cell row-cell-value largeCell">
-          <input class="largeCell" type="text" ng-model="op.class" />
+        <div ng-if="op.type === 'cssClass'" class="row bootstrap-iso">
+          <div class="row-cell row-cell-label">{{$root.i18n('hideElement_css_class')}} :</div>
+          <div class="row-cell row-cell-value largeCell">
+            <input class="largeCell" type="text" ng-model="op.class" />
+          </div>
+        </div>
+        <div ng-if="op.type === 'htmlId'" class="row bootstrap-iso">
+          <div class="row-cell row-cell-label">{{$root.i18n('hideElement_html_id')}} :</div>
+          <div class="row-cell row-cell-value largeCell">
+            <input class="largeCell" type="text" ng-model="op.htmlId" />
+          </div>
+        </div>
+        <div ng-if="op.type === 'jQuerySelector'" class="row bootstrap-iso">
+          <div class="row-cell row-cell-label">{{$root.i18n('hideElement_jQuerySelector')}} :</div>
+          <div class="row-cell row-cell-value ">
+            <input class="largeCell" type="text" ng-model="op.jQuerySelector" />
+          </div>
         </div>
       </div>
-      <div ng-if="op.type === 'htmlId'" class="row bootstrap-iso">
-        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_html_id')}} :</div>
-        <div class="row-cell row-cell-value largeCell">
-          <input class="largeCell" type="text" ng-model="op.htmlId" />
+      <div ng-if="op.actionType === 'displaymsg'">
+        <div class="bootstrap-iso rowFlex">
+          <div class="row-cell row-cell-label">{{$root.i18n('image_url')}} :&nbsp;</div>
+          <div class="row-cell row-cell-value"><input class="largeCell" ng-model="op.imageUrl" /></div>
+          <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
+          <div class="row-cell row-cell-value"><input ng-model="op.width" /></div>
+          <div class="row-cell row-cell-label">{{$root.i18n('height')}} :&nbsp;</div>
+          <div class="row-cell row-cell-value"><input ng-model="op.height" /></div>
         </div>
-      </div>
-      <div ng-if="op.type === 'jQuerySelector'" class="row bootstrap-iso">
-        <div class="row-cell row-cell-label">{{$root.i18n('hideElement_jQuerySelector')}} :</div>
-        <div class="row-cell row-cell-value ">
-          <input class="largeCell" type="text" ng-model="op.jQuerySelector" />
+        <div class="bootstrap-iso rowFlex">
+          <div class="row-cell row-cell-label">{{$root.i18n('fontawesome_icon')}} :&nbsp;</div>
+          <div class="row-cell row-cell-value" style="display: flex; overflow: visible">
+            <select id="{{'action_on_page_' + i}}" ng-include src="'../../common/html/coffee/fa.html'" data-width="150px" data-live-search="true" class="fa" ng-init="bootstrapFilter('action_on_page_' + i)" ng-model="op.fontAwesome.icon" />
+            <input type="color" ng-model="op.fontAwesome.color" />
+          </div>
         </div>
-      </div>
-    </div>
-    <div ng-if="op.actionType === 'displaymsg'">
-      <div class="bootstrap-iso rowFlex">
-        <div class="row-cell row-cell-label">{{$root.i18n('image_url')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value"><input class="largeCell" ng-model="op.imageUrl" /></div>
-        <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value"><input ng-model="op.width" /></div>
-        <div class="row-cell row-cell-label">{{$root.i18n('height')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value"><input ng-model="op.height" /></div>
-      </div>
-      <div class="bootstrap-iso rowFlex">
-        <div class="row-cell row-cell-label">{{$root.i18n('fontawesome_icon')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value" style="display: flex; overflow: visible">
-          <select id="{{'action_on_page_' + i}}" ng-include src="'../../common/html/coffee/fa.html'" data-width="150px" data-live-search="true" class="fa" ng-init="bootstrapFilter('action_on_page_' + i)" ng-model="op.fontAwesome.icon" />
-          <input type="color" ng-model="op.fontAwesome.color" />
+        <div class="bootstrap-iso rowFlex">
+          <div class="row-cell row-cell-label">{{$root.i18n('html_text')}} :&nbsp;</div>
+          <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="op.htmlMessage"></textarea></div>
         </div>
-      </div>
-      <div class="bootstrap-iso rowFlex">
-        <div class="row-cell row-cell-label">{{$root.i18n('html_text')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="op.htmlMessage"></textarea></div>
-      </div>
-      <div class="bootstrap-iso row">
-        <div class="row-cell row-cell-label">{{$root.i18n('result_preview')}} :&nbsp;</div>
-        <div class="cw-visible CwPropertiesLayoutHelpText">
-          <span>
-            <i ng-style="{'color' : op.fontAwesome.color}" ng-if="op.fontAwesome.icon" ng-class="op.fontAwesome.icon" aria-hidden="true"></i>
-            <img ng-if="op.imageUrl" src="{{op.imageUrl}}" height="{{op.height}}" width="{{op.width}}" aria-hidden="true" />
-            {{op.htmlMessage}}
-          </span>
+        <div class="bootstrap-iso row">
+          <div class="row-cell row-cell-label">{{$root.i18n('result_preview')}} :&nbsp;</div>
+          <div class="cw-visible CwPropertiesLayoutHelpText">
+            <span>
+              <i ng-style="{'color' : op.fontAwesome.color}" ng-if="op.fontAwesome.icon" ng-class="op.fontAwesome.icon" aria-hidden="true"></i>
+              <img ng-if="op.imageUrl" src="{{op.imageUrl}}" height="{{op.height}}" width="{{op.width}}" aria-hidden="true" />
+              {{op.htmlMessage}}
+            </span>
+          </div>
         </div>
       </div>
     </div>
