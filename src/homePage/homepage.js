@@ -23,7 +23,7 @@
         let menu = menus[i];
         if (menu.innerHTML == $.i18n.prop("menu_homeLink")) {
           try {
-            menu.parentElement.parentElement.parentElement.parentElement.remove();
+            menu.parentElement.parentElement.parentElement.parentElement.parentElement.removeChild(menu.parentElement.parentElement.parentElement.parentElement);
           } catch (e) {
             console.log(e);
           }
@@ -39,7 +39,7 @@
       let menu = menus[i];
       if (menu.innerHTML == $.i18n.prop("menu_homeLink").toLowerCase()) {
         try {
-          menu.parentElement.remove();
+          menu.parentElement.parentElement.removeChild(menu.parentElement);
         } catch (e) {
           console.log(e);
         }
@@ -137,7 +137,9 @@
             $scope.vm.dateIsArray = true;
             $scope.vm.dateOptions = config.delay.split(",");
             $scope.vm.selectedDelay = $scope.vm.dateOptions[0];
-            $scope.vm.dateOptions.sort((a, b) => a - b);
+            $scope.vm.dateOptions.sort(function(a, b) {
+              a - b;
+            });
           } else {
             $scope.vm.selectedDelay = config.delay;
           }
