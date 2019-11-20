@@ -167,7 +167,7 @@
             <span>
               <i ng-style="{'color' : op.fontAwesome.color}" ng-if="op.fontAwesome.icon" ng-class="op.fontAwesome.icon" aria-hidden="true"></i>
               <img ng-if="op.imageUrl" src="{{op.imageUrl}}" height="{{op.height}}" width="{{op.width}}" aria-hidden="true" />
-              {{op.htmlMessage}}
+              <div ng-bind-html="op.htmlMessage"></div>
             </span>
           </div>
         </div>

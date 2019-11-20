@@ -234,13 +234,13 @@
     if (elems.length > 0) {
       for (var i = 0; i < elems.length; i += 1) {
         if (config.tabs.indexOf(elems[i].id.replace("tab-", "")) !== -1) {
-          elems[i].insertBefore(this.createMsg(config), elems[i].firstChild);
+          elems[i].insertBefore(this.createMsg(config, mainObject), elems[i].firstChild);
         }
       }
     } else {
       let zone = document.getElementById("zone_" + this.viewName);
       if (zone) {
-        zone.insertBefore(this.createMsg(config), zone.firstChild);
+        zone.insertBefore(this.createMsg(config, mainObject), zone.firstChild);
       }
     }
   };
@@ -250,11 +250,6 @@
     let itemLabel = p.getDisplayString(mainObject);
 
     if (itemLabel !== "") {
-      if (config.fontAwesome && config.fontAwesome.icon && config.fontAwesome.icon !== "0") {
-        let color = "";
-        if (config.fontAwesome.color) color = 'style="color : ' + config.fontAwesome.color + '" ';
-        itemLabel = "<i " + color + 'class="' + config.fontAwesome.icon + '" aria-hidden="true"></i>' + itemLabel;
-      }
       if (config.imageUrl && config.imageUrl !== "") {
         let widthString = "";
         let heightString = "";
@@ -262,6 +257,12 @@
         if (config.height) heightString = " height='" + config.height + "' ";
         itemLabel = "<img" + widthString + heightString + " src='" + config.imageUrl + "'</img>" + itemLabel;
       }
+      if (config.fontAwesome && config.fontAwesome.icon && config.fontAwesome.icon !== "0") {
+        let color = "";
+        if (config.fontAwesome.color) color = 'style="color : ' + config.fontAwesome.color + '" ';
+        itemLabel = "<i " + color + 'class="' + config.fontAwesome.icon + '" aria-hidden="true"></i>' + itemLabel;
+      }
+
       let html = '<div class="cw-visible CwPropertiesLayoutHelpText"><span>' + itemLabel + "</span></div>";
       let d = document.createElement("div");
       d.innerHTML = html;
