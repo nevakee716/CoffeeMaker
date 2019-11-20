@@ -54,7 +54,11 @@
     $scope.removeOperation = function(i) {
       $scope.currentConfig.splice(i, 1);
     };
-
+    $scope.clearOperationnParam = function(op) {
+      op.tabs = [];
+      op.propertygroups = [];
+      op.views = [];
+    };
     $scope.addFilter = function(i) {
       $scope.currentConfig[i].filters.push({});
     };
