@@ -37,13 +37,13 @@
       <input ng-model="config.lastModifiedObjectIndexpage" type="checkbox" />
     </div>
   </div>
-  <div ng-if="config.lastModifiedObjectIndexpage" class="row bootstrap-iso">
+  <div ng-if="config.displayLastMdifiedObject && config.lastModifiedObjectIndexpage" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_index_page_link')}} :</div>
     <div class="row-cell row-cell-value">
       <input class="largeCell" ng-model="config.lastModifiedObjectIndexpage_link" />
     </div>
   </div>
-  <div ng-if="config.lastModifiedObjectIndexpage" class="row bootstrap-iso">
+  <div ng-if="config.displayLastMdifiedObject && config.lastModifiedObjectIndexpage" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_index_page_text')}} :</div>
     <div class="row-cell row-cell-value">
       <input class="largeCell" ng-model="config.lastModifiedObjectIndexpage_text" />
