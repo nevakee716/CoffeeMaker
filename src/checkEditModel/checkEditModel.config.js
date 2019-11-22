@@ -32,7 +32,7 @@
         $scope.$apply();
       }
     });
-    $scope.indexUniqueOption = true;
+    $scope.indexUniqueOption = false;
     $scope.indexpages = indexPages;
     $scope.currentView = objectpages[0];
     $scope.objectpages = objectpages;
