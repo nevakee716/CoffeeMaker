@@ -1,4 +1,9 @@
 <div>
+  <div ng-if="showDescription" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-max-width ">
+      <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/checkEditModel_description.html'"></div>
+    </div>
+  </div>
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :</div>
     <div class="row-cell row-cell-value">
