@@ -41,6 +41,7 @@ min = minimo
 max = massimo
 checkEditModel = Check Edit Model
 properties = Proprietà
+property = Proprieta
 image_url = URL dell''immagine
 fontawesome_icon = Icona Font Awesome
 html_text = Testo
