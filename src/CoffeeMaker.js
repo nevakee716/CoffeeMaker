@@ -77,7 +77,8 @@
             self.angularScope = $scope;
             $scope.config = self.config[t.dataset.id];
             $scope.cwApi = cwApi;
-
+            $scope.lang = cwApi.getSelectedLanguage();
+            $scope.showDescription = true;
             $scope.FilterOperators = ["=", "!=", ">", "<", "In"];
 
             $scope.toggle = function(c, e) {
