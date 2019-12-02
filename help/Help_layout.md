@@ -27,5 +27,6 @@ When you finished click on the save icon
 
 The configuration is now save inside your clipboard, copy it inside evolve designer, save & deploy. The configuration will be active for your model and all other users
 
-
+## Main.js
+In order to work in your site, you need to have a main.js inside your deployment node, it can be empty
                                                               
