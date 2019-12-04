@@ -55,6 +55,49 @@
       });
     };
 
+    $scope.addFilter = function(config) {
+      if (config.filters === undefined) {
+        config.filters = [];
+      }
+      config.filters.push({});
+    };
+    $scope.getPropertyDataType = function(ot, scriptname) {
+      if (cwApi.isUndefined(ot)) {
+        return "";
+      }
+      if (scriptname) {
+        var p = cwApi.mm.getProperty(ot.scriptName, scriptname);
+        if (cwApi.isUndefined(p)) {
+          return "";
+        }
+        switch (p.type) {
+          case "Boolean":
+            return "checkbox";
+          case "Integer":
+          case "Double":
+            return "number";
+          case "Lookup":
+            return "lookup";
+          default:
+            return "text";
+        }
+      } else return "number";
+    };
+    $scope.processFilter = function(f) {
+      let s;
+      if (f.id.indexOf("prop") !== -1) {
+        s = f.id.split("prop_");
+        f.type = "property";
+        delete f.nodeID;
+        f.scriptname = s[1];
+      } else {
+        s = f.id.split("asso_");
+        delete f.scriptname;
+        f.type = "association";
+        f.nodeID = s[1];
+      }
+    };
+
     if ($scope.config.descriptionObjectTypeScriptname) $scope.getObjects($scope.config.descriptionObjectTypeScriptname);
     return;
   };

@@ -77,7 +77,7 @@
         let d = filter.Value;
         if (d.indexOf("{@currentDate}") !== -1) {
           d = d.split("-");
-          let dateOffset = 24 * 60 * 60 * 1000 * parseInt(d[1]); //5 days
+          let dateOffset = 24 * 60 * 60 * 1000 * parseInt(d[1]);
           let today = new Date();
           value = today.getTime() - dateOffset;
         } else {

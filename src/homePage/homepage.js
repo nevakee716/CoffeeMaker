@@ -100,6 +100,12 @@
               Where: [],
             };
 
+            if (objectTypeScriptNameToGet[ots].filters) {
+              objectTypeScriptNameToGet[ots].filters.forEach(function(f) {
+                query.Where.push({ propertyscriptsame: f.scriptname, value: f.Value });
+              });
+            }
+
             let dataServiceFunction = function(callback) {
               cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
                 if (err) {
