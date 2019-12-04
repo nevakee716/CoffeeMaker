@@ -94,17 +94,17 @@
               pToLoad.push(f.toUpperCase());
             });
 
+            if (objectTypeScriptNameToGet[ots].filters) {
+              objectTypeScriptNameToGet[ots].filters.forEach(function(f) {
+                pToLoad.push(f.scriptname);
+              });
+            }
+
             let query = {
               ObjectTypeScriptName: ots.toUpperCase(),
               PropertiesToLoad: pToLoad,
               Where: [],
             };
-
-            if (objectTypeScriptNameToGet[ots].filters) {
-              objectTypeScriptNameToGet[ots].filters.forEach(function(f) {
-                query.Where.push({ propertyscriptsame: f.scriptname, value: f.Value });
-              });
-            }
 
             let dataServiceFunction = function(callback) {
               cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
@@ -121,7 +121,15 @@
                   o.date = new Date(o.properties[timePe]);
                   o.cds = cwApi.customLibs.utils.getCustomDisplayString(objectTypeScriptNameToGet[o.objectTypeScriptName].cds, o);
                   o.objectTypeLabel = cwAPI.mm.getObjectType(o.objectTypeScriptName).name;
-                  objects.push(o);
+
+                  let r = true;
+                  if (objectTypeScriptNameToGet[ots].filters) {
+                    r = objectTypeScriptNameToGet[ots].filters.every(function(filter) {
+                      return matchPropertyFilter(o, filter);
+                    });
+                  }
+
+                  if (r) objects.push(o);
                 });
                 callback(null, err);
               });
@@ -171,6 +179,51 @@
         };
       });
     });
+  };
+
+  var matchPropertyFilter = function(rootNode, filter) {
+    let propertyType = cwApi.mm.getProperty(rootNode.objectTypeScriptName, filter.scriptname);
+    let objPropertyValue;
+    let value = filter.Value;
+    if (filter.scriptname === "id") {
+      // changing id to make usable like other property
+      objPropertyValue = rootNode.object_id;
+    } else {
+      if (propertyType.type === "Lookup") {
+        objPropertyValue = rootNode.properties[filter.scriptname + "_id"];
+      } else if (propertyType.type === "Date") {
+        objPropertyValue = new Date(rootNode.properties[filter.scriptname]);
+        objPropertyValue = objPropertyValue.getTime();
+        let d = filter.Value;
+        if (d.indexOf("{@currentDate}") !== -1) {
+          d = d.split("-");
+          let dateOffset = 24 * 60 * 60 * 1000 * parseInt(d[1]);
+          let today = new Date();
+          value = today.getTime() - dateOffset;
+        } else {
+          d = new Date(d);
+          value = d.getTime();
+        }
+      } else {
+        objPropertyValue = rootNode.properties[filter.scriptname];
+      }
+    }
+
+    switch (filter.Operator) {
+      case "=":
+        return objPropertyValue == value;
+      case "<":
+        return objPropertyValue < value;
+      case ">":
+        return objPropertyValue > value;
+      case "!=":
+        return objPropertyValue != value;
+      case "In":
+        return filter.value.indexOf(objPropertyValue) !== -1;
+      default:
+        return false;
+    }
+    return false;
   };
 
   cwAPI.CwHomePage.outputFirstPageOld = cwAPI.CwHomePage.outputFirstPage;

@@ -106,7 +106,7 @@
           </td>
 
           <td ng-if="f.id" class="filter-operator filter-cell">
-            <div style="font-size: 2em;">=</div>
+            <select ng-model="f.Operator" ng-options="x for x in FilterOperators"></select>
           </td>
           <td ng-if="f.id" class="filter-value filter-cell">
             <input class="largeCell" ng-model="f.Value" ng-if="getPropertyDataType( objectTypes[op.cdsSelected], f.scriptname)==='text'" />
