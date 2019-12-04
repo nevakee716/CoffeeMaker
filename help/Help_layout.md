@@ -1,6 +1,6 @@
 | **Name** |  Version | **Updated by** |
 | --- | --- | --- |
-| **Layout Custom Configuration** | 1.0 | Mathias PFAUWADEL |
+| **Layout Custom Configuration** | 1.4 | Mathias PFAUWADEL |
 
 ## Description 
 This layout allow you to configuring different specific that will modify the behaviours of evolve
@@ -8,8 +8,11 @@ This layout allow you to configuring different specific that will modify the beh
 ## Installation
 https://github.com/casewise/cpm/wiki
 
-This layout required utils 1.8.
-you need to import this with automodeler :
+This layout required : 
+* utils 1.8 (https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/Utils)
+* the new Cwpopout(https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/cwPopout)
+
+* you need to import this with automodeler :
 https://github.com/nevakee716/CoffeeMaker/raw/master/automodeler_import.xls
 
 it will a create an indexPage, z_custom_layout_configuration.
