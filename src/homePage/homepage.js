@@ -219,7 +219,7 @@
       case "!=":
         return objPropertyValue != value;
       case "In":
-        return filter.value.indexOf(objPropertyValue) !== -1;
+        return value.indexOf(objPropertyValue) !== -1;
       default:
         return false;
     }
