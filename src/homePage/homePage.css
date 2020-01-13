@@ -1,9 +1,13 @@
 .lastUpdateObjectsTable {
   width: 50%;
   margin: 20px;
+  background: transparent;
 }
 .lastUpdateObjectsTable table.cwPropertiesTable td {
   width: inherit;
+}
+.lastUpdateObjectsTable div.cwPropertiesTableHeader {
+  background: inherit;
 }
 .lastUpdateObjectsTable .see_more_link {
   float: right;
@@ -28,4 +32,11 @@
 }
 .lastUpdateObjectsTable .smallCell {
   width: 60px;
+}
+.homePageFav_newImage {
+  position: absolute;
+  display: none;
+  max-width: 30px;
+  bottom: 2px;
+  left: 2px;
 }

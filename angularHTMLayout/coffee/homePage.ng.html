@@ -26,6 +26,12 @@
     </div>
   </div>
   <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_background_url_image')}} :</div>
+    <div class="row-cell row-cell-value">
+      <input class="largeCell" ng-model="config.backgroundImageUrl" type="text" />
+    </div>
+  </div>
+  <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_activate_last_modified_objects')}} :</div>
     <div class="row-cell row-cell-value">
       <input ng-model="config.displayLastMdifiedObject" type="checkbox" />
@@ -47,6 +53,18 @@
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_index_page_text')}} :</div>
     <div class="row-cell row-cell-value">
       <input class="largeCell" ng-model="config.lastModifiedObjectIndexpage_text" />
+    </div>
+  </div>
+  <div ng-if="config.displayLastMdifiedObject" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_display_image_in_favourite')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.lastModifiedObjectFav" type="checkbox" />
+    </div>
+  </div>
+  <div ng-if="config.displayLastMdifiedObject && config.lastModifiedObjectFav" class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_display_image_in_favourite_link')}} :</div>
+    <div class="row-cell row-cell-value">
+      <input class="largeCell" ng-model="config.lastModifiedObjectFavLink" />
     </div>
   </div>
   <div ng-if="config.displayLastMdifiedObject" class="row bootstrap-iso">
@@ -114,7 +132,14 @@
             <input ng-model="f.Value" type="date" ng-if="getPropertyDataType( objectTypes[op.cdsSelected], f.scriptname)==='date'" />
             <input ng-model="f.Value" type="number" ng-if="getPropertyDataType( objectTypes[op.cdsSelected], f.scriptname)==='number'" />
             <select ng-model="f.Value" ng-if="getPropertyDataType( objectTypes[op.cdsSelected], f.scriptname)==='lookup' && f.Operator != 'In'" ng-options="x.id as x.name for x in objectTypes[op.cdsSelected].properties[f.scriptname].lookups"></select>
-            <select style="height:initial" multiple size="{{objectTypes[op.cdsSelected].properties[f.scriptname].lookups.length}}" ng-model="f.Value" ng-if="getPropertyDataType( objectTypes[op.cdsSelected], f.scriptname)==='lookup' && f.Operator == 'In'" ng-options="x.id as x.name for x in objectTypes[op.cdsSelected].properties[f.scriptname].lookups"></select>
+            <select
+              style="height:initial"
+              multiple
+              size="{{objectTypes[op.cdsSelected].properties[f.scriptname].lookups.length}}"
+              ng-model="f.Value"
+              ng-if="getPropertyDataType( objectTypes[op.cdsSelected], f.scriptname)==='lookup' && f.Operator == 'In'"
+              ng-options="x.id as x.name for x in objectTypes[op.cdsSelected].properties[f.scriptname].lookups"
+            ></select>
           </td>
           <td class="filter-cell">
             <a class="btn page-action no-text" ng-click="config.objectTypeToSelect[op.cdsSelected].filters.splice($index,1)"><i class="fa fa-times" aria-hidden="true"></i></a>

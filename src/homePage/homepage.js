@@ -129,7 +129,9 @@
                     });
                   }
 
-                  if (r) objects.push(o);
+                  if (r) {
+                    objects.push(o);
+                  }
                 });
                 callback(null, err);
               });
@@ -164,7 +166,13 @@
         };
 
         $scope.filterDate = function(date) {
-          return date.date > new Date() - 24 * 60 * 60 * 1000 * $scope.vm.selectedDelay;
+          let display = date.date > new Date() - 24 * 60 * 60 * 1000 * $scope.vm.selectedDelay;
+          if (display) {
+            $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).show();
+          } else {
+            $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).hide();
+          }
+          return display;
         };
 
         $scope.toggle = function(c, e) {
@@ -243,6 +251,11 @@
         removeMyMenuHomepage();
       }
       let homeContainer = document.querySelector("#cw-home-navigation");
+      if (config.backgroundImageUrl) homeContainer.style.backgroundImage = "url(" + config.backgroundImageUrl + ")";
+
+      /*let fullHomeContainer = document.querySelector(".wrap.tall");
+      if (config.backgroundImageUrl) fullHomeContainer.style.backgroundImage = "url(" + config.backgroundImageUrl + ")";*/
+
       let descriptionContainer = document.createElement("div");
       let leftContainer = document.createElement("div");
       leftContainer.style.width = "70%";
