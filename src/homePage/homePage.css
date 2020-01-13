@@ -7,10 +7,10 @@
   width: inherit;
 }
 .lastUpdateObjectsTable div.cwPropertiesTableHeader {
-  background: inherit;
+  display: flex;
+  justify-content: space-between;
 }
 .lastUpdateObjectsTable .see_more_link {
-  float: right;
   text-decoration: underline;
   line-height: 33px;
 }
