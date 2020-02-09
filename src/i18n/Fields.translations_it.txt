@@ -52,3 +52,6 @@ height = altezza
 fontawesome_icon = Icona Font Awesome
 html_text = Testo
 result_preview = Preview
+label_pt_filter_column_property = Proprietà
+label_pt_filter_column_operator = Operatore
+label_pt_filter_column_value = Valore
