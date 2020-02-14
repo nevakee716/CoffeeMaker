@@ -56,7 +56,7 @@
         duplicationButton.innerHTML = '<a class="cw-edit-mode-button-edit cw-edit-mode-button page-action edit btn btn-edit no-text" title="Dupliquer"><span class="btn-text"></span><i class="fa fa-copy"></i></a>';
 
         var buttonContainer = document.querySelector(".cw-edit-buttons");
-        buttonContainer.append(duplicationButton);
+        buttonContainer.appendChild(duplicationButton);
         cwCustomerSiteActions.duplication.addEventToDuplicateButton(rootNode, duplicationButton, config);
       }
     });
@@ -175,8 +175,8 @@
     navigateToNewWindows.target = "_blank";
     navigateToNewWindows.innerText = "Naviguer vers l'objet dupliqué dans un nouvel onglet";
     navigateToNewWindows.className = "duplicateNavigateButton";
-    output.append(navigateTo);
-    output.append(navigateToNewWindows);
+    output.appendChild(navigateTo);
+    output.appendChild(navigateToNewWindows);
 
     return output;
   };
