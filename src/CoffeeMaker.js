@@ -25,6 +25,7 @@
       if (this.config.cdsEnhanced === undefined) this.config.cdsEnhanced = { defaultIcon: "fa fa-external-link" };
       if (this.config.actionOnObjectPage === undefined) this.config.actionOnObjectPage = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
+      if (this.config.pageFilter === undefined) this.config.pageFilter = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };

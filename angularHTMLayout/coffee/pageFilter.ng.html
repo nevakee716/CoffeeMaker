@@ -1,0 +1,19 @@
+<div>
+  <div ng-if="showDescription" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-max-width ">
+      <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/pageFilter_description.html'"></div>
+    </div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('searchOnAllWord')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.searchOnAllWord" type="checkbox" />
+    </div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('Replace Accent and UpperCase')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.replaceAccentUpperCase" type="checkbox" />
+    </div>
+  </div>
+</div>

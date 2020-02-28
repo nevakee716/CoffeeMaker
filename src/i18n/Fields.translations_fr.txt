@@ -55,3 +55,6 @@ result_preview = Preview
 label_pt_filter_column_property = Propriété
 label_pt_filter_column_operator = Opérateur
 label_pt_filter_column_value = Valeur
+pageFilter = Page Filter
+searchOnAllWord = Rechercher Sur Tous les Mots
+replace_accent_and_upperCase = Insensible à la Case et aux Accents
