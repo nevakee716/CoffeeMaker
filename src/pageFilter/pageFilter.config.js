@@ -14,7 +14,6 @@
   }
 
   cwCoffeeMaker.prototype.controller_pageFilter = function($container, templatePath, $scope) {
-    console.log("coucou");
     return;
   };
 
