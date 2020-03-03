@@ -58,3 +58,6 @@ label_pt_filter_column_value = Value
 pageFilter = Page Filter
 searchOnAllWord = Search On All Word
 replace_accent_and_upperCase = Not Sensitive to Accent and Uppercase
+deactivateDiagramDrillDown = Replace DrillDown by Db Click Behaviour
+deactivateGPS = Deactivate GPS
+diagram = Diagram
