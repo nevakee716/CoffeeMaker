@@ -1,21 +1,11 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
+/*
 (function(cwApi, $) {
   "use strict";
 
   var DiagramObjectLinkOnEvolveConfig = {
     behaviour: "dbclick",
-    accessright: {
-      objectPage42: {
-        conditionnalAccessFilter: {
-          property: "validated",
-          operator: "=",
-          value: true,
-          nonActiveRole: [2, 3, 4, 5],
-        },
-        message: "Cet objet n'est pas encore validé, vous n'avez pas encore le droit de le consulter",
-      },
-    },
   };
 
   var DiagramObjectLinkOnEvolve = {};
@@ -72,7 +62,7 @@
           openObjectLink();
         } else if (regionZone.IsExplosionRegion === true) {
           // Explosion
-          let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("cdsEnhanced");
+          let config = cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
           if (config && config.deactivateDiagramDrillDown && userHasRightToDrillDown()) {
             location.href = cwAPI.createLinkForSingleView(this.currentContext.selectedObject.objectTypeScriptName, this.currentContext.selectedObject);
           }
@@ -116,3 +106,4 @@
     cwAPI.Diagrams.CwDiagramViewer.prototype.clickOnCanvas = DiagramObjectLinkOnEvolve.clickOnCanvas;
   }
 })(cwAPI, jQuery);
+*/

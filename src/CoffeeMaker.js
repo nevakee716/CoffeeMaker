@@ -26,7 +26,7 @@
       if (this.config.actionOnObjectPage === undefined) this.config.actionOnObjectPage = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       if (this.config.pageFilter === undefined) this.config.pageFilter = {};
-      if (this.config.diagram === undefined) this.config.diagram = {};
+      //if (this.config.diagram === undefined) this.config.diagram = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };
