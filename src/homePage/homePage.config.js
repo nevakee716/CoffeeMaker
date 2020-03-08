@@ -14,8 +14,9 @@
   }
 
   cwCoffeeMaker.prototype.controller_homePage = function($container, templatePath, $scope) {
-    var objectpages = [];
+    $scope.objectpages = [];
     let config = $scope.config;
+    if (config.columns === undefined) config.columns = [];
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
     $scope.OT = [];
     for (let o in $scope.objectTypes) {
@@ -23,7 +24,13 @@
         $scope.OT.push($scope.objectTypes[o]);
       }
     }
+    for (let v in $scope.views) {
+      if ($scope.views.hasOwnProperty(v)) {
+        if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) $scope.objectpages.push($scope.views[v]);
+      }
+    }
 
+    $scope.objDescription = {};
     $scope.OTsSelected = Object.keys($scope.config.objectTypeToSelect);
     $scope.op = {};
     $scope.toggleHM = function(c, e) {
@@ -37,8 +44,40 @@
       return $scope.objectTypes[o].name;
     };
 
+    $scope.addColumn = function() {
+      $scope.config.columns.push({ label: "Column " + $scope.config.columns.length, displays: [] });
+      $scope.selectColumn($scope.config.columns.length - 1);
+    };
+
+    $scope.removeColumn = function(i) {
+      $scope.config.columns.splice(i, 1);
+    };
+
+    $scope.selectColumn = function(i) {
+      $scope.config.columns.forEach(function(c, ii) {
+        if (i == ii) c.selected = true;
+        else c.selected = false;
+      });
+    };
+
+    $scope.addDisplay = function(col) {
+      col.displays.push({ label: "Display " + col.displays.length, order: col.displays.length * 10, objectTypeToSelect: [] });
+      $scope.selectDisplay(col, col.displays.length - 1);
+    };
+
+    $scope.removeDisplay = function(col, i) {
+      col.displays.splice(i, 1);
+    };
+
+    $scope.selectDisplay = function(col, i) {
+      col.displays.forEach(function(c, ii) {
+        if (i == ii) c.selected = true;
+        else c.selected = false;
+      });
+    };
+
     //cwPropertiesGroups.formatMemoProperty(value);
-    $scope.getObjects = function(o) {
+    $scope.getObjects = function(icol, idisp, o) {
       let query = {
         ObjectTypeScriptName: o.toUpperCase(),
         PropertiesToLoad: ["NAME"],
@@ -50,7 +89,7 @@
           console.log(err);
           return;
         }
-        $scope.objDescription = res;
+        $scope.objDescription[icol + "_" + idisp] = res;
         $scope.$apply();
       });
     };
@@ -98,7 +137,7 @@
       }
     };
 
-    if ($scope.config.descriptionObjectTypeScriptname) $scope.getObjects($scope.config.descriptionObjectTypeScriptname);
+    //if ($scope.config.descriptionObjectTypeScriptname) $scope.getObjects($scope.config.descriptionObjectTypeScriptname);
     return;
   };
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;

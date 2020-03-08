@@ -1,0 +1,53 @@
+<div class="tabs">
+  <div ng-repeat="(idisp, display) in col.displays | orderBy:'order'" ng-class="{active: display.selected == true}" class="tab-link tab-{{display.Id}}" ng-click="selectDisplay(col,idisp)" data-id="{{display.Id}}">{{display.label}}</div>
+  <div class="add-tab-link">
+    <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_display')}}" ng-click="addDisplay(col)"><i class="fa fa-plus" aria-hidden="true"></i></a>
+  </div>
+</div>
+<div class="tabContent" ng-if="display.selected" ng-repeat="(idisp, display) in col.displays ">
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_name')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input ng-model="display.label" /></div>
+  </div>
+  <div class="bootstrap-iso row">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_description')}} :</div>
+  </div>
+  <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.description"></textarea></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="number" ng-model="display.order" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_width')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input ng-model="display.width" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_height')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input ng-model="display.height" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_expendable')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.expendable" /></div>
+  </div>
+  <div ng-if="expendable" class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('label_collapse_by_default')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.collapseByDefault" /></div>
+  </div>
+  <div class="row bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('type')}} :</div>
+    <div class="row-cell row-cell-value">
+      <select ng-model="display.type">
+        <option value="favorite">{{$root.i18n('favorite')}} </option>
+        <option value="evolve_view">{{$root.i18n('evolve_view')}} </option>
+        <option value="object_description">{{$root.i18n('object_description')}} </option>
+        <option value="last_modified_object">{{$root.i18n('last_modified_object')}} </option>
+      </select>
+    </div>
+  </div>
+  <div ng-if="display.type === 'favorite'" ng-include src="'../../common/html/coffee/homePage_favorite.html'"></div>
+  <div ng-if="display.type === 'evolve_view'" ng-include src="'../../common/html/coffee/homePage_evolve_view.html'"></div>
+  <div ng-if="display.type === 'object_description'" ng-include src="'../../common/html/coffee/homePage_object_description.html'"></div>
+  <div ng-if="display.type === 'last_modified_object'" ng-include src="'../../common/html/coffee/homePage_last_modified_object.html'"></div>
+</div>
