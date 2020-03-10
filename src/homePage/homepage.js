@@ -240,7 +240,7 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     }
-    if (!(config && (config.removeMyMenu === true || config.displayLastMdifiedObject === true || config.displayDescription == true))) {
+    if (!(config && (config.removeMyMenu === true || (config.columns && config.columns.length > 0)))) {
       cwAPI.CwHomePage.outputFirstPageOld(callback);
       return;
     }
@@ -253,32 +253,8 @@
       let homeContainer = document.querySelector("#cw-home-navigation");
       if (config.backgroundImageUrl) homeContainer.style.backgroundImage = "url(" + config.backgroundImageUrl + ")";
 
-      /*let fullHomeContainer = document.querySelector(".wrap.tall");
-      if (config.backgroundImageUrl) fullHomeContainer.style.backgroundImage = "url(" + config.backgroundImageUrl + ")";*/
-
-      let descriptionContainer = document.createElement("div");
-      let leftContainer = document.createElement("div");
-      leftContainer.style.width = "70%";
-      leftContainer.appendChild(descriptionContainer);
-      leftContainer.appendChild(homeContainer.firstElementChild);
-      let container = document.createElement("div");
-      container.id = "lastUpdateObjects_homepage";
-      container.className = "lastUpdateObjectsTable";
-
-      homeContainer.appendChild(leftContainer);
-      homeContainer.appendChild(container);
-      homeContainer.style.display = "flex";
-
       var asynFunction = [];
       if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
-      if (config.displayDescription) {
-        asynFunction.push(function(callback) {
-          getDescription(config, function(res, err) {
-            descriptionContainer.innerHTML = res;
-            callback(null, err);
-          });
-        });
-      }
 
       if (config.displayLastMdifiedObject) {
         asynFunction.push(function(callback) {
