@@ -68,7 +68,7 @@
           loader.setup();
 
           if (t.dataset.id === "saveconfiguration") {
-            cwAPI.customLibs.utils.copyToClipboard(JSON.stringify(self.config));
+            cwAPI.customLibs.utils.copyToClipboard(angular.toJson(self.config));
           }
           let templatePath = cwAPI.getCommonContentPath() + "/html/coffee/" + t.dataset.id + ".ng.html" + "?" + Math.random();
           self.unselectTabs();
