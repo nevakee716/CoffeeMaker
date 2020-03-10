@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="tabs">
-    <div ng-repeat="(i, col) in config.columns | orderBy:'order'" ng-class="{active: col.selected == true}" class="tab-link tab-{{col.Id}}" ng-click="selectColumn(i)" data-id="{{col.Id}}">{{$root.i18n('column')}} {{i}}</div>
+    <div ng-repeat="(i, col) in config.columns | orderBy:'order'" ng-class="{active: col.selected == true}" class="tab-link tab-{{col.Id}}" ng-click="selectColumn(i)" data-id="{{col.Id}}">{{col.label}}</div>
     <div class="add-tab-link">
       <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_column')}}" ng-click="addColumn()"><i class="fa fa-plus" aria-hidden="true"></i></a>
     </div>
