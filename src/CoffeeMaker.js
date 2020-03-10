@@ -33,8 +33,8 @@
 
   // obligatoire appeler par le system
   cwCoffeeMaker.prototype.drawAssociations = function(output, associationTitleText, object) {
-    if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.6)) {
-      output.push("<h1> Please Install Utils 1.6 or Higher");
+    if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 2.0)) {
+      output.push("<h1> Please Install Utils 2.0 or Higher");
     } else {
       var self = this;
       output.push('<div id="CoffeeMaker_' + this.nodeID + '" class="CoffeeMaker">');
