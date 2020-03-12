@@ -1,3 +1,29 @@
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* GRID */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
 .lastUpdateObjectsTable {
   width: 50%;
   margin: 20px;
@@ -39,4 +65,59 @@
   max-width: 30px;
   bottom: 2px;
   left: 2px;
+}
+.homePage_main {
+  display: flex;
+  width: 100%;
+  /* Track */
+  /* Handle */
+  /* Handle on hover */
+}
+.homePage_main ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.homePage_main ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.homePage_main ::-webkit-scrollbar-thumb {
+  background: #03a0ce;
+}
+.homePage_main ::-webkit-scrollbar-thumb:hover {
+  background: #02799c;
+}
+.homePage_main .homePage_column {
+  display: flex;
+  flex-wrap: wrap;
+}
+.homePage_main .homePage_column .homePage_display {
+  margin: 5px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView {
+  overflow: auto;
+  height: inherit;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView .tableForPopoutWrapper {
+  overflow: unset;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView li.cw-accordion-container {
+  margin: 5px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone {
+  width: calc(100% - 7px);
+  height: calc(100% - 10px);
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone li.cw-diagram-zone {
+  margin: 0;
+  border: 0px solid;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramCamera,
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumb {
+  display: none;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone #cw-dv-fullscreen {
+  display: flex;
+}
+.homePage_main .homePage_column .homePage_display .homePage_description {
+  width: 100%;
 }

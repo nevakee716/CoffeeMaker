@@ -1,6 +1,104 @@
 (function(cwApi, $, cwCustomerSiteActions) {
   "use strict";
 
+  var testConfig = {
+    objectTypeToSelect: {
+      application: { enable: true, cds: "{name}" },
+      activité: { enable: true, cds: "{name}" },
+      process: { enable: true, cds: "{name}" },
+      organization: { enable: true, cds: "{name}" },
+    },
+    removeMyMenu: true,
+    displayDescription: true,
+    descriptionObjectTypeScriptname: "aidedarchitecture",
+    descriptionObjectID: 79,
+    displayLastMdifiedObject: true,
+    delay: "100,10,200",
+    lastModifiedObjectIndexpage: true,
+    lastModifiedObjectIndexpage_link: "#/cwtype=index&cwview=index_processus&lang=fr",
+    lastModifiedObjectIndexpage_text: "Cartographie des processus",
+    lastModifiedObjectFav: true,
+    lastModifiedObjectFavLink: "http://simpleicon.com/wp-content/uploads/new.png",
+    columns: [
+      {
+        label: "Column 0",
+        displays: [
+          {
+            label: "Object description",
+            order: 0,
+            objectTypeToSelect: [],
+            width: "25%",
+            selected: true,
+            type: "object_description",
+            descriptionObjectTypeScriptname: "aidedarchitecture",
+            descriptionObjectID: 79,
+          },
+          {
+            label: "Vue Evolve",
+            order: 1,
+            objectTypeToSelect: [],
+            selected: false,
+            type: "evolve_view",
+            view: "index_test_home",
+            width: "25%",
+          },
+          {
+            label: "Vue Evolve",
+            order: 10,
+            objectTypeToSelect: [],
+            selected: false,
+            type: "evolve_view",
+            view: "index_test_home1",
+            width: "50%",
+            height: "500px",
+          },
+          {
+            label: "Vue Evolve",
+            order: 20,
+            objectTypeToSelect: [],
+            selected: false,
+            type: "evolve_view",
+            view: "index_test_home2",
+            width: "100%",
+            height: "300px",
+          },
+        ],
+
+        selected: true,
+        width: "70%",
+      },
+      {
+        label: "Column 1",
+        displays: [
+          {
+            label: "Display 0",
+            order: 0,
+            selected: true,
+            type: "last_modified_object",
+            objectTypeToSelect: {
+              activité: {
+                enable: true,
+                cds: "{name}",
+                timeProperty: "whenupdated",
+                filters: [],
+              },
+              application: {
+                enable: true,
+                cds: "{name}",
+              },
+            },
+            delay: "200,100,1000",
+            cdsSelected: "activité",
+            width: "100%",
+            height: "70vh",
+          },
+        ],
+        selected: false,
+        width: "30%",
+      },
+    ],
+  };
+
   cwCustomerSiteActions.doActionsForAll_Custom = function(rootNode) {
     var currentView, url, i, cwView;
     currentView = cwAPI.getCurrentView();
@@ -47,33 +145,64 @@
     }
   };
 
-  var getDescription = function(config, callback) {
-    let query = {
-      ObjectTypeScriptName: config.descriptionObjectTypeScriptname.toUpperCase(),
-      PropertiesToLoad: ["NAME", "DESCRIPTION"],
-      Where: [{ PropertyScriptName: "ID", Value: config.descriptionObjectID }],
-    };
-
-    cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
-      if (err) {
-        console.log(err);
-        callback("", err);
-        return;
-      }
-      callback(cwApi.cwPropertiesGroups.formatMemoProperty(res[0].properties.description), err);
-    });
-  };
-
-  var loadLastModifiedObjects = function(config, callback) {
+  var loadHomePage = function(config, callback) {
     cwApi.CwAsyncLoader.load("angular", function() {
       var loader = cwApi.CwAngularLoader;
       loader.setup();
 
-      let templatePath = cwAPI.getCommonContentPath() + "/html/lastModifiedObjects/lastModifiedObjects.ng.html" + "?" + Math.random();
-      loader.loadControllerWithTemplate("lastUpdateObjects_homepage", $("#lastUpdateObjects_homepage"), templatePath, function($scope, $sce) {
+      let templatePath = cwAPI.getCommonContentPath() + "/html/homePage/home.ng.html" + "?" + Math.random();
+      loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation"), templatePath, function($scope, $sce) {
         $scope.metamodel = cwAPI.mm.getMetaModel();
-        self.angularScope = $scope;
+        $scope.config = JSON.parse(JSON.stringify(config));
         $scope.cwApi = cwApi;
+
+        $scope.getStyleForColumn = function(col) {
+          return { width: col.width };
+        };
+
+        $scope.getStyleForDisplay = function(display) {
+          let calcWidth = display.width;
+          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
+          return { width: calcWidth, height: display.height };
+        };
+
+        $scope.getHTMLView = function(display) {
+          let jsonFile = cwApi.getIndexViewDataUrl(display.view);
+          display.loading = true;
+          cwApi.getJSONFile(
+            jsonFile,
+            function(o) {
+              if (cwApi.checkJsonCallback(o)) {
+                let output = [];
+                let object = { associations: o };
+                cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
+                display.html = $sce.trustAsHtml(output.join(""));
+                $scope.$apply();
+                cwApi.cwSiteActions.doLayoutsSpecialActions(true);
+                let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
+                cwApi.cwDisplayManager.enableBehaviours(schema, object, false);
+              }
+            },
+            cwApi.errorOnLoadPage
+          );
+        };
+
+        $scope.getHTMLfromObject = function(display) {
+          let query = {
+            ObjectTypeScriptName: display.descriptionObjectTypeScriptname.toUpperCase(),
+            PropertiesToLoad: ["NAME", "DESCRIPTION"],
+            Where: [{ PropertyScriptName: "ID", Value: config.descriptionObjectID }],
+          };
+
+          cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+            if (err) {
+              console.log(err);
+              return;
+            }
+            display.html = $sce.trustAsHtml(cwApi.cwPropertiesGroups.formatMemoProperty(res[0].properties.description));
+          });
+        };
+
         var objects = [];
         let objectTypeScriptNameToGet = config.objectTypeToSelect;
         let associationsCalls = [];
@@ -240,11 +369,11 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     }
-    if (!(config && (config.removeMyMenu === true || (config.columns && config.columns.length > 0)))) {
+    if (!config) {
       cwAPI.CwHomePage.outputFirstPageOld(callback);
       return;
     }
-
+    config = testConfig;
     var homePage;
     var doActions = function(callback) {
       if (config.removeMyMenu === true) {
@@ -256,9 +385,9 @@
       var asynFunction = [];
       if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
 
-      if (config.displayLastMdifiedObject) {
+      if (config.columns) {
         asynFunction.push(function(callback) {
-          loadLastModifiedObjects(config, function() {
+          loadHomePage(config, function() {
             callback(null, err);
           });
         });
@@ -302,6 +431,32 @@
     cwApi.CwPopout.init();
 
     callback(null);
+  };
+
+  cwApi.isIndexPage = function() {
+    return cwAPI.cwPageManager.getQueryString().cwtype === cwAPI.CwPageType.Index || cwApi.getCurrentView() === undefined;
+  };
+
+  cwApi.setToFullScreenAndGetNewHeight = function($container, insideHeightAtTop) {
+    if (cwApi.isUndefined(insideHeightAtTop)) {
+      insideHeightAtTop = 0;
+    }
+
+    var pageHeight = cwApi.getFullScreenHeight();
+    if (cwApi.getCurrentView() === undefined) {
+      // Calculate page height
+      return $container.height();
+    }
+
+    // Margins
+    var marginTop = parseInt($container.css("margin-top"), 10);
+    var marginBottom = parseInt($container.css("margin-bottom"), 10);
+
+    // Borders
+    var borderTop = parseInt($container.css("border-top-width"), 10);
+    var borderBottom = parseInt($container.css("border-bottom-width"), 10);
+
+    return pageHeight - (marginTop + marginBottom + borderTop + borderBottom + insideHeightAtTop);
   };
 
   /********************************************************************************
