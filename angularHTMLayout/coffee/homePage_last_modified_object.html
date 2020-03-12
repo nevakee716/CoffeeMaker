@@ -1,3 +1,4 @@
+<pre>{{display |json}}</pre>
 <div class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('homepage_last_modified_display_index_page')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
@@ -40,7 +41,13 @@
   <div class="row-cell row-cell-value row-cell-max-width">
     <div class="cell-content-wrapper filter-wrapper propertieslist">
       <div class="add-filter-button" ng-repeat="(k,p) in objectTypes | orderBy:'name'">
-        <a ng-if="!p.properties.hasOwnProperty('allowautomaticdeletion')" class="btn-add-filter btn page-action" ng-class="(display.objectTypeToSelect[p.scriptName] && display.objectTypeToSelect[p.scriptName].enable) ? ['selected'] : []" ng-click="toggleHM(display.objectTypeToSelect,p.scriptName)">{{p.name}}</a>
+        <a
+          ng-if="!p.properties.hasOwnProperty('allowautomaticdeletion')"
+          class="btn-add-filter btn page-action"
+          ng-class="(display.objectTypeToSelect[p.scriptName] && display.objectTypeToSelect[p.scriptName].enable) ? ['selected'] : []"
+          ng-click="toggleHM(display,p.scriptName)"
+          >{{p.name}}</a
+        >
       </div>
     </div>
   </div>
@@ -48,7 +55,9 @@
 <div class="row bootstrap-iso">
   <div class="row-cell row-cell-label">Configure :</div>
   <div class="row-cell row-cell-value">
-    <select ng-options="objectTypes[s].name for s in OTsSelected | orderBy:sortOT" ng-model="display.cdsSelected"></select>
+    <select ng-model="display.cdsSelected">
+      <option ng-if="display.objectTypeToSelect.hasOwnProperty(k)" value="{{k}}" ng-repeat="(k,p) in objectTypes | orderBy:'name'">{{p.name}}</option>
+    </select>
   </div>
 </div>
 
@@ -92,7 +101,11 @@
           <input ng-model="f.Value" type="checkbox" ng-if="getPropertyDataType( objectTypes[display.cdsSelected], f.scriptname)==='checkbox'" />
           <input ng-model="f.Value" type="date" ng-if="getPropertyDataType( objectTypes[display.cdsSelected], f.scriptname)==='date'" />
           <input ng-model="f.Value" type="number" ng-if="getPropertyDataType( objectTypes[display.cdsSelected], f.scriptname)==='number'" />
-          <select ng-model="f.Value" ng-if="getPropertyDataType( objectTypes[display.cdsSelected], f.scriptname)==='lookup' && f.Operator != 'In'" ng-options="x.id as x.name for x in objectTypes[display.cdsSelected].properties[f.scriptname].lookups"></select>
+          <select
+            ng-model="f.Value"
+            ng-if="getPropertyDataType( objectTypes[display.cdsSelected], f.scriptname)==='lookup' && f.Operator != 'In'"
+            ng-options="x.id as x.name for x in objectTypes[display.cdsSelected].properties[f.scriptname].lookups"
+          ></select>
           <select
             style="height:initial"
             multiple

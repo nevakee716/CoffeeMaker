@@ -31,14 +31,14 @@
     }
 
     $scope.objDescription = {};
-    $scope.OTsSelected = Object.keys($scope.config.objectTypeToSelect);
     $scope.op = {};
-    $scope.toggleHM = function(c, e) {
-      if (c.hasOwnProperty(e)) c[e].enable = !c[e].enable;
+    $scope.toggleHM = function(display, e) {
+      if (display.objectTypeToSelect === undefined) display.objectTypeToSelect = {};
+
+      if (display.objectTypeToSelect.hasOwnProperty(e)) display.objectTypeToSelect[e].enable = !display.objectTypeToSelect[e].enable;
       else {
-        c[e] = { enable: true, cds: "{name}" };
+        display.objectTypeToSelect[e] = { enable: true, cds: "{name}" };
       }
-      $scope.OTsSelected = Object.keys($scope.config.objectTypeToSelect);
     };
     $scope.sortOT = function(o) {
       return $scope.objectTypes[o].name;
@@ -61,7 +61,7 @@
     };
 
     $scope.addDisplay = function(col) {
-      col.displays.push({ label: "Display " + col.displays.length, order: col.displays.length * 10, objectTypeToSelect: [] });
+      col.displays.push({ label: "Display " + col.displays.length, order: col.displays.length * 10 });
       $scope.selectDisplay(col, col.displays.length - 1);
     };
 

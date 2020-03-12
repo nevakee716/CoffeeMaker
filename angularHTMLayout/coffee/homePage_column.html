@@ -9,15 +9,29 @@
   <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input type="number" ng-model="col.order" /></div>
 </div>
+<div class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('label_width')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input ng-model="col.width" /></div>
+</div>
 <div class="tabs">
-  <div ng-repeat="(idisp, display) in col.displays | orderBy:'order'" ng-class="{active: display.selected == true}" class="tab-link tab-{{display.Id}}" ng-click="selectDisplay(col,idisp)" data-id="{{display.Id}}">{{display.label}}</div>
+  <div
+    ng-repeat="(idisp, display) in col.displays | orderBy:'order'"
+    ng-class="{active: display.selected == true}"
+    class="tab-link tab-{{display.Id}}"
+    ng-click="selectDisplay(col,idisp)"
+    data-id="{{display.Id}}"
+  >
+    {{display.label}}
+  </div>
   <div class="add-tab-link">
     <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_display')}}" ng-click="addDisplay(col)"><i class="fa fa-plus" aria-hidden="true"></i></a>
   </div>
 </div>
 <div class="tabContent" ng-if="display.selected" ng-repeat="(idisp, display) in col.displays ">
   <div class="remove-operation">
-    <a class="btn-remove btn page-action no-text" data-id="{{display.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeDisplay(idisp)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+    <a class="btn-remove btn page-action no-text" data-id="{{display.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeDisplay(idisp)"
+      ><i class="fa fa-trash-o" aria-hidden="true"></i
+    ></a>
   </div>
   <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('label_name')}} :&nbsp;</div>
