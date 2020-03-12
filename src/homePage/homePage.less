@@ -1,44 +1,6 @@
 @import "../../_mixins";
 @import "../../_variables";
 
-.lastUpdateObjectsTable {
-  width: 50%;
-  margin: 20px;
-  background: transparent;
-  table.cwPropertiesTable td {
-    width: inherit;
-  }
-  div.cwPropertiesTableHeader {
-    display: flex;
-    justify-content: space-between;
-  }
-  .see_more_link {
-    text-decoration: underline;
-    line-height: 33px;
-  }
-  .homePageDate {
-    float: right;
-  }
-
-  .filterDate {
-    border-width: 0px 1px 1px;
-    border-style: solid;
-    border-color: rgb(191, 191, 191);
-    border-image: initial;
-    padding: 5px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    overflow: hidden;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
-
-  .smallCell {
-    width: 60px;
-  }
-}
-
 .homePageFav_newImage {
   position: absolute;
   display: none;
@@ -100,6 +62,45 @@
           #cw-dv-fullscreen {
             display: flex;
           }
+        }
+      }
+
+      .homePage_last_modified_object {
+        margin: 5px;
+        background: transparent;
+        height: inherit;
+        overflow: auto;
+        table.cwPropertiesTable td {
+          width: inherit;
+        }
+        div.cwPropertiesTableHeader {
+          display: flex;
+          justify-content: space-between;
+        }
+        .see_more_link {
+          text-decoration: underline;
+          line-height: 33px;
+        }
+        .homePageDate {
+          float: right;
+        }
+
+        .filterDate {
+          border-width: 0px 1px 1px;
+          border-style: solid;
+          border-color: rgb(191, 191, 191);
+          border-image: initial;
+          padding: 5px;
+          white-space: pre-wrap;
+          word-break: break-word;
+          overflow-wrap: break-word;
+          overflow: hidden;
+          border-radius: 6px;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .smallCell {
+          width: 60px;
         }
       }
 

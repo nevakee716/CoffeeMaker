@@ -1,0 +1,18 @@
+<div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  <span>
+    {{$root.i18n('homepage_last_modified_objects_delay')}}
+    <input ng-if="display.date.dateIsArray === false" class="filterDate smallCell" type="number" id="dateID" name="input" ng-model="display.date.selectedDelay" />
+    <select ng-if="display.date.dateIsArray === true" class="filterDate smallCell" id="dateID" ng-model="display.date.selectedDelay" ng-options="d as d for d in display.date.dateOptions"></select>
+    {{$root.i18n('homepage_last_modified_objects_delay2')}}
+  </span>
+  <a class="see_more_link" ng-if="display.lastModifiedObjectIndexpage" href="{{display.lastModifiedObjectIndexpage_link}}">{{config.lastModifiedObjectIndexpage_text}}</a>
+</div>
+<table class="cwPropertiesTable">
+  <tbody>
+    <tr ng-repeat="o in display.objects | orderBy: 'date' : true | filter:filterDate(display)">
+      <th style="white-space: nowrap"><span class="cw-property-type-name-with-help" ng-bind-html="displayItemString(o.cds)"></span></th>
+      <td>{{o.objectTypeLabel}}</td>
+      <td>{{o.date | date}}</td>
+    </tr>
+  </tbody>
+</table>

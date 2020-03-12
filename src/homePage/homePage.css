@@ -24,41 +24,6 @@
 /* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
-.lastUpdateObjectsTable {
-  width: 50%;
-  margin: 20px;
-  background: transparent;
-}
-.lastUpdateObjectsTable table.cwPropertiesTable td {
-  width: inherit;
-}
-.lastUpdateObjectsTable div.cwPropertiesTableHeader {
-  display: flex;
-  justify-content: space-between;
-}
-.lastUpdateObjectsTable .see_more_link {
-  text-decoration: underline;
-  line-height: 33px;
-}
-.lastUpdateObjectsTable .homePageDate {
-  float: right;
-}
-.lastUpdateObjectsTable .filterDate {
-  border-width: 0px 1px 1px;
-  border-style: solid;
-  border-color: #bfbfbf;
-  border-image: initial;
-  padding: 5px;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  overflow: hidden;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-.lastUpdateObjectsTable .smallCell {
-  width: 60px;
-}
 .homePageFav_newImage {
   position: absolute;
   display: none;
@@ -118,6 +83,43 @@
 .homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone #cw-dv-fullscreen {
   display: flex;
 }
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object {
+  margin: 5px;
+  background: transparent;
+  height: inherit;
+  overflow: auto;
+}
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object table.cwPropertiesTable td {
+  width: inherit;
+}
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object div.cwPropertiesTableHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .see_more_link {
+  text-decoration: underline;
+  line-height: 33px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .homePageDate {
+  float: right;
+}
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .filterDate {
+  border-width: 0px 1px 1px;
+  border-style: solid;
+  border-color: #bfbfbf;
+  border-image: initial;
+  padding: 5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .smallCell {
+  width: 60px;
+}
 .homePage_main .homePage_column .homePage_display .homePage_description {
   width: 100%;
+  height: 100%;
 }

@@ -90,7 +90,7 @@
             delay: "200,100,1000",
             cdsSelected: "activité",
             width: "100%",
-            height: "70vh",
+            height: "100vh",
           },
         ],
         selected: false,
@@ -153,6 +153,8 @@
       let templatePath = cwAPI.getCommonContentPath() + "/html/homePage/home.ng.html" + "?" + Math.random();
       loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation"), templatePath, function($scope, $sce) {
         $scope.metamodel = cwAPI.mm.getMetaModel();
+
+        // duplicate config to not spoil it
         $scope.config = JSON.parse(JSON.stringify(config));
         $scope.cwApi = cwApi;
 
@@ -163,7 +165,11 @@
         $scope.getStyleForDisplay = function(display) {
           let calcWidth = display.width;
           if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
-          return { width: calcWidth, height: display.height };
+
+          let calcHeight = display.height;
+          if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
+
+          return { width: calcWidth, height: calcHeight };
         };
 
         $scope.getHTMLView = function(display) {
@@ -203,105 +209,108 @@
           });
         };
 
-        var objects = [];
-        let objectTypeScriptNameToGet = config.objectTypeToSelect;
-        let associationsCalls = [];
-
-        for (let ots in objectTypeScriptNameToGet) {
-          if (objectTypeScriptNameToGet.hasOwnProperty(ots) && objectTypeScriptNameToGet[ots].enable === true) {
-            var regex = /({[a-z]+})/g;
-            var found = objectTypeScriptNameToGet[ots].cds.match(regex);
-            var pToLoad;
-            var timeP = "whenupdated";
-            if (objectTypeScriptNameToGet[ots].timeProperty) {
-              timeP = objectTypeScriptNameToGet[ots].timeProperty;
-            }
-            pToLoad = [timeP.toUpperCase()];
-
-            found.forEach(function(f) {
-              f = f.replace("{", "").replace("}", "");
-              pToLoad.push(f.toUpperCase());
-            });
-
-            if (objectTypeScriptNameToGet[ots].filters) {
-              objectTypeScriptNameToGet[ots].filters.forEach(function(f) {
-                pToLoad.push(f.scriptname);
+        $scope.searchForObjects = function(display) {
+          let associationsCalls = [];
+          let objects = [];
+          display.date = { selectedDelay: 30 };
+          display.date.dateIsArray = false;
+          if (display.delay) {
+            if (display.delay.indexOf(",")) {
+              display.date.dateIsArray = true;
+              display.date.dateOptions = config.delay.split(",");
+              display.date.selectedDelay = display.date.dateOptions[0];
+              display.date.dateOptions.sort(function(a, b) {
+                a - b;
               });
+            } else {
+              display.date.selectedDelay = config.delay;
             }
+          }
 
-            let query = {
-              ObjectTypeScriptName: ots.toUpperCase(),
-              PropertiesToLoad: pToLoad,
-              Where: [],
-            };
+          // loop to search objects
+          for (let ots in display.objectTypeToSelect) {
+            if (display.objectTypeToSelect.hasOwnProperty(ots) && display.objectTypeToSelect[ots].enable === true) {
+              var regex = /({[a-z]+})/g;
+              var found = display.objectTypeToSelect[ots].cds.match(regex);
+              var pToLoad;
+              var timeP = "whenupdated";
+              if (display.objectTypeToSelect[ots].timeProperty) {
+                timeP = display.objectTypeToSelect[ots].timeProperty;
+              }
+              pToLoad = [timeP.toUpperCase()];
 
-            let dataServiceFunction = function(callback) {
-              cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
-                if (err) {
-                  console.log(err);
-                  callback(null, err);
-                  return;
-                }
-                res.forEach(function(o) {
-                  let timePe = "whenupdated";
-                  if (objectTypeScriptNameToGet[o.objectTypeScriptName].timeProperty) {
-                    timePe = objectTypeScriptNameToGet[o.objectTypeScriptName].timeProperty;
-                  }
-                  o.date = new Date(o.properties[timePe]);
-                  o.cds = cwApi.customLibs.utils.getCustomDisplayString(objectTypeScriptNameToGet[o.objectTypeScriptName].cds, o);
-                  o.objectTypeLabel = cwAPI.mm.getObjectType(o.objectTypeScriptName).name;
+              found.forEach(function(f) {
+                f = f.replace("{", "").replace("}", "");
+                pToLoad.push(f.toUpperCase());
+              });
 
-                  let r = true;
-                  if (objectTypeScriptNameToGet[ots].filters) {
-                    r = objectTypeScriptNameToGet[ots].filters.every(function(filter) {
-                      return matchPropertyFilter(o, filter);
-                    });
-                  }
-
-                  if (r) {
-                    objects.push(o);
-                  }
+              if (display.objectTypeToSelect[ots].filters) {
+                display.objectTypeToSelect[ots].filters.forEach(function(f) {
+                  pToLoad.push(f.scriptname);
                 });
-                callback(null, err);
-              });
-            };
-            associationsCalls.push(dataServiceFunction);
-          }
-        }
+              }
 
-        async.series(associationsCalls, function(err, results) {
-          $scope.objects = objects;
-          $scope.$apply();
-        });
+              let query = {
+                ObjectTypeScriptName: ots.toUpperCase(),
+                PropertiesToLoad: pToLoad,
+                Where: [],
+              };
 
-        $scope.vm = { selectedDelay: 30 };
-        $scope.config = config;
-        $scope.vm.dateIsArray = false;
-        if (config.delay) {
-          if (config.delay.indexOf(",")) {
-            $scope.vm.dateIsArray = true;
-            $scope.vm.dateOptions = config.delay.split(",");
-            $scope.vm.selectedDelay = $scope.vm.dateOptions[0];
-            $scope.vm.dateOptions.sort(function(a, b) {
-              a - b;
-            });
-          } else {
-            $scope.vm.selectedDelay = config.delay;
+              let dataServiceFunction = function(callback) {
+                cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+                  if (err) {
+                    console.log(err);
+                    callback(null, err);
+                    return;
+                  }
+                  res.forEach(function(o) {
+                    let timePe = "whenupdated";
+                    if (display.objectTypeToSelect[o.objectTypeScriptName].timeProperty) {
+                      timePe = display.objectTypeToSelect[o.objectTypeScriptName].timeProperty;
+                    }
+                    o.date = new Date(o.properties[timePe]);
+                    o.cds = cwApi.customLibs.utils.getCustomDisplayString(display.objectTypeToSelect[o.objectTypeScriptName].cds, o);
+                    o.objectTypeLabel = cwAPI.mm.getObjectType(o.objectTypeScriptName).name;
+
+                    let r = true;
+                    if (display.objectTypeToSelect[ots].filters) {
+                      r = display.objectTypeToSelect[ots].filters.every(function(filter) {
+                        return matchPropertyFilter(o, filter);
+                      });
+                    }
+
+                    if (r) {
+                      objects.push(o);
+                    }
+                  });
+                  callback(null, err);
+                });
+              };
+              associationsCalls.push(dataServiceFunction);
+            }
           }
-        }
+
+          async.series(associationsCalls, function(err, results) {
+            display.objects = objects;
+
+            $scope.$apply();
+          });
+        };
 
         $scope.displayItemString = function(item) {
           return $sce.trustAsHtml(item);
         };
 
-        $scope.filterDate = function(date) {
-          let display = date.date > new Date() - 24 * 60 * 60 * 1000 * $scope.vm.selectedDelay;
-          if (display) {
-            $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).show();
-          } else {
-            $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).hide();
-          }
-          return display;
+        $scope.filterDate = function(display) {
+          return function(date) {
+            let shouldBeDisplay = date.date > new Date() - 24 * 60 * 60 * 1000 * display.date.selectedDelay;
+            if (shouldBeDisplay) {
+              $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).show();
+            } else {
+              $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).hide();
+            }
+            return shouldBeDisplay;
+          };
         };
 
         $scope.toggle = function(c, e) {
