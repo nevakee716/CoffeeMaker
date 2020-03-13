@@ -24,43 +24,132 @@
         label: "Column 0",
         displays: [
           {
+            label: "Display 0",
+            order: 10,
+            width: "100%",
+            selected: true,
+            type: "links_in_bloc",
+            justify: "space-between",
+            boxLinkwidth: "100px",
+            expendable: true,
+            expended: true,
+            objectTypeToSelect: {
+              activité: {
+                enable: true,
+                cds: "{name}",
+              },
+              application: {
+                enable: true,
+                cds: "{name}",
+              },
+            },
+            delay: "200,100,1000",
+            linksToDisplay: [
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/1.png",
+                order: 1,
+                Label: "Processus",
+                targetUrl: "#cwtype=index&cwview=index_processus&lang=fr",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/2.png",
+                order: 2,
+                Label: "Application",
+                targetUrl: "#cwtype=index&cwview=index_portefeuilles_applicatifs&lang=fr",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/3.png",
+                order: 3,
+                Label: "Risque",
+                targetUrl: "#/cwtype=index&cwview=index_risques&lang=fr&cwtabid=tab1",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/4.png",
+                order: 4,
+                Label: "Projet",
+                targetUrl: "#/cwtype=single&cwview=objectif&lang=fr&cwid=24&cwtabid=tab2",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/5.png",
+                order: 5,
+                Label: "Parcours Client",
+                targetUrl: "#cwtype=index&cwview=index_parcours_candidat&lang=fr",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/6.png",
+                order: 11,
+                Label: "Processus 2",
+                targetUrl: "#cwtype=index&cwview=index_processus&lang=fr",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/7.png",
+                order: 12,
+                Label: "Application 2",
+                targetUrl: "#cwtype=index&cwview=index_portefeuilles_applicatifs&lang=fr",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/8.png",
+                order: 13,
+                Label: "Risque 2 ",
+                targetUrl: "#/cwtype=index&cwview=index_risques&lang=fr&cwtabid=tab1",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/9.png",
+                order: 14,
+                Label: "Projet 2",
+                targetUrl: "#/cwtype=single&cwview=objectif&lang=fr&cwid=24&cwtabid=tab2",
+              },
+              {
+                imgUrl: "https://www.pokebip.com/pokedex-images/artworks/10.png",
+                order: 15,
+                Label: "Parcours Client 2",
+                targetUrl: "#cwtype=index&cwview=index_parcours_candidat&lang=fr",
+              },
+            ],
+          },
+          {
             label: "Object description",
-            order: 0,
-            objectTypeToSelect: [],
-            width: "25%",
+            order: 2,
+            width: "100%",
             selected: true,
             type: "object_description",
             descriptionObjectTypeScriptname: "aidedarchitecture",
             descriptionObjectID: 79,
+            expendable: true,
+            expended: true,
           },
           {
             label: "Vue Evolve",
-            order: 1,
-            objectTypeToSelect: [],
+            order: 5,
             selected: false,
             type: "evolve_view",
             view: "index_test_home",
             width: "25%",
+            expendable: true,
+            expended: true,
           },
           {
             label: "Vue Evolve",
-            order: 10,
-            objectTypeToSelect: [],
+            order: 4,
             selected: false,
             type: "evolve_view",
             view: "index_test_home1",
             width: "50%",
             height: "500px",
+            expendable: true,
+            expended: true,
           },
           {
             label: "Vue Evolve",
-            order: 20,
+            order: 50,
             objectTypeToSelect: [],
             selected: false,
             type: "evolve_view",
             view: "index_test_home2",
             width: "100%",
             height: "300px",
+            expendable: true,
+            expended: true,
           },
         ],
 
@@ -90,7 +179,9 @@
             delay: "200,100,1000",
             cdsSelected: "activité",
             width: "100%",
-            height: "100vh",
+            height: "200px",
+            expendable: true,
+            expended: true,
           },
         ],
         selected: false,
@@ -168,8 +259,39 @@
 
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
+          if (display.expendable) {
+            if (display.expended === true) {
+              calcHeight = "unset";
+            } else {
+              calcHeight = display.height ? display.height : "0px";
+            }
+          }
 
-          return { width: calcWidth, height: calcHeight };
+          return { width: calcWidth };
+        };
+
+        $scope.getStyleForDisplayContent = function(display) {
+          let calcWidth = display.width;
+          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
+
+          let calcHeight = display.height;
+          if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
+          if (display.expendable) {
+            if (display.expended === true) {
+              calcHeight = "unset";
+            } else {
+              calcHeight = display.height ? display.height : "0px";
+            }
+          }
+
+          return { height: calcHeight };
+        };
+
+        $scope.getLinkBoxContainerStyle = function(display) {
+          return { "justify-content": display.justify };
+        };
+        $scope.getLinkBoxStyle = function(display) {
+          return { width: display.boxLinkwidth };
         };
 
         $scope.getHTMLView = function(display) {

@@ -1,15 +1,25 @@
 <div class="homePage_main">
   <div ng-repeat="(icol, col) in config.columns | orderBy:'order'" ng-style="getStyleForColumn(col)" class="homePage_column">
     <div ng-repeat="(idisp, display) in col.displays | orderBy:'order'" ng-style="getStyleForDisplay(display)" class="homePage_display">
-      <div class="homePage_evolveView" ng-if='display.type==="evolve_view"' ng-init="getHTMLView(display)" ng-bind-html="display.html"></div>
-      <div class="homePage_description" ng-if='display.type==="object_description"' ng-init="getHTMLfromObject(display)" ng-bind-html="display.html"></div>
-      <div
-        class="homePage_last_modified_object"
-        ng-if='display.type==="last_modified_object"'
-        ng-init="searchForObjects(display)"
-        ng-include
-        src="'../../common/html/homePage/lastModifiedObjects.ng.html'"
-      ></div>
+      <div ng-if="display.expendable" ng-click="display.expended = !display.expended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+        <i ng-if="display.expended" class="fa fa-angle-up" aria-hidden="true"></i>
+        <i ng-if="display.expended !== true" class="fa fa-angle-down" aria-hidden="true"></i>
+        <span>
+          {{display.label}}
+        </span>
+      </div>
+      <div ng-style="getStyleForDisplayContent(display)" class="homePage_display_content">
+        <div class="homePage_evolveView" ng-if='display.type==="evolve_view"' ng-init="getHTMLView(display)" ng-bind-html="display.html"></div>
+        <div class="homePage_description" ng-if='display.type==="object_description"' ng-init="getHTMLfromObject(display)" ng-bind-html="display.html"></div>
+        <div
+          class="homePage_last_modified_object"
+          ng-if='display.type==="last_modified_object"'
+          ng-init="searchForObjects(display)"
+          ng-include
+          src="'../../common/html/homePage/lastModifiedObjects.ng.html'"
+        ></div>
+        <div ng-style="getLinkBoxContainerStyle(display)" class="homePage_links_in_bloc" ng-if="display.type==='links_in_bloc'" ng-include src="'../../common/html/homePage/linksInBox.ng.html'"></div>
+      </div>
     </div>
   </div>
 </div>

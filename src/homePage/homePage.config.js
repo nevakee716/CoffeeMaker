@@ -76,6 +76,10 @@
       });
     };
 
+    $scope.addLinkBox = function(display) {
+      if (display.linksToDisplay === undefined) display.linksToDisplay = [];
+      display.linksToDisplay.push({});
+    };
     //cwPropertiesGroups.formatMemoProperty(value);
     $scope.getObjects = function(icol, idisp, o) {
       let query = {

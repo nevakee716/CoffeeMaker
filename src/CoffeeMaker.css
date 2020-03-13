@@ -142,6 +142,18 @@
 .CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width {
   width: 85%;
 }
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width .fullWidthFilterTable,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width .fullWidthFilterTable {
+  width: 100%;
+}
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width .fullWidthFilterTable input,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width .fullWidthFilterTable input {
+  width: 95%;
+}
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width .fullWidthFilterTable input.smallCell,
+.CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width .fullWidthFilterTable input.smallCell {
+  width: 70px;
+}
 .CoffeeMaker div.row div.row-cell-value.row-cell-max-width div.cell-content-wrapper,
 .CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width div.cell-content-wrapper {
   width: 100%;

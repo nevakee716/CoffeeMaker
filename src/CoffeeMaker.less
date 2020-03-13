@@ -115,8 +115,19 @@
         resize: vertical;
       }
     }
+
     div.row-cell-value.row-cell-max-width {
       width: 85%;
+      .fullWidthFilterTable {
+        width: 100%;
+        input {
+          width: 95%;
+        }
+        input.smallCell {
+          width: 70px;
+        }
+      }
+
       div.cell-content-wrapper {
         width: 100%;
         border: 1px solid #cccccc;
@@ -166,6 +177,7 @@
       }
     }
   }
+
   .largeCell {
     width: 500px;
   }

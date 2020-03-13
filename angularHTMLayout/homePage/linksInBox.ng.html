@@ -1,0 +1,10 @@
+<a href="{{link.targetUrl}}" ng-repeat="link in display.linksToDisplay | orderBy: 'order'">
+  <div class="linkBox" ng-style="getLinkBoxStyle(display)">
+    <div ng-if="false && !cwApi.isIE()" class="backgroundBlur">
+      <img src="{{link.imgUrl}}"></img>
+    </div>
+    <img src="{{link.imgUrl}}"></img>
+    <span class="link" >{{link.Label}}</span>
+  </div>
+</a>
+

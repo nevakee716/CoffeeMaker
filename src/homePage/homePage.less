@@ -39,6 +39,12 @@
 
     .homePage_display {
       margin: 5px;
+
+      .homePage_display_content {
+        transition: height 0.42s ease-out;
+        overflow: hidden;
+      }
+
       .homePage_evolveView {
         overflow: auto;
         height: inherit;
@@ -61,6 +67,63 @@
           }
           #cw-dv-fullscreen {
             display: flex;
+          }
+        }
+      }
+
+      .homePage_links_in_bloc {
+        margin: 5px;
+        background: transparent;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+        height: inherit;
+
+        .linkBox {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin: 10px;
+
+          .link {
+            font-size: 18px;
+            width: 100%;
+            margin-top: 5px;
+            border-top: 2px solid @cwDiagramBreadCrumbBackgroundColor;
+            font-weight: bold;
+            vertical-align: middle;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+
+          .backgroundBlur {
+            position: absolute;
+            overflow: hidden;
+            z-index: -20;
+            padding-top: 20px;
+            width: inherit;
+            img {
+              width: inherit;
+              height: 100%;
+              filter: blur(20px) brightness(50%);
+            }
+          }
+        }
+        .linkBox:hover {
+          background-color: @cwDiagramBreadCrumbBackgroundColor;
+          color: @cwBodyBackgroundColor;
+          border: 2px solid @cwDiagramBreadCrumbBackgroundColor;
+          box-sizing: border-box;
+          img {
+            background-color: @cwBodyBackgroundColor;
           }
         }
       }
