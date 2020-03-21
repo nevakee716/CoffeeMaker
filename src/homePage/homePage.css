@@ -58,6 +58,9 @@
 .homePage_main .homePage_column .homePage_display {
   margin: 5px;
 }
+.homePage_main .homePage_column .homePage_display .cwPropertiesTableHeader span.homePage_display_title {
+  font-size: 24px;
+}
 .homePage_main .homePage_column .homePage_display .homePage_display_content {
   transition: height 0.42s ease-out;
   overflow: hidden;
@@ -175,7 +178,13 @@
 .homePage_main .homePage_column .homePage_display .homePage_last_modified_object .smallCell {
   width: 60px;
 }
+.homePage_main .homePage_column .homePage_display .homePage_blocks {
+  overflow: auto;
+  height: inherit;
+}
 .homePage_main .homePage_column .homePage_display .homePage_description {
   width: 100%;
   height: 100%;
+  overflow: auto;
+  height: inherit;
 }

@@ -1,5 +1,7 @@
 <div class="remove-operation">
-  <a class="btn-remove btn page-action no-text" data-id="{{col.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeColumn(icol)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+  <a class="btn-remove btn page-action no-text" data-id="{{col.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeColumn(icol)"
+    ><i class="fa fa-trash-o" aria-hidden="true"></i
+  ></a>
 </div>
 <div class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('label_name')}} :&nbsp;</div>
@@ -24,12 +26,18 @@
     {{display.label}}
   </div>
   <div class="add-tab-link">
-    <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_display')}}" ng-click="addDisplay(col)"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_display')}}" ng-click="addDisplay(col)"
+      ><i class="fa fa-plus" aria-hidden="true"></i
+    ></a>
   </div>
 </div>
 <div class="tabContent" ng-if="display.selected" ng-repeat="(idisp, display) in col.displays ">
   <div class="remove-operation">
-    <a class="btn-remove btn page-action no-text" data-id="{{display.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeDisplay(col,idisp)"
+    <a
+      class="btn-remove btn page-action no-text"
+      data-id="{{display.Id}}"
+      title="{{$root.i18n('label_remove_operation')}}"
+      ng-click="removeDisplay(col,idisp)"
       ><i class="fa fa-trash-o" aria-hidden="true"></i
     ></a>
   </div>
@@ -68,6 +76,7 @@
     <div class="row-cell row-cell-value">
       <select ng-model="display.type">
         <option value="favorite">{{$root.i18n('favorite')}} </option>
+        <option value="quicklink">{{$root.i18n('quicklink')}} </option>
         <option value="evolve_view">{{$root.i18n('evolve_view')}} </option>
         <option value="object_description">{{$root.i18n('object_description')}} </option>
         <option value="last_modified_object">{{$root.i18n('last_modified_object')}} </option>
@@ -75,7 +84,6 @@
       </select>
     </div>
   </div>
-  <div ng-if="display.type === 'favorite'" ng-include src="'../../common/html/coffee/homePage_favorite.html'"></div>
   <div ng-if="display.type === 'evolve_view'" ng-include src="'../../common/html/coffee/homePage_evolve_view.html'"></div>
   <div ng-if="display.type === 'object_description'" ng-include src="'../../common/html/coffee/homePage_object_description.html'"></div>
   <div ng-if="display.type === 'last_modified_object'" ng-include src="'../../common/html/coffee/homePage_last_modified_object.html'"></div>
