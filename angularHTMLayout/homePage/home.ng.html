@@ -16,8 +16,8 @@
           ng-init="getHTMLfromObject(display)"
           ng-bind-html="display.html"
         ></div>
-        <div id="homePage_favorite" class="homePage_blocks" ng-if='display.type==="favorite"'></div>
-        <div id="homePage_quicklink" class="homePage_blocks" ng-if='display.type==="quicklink"'></div>
+        <div id="homePage_favorite" ng-init="initFav()" class="homePage_blocks" ng-if='display.type==="favorite"'></div>
+        <div id="homePage_quicklink" ng-init="initQuickLink()" class="homePage_blocks" ng-if='display.type==="quicklink"'></div>
         <div
           class="homePage_last_modified_object"
           ng-if='display.type==="last_modified_object"'

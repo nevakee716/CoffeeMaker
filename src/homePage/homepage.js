@@ -171,7 +171,7 @@
                 cds: "{name}",
               },
             },
-            delay: "999,100,200",
+            delay: "666,100,200",
             cdsSelected: "activité",
             width: "100%",
             expendable: false,
@@ -232,17 +232,45 @@
     }
   };
 
+  var manageFavAndBookmark = function(homeContainer, $scope) {
+    $scope.favHTML = document.createElement("ul");
+    $scope.favHTML.className = "level-0";
+    $scope.quicklinkHTML = document.createElement("ul");
+    $scope.quicklinkHTML.className = "level-0";
+
+    let iToAppend = [];
+    for (let i = 0; i < homeContainer.firstChild.children.length; i++) {
+      if (homeContainer.firstChild.children[i].querySelector(".cwHomeFavorite")) {
+        iToAppend.push(i);
+      }
+    }
+
+    iToAppend.reverse().forEach(function(i) {
+      $scope.favHTML.append(homeContainer.firstChild.children[i]);
+    });
+
+    iToAppend = [];
+    for (let i = 0; i < homeContainer.firstChild.children.length; i++) {
+      if (homeContainer.firstChild.children[i].querySelector(".ot-cw_view")) {
+        iToAppend.push(i);
+      }
+    }
+    iToAppend.reverse().forEach(function(i) {
+      $scope.quicklinkHTML.append(homeContainer.firstChild.children[i]);
+    });
+  };
+
   var loadHomePage = function(config, callback) {
     cwApi.CwAsyncLoader.load("angular", function() {
       var loader = cwApi.CwAngularLoader;
       loader.setup();
-      var homeContainerAngular = document.createElement("div");
+
+      //adding angular container for homepage
+      let homeContainerAngular = document.createElement("div");
       homeContainerAngular.id = "cw-home-navigation-angular";
 
-      var homeContainer = document.getElementById("cw-home-navigation");
+      let homeContainer = document.getElementById("cw-home-navigation");
       homeContainer.append(homeContainerAngular);
-      //homeContainer.firstChild.className += " cw-hidden";
-
       let templatePath = cwAPI.getCommonContentPath() + "/html/homePage/home.ng.html" + "?" + Math.random();
       loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation-angular"), templatePath, function($scope, $sce) {
         $scope.metamodel = cwAPI.mm.getMetaModel();
@@ -250,47 +278,20 @@
         // duplicate config to not spoil it
         $scope.config = JSON.parse(JSON.stringify(config));
         $scope.cwApi = cwApi;
+        manageFavAndBookmark(homeContainer, $scope);
+
+        $scope.initFav = function() {
+          let fav = angular.element(document.querySelector("#homePage_favorite"));
+          if (fav) fav.append($scope.favHTML);
+        };
+        $scope.initQuickLink = function() {
+          let quick = angular.element(document.querySelector("#homePage_quicklink"));
+          if (quick) quick.append($scope.quicklinkHTML);
+        };
 
         $scope.getStyleForColumn = function(col) {
           return { width: col.width };
         };
-
-        setTimeout(function() {
-          var favHTML = document.createElement("ul");
-          favHTML.className = "level-0";
-
-          var quicklinkHTML = document.createElement("ul");
-          quicklinkHTML.className = "level-0";
-
-          let iToAppend = [];
-          for (let i = 0; i < homeContainer.firstChild.children.length; i++) {
-            if (homeContainer.firstChild.children[i].querySelector(".cwHomeFavorite")) {
-              iToAppend.push(i);
-            }
-          }
-
-          iToAppend.reverse().forEach(function(i) {
-            favHTML.append(homeContainer.firstChild.children[i]);
-          });
-
-          iToAppend = [];
-          for (let i = 0; i < homeContainer.firstChild.children.length; i++) {
-            if (homeContainer.firstChild.children[i].querySelector(".ot-cw_view")) {
-              iToAppend.push(i);
-            }
-          }
-          iToAppend.reverse().forEach(function(i) {
-            quicklinkHTML.append(homeContainer.firstChild.children[i]);
-          });
-
-          let fav = angular.element(document.querySelector("#homePage_favorite"));
-          if (fav) fav.append(favHTML);
-
-          let quick = angular.element(document.querySelector("#homePage_quicklink"));
-          if (quick) quick.append(quicklinkHTML);
-        }, 1500);
-
-        $scope.getFavElement = function() {};
 
         $scope.getStyleForDisplay = function(display) {
           let calcWidth = display.width;
