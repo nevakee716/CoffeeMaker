@@ -54,6 +54,7 @@
 .homePage_main .homePage_column {
   display: flex;
   flex-wrap: wrap;
+  height: 0px;
 }
 .homePage_main .homePage_column .homePage_display {
   margin: 5px;
