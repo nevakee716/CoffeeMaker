@@ -15,10 +15,12 @@
 
   cwCoffeeMaker.prototype.controller_homePage = function($container, templatePath, $scope) {
     $scope.objectpages = [];
+    $scope.indexpages = [];
     let config = $scope.config;
     if (config.columns === undefined) config.columns = [];
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
     $scope.OT = [];
+
     for (let o in $scope.objectTypes) {
       if ($scope.objectTypes.hasOwnProperty(o) && !$scope.objectTypes[o].properties.hasOwnProperty("allowautomaticdeletion")) {
         $scope.OT.push($scope.objectTypes[o]);
@@ -27,6 +29,7 @@
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
         if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) $scope.objectpages.push($scope.views[v]);
+        if ($scope.views[v].type === "Index" && $scope.views[v].name.indexOf("|>B")) $scope.indexpages.push($scope.views[v]);
       }
     }
 

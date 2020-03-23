@@ -1,9 +1,14 @@
 <div class="homePage_main">
   <div ng-repeat="(icol, col) in config.columns | orderBy:'order'" ng-style="getStyleForColumn(col)" class="homePage_column">
-    <div ng-repeat="(idisp, display) in col.displays | orderBy:'order'" ng-style="getStyleForDisplay(display)" class="homePage_display">
-      <div ng-if="display.expendable" ng-click="display.expended = !display.expended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-        <i ng-if="display.expended" class="fa fa-angle-up" aria-hidden="true"></i>
-        <i ng-if="display.expended !== true" class="fa fa-angle-down" aria-hidden="true"></i>
+    <div
+      ng-repeat="(idisp, display) in col.displays | orderBy:'order'"
+      ng-init="display.extended = !display.collapseByDefault"
+      ng-style="getStyleForDisplay(display)"
+      class="homePage_display"
+    >
+      <div ng-if="display.extendable" ng-click="display.extended = !display.extended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+        <i ng-if="display.extended === true" class="fa fa-angle-up" aria-hidden="true"></i>
+        <i ng-if="display.extended === false" class="fa fa-angle-down" aria-hidden="true"></i>
         <span class="homePage_display_title">
           {{display.label}}
         </span>

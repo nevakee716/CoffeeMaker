@@ -1,6 +1,6 @@
 <div class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
-    <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in objectpages | orderBy:'name'" ng-model="display.view"></select>
+    <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'" ng-model="display.view"></select>
   </div>
 </div>

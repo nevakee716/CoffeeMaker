@@ -1,11 +1,18 @@
 <div>
-  <div ng-if="config.displayDescription" class="row bootstrap-iso">
+  <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_displaydescriptionSelect')}} :</div>
     <div class="row-cell row-cell-value">
-      <select ng-options="o.scriptName as o.name for o in OT" ng-model="display.descriptionObjectTypeScriptname" ng-change="getObjects(icol,idisp,display.descriptionObjectTypeScriptname)"></select>
+      <select
+        ng-options="o.scriptName as o.name for o in OT"
+        ng-model="display.descriptionObjectTypeScriptname"
+        ng-change="getObjects(icol,idisp,display.descriptionObjectTypeScriptname)"
+      ></select>
     </div>
     <div class="row-cell row-cell-value">
-      <select ng-options="o.object_id as o.name for o in objDescription[icol + '_' + idisp] |  orderBy:'name'" ng-model="display.descriptionObjectID"></select>
+      <select
+        ng-options="o.object_id as o.name for o in objDescription[icol + '_' + idisp] |  orderBy:'name'"
+        ng-model="display.descriptionObjectID"
+      ></select>
     </div>
   </div>
 </div>

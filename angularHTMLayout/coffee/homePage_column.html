@@ -12,7 +12,7 @@
   <div class="row-cell row-cell-value"><input type="number" ng-model="col.order" /></div>
 </div>
 <div class="bootstrap-iso rowFlex">
-  <div class="row-cell row-cell-label">{{$root.i18n('label_width')}} :&nbsp;</div>
+  <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input ng-model="col.width" /></div>
 </div>
 <div class="tabs">
@@ -56,19 +56,19 @@
     <div class="row-cell row-cell-value"><input type="number" ng-model="display.order" /></div>
   </div>
   <div class="bootstrap-iso rowFlex">
-    <div class="row-cell row-cell-label">{{$root.i18n('label_width')}} :&nbsp;</div>
+    <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input ng-model="display.width" /></div>
   </div>
   <div class="bootstrap-iso rowFlex">
-    <div class="row-cell row-cell-label">{{$root.i18n('label_height')}} :&nbsp;</div>
+    <div class="row-cell row-cell-label">{{$root.i18n('height')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input ng-model="display.height" /></div>
   </div>
   <div class="bootstrap-iso rowFlex">
-    <div class="row-cell row-cell-label">{{$root.i18n('label_expendable')}} :&nbsp;</div>
-    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.expendable" /></div>
+    <div class="row-cell row-cell-label">{{$root.i18n('extendable')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.extendable" /></div>
   </div>
-  <div ng-if="expendable" class="bootstrap-iso rowFlex">
-    <div class="row-cell row-cell-label">{{$root.i18n('label_collapse_by_default')}} :&nbsp;</div>
+  <div ng-if="display.extendable" class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('collapse_by_default')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.collapseByDefault" /></div>
   </div>
   <div class="row bootstrap-iso">
