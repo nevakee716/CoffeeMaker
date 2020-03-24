@@ -80,3 +80,4 @@ space-between = Space Between
 space-around = Space Around
 flex-start = Start
 flex-end = End
+replaceAccentUpperCase = Non sensibile a caso e accento

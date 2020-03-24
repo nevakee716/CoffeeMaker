@@ -80,3 +80,4 @@ space-between = Espacé
 space-around = Espacé sur les extérieurs
 flex-start = Aligné à Gauche
 flex-end = Aligné à Droite
+replaceAccentUpperCase = Non Sensitif à la casse et aux accents
