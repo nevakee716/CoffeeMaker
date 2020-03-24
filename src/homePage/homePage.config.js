@@ -85,6 +85,7 @@
     };
     //cwPropertiesGroups.formatMemoProperty(value);
     $scope.getObjects = function(icol, idisp, o) {
+      if (o === undefined) return;
       let query = {
         ObjectTypeScriptName: o.toUpperCase(),
         PropertiesToLoad: ["NAME"],
