@@ -1,7 +1,7 @@
 <div>
   <div ng-if="showDescription" class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-max-width ">
-      <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/duplicationButton_description.html'"></div>
+      <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/duplicationButton_description.ng.html'"></div>
     </div>
   </div>
   <div class="row bootstrap-iso">
@@ -11,7 +11,12 @@
     <div class="row-cell row-cell-value row-cell-max-width ">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="add-filter-button" ng-repeat="v in objectpages | orderBy:'name'">
-          <a class="btn-add-filter btn page-action" ng-class="config.pageWithDuplicateButton.hasOwnProperty(v.cwView) ? ['selected'] : []" ng-click="updateConfig(config.pageWithDuplicateButton,v.cwView)">{{v.name}} ({{v.cwView}})</a>
+          <a
+            class="btn-add-filter btn page-action"
+            ng-class="config.pageWithDuplicateButton.hasOwnProperty(v.cwView) ? ['selected'] : []"
+            ng-click="updateConfig(config.pageWithDuplicateButton,v.cwView)"
+            >{{v.name}} ({{v.cwView}})</a
+          >
         </div>
       </div>
     </div>
@@ -20,7 +25,9 @@
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_view_to_configure')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <select ng-model="configSelected">
-        <option value="{{v.cwView}}" ng-if="config.pageWithDuplicateButton.hasOwnProperty(v.cwView)" ng-repeat="v in objectpages track by v.cwView"> {{v.name}} ({{v.cwView}})</option>
+        <option value="{{v.cwView}}" ng-if="config.pageWithDuplicateButton.hasOwnProperty(v.cwView)" ng-repeat="v in objectpages track by v.cwView">
+          {{v.name}} ({{v.cwView}})</option
+        >
       </select>
     </div>
   </div>
@@ -28,7 +35,11 @@
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_association_with_main_object')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <select ng-model="config[configSelected].associationToTheMainObject.associationTypeScriptName">
-        <option ng-selected="{{a.ScriptName.toLowerCase() == config[configSelected].associationToTheMainObject.associationTypeScriptName}}" ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'" ng-if="a.TargetObjectTypeScriptName.toLowerCase() === views[configSelected].rootObjectType" value="{{a.ScriptName.toLowerCase()}}"
+        <option
+          ng-selected="{{a.ScriptName.toLowerCase() == config[configSelected].associationToTheMainObject.associationTypeScriptName}}"
+          ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'"
+          ng-if="a.TargetObjectTypeScriptName.toLowerCase() === views[configSelected].rootObjectType"
+          value="{{a.ScriptName.toLowerCase()}}"
           >{{a.DisplayName}}</option
         >
       </select>
@@ -41,7 +52,12 @@
     <div class="row-cell row-cell-value row-cell-max-width ">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="add-filter-button" ng-repeat="p in metamodel.objectTypes[views[configSelected].rootObjectType].properties | orderBy:'name'">
-          <a class="btn-add-filter btn page-action" ng-class="config[configSelected].propertyScriptNameToExclude.indexOf(p.scriptName) !== -1? ['selected'] : []" ng-click="toggleArray(config[configSelected].propertyScriptNameToExclude,p.scriptName)">{{p.name}}</a>
+          <a
+            class="btn-add-filter btn page-action"
+            ng-class="config[configSelected].propertyScriptNameToExclude.indexOf(p.scriptName) !== -1? ['selected'] : []"
+            ng-click="toggleArray(config[configSelected].propertyScriptNameToExclude,p.scriptName)"
+            >{{p.name}}</a
+          >
         </div>
       </div>
     </div>
@@ -52,8 +68,16 @@
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-max-width ">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
-        <div class="add-filter-button" ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'">
-          <a class="btn-add-filter btn page-action" ng-class="config[configSelected].associationScriptNameToExclude.indexOf(a.ScriptName.toLowerCase()) !== -1? ['selected'] : []" ng-click="toggleArray(config[configSelected].associationScriptNameToExclude,a.ScriptName.toLowerCase())">{{a.DisplayName}}</a>
+        <div
+          class="add-filter-button"
+          ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'"
+        >
+          <a
+            class="btn-add-filter btn page-action"
+            ng-class="config[configSelected].associationScriptNameToExclude.indexOf(a.ScriptName.toLowerCase()) !== -1? ['selected'] : []"
+            ng-click="toggleArray(config[configSelected].associationScriptNameToExclude,a.ScriptName.toLowerCase())"
+            >{{a.DisplayName}}</a
+          >
         </div>
       </div>
     </div>
