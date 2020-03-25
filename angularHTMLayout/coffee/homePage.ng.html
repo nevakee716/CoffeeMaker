@@ -10,7 +10,7 @@
       <input ng-model="config.removeMyMenu" type="checkbox" />
     </div>
   </div>
-  <div class="row bootstrap-iso">
+  <div ng-if="false" class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_background_url_image')}} :</div>
     <div class="row-cell row-cell-value">
       <input class="largeCell" ng-model="config.backgroundImageUrl" type="text" />
