@@ -257,3 +257,6 @@
   width: 150px;
   text-align: center;
 }
+.CoffeeMaker .cwPropertiesTable .cw-edit-property-value {
+  white-space: initial;
+}
