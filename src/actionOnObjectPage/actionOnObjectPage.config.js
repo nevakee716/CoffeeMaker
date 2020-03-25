@@ -47,8 +47,21 @@
     };
 
     $scope.addOperation = function() {
-      $scope.currentConfig.push({ label: "New Operation", order: $scope.currentConfig.length * 10, filters: [], tabs: [], propertygroups: [], views: [] });
+      $scope.currentConfig.push({
+        label: "New Operation",
+        order: $scope.currentConfig.length * 10,
+        filters: [],
+        tabs: [],
+        propertygroups: [],
+        views: [],
+      });
       $scope.selectOperation($scope.currentConfig.length - 1);
+    };
+
+    $scope.reOrderCurrentConfig = function() {
+      $scope.currentConfig.sort(function(a, b) {
+        return a.order - b.order;
+      });
     };
 
     $scope.removeOperation = function(i) {

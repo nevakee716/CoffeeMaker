@@ -9,7 +9,7 @@
 </div>
 <div class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value"><input type="number" ng-model="col.order" /></div>
+  <div class="row-cell row-cell-value"><input type="number" ng-model="col.order" ng-change="reOrderColumns()" /></div>
 </div>
 <div class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
@@ -53,7 +53,7 @@
   </div>
   <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
-    <div class="row-cell row-cell-value"><input type="number" ng-model="display.order" /></div>
+    <div class="row-cell row-cell-value"><input type="number" ng-model="display.order" ng-change="reOrderDisplays(col)" /></div>
   </div>
   <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>

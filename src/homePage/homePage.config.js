@@ -63,6 +63,12 @@
       });
     };
 
+    $scope.reOrderColumns = function() {
+      $scope.config.columns.sort(function(a, b) {
+        return a.order - b.order;
+      });
+    };
+
     $scope.addDisplay = function(col) {
       col.displays.push({ label: "Display " + col.displays.length, order: col.displays.length * 10 });
       $scope.selectDisplay(col, col.displays.length - 1);
@@ -76,6 +82,12 @@
       col.displays.forEach(function(c, ii) {
         if (i == ii) c.selected = true;
         else c.selected = false;
+      });
+    };
+
+    $scope.reOrderDisplays = function(col) {
+      col.displays.sort(function(a, b) {
+        return a.order - b.order;
       });
     };
 

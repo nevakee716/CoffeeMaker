@@ -48,7 +48,7 @@
     </div>
     <div class="bootstrap-iso rowFlex">
       <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
-      <div class="row-cell row-cell-value"><input type="number" ng-model="op.order" /></div>
+      <div class="row-cell row-cell-value"><input type="number" ng-model="op.order" ng-change="reOrderCurrentConfig()" /></div>
     </div>
     <div class="bootstrap-iso row">
       <div class="row-cell row-cell-label">{{$root.i18n('label_filter')}} :</div>
