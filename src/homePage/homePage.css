@@ -77,8 +77,8 @@
   margin: 5px;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone {
-  width: calc(100% - 7px);
-  height: calc(100% - 10px);
+  width: 100%;
+  height: 100%;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone li.cw-diagram-zone {
   margin: 0;
