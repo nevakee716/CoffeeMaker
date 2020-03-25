@@ -158,7 +158,7 @@
                 $scope.$apply();
                 cwApi.cwSiteActions.doLayoutsSpecialActions(true);
                 let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
-                cwApi.cwDisplayManager.enableBehaviours(schema, object, false);
+                cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
               }
             },
             cwApi.errorOnLoadPage
