@@ -1,0 +1,79 @@
+<div>
+  <div ng-if="showDescription" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-max-width ">
+      <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/TableComplexeEnhanced_description.ng.html'"></div>
+    </div>
+  </div>
+  <pre>{{config|json}}</pre>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('clearFilterAtStart')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.clearFilterAtStart" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">Pop Out :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.popOut" /></div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <select ng-options="v as (v.name + ' (' + v.cwView + ')')  for v in evolveViews | orderBy:'name'" ng-model="currentView"></select>
+    </div>
+  </div>
+  <div class="tabs">
+    <div
+      ng-repeat="(i, behaviour) in currentView.schema.Behaviours"
+      ng-class="{active: behaviour.selected == true}"
+      class="tab-link tab-{{i}}"
+      ng-click="selectNode(i)"
+      data-id="{{i}}"
+    >
+      {{behaviour.node.NodeName}} ({{behaviour.node.NodeID}})
+    </div>
+  </div>
+  <div class="tabContent" ng-if="behaviour.selected" ng-repeat="(i, behaviour) in currentView.schema.Behaviours">
+
+    <div class="bootstrap-iso rowFlex">
+      <div class="row-cell row-cell-label">{{$root.i18n('title')}} :&nbsp;</div>
+      <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.nodes[behaviour.node.NodeID].title" /></div>
+    </div>
+    <div class="bootstrap-iso rowFlex">
+      <div class="row-cell row-cell-label">{{$root.i18n('specificPopout')}} :&nbsp;</div>
+      <div class="row-cell row-cell-value"><input ng-model="config.nodes[behaviour.node.NodeID].popOutName" /></div>
+    </div>
+    <div class="bootstrap-iso rowFlex">
+      <div class="row-cell row-cell-label">{{$root.i18n('tableHeight')}} :&nbsp;</div>
+      <div class="row-cell row-cell-value"><input ng-model="config.nodes[behaviour.node.NodeID].heightPercent" /></div>
+    </div>
+    <pre ng-if="false">{{behaviour |json}}</pre>
+    <div class="tabs">
+        <div
+          ng-repeat="(i, column) in behaviour.columns"
+          ng-class="{active: column.selected == true}"
+          class="tab-link tab-{{i}}"
+          ng-click="selectColumn(behaviour,i)"
+          data-id="{{i}}"
+        >
+          {{column.name}}
+        </div>
+      </div>
+      <div class="tabContent" ng-if="column.selected" ng-repeat="(i, column) in behaviour.columns">
+        <pre>{{column | json}}</pre>
+        <div ng-init="initColumnConfig(behaviour)" class="bootstrap-iso rowFlex">
+            <div class="row-cell row-cell-label ">{{$root.i18n('name')}} :&nbsp;</div>
+            <div class="row-cell row-cell-value "><input class="largeCell"  placeholder="{{column.name}}" ng-model="config.nodes[behaviour.node.NodeID].columns[column.originalOrder].name"/></div>
+          </div>
+          <div class="bootstrap-iso rowFlex">
+            <div class="row-cell row-cell-label">{{$root.i18n('columnSize')}} :&nbsp;</div>
+            <div class="row-cell row-cell-value"><input placeholder="{{column.size}}" ng-model="config.nodes[behaviour.node.NodeID].columns[column.originalOrder].size"/></div>
+          </div>
+          <div class="bootstrap-iso rowFlex">
+            <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
+            <div class="row-cell row-cell-value"><input type="number" ng-model="column.order" ng-change="reOrderColumn(behaviour,i)" /></div>
+          </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

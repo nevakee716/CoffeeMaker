@@ -81,3 +81,4 @@ space-around = Space Around
 flex-start = Start
 flex-end = End
 replaceAccentUpperCase = Non Sensitive to Case and Accent
+tableComplexeEnhanced = Complex Table
