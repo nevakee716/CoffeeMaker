@@ -40,6 +40,7 @@
 }
 .CoffeeMaker .CoffeeMakerTabs {
   display: flex;
+  flex-wrap: wrap;
 }
 .CoffeeMaker .CoffeeMakerTabs .CoffeeMakerTab:hover {
   box-shadow: inset 0 -2px #03a0ce;
