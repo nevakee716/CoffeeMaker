@@ -26,6 +26,7 @@
       if (this.config.actionOnObjectPage === undefined) this.config.actionOnObjectPage = {};
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       if (this.config.pageFilter === undefined) this.config.pageFilter = {};
+      if (this.config.tableComplexeEnhanced === undefined) this.config.tableComplexeEnhanced = {};
       //if (this.config.diagram === undefined) this.config.diagram = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
@@ -44,7 +45,17 @@
         output.push('<div data-id="' + e + '" id="CoffeeMakerTab_' + e + "_" + self.nodeID + '" class="CoffeeMakerTab">' + $.i18n.prop(e) + "</div>");
       });
 
-      output.push('<div data-id="saveconfiguration" id="CoffeeMakerTab_saveconfiguration_"' + self.nodeID + '" class="CoffeeMakerTab"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>');
+      output.push(
+        '<div data-id="saveconfiguration" id="CoffeeMakerTab_saveconfiguration_"' +
+          self.nodeID +
+          '" class="CoffeeMakerTab"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>'
+      );
+      output.push(
+        '<div data-id="refresh"  id="CoffeeMakerTab_localstorage_"' +
+          self.nodeID +
+          '" class="CoffeeMakerTab"><i class="fa fa-refresh" aria-hidden="true"></i></div>'
+      );
+
       output.push("</div>");
 
       output.push('<div id="CoffeeMakerViewContainer_' + this.nodeID + '" class="CoffeeMakerView">');
@@ -69,6 +80,10 @@
 
           if (t.dataset.id === "saveconfiguration") {
             cwAPI.customLibs.utils.copyToClipboard(angular.toJson(self.config));
+          }
+          if (t.dataset.id === "refresh") {
+            localStorage.setItem(cwApi.getSiteId() + "_" + cwApi.getDeployNumber() + "_coffeeMakerConfiguration", angular.toJson(self.config));
+            return;
           }
           let templatePath = cwAPI.getCommonContentPath() + "/html/coffee/" + t.dataset.id + ".ng.html" + "?" + Math.random();
           self.unselectTabs();
