@@ -9,9 +9,6 @@
   tableComplexeEnhanced.cwKendoGridData = {};
 
   var TableComplexeEnhancedConfig = {
-    itemPerPages: [5, 12, 42, 9999],
-    title: true,
-    objectPageNameHeaderToProperty: false,
     urlText: "Cliquez Ici",
     openInNewTab: true,
   };
