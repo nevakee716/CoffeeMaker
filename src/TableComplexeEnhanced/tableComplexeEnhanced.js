@@ -227,6 +227,15 @@
       return regEx.test(columnValue);
     }
 
+    let config,
+      itemPerPages = [5, 10, 50, 100];
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+      config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
+    }
+    if (config && config.itemPerPages) {
+      itemPerPages = config.itemPerPages.split(",");
+    }
+
     var kendoGridData = {
       dataSource: dataSource,
       dataBound: this.getDataBoundEvent(),
@@ -242,7 +251,7 @@
       },
       pageable: {
         refresh: false,
-        pageSizes: TableComplexeEnhancedConfig.itemPerPages,
+        pageSizes: itemPerPages,
         buttonCount: 5,
       },
       page: tableComplexeEnhanced.cwKendoGrid.enablePopoutButton,
@@ -267,7 +276,7 @@
       columns: this.columns,
     };
 
-    if (TableComplexeEnhancedConfig.title) {
+    if (config && config.title) {
       var obj = {
         name: "Title",
         template: '<h3 style="right:50%; position:absolute">' + this.nodeSchema.NodeName + "</h3>",
@@ -408,7 +417,11 @@
 
     this.enablePopoutButton($container);
 
-    if (TableComplexeEnhancedConfig.clearFilterAtStart) {
+    let config;
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+      config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
+    }
+    if (config.clearFilterAtStart) {
       this.ClearFilter();
     }
   };
@@ -506,9 +519,15 @@
       if (addDelete) {
         output.push(cwApi.cwKendoGridButtons.getDeleteButton());
       }
-      if (TableComplexeEnhancedConfig.popOut && e.item && e.item.nodeID) {
-        if (TableComplexeEnhancedConfig.hasOwnProperty(e.item.nodeID) && TableComplexeEnhancedConfig[e.item.nodeID].popOutName)
-          popOutName = cwApi.replaceSpecialCharacters(TableComplexeEnhancedConfig[e.item.nodeID].popOutName);
+
+      let config;
+      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
+      }
+
+      if (config && config.popOut && e.item && e.item.nodeID) {
+        if (config.nodes.hasOwnProperty(e.item.nodeID) && config.nodes[e.item.nodeID].popOutName)
+          popOutName = cwApi.replaceSpecialCharacters(config.nodes[e.item.nodeID].popOutName);
         else {
           popOutName = cwApi.replaceSpecialCharacters(e.item.objectTypeScriptName) + "_diagram_popout";
         }
@@ -589,13 +608,6 @@
       this.createHeaderLookup(property, objectTypeScriptName, isIProperty);
     } else {
       propertyObject = this.loadPropertyTypeObject(property);
-      if (
-        cwApi.getQueryStringObject().cwtype === "single" &&
-        property.scriptName === "name" &&
-        TableComplexeEnhancedConfig.objectPageNameHeaderToProperty === false
-      ) {
-        propertyObject.title = cwApi.mm.getObjectType(objectTypeScriptName.toLowerCase()).name;
-      }
       this.createHeaderCommon(objectTypeScriptName, property, isIProperty, propertyObject, false, false, false, property.scriptName);
     }
   };
