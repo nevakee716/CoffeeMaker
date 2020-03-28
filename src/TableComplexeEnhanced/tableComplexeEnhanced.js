@@ -16,7 +16,7 @@
   var kendoGridDataSaved = {};
 
   // remove the special column of the table complexe and replace after the switch
-  var clearColumn = function(columns) {
+  var clearColumn = function(columns, config) {
     var columnCleared = [];
 
     var result = {
@@ -32,6 +32,9 @@
         result.Update = i;
       } else if (columns[i].title === "Options" && columns[i].field === undefined) {
         result.Options = i;
+        if (i == 0) {
+          columns[i].locked = config.freezeFirstOption;
+        }
       } else if (columns[i].title === "ID" && columns[i].field === "id") {
         result.ID = i;
       } else {
@@ -41,14 +44,15 @@
     return result;
   };
 
-  var reOrderColumn = function(columns, config) {
+  var reOrderColumn = function(columns, config, columnConfig) {
     var columnsObj = {};
     var i;
     for (i = 0; i < columns.length; i++) {
       if (config.hasOwnProperty(i + 1)) {
-        if (config[i + 1].size) columns[i].width = config[i + 1].size; // gestion size
-        if (config[i + 1].name) columns[i].title = config[i + 1].name; // gestion rename
-        if (config[i + 1].order) columnsObj[config[i + 1].order - 1] = columns[i]; // custom order
+        if (config[i + 1].size) columns[i].width = columnConfig[i + 1].size; // gestion size
+        if (config[i + 1].name) columns[i].title = columnConfig[i + 1].name; // gestion rename
+        if (config[i + 1].frozen) columns[i].locked = columnConfig[i + 1].frozen; // freeze
+        if (config[i + 1].order) columnsObj[config[i + 1].order - 1] = columnConfig[i]; // custom order
       } else {
         columnsObj[i] = columns[i];
       }
@@ -73,8 +77,8 @@
     return result;
   };
 
-  // swap the colum of the table
-  var columnSwapper = function(columns, nodeID) {
+  // swap the colum of the table; also add filter for association
+  var columnModifier = function(columns, nodeID, datasource) {
     var columnsObj = {};
     var result = [];
     var i;
@@ -93,8 +97,8 @@
     }
     if (config.nodes && config.nodes[nodeID] && config.nodes[nodeID].columns) {
       let configColumn = config.nodes[nodeID].columns;
-      clearColumnResult = clearColumn(columns);
-      columnsObj = reOrderColumn(clearColumnResult.columnCleared, configColumn);
+      clearColumnResult = clearColumn(columns, config);
+      columnsObj = reOrderColumn(clearColumnResult.columnCleared, config, configColumn);
       result = reBuildColumn(columnsObj, configColumn, clearColumnResult, columns);
       if (result === null) {
         return columns;
@@ -119,111 +123,28 @@
     return height;
   };
 
-  tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData = function(dataSource) {
-    this.columns = columnSwapper(this.columns, this.nodeSchema.NodeID);
-
-    this.columns.forEach(c => {
-      c.filterMenuInit = onFilterMenuInit;
+  tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter = function() {
+    var self = this;
+    this.columns.forEach(function(c) {
+      if (c.isAssociationColumn) {
+        let items = [];
+        self.items.forEach(function(item) {
+          item.associations[c.field].forEach(function(a) {
+            if (items.indexOf(a.label) === -1) items.push(a.label);
+          });
+        });
+        c.filterable.dataSource = items.map(function(i) {
+          let r = {};
+          r[c.field] = i;
+          return r;
+        });
+      }
     });
+  };
 
-    var onFilterMenuInit = function(e) {
-      // Create custom filtering for the "url" columns only.
-      if (true) {
-        initUrlFilter(e, this);
-      }
-    };
-
-    function initUrlFilter(e, kendoGrid) {
-      var filterContext = {
-        container: e.container,
-        popup: e.container.data("kendoPopup"),
-        dataSource: kendoGrid.dataSource,
-        field: e.field,
-      };
-
-      // Remove default filtering UI and create custom UI.
-      initUrlFilterUI(filterContext);
-    }
-
-    function initUrlFilterUI(filterContext) {
-      // Remove default filter UI
-      filterContext.container.off();
-      filterContext.container.empty();
-
-      // Create custom filter UI using a template
-      let template = "";
-      template += '<script id="filterMenuTemplate" type="text/x-kendo-template"><div>';
-      template += '<div class="k-filter-help-text">$.i18ngrid_filter_filter</div>';
-      template += '<input class="k-textbox regExInput" type="text" />';
-      template += ' <div style="white-space: nowrap">';
-      template += '<button type="submit" class="k-button k-primary">Filter</button>';
-      template += '<button type="reset" class="k-button">Clear</button>';
-      template += "</div></div></script>";
-      template = kendo.template(template);
-      var result = template({});
-      filterContext.container.html(result);
-
-      filterContext.container.on("submit", $.proxy(onSubmit, filterContext)).on("reset", $.proxy(onReset, filterContext));
-    }
-
-    function onSubmit(e) {
-      // the context here is the filteringContext
-      e.preventDefault();
-      e.stopPropagation();
-
-      var regExString = this.container.find(".regExInput").val();
-      removeFilterForField(this.dataSource, this.field);
-      applyRegExFilter(this.dataSource, this.field, regExString);
-      this.popup.close();
-    }
-
-    function onReset(e) {
-      // the context here is the filteringContext
-      e.preventDefault();
-      e.stopPropagation();
-
-      removeFilterForField(this.dataSource, this.field);
-      this.popup.close();
-    }
-
-    function applyRegExFilter(dataSource, field, regExString) {
-      // Create custom filter
-      var newFilter = {
-        field: field,
-        operator: filterByRegEx,
-        value: regExString,
-      };
-
-      var masterFilter = dataSource.filter() || { logic: "and", filters: [] };
-      masterFilter.filters.push(newFilter);
-      dataSource.filter(masterFilter);
-    }
-
-    function removeFilterForField(dataSource, field) {
-      var masterFilter = dataSource.filter();
-
-      if (!masterFilter) {
-        return;
-      }
-
-      // Get existing filters for the field
-      var existingFilters = jQuery.grep(masterFilter.filters, function(item, index) {
-        return item.field === field;
-      });
-
-      $.each(existingFilters, function(item) {
-        var index = masterFilter.filters.indexOf(item);
-        masterFilter.filters.splice(index, 1);
-      });
-
-      dataSource.filter(masterFilter);
-    }
-
-    function filterByRegEx(columnValue, value) {
-      var regEx = new RegExp(value, "i");
-      return regEx.test(columnValue);
-    }
-
+  tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData = function(dataSource) {
+    this.columns = columnModifier(this.columns, this.nodeSchema.NodeID, dataSource);
+    this.modifyAssociationFilter();
     let config,
       itemPerPages = [5, 10, 50, 100];
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
@@ -233,10 +154,42 @@
       itemPerPages = config.itemPerPages.split(",");
     }
 
+    function attachGroupResizeHandler(grid) {
+      grid.wrapper.find(".k-grouping-row .k-icon").on("click", function() {
+        resizeGrid(grid);
+      });
+    }
+
+    function detachGroupResize(e) {
+      e.sender.wrapper.find(".k-grouping-row .k-icon").off("click");
+      this.customDataBinding(e);
+    }
+
+    function onDataBound(e) {
+      attachGroupResizeHandler(e.sender);
+      resizeGrid(e.sender);
+      this.getDataBoundEvent(e);
+    }
+
+    function resizeGrid(grid) {
+      setTimeout(function() {
+        var lockedContent = grid.wrapper.children(".k-grid-content-locked");
+        var content = grid.wrapper.children(".k-grid-content");
+
+        grid.wrapper.height("");
+        lockedContent.height("");
+        content.height("");
+
+        grid.wrapper.height(grid.wrapper.height());
+
+        grid.resize();
+      });
+    }
+
     var kendoGridData = {
       dataSource: dataSource,
-      dataBound: this.getDataBoundEvent(),
-      dataBinding: this.customDataBinding.bind(this),
+      dataBinding: detachGroupResize.bind(this),
+      dataBound: onDataBound.bind(this),
       resizable: true,
 
       editable: {
@@ -252,14 +205,16 @@
         buttonCount: 5,
       },
       page: tableComplexeEnhanced.cwKendoGrid.enablePopoutButton,
-      filter: tableComplexeEnhanced.cwKendoGrid.enablePopoutButton,
-      filterMenuInit: onFilterMenuInit,
+      filter: tableComplexeEnhanced.cwKendoGrid.enableFilter.bind(this),
+      // filterMenuInit: onFilterMenuInit,
       edit: this.editEvent.bind(this),
       scrollable: true,
       sortable: true,
+      groupable: true,
       height: calcHeight(this.getHeight(), this.nodeSchema.NodeID), // changing height by factor
       remove: this.remove.bind(this),
       filterable: cwApi.cwKendoGridFilter.getFilterValues(),
+      filterMenuOpen: tableComplexeEnhanced.cwKendoGrid.getFilterMenuOpen.bind(this),
       toolbar: cwApi.CwKendoGridToolBar.getToolBarItems(
         this.isAssociationgrid,
         this.enableAdd,
@@ -326,7 +281,6 @@
 
   tableComplexeEnhanced.cwKendoGridToolBar.getClearFilterButton = function() {
     let template = '<a class="k-button k-button-icontext k-grid-clearFilter"><i class="fa fa-filter"></i>' + $.i18n.prop("clearButtonName") + "</a>";
-
     return {
       name: "clearFilter",
       template: template,
@@ -430,6 +384,29 @@
   tableComplexeEnhanced.cwKendoGrid.ClearFilter = function() {
     $("a.k-state-active").trigger("click");
     $(" form.k-filter-menu button[type='reset']").trigger("click");
+  };
+
+  tableComplexeEnhanced.cwKendoGrid.enableFilter = function(e) {
+    if (e.filter && this.associationsColumnList.indexOf(e.field) !== -1) {
+      e.filter.filters.forEach(function(f) {
+        f.operator = "contains";
+      });
+    }
+    tableComplexeEnhanced.cwKendoGrid.enablePopoutButton(e);
+  };
+
+  tableComplexeEnhanced.cwKendoGrid.getFilterMenuOpen = function(e) {
+    let self = this;
+    if (e.sender.dataSource.filter()) {
+      e.sender.dataSource.filter().filters.forEach(function(f) {
+        if (self.associationsColumnList.indexOf(e.field) !== -1) {
+          var checkbox = e.container.find("input[value='" + f.value + "']");
+          if (!checkbox[0].checked) {
+            e.container.find("input[value='" + f.value + "']").click();
+          }
+        }
+      });
+    }
   };
 
   tableComplexeEnhanced.cwKendoGrid.enablePopoutButton = function(container) {
@@ -593,6 +570,51 @@
     return output;
   };
 
+  cwApi.cwKendoGridColumnManager.loadColumnProperties = function(
+    properties,
+    propertyObject,
+    objecttypeScriptName,
+    isId,
+    isAssociationColumn,
+    isCategoryColumn,
+    size
+  ) {
+    var columnManager;
+    columnManager = new cwApi.cwKendoGridColumnManager(propertyObject.field, propertyObject.title);
+    columnManager.setColumnWidth(size);
+    columnManager.isAssociationColumn = isAssociationColumn;
+    if (!isId && !isAssociationColumn) {
+      columnManager.setColumnTemplate(propertyObject);
+      columnManager.setValues(propertyObject, objecttypeScriptName, isCategoryColumn);
+      columnManager.setEditor(propertyObject);
+      columnManager.setVisibility(isCategoryColumn);
+
+      if (propertyObject.property.type === "Integer") {
+        columnManager.setFormat("{0:n0}");
+      } else if (propertyObject.property.type === "Date") {
+        columnManager.setFormat("{0:" + cwApi.dateFormatKendo + "}");
+      } else if (propertyObject.property.type === "Lookup") {
+        columnManager.filterable = { multi: true };
+      }
+    }
+    if (isAssociationColumn) {
+      columnManager.filterable = {
+        multi: true,
+        search: true,
+        operators: {
+          string: {
+            contains: "Contains",
+          },
+        },
+      };
+    }
+    if (propertyObject.field === "name" || isAssociationColumn) {
+      // columnManager.setFilter();
+    }
+
+    return columnManager;
+  };
+
   tableComplexeEnhanced.createHeader = function(property, objectTypeScriptName, isIProperty) {
     var propertyObject, idPropertyObject;
     if (property.scriptName === "id") {
@@ -610,6 +632,7 @@
   };
 
   if (cwBehaviours.hasOwnProperty("CwKendoGrid") && cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData) {
+    cwBehaviours.CwKendoGrid.prototype.modifyAssociationFilter = tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter;
     cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData = tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData;
     cwBehaviours.cwKendoGridHeader.prototype.createHeader = tableComplexeEnhanced.createHeader;
     cwBehaviours.CwKendoGrid.enableClearFilter = tableComplexeEnhanced.cwKendoGrid.enableClearFilter;

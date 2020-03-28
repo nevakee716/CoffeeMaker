@@ -14,6 +14,10 @@
     <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.popOut" /></div>
   </div>
   <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('freezeFirstOption')}}  :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.freezeFirstOption" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('itemPerPages')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input type="text" ng-model="config.itemPerPages" /></div>
   </div>
@@ -73,6 +77,10 @@
           <div class="bootstrap-iso rowFlex">
             <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
             <div class="row-cell row-cell-value"><input type="number" ng-model="column.order" ng-change="reOrderColumn(behaviour,i)" /></div>
+          </div>
+          <div class="bootstrap-iso rowFlex">
+            <div class="row-cell row-cell-label">{{$root.i18n('frozen')}}  :&nbsp;</div>
+            <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.nodes[behaviour.node.NodeID].columns[column.originalOrder].frozen" /></div>
           </div>
       </div>
     </div>
