@@ -24,8 +24,10 @@
 /* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
-.k-filter-row th,
-.k-grid-header th.k-header {
+.k-grid .k-grid-header .k-header .k-link {
+  height: auto;
+}
+.k-grid .k-grid-header .k-header {
   white-space: normal;
 }
 a.k-button.k-button-icontext.k-grid-popoutitem {
