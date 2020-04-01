@@ -344,13 +344,13 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
       if (config && config.clearFilterAtStart) {
-        this.ClearFilter();
+        this.ClearFilter.call(gridObject);
       }
     }
   };
 
   tableComplexeEnhanced.cwKendoGrid.enableClearFilter = function(container) {
-    $("." + this.nodeSchema.NodeID + " .k-grid-clearFilter").click(this.ClearFilter);
+    $("." + this.nodeSchema.NodeID + " .k-grid-clearFilter").click(this.ClearFilter.bind(this));
   };
 
   tableComplexeEnhanced.cwKendoGrid.ClearFilter = function() {
@@ -368,16 +368,17 @@
       });
       if (e.filter.filters.length > 0) {
         setTimeout(function() {
-          $("th[data-field='" + e.field + "'] a.k-grid-filter").addClass("k-state-active");
+          $("." + self.nodeSchema.NodeID + " th[data-field='" + e.field + "'] a.k-grid-filter").addClass("k-state-active");
         }, 500);
       }
     }
+    // refresh other association filter icon
     var dataSource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
     if (dataSource && dataSource.filter() && dataSource.filter().filters) {
       dataSource.filter().filters.forEach(function(f) {
         if (self.associationsColumnList.indexOf(f.field) !== -1 && f.field !== e.field) {
           setTimeout(function() {
-            $("th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
+            $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
           }, 500);
         }
       });
