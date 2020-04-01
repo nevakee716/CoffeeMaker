@@ -87,3 +87,4 @@ tableHeight = Hauteur de la Table (%)
 order = Ordre
 title = Titre
 specificPopout = Popout à utiliser
+grid_drop_column = Glisser ici une en-tête de colonne, pour réaliser un regroupement
