@@ -92,3 +92,4 @@ clearFilterAtStart = Clear Filter At Start
 freezeFirstOption = Freeze Option Column
 itemPerPages = List of possible choices for the number of objects per page
 frozen = Frozen
+clearButtonName = Clear Filters
