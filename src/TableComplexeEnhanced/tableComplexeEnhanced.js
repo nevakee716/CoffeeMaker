@@ -177,7 +177,9 @@
       filter: tableComplexeEnhanced.cwKendoGrid.enableFilter.bind(this),
       edit: this.editEvent.bind(this),
       scrollable: true,
-      sortable: true,
+      sortable: {
+        virtual: true,
+      },
       groupable: {
         messages: {
           empty: $.i18n.prop("grid_drop_column"),
@@ -259,29 +261,29 @@
     };
   };
 
+  function createandGetIntersectionGrid(mainItems, properties, allitems, nodeSchema) {
+    var mainItemsWithKey, gridObject, iObjectTypeScriptName;
+    mainItemsWithKey = {};
+    mainItemsWithKey[properties.NodeID] = mainItems;
+    iObjectTypeScriptName = nodeSchema.iObjectTypeScriptName;
+    if (iObjectTypeScriptName !== null) {
+      iObjectTypeScriptName = iObjectTypeScriptName.toLowerCase();
+    }
+    gridObject = new cwBehaviours.CwKendoGridIntersectionObject(
+      properties,
+      mainItemsWithKey,
+      allitems,
+      iObjectTypeScriptName,
+      nodeSchema.ObjectTypeScriptName.toLowerCase(),
+      nodeSchema,
+      nodeSchema.AssociationTypeScriptName.toLowerCase()
+    );
+    return gridObject;
+  }
+
   tableComplexeEnhanced.cwKendoGrid.setup = function(properties, allitems, isSearchEngineEnabled) {
     cwApi.CwPendingEventsManager.setEvent("GridSetup");
     var dataSource, gridObject, nodeSchema, mainItems, isIntersection, propertyGroupString, $container;
-
-    function createandGetIntersectionGrid(mainItems, properties, allitems, nodeSchema) {
-      var mainItemsWithKey, gridObject, iObjectTypeScriptName;
-      mainItemsWithKey = {};
-      mainItemsWithKey[properties.NodeID] = mainItems;
-      iObjectTypeScriptName = nodeSchema.iObjectTypeScriptName;
-      if (iObjectTypeScriptName !== null) {
-        iObjectTypeScriptName = iObjectTypeScriptName.toLowerCase();
-      }
-      gridObject = new cwBehaviours.CwKendoGridIntersectionObject(
-        properties,
-        mainItemsWithKey,
-        allitems,
-        iObjectTypeScriptName,
-        nodeSchema.ObjectTypeScriptName.toLowerCase(),
-        nodeSchema,
-        nodeSchema.AssociationTypeScriptName.toLowerCase()
-      );
-      return gridObject;
-    }
 
     if (cwApi.isNull(allitems)) {
       $container = $("div." + properties.NodeID);
@@ -336,7 +338,7 @@
     gridObject.completeAssociationColumnFilter(dataSource);
 
     cwApi.cwKendoGridFilter.addFilterTitle(gridObject.mainContainer);
-
+    cwApi.gridStorage.push(gridObject);
     cwApi.CwPendingEventsManager.deleteEvent("GridSetup");
 
     let config;
@@ -392,10 +394,11 @@
     let self = this;
     if (e.sender.dataSource.filter()) {
       e.sender.dataSource.filter().filters.forEach(function(f) {
+        let value = f.value.replace("'", "\\'").replace('"', '\\"');
         if (self.associationsColumnList.indexOf(e.field) !== -1) {
-          var checkbox = e.container.find("input[value='" + f.value + "']");
+          var checkbox = e.container.find("input[value='" + value + "']");
           if (checkbox[0] && !checkbox[0].checked) {
-            e.container.find("input[value='" + f.value + "']").click();
+            e.container.find("input[value='" + value + "']").click();
           }
         }
       });
@@ -408,19 +411,10 @@
     dataSource.filter().filters.forEach(function(f) {
       if (self.associationsColumnList.indexOf(f.field) !== -1) {
         setTimeout(function() {
-          $("th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
+          $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
         }, 500);
       }
     });
-  };
-
-  tableComplexeEnhanced.cwKendoGrid.onFilterInit = function(e) {
-    if (this.associationsColumnList.indexOf(e.field) !== -1) {
-      var checkbox = e.container.find("input[value='" + e.value + "']");
-      if (checkbox[0] && !checkbox[0].checked) {
-        e.container.find("input[value='" + f.value + "']").click();
-      }
-    }
   };
 
   //Vrai Faux
@@ -486,6 +480,7 @@
         output.push(cwApi.cwKendoGridButtons.getDeleteButton());
       }
 
+      // adding popout
       let config;
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
         config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
@@ -626,10 +621,17 @@
   };
 
   cwBehaviours.CwKendoGridDetail.prototype.optionColumn = function(container) {
+    let c;
     if (this.isOptionColumnAtStart()) {
-      return container.find("td[role='gridcell']:first");
+      c = container.find("td[role='gridcell']:first .k-action-zone").parent();
     } else {
-      return container.find("td[role='gridcell']:last");
+      c = container.find("td[role='gridcell']:last .k-action-zone").parent();
+    }
+    if (c.length > 0) return c;
+    if (this.isOptionColumnAtStart()) {
+      return container.find("td[role='gridcell']:first ");
+    } else {
+      return container.find("td[role='gridcell']:last ");
     }
   };
 
