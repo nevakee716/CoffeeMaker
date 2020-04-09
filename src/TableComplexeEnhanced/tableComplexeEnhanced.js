@@ -1,6 +1,6 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
 
   var tableComplexeEnhanced = {};
@@ -16,7 +16,7 @@
   var kendoGridDataSaved = {};
 
   // remove the special column of the table complexe and replace after the switch
-  var clearColumn = function(columns, config) {
+  var clearColumn = function (columns, config) {
     var columnCleared = [];
 
     var result = {
@@ -44,7 +44,7 @@
     return result;
   };
 
-  var reOrderColumn = function(columns, config, columnConfig) {
+  var reOrderColumn = function (columns, config, columnConfig) {
     var columnsObj = {};
     var i;
     for (i = 0; i < columns.length; i++) {
@@ -60,7 +60,7 @@
     return columnsObj;
   };
 
-  var reBuildColumn = function(columnsObj, iObject, columnsOrig) {
+  var reBuildColumn = function (columnsObj, iObject, columnsOrig) {
     var result = [];
     var shift = 0;
 
@@ -78,7 +78,7 @@
   };
 
   // swap the colum of the table; also add filter for association
-  var columnModifier = function(columns, nodeID, datasource) {
+  var columnModifier = function (columns, nodeID, datasource) {
     var columnsObj = {};
     var result = [];
     var i;
@@ -89,7 +89,7 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
     }
-    if (config === undefined) return columns;
+    if (!config) return columns;
 
     if (config.popOut) {
       if (columns[0].title == "Options") columns[0].width += 35;
@@ -111,7 +111,7 @@
   };
 
   // Apply ratio to the height
-  var calcHeight = function(height, nodeID) {
+  var calcHeight = function (height, nodeID) {
     let config;
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
@@ -123,19 +123,19 @@
     return height;
   };
 
-  tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter = function() {
+  tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter = function () {
     var self = this;
     self.associationsColumnList = [];
-    this.columns.forEach(function(c) {
+    this.columns.forEach(function (c) {
       if (c.isAssociationColumn) {
         let items = [];
         self.associationsColumnList.push(c.field);
-        self.items.forEach(function(item) {
-          item.associations[c.field].forEach(function(a) {
+        self.items.forEach(function (item) {
+          item.associations[c.field].forEach(function (a) {
             if (items.indexOf(a.label) === -1) items.push(a.label);
           });
         });
-        c.filterable.dataSource = items.map(function(i) {
+        c.filterable.dataSource = items.map(function (i) {
           let r = {};
           r[c.field] = i;
           return r;
@@ -144,7 +144,7 @@
     });
   };
 
-  tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData = function(dataSource) {
+  tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData = function (dataSource) {
     this.columns = columnModifier(this.columns, this.nodeSchema.NodeID, dataSource);
     this.modifyAssociationFilter();
     let config,
@@ -213,7 +213,7 @@
     return kendoGridData;
   };
 
-  tableComplexeEnhanced.cwKendoGridToolBar.getToolBarItems = function(
+  tableComplexeEnhanced.cwKendoGridToolBar.getToolBarItems = function (
     isAssociation,
     isAddEnabled,
     canCreate,
@@ -246,14 +246,14 @@
     return itemList;
   };
 
-  tableComplexeEnhanced.cwKendoGridToolBar.varifyAndAppendClearFilterButton = function(itemList) {
+  tableComplexeEnhanced.cwKendoGridToolBar.varifyAndAppendClearFilterButton = function (itemList) {
     //no export button on pop up inex page grid
     if (((this.pageViewType === "index" && !this.isAssociation) || this.pageViewType === cwApi.CwPageType.Single) && !cwApi.isIE9()) {
       itemList.push(this.getClearFilterButton());
     }
   };
 
-  tableComplexeEnhanced.cwKendoGridToolBar.getClearFilterButton = function() {
+  tableComplexeEnhanced.cwKendoGridToolBar.getClearFilterButton = function () {
     let template = '<a class="k-button k-button-icontext k-grid-clearFilter"><i class="fa fa-filter"></i>' + $.i18n.prop("clearButtonName") + "</a>";
     return {
       name: "clearFilter",
@@ -281,7 +281,7 @@
     return gridObject;
   }
 
-  tableComplexeEnhanced.cwKendoGrid.setup = function(properties, allitems, isSearchEngineEnabled) {
+  tableComplexeEnhanced.cwKendoGrid.setup = function (properties, allitems, isSearchEngineEnabled) {
     cwApi.CwPendingEventsManager.setEvent("GridSetup");
     var dataSource, gridObject, nodeSchema, mainItems, isIntersection, propertyGroupString, $container;
 
@@ -350,24 +350,24 @@
     }
   };
 
-  tableComplexeEnhanced.cwKendoGrid.enableClearFilter = function(container) {
+  tableComplexeEnhanced.cwKendoGrid.enableClearFilter = function (container) {
     $("." + this.nodeSchema.NodeID + " .k-grid-clearFilter").click(this.ClearFilter.bind(this));
   };
 
-  tableComplexeEnhanced.cwKendoGrid.ClearFilter = function() {
+  tableComplexeEnhanced.cwKendoGrid.ClearFilter = function () {
     var datasource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
     //Clear filters:
     datasource.filter([]);
   };
 
-  tableComplexeEnhanced.cwKendoGrid.enableFilter = function(e) {
+  tableComplexeEnhanced.cwKendoGrid.enableFilter = function (e) {
     let self = this;
     if (this.associationsColumnList.indexOf(e.field) !== -1 && e.filter) {
-      e.filter.filters.forEach(function(f) {
+      e.filter.filters.forEach(function (f) {
         f.operator = "contains";
       });
       if (e.filter.filters.length > 0) {
-        setTimeout(function() {
+        setTimeout(function () {
           $("." + self.nodeSchema.NodeID + " th[data-field='" + e.field + "'] a.k-grid-filter").addClass("k-state-active");
         }, 500);
       }
@@ -376,13 +376,13 @@
     this.enableFilterIcon(e.field);
   };
 
-  tableComplexeEnhanced.cwKendoGrid.enableFilterIcon = function(field) {
+  tableComplexeEnhanced.cwKendoGrid.enableFilterIcon = function (field) {
     let self = this;
     var dataSource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
     if (dataSource && dataSource.filter() && dataSource.filter().filters) {
-      dataSource.filter().filters.forEach(function(f) {
+      dataSource.filter().filters.forEach(function (f) {
         if (self.associationsColumnList.indexOf(f.field) !== -1 && f.field !== field) {
-          setTimeout(function() {
+          setTimeout(function () {
             $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
           }, 500);
         }
@@ -390,10 +390,10 @@
     }
   };
 
-  tableComplexeEnhanced.cwKendoGrid.getFilterMenuOpen = function(e) {
+  tableComplexeEnhanced.cwKendoGrid.getFilterMenuOpen = function (e) {
     let self = this;
     if (e.sender.dataSource.filter()) {
-      e.sender.dataSource.filter().filters.forEach(function(f) {
+      e.sender.dataSource.filter().filters.forEach(function (f) {
         let value = f.value.replace("'", "\\'").replace('"', '\\"');
         if (self.associationsColumnList.indexOf(e.field) !== -1) {
           var checkbox = e.container.find("input[value='" + value + "']");
@@ -405,12 +405,12 @@
     }
   };
 
-  tableComplexeEnhanced.cwKendoGrid.completeAssociationColumnFilter = function(dataSource) {
+  tableComplexeEnhanced.cwKendoGrid.completeAssociationColumnFilter = function (dataSource) {
     let self = this;
     if (dataSource.filter == null || dataSource.filter() == null) return;
-    dataSource.filter().filters.forEach(function(f) {
+    dataSource.filter().filters.forEach(function (f) {
       if (self.associationsColumnList.indexOf(f.field) !== -1) {
-        setTimeout(function() {
+        setTimeout(function () {
           $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
         }, 500);
       }
@@ -418,7 +418,7 @@
   };
 
   //Vrai Faux
-  cwBehaviours.CwKendoGridBooleanType.prototype.getColumnTemplate = function() {
+  cwBehaviours.CwKendoGridBooleanType.prototype.getColumnTemplate = function () {
     return (
       "#= data." +
       this.property.scriptName +
@@ -430,7 +430,7 @@
     );
   };
 
-  cwAPI.cwPropertiesGroups.types.booleanValue = function(value) {
+  cwAPI.cwPropertiesGroups.types.booleanValue = function (value) {
     if (value !== false) {
       value = '<i style="color:green" class="fa fa-check"><span class="hidden">' + jQuery.i18n.prop("global_true") + "</span></i>";
     } else {
@@ -440,7 +440,7 @@
   };
 
   //Url
-  cwApi.cwPropertiesGroups.types.URLValue = function(value) {
+  cwApi.cwPropertiesGroups.types.URLValue = function (value) {
     var txt = "",
       link = value;
     if (TableComplexeEnhancedConfig.openInNewTab) txt = 'target="_blank"';
@@ -460,7 +460,7 @@
   };
 
   // popout button
-  tableComplexeEnhanced.cwKendoGridData.editTemplate = function(e) {
+  tableComplexeEnhanced.cwKendoGridData.editTemplate = function (e) {
     var output = [];
     var popOutName,
       self = this;
@@ -545,7 +545,7 @@
     return getEditColumnTemplate(false, false, false, false, this.isAssociationgrid);
   };
 
-  tableComplexeEnhanced.getPopOutButton = function(e, popOutName) {
+  tableComplexeEnhanced.getPopOutButton = function (e, popOutName) {
     var output = "";
     output =
       '<a class="k-button k-button-icontext k-grid-popoutitem" onclick="cwAPI.customFunction.openDiagramPopoutWithID(' +
@@ -559,7 +559,7 @@
     return output;
   };
 
-  cwApi.cwKendoGridColumnManager.loadColumnProperties = function(
+  cwApi.cwKendoGridColumnManager.loadColumnProperties = function (
     properties,
     propertyObject,
     objecttypeScriptName,
@@ -604,7 +604,7 @@
     return columnManager;
   };
 
-  tableComplexeEnhanced.createHeader = function(property, objectTypeScriptName, isIProperty) {
+  tableComplexeEnhanced.createHeader = function (property, objectTypeScriptName, isIProperty) {
     var propertyObject, idPropertyObject;
     if (property.scriptName === "id") {
       idPropertyObject = {
@@ -620,7 +620,7 @@
     }
   };
 
-  cwBehaviours.CwKendoGridDetail.prototype.optionColumn = function(container) {
+  cwBehaviours.CwKendoGridDetail.prototype.optionColumn = function (container) {
     let c;
     if (this.isOptionColumnAtStart()) {
       c = container.find("td[role='gridcell']:first .k-action-zone").parent();
