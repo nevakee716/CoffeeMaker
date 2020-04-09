@@ -93,3 +93,4 @@ freezeFirstOption = Freeze Option Column
 itemPerPages = List of possible choices for the number of objects per page
 frozen = Frozen
 clearButtonName = Effacer les Filtres
+displayjsonconfig = Display JSON Configuration

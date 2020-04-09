@@ -1,0 +1,8 @@
+<div ng-click="config.extended = !config.extended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  <i ng-if="config.extended === true" class="fa fa-angle-up" aria-hidden="true"></i>
+  <i ng-if="!config.extended" class="fa fa-angle-down" aria-hidden="true"></i>
+  <span class="homePage_display_title">
+    {{$root.i18n('displayjsonconfig')}}
+  </span>
+</div>
+<pre ng-if="config.extended === true">{{config|json}}</pre>

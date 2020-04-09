@@ -4,7 +4,7 @@
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/TableComplexeEnhanced_description.ng.html'"></div>
     </div>
   </div>
-  <pre>{{config|json}}</pre>
+
   <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('clearFilterAtStart')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.clearFilterAtStart" /></div>
@@ -52,7 +52,6 @@
       <div class="row-cell row-cell-label">{{$root.i18n('tableHeight')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input ng-model="config.nodes[behaviour.node.NodeID].heightPercent" /></div>
     </div>
-    <pre ng-if="false">{{behaviour |json}}</pre>
     <div class="tabs">
         <div
           ng-repeat="(i, column) in behaviour.columns"
@@ -84,7 +83,7 @@
           </div>
       </div>
     </div>
-
+    <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
 
 
   </div>

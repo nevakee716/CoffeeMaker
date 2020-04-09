@@ -93,3 +93,4 @@ freezeFirstOption = Geler la première colone
 itemPerPages = Liste des choix possible du nombre d''objet par page
 frozen = Geler
 clearButtonName = Effacer les Filtres
+displayjsonconfig = Afficher la Configuration JSON
