@@ -4,7 +4,11 @@
   "description": "Allow you to configure specifics directly in evolve",
   "main": "src/CoffeMaker.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "patch": "cpm --package patch",
+    "minor": "cpm --package minor",
+    "major": "cpm --package major",
+    "release": "cpm --register ../../evolve-layouts",
+    "patchrelease": "cpm --package patch && cpm --register ../../evolve-layouts"
   },
   "repository": {
     "type": "git",
