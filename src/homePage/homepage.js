@@ -1,7 +1,7 @@
-(function(cwApi, $, cwCustomerSiteActions) {
+(function (cwApi, $, cwCustomerSiteActions) {
   "use strict";
 
-  cwCustomerSiteActions.doActionsForAll_Custom = function(rootNode) {
+  cwCustomerSiteActions.doActionsForAll_Custom = function (rootNode) {
     var currentView, url, i, cwView;
     currentView = cwAPI.getCurrentView();
     if (currentView) cwView = currentView.cwView;
@@ -15,7 +15,7 @@
     }
   };
 
-  cwCustomerSiteActions.removeMonMenu = function(rootNode, cwView) {
+  cwCustomerSiteActions.removeMonMenu = function (rootNode, cwView) {
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     if (config && config.removeMyMenu === true) {
       var menus = document.querySelectorAll("div.menuText");
@@ -34,7 +34,7 @@
     }
   };
 
-  var removeMyMenuHomepage = function(config, callback) {
+  var removeMyMenuHomepage = function (config, callback) {
     cwCustomerSiteActions.removeMonMenu();
     let menus = document.querySelectorAll(".cw-home-title");
     for (let i = 0; i < menus.length; i++) {
@@ -49,7 +49,7 @@
     }
   };
 
-  var manageFavAndBookmark = function(homeContainer, $scope) {
+  var manageFavAndBookmark = function (homeContainer, $scope) {
     $scope.favHTML = document.createElement("ul");
     $scope.favHTML.className = "level-0";
     $scope.quicklinkHTML = document.createElement("ul");
@@ -62,8 +62,8 @@
       }
     }
 
-    iToAppend.reverse().forEach(function(i) {
-      $scope.favHTML.append(homeContainer.firstChild.children[i]);
+    iToAppend.reverse().forEach(function (i) {
+      $scope.favHTML.appendChild(homeContainer.firstChild.children[i]);
     });
 
     iToAppend = [];
@@ -72,13 +72,13 @@
         iToAppend.push(i);
       }
     }
-    iToAppend.reverse().forEach(function(i) {
-      $scope.quicklinkHTML.append(homeContainer.firstChild.children[i]);
+    iToAppend.reverse().forEach(function (i) {
+      $scope.quicklinkHTML.appendChild(homeContainer.firstChild.children[i]);
     });
   };
 
-  var loadHomePage = function(config, callback) {
-    cwApi.CwAsyncLoader.load("angular", function() {
+  var loadHomePage = function (config, callback) {
+    cwApi.CwAsyncLoader.load("angular", function () {
       var loader = cwApi.CwAngularLoader;
       loader.setup();
 
@@ -87,9 +87,9 @@
       homeContainerAngular.id = "cw-home-navigation-angular";
 
       let homeContainer = document.getElementById("cw-home-navigation");
-      homeContainer.append(homeContainerAngular);
+      homeContainer.appendChild(homeContainerAngular);
       let templatePath = cwAPI.getCommonContentPath() + "/html/homePage/home.ng.html" + "?" + Math.random();
-      loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation-angular"), templatePath, function($scope, $sce) {
+      loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation-angular"), templatePath, function ($scope, $sce) {
         $scope.metamodel = cwAPI.mm.getMetaModel();
 
         // duplicate config to not spoil it
@@ -97,20 +97,20 @@
         $scope.cwApi = cwApi;
         manageFavAndBookmark(homeContainer, $scope);
 
-        $scope.initFav = function() {
+        $scope.initFav = function () {
           let fav = angular.element(document.querySelector("#homePage_favorite"));
           if (fav) fav.append($scope.favHTML);
         };
-        $scope.initQuickLink = function() {
+        $scope.initQuickLink = function () {
           let quick = angular.element(document.querySelector("#homePage_quicklink"));
           if (quick) quick.append($scope.quicklinkHTML);
         };
 
-        $scope.getStyleForColumn = function(col) {
+        $scope.getStyleForColumn = function (col) {
           return { width: col.width };
         };
 
-        $scope.getStyleForDisplay = function(display) {
+        $scope.getStyleForDisplay = function (display) {
           let calcWidth = display.width;
           if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
 
@@ -120,7 +120,7 @@
           return { width: calcWidth };
         };
 
-        $scope.getStyleForDisplayContent = function(display) {
+        $scope.getStyleForDisplayContent = function (display) {
           let calcWidth = display.width;
           if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
 
@@ -137,19 +137,19 @@
           return { height: calcHeight };
         };
 
-        $scope.getLinkBoxContainerStyle = function(display) {
+        $scope.getLinkBoxContainerStyle = function (display) {
           return { "justify-content": display.justify };
         };
-        $scope.getLinkBoxStyle = function(display) {
+        $scope.getLinkBoxStyle = function (display) {
           return { width: display.boxLinkwidth };
         };
 
-        $scope.getHTMLView = function(display) {
+        $scope.getHTMLView = function (display) {
           let jsonFile = cwApi.getIndexViewDataUrl(display.view);
           display.loading = true;
           cwApi.getJSONFile(
             jsonFile,
-            function(o) {
+            function (o) {
               if (cwApi.checkJsonCallback(o)) {
                 let output = [];
                 let object = { associations: o };
@@ -165,14 +165,14 @@
           );
         };
 
-        $scope.getHTMLfromObject = function(display) {
+        $scope.getHTMLfromObject = function (display) {
           let query = {
             ObjectTypeScriptName: display.descriptionObjectTypeScriptname.toUpperCase(),
             PropertiesToLoad: ["NAME", "DESCRIPTION"],
             Where: [{ PropertyScriptName: "ID", Value: display.descriptionObjectID }],
           };
 
-          cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+          cwApi.CwDataServicesApi.send("flatQuery", query, function (err, res) {
             if (err) {
               console.log(err);
               return;
@@ -181,7 +181,7 @@
           });
         };
 
-        $scope.searchForObjects = function(display) {
+        $scope.searchForObjects = function (display) {
           let associationsCalls = [];
           let objects = [];
           display.date = { selectedDelay: 30 };
@@ -191,7 +191,7 @@
               display.date.dateIsArray = true;
               display.date.dateOptions = display.delay.split(",");
               display.date.selectedDelay = display.date.dateOptions[0];
-              display.date.dateOptions.sort(function(a, b) {
+              display.date.dateOptions.sort(function (a, b) {
                 a - b;
               });
             } else {
@@ -211,13 +211,13 @@
               }
               pToLoad = [timeP.toUpperCase()];
 
-              found.forEach(function(f) {
+              found.forEach(function (f) {
                 f = f.replace("{", "").replace("}", "");
                 pToLoad.push(f.toUpperCase());
               });
 
               if (display.objectTypeToSelect[ots].filters) {
-                display.objectTypeToSelect[ots].filters.forEach(function(f) {
+                display.objectTypeToSelect[ots].filters.forEach(function (f) {
                   pToLoad.push(f.scriptname);
                 });
               }
@@ -228,14 +228,14 @@
                 Where: [],
               };
 
-              let dataServiceFunction = function(callback) {
-                cwApi.CwDataServicesApi.send("flatQuery", query, function(err, res) {
+              let dataServiceFunction = function (callback) {
+                cwApi.CwDataServicesApi.send("flatQuery", query, function (err, res) {
                   if (err) {
                     console.log(err);
                     callback(null, err);
                     return;
                   }
-                  res.forEach(function(o) {
+                  res.forEach(function (o) {
                     let timePe = "whenupdated";
                     if (display.objectTypeToSelect[o.objectTypeScriptName].timeProperty) {
                       timePe = display.objectTypeToSelect[o.objectTypeScriptName].timeProperty;
@@ -246,7 +246,7 @@
 
                     let r = true;
                     if (display.objectTypeToSelect[ots].filters) {
-                      r = display.objectTypeToSelect[ots].filters.every(function(filter) {
+                      r = display.objectTypeToSelect[ots].filters.every(function (filter) {
                         return matchPropertyFilter(o, filter);
                       });
                     }
@@ -262,19 +262,19 @@
             }
           }
 
-          async.series(associationsCalls, function(err, results) {
+          async.series(associationsCalls, function (err, results) {
             display.objects = objects;
 
             $scope.$apply();
           });
         };
 
-        $scope.displayItemString = function(item) {
+        $scope.displayItemString = function (item) {
           return $sce.trustAsHtml(item);
         };
 
-        $scope.filterDate = function(display) {
-          return function(date) {
+        $scope.filterDate = function (display) {
+          return function (date) {
             let shouldBeDisplay = date.date > new Date() - 24 * 60 * 60 * 1000 * display.date.selectedDelay;
             if (shouldBeDisplay) {
               $("#homePageFav_" + date.objectTypeScriptName + "_" + date.object_id).show();
@@ -285,12 +285,12 @@
           };
         };
 
-        $scope.toggle = function(c, e) {
+        $scope.toggle = function (c, e) {
           if (c.hasOwnProperty(e)) delete c[e];
           else c[e] = true;
         };
 
-        $scope.toggleArray = function(c, e) {
+        $scope.toggleArray = function (c, e) {
           var i = c.indexOf(e);
           if (i === -1) c.push(e);
           else c.splice(i, 1);
@@ -299,7 +299,7 @@
     });
   };
 
-  var matchPropertyFilter = function(rootNode, filter) {
+  var matchPropertyFilter = function (rootNode, filter) {
     let propertyType = cwApi.mm.getProperty(rootNode.objectTypeScriptName, filter.scriptname);
     let objPropertyValue;
     let value = filter.Value;
@@ -345,7 +345,7 @@
   };
 
   cwAPI.CwHomePage.outputFirstPageOld = cwAPI.CwHomePage.outputFirstPage;
-  cwAPI.CwHomePage.outputFirstPage = function(callback) {
+  cwAPI.CwHomePage.outputFirstPage = function (callback) {
     let config;
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
@@ -356,7 +356,7 @@
     }
 
     var homePage;
-    var doActions = function(callback) {
+    var doActions = function (callback) {
       if (config.removeMyMenu === true) {
         removeMyMenuHomepage();
       }
@@ -367,13 +367,13 @@
       if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
 
       if (config.columns) {
-        asynFunction.push(function(callback) {
-          loadHomePage(config, function() {
+        asynFunction.push(function (callback) {
+          loadHomePage(config, function () {
             callback(null, err);
           });
         });
       }
-      async.series(asynFunction, function(err, results) {
+      async.series(asynFunction, function (err, results) {
         callback(null);
       });
     };
@@ -395,7 +395,7 @@
       } else {
         homePage.createHomePageMenus();
         /// call load and output favourites
-        cwApi.CwBookmarkManager.outputFavourites(function() {
+        cwApi.CwBookmarkManager.outputFavourites(function () {
           homePage.showLeveL0();
           cwApi.CwHomePage.outputHomePageCustom();
           cwApi.pluginManager.execute("outputHomePageCustom");
@@ -404,7 +404,7 @@
         });
       }
     } else {
-      homePage.handleOfflineHomePage(function() {
+      homePage.handleOfflineHomePage(function () {
         cwHomePage.outputHomePageCustom();
         return doActions(callback);
       });
@@ -414,11 +414,11 @@
     callback(null);
   };
 
-  cwApi.isIndexPage = function() {
+  cwApi.isIndexPage = function () {
     return cwAPI.cwPageManager.getQueryString().cwtype === cwAPI.CwPageType.Index || cwApi.getCurrentView() === undefined;
   };
 
-  cwApi.setToFullScreenAndGetNewHeight = function($container, insideHeightAtTop) {
+  cwApi.setToFullScreenAndGetNewHeight = function ($container, insideHeightAtTop) {
     if (cwApi.isUndefined(insideHeightAtTop)) {
       insideHeightAtTop = 0;
     }
