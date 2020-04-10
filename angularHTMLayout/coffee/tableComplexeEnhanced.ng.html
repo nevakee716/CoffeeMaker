@@ -41,7 +41,7 @@
   <div class="tabContent" ng-if="behaviour.selected" ng-repeat="(i, behaviour) in currentView.schema.Behaviours">
 
     <div class="bootstrap-iso rowFlex">
-      <div class="row-cell row-cell-label">{{$root.i18n('title')}} :&nbsp;</div>
+      <div class="row-cell row-cell-label">{{$root.i18n('donotdisplaytitle')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input type="checkbox" ng-model="config.nodes[behaviour.node.NodeID].title" /></div>
     </div>
     <div class="bootstrap-iso rowFlex">

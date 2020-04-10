@@ -86,6 +86,7 @@ columnSize = Width of Column (px)
 tableHeight = Height of the Table (%)
 order = Order
 title = Title
+donotdisplaytitle = Do not display Title
 specificPopout = Popout to use
 grid_drop_column = Drag Column Header here to group
 clearFilterAtStart = Clear Filter At Start

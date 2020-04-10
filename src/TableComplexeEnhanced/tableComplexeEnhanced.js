@@ -95,6 +95,7 @@
       if (columns[0].title == "Options") columns[0].width += 35;
       if (columns[columns.length - 1].title == "Options") columns[columns.length - 1].width += 35;
     }
+    if (config.freezeFirstOption) clearColumn(columns, config);
     if (config.nodes && config.nodes[nodeID] && config.nodes[nodeID].columns) {
       let configColumn = config.nodes[nodeID].columns;
       clearColumnResult = clearColumn(columns, config);
@@ -202,7 +203,7 @@
       columns: this.columns,
     };
 
-    if (config && config.title) {
+    if (!config || !config.title) {
       var obj = {
         name: "Title",
         template: '<h3 style="right:50%; position:absolute">' + this.nodeSchema.NodeName + "</h3>",
@@ -632,6 +633,16 @@
       return container.find("td[role='gridcell']:first ");
     } else {
       return container.find("td[role='gridcell']:last ");
+    }
+  };
+
+  // Fixing issue with edit page when there is a collapsible listbox inside a complexe table
+  cwApi.cwEditProperties.cwEditPropertyManagerAssociations.prototype.setMandatoryAssociationDOM = function (nodeId, associationBox) {
+    var associationType = cwApi.getAssociationType(nodeId);
+    if (associationType && associationType.isMandatoryAssociation) {
+      var element = associationBox.find(".cw-property-title-displayname");
+      var initialValue = element.text();
+      element.text(initialValue + "*");
     }
   };
 
