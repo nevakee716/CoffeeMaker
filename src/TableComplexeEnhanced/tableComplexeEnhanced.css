@@ -39,3 +39,14 @@ div.k-header.k-grid-toolbar {
   background: #03a0ce;
   color: #ffffff;
 }
+.k-button.k-button-icontext i.fa,
+.k-button.k-button-icontext .k-icon.k-i-plus {
+  color: #03a0ce;
+}
+.k-grid-header th.k-header {
+  vertical-align: top;
+}
+.k-grid.k-widget {
+  border-top: 0px;
+  overflow: hidden;
+}
