@@ -1,6 +1,6 @@
 <div>
   <div ng-if="showDescription" class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/diagram_description.ng.html'"></div>
     </div>
   </div>
@@ -15,5 +15,13 @@
     <div class="row-cell row-cell-value">
       <input ng-model="config.deactivateGPS" type="checkbox" />
     </div>
+  </div>
+  <div class="tabs">
+    <div ng-repeat="(i, template) in diagramTemplate" ng-class="{active: i == selectedTemplateID}" class="tab-link" ng-click="selectTemplate(i)">
+      {{template.properties.type}}
+    </div>
+  </div>
+  <div class="tabContent" ng-if="iTemplate == selectedTemplateID" ng-repeat="(iTemplate, template) in diagramTemplate">
+    <div ng-include src="'../../common/html/coffee/diagram.template.ng.html'"></div>
   </div>
 </div>

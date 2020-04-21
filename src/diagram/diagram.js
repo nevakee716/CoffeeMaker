@@ -1,7 +1,7 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
 /*
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
 
   var DiagramObjectLinkOnEvolveConfig = {
@@ -10,14 +10,18 @@
 
   var DiagramObjectLinkOnEvolve = {};
 
-  DiagramObjectLinkOnEvolve.clickOnCanvas = function(e) {
+  DiagramObjectLinkOnEvolve.clickOnCanvas = function (e) {
     var that = this;
     function userHasRightToDrillDown() {
       var scriptname = that.currentContext.selectedObject.objectTypeScriptName;
 
       if (DiagramObjectLinkOnEvolveConfig.accessright.hasOwnProperty(scriptname)) {
         var config = DiagramObjectLinkOnEvolveConfig.accessright[scriptname];
-        if (cwAPI.customLibs && cwAPI.customLibs.isActionToDo && cwAPI.customLibs.isActionToDo(that.currentContext.selectedObject, config.conditionnalAccessFilter)) {
+        if (
+          cwAPI.customLibs &&
+          cwAPI.customLibs.isActionToDo &&
+          cwAPI.customLibs.isActionToDo(that.currentContext.selectedObject, config.conditionnalAccessFilter)
+        ) {
           return true;
         } else {
           cwApi.cwNotificationManager.addError(config.message);
@@ -45,7 +49,13 @@
           if (link[0] === "#") {
             window.location.hash = link;
           } else {
-            if (link.indexOf("http://") !== 0 && link.indexOf("https://") !== 0 && link.indexOf("/") !== 0 && link.indexOf("./") !== 0 && link !== "") {
+            if (
+              link.indexOf("http://") !== 0 &&
+              link.indexOf("https://") !== 0 &&
+              link.indexOf("/") !== 0 &&
+              link.indexOf("./") !== 0 &&
+              link !== ""
+            ) {
               link = "http://" + link;
             }
             window.open(link);
@@ -64,7 +74,10 @@
           // Explosion
           let config = cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
           if (config && config.deactivateDiagramDrillDown && userHasRightToDrillDown()) {
-            location.href = cwAPI.createLinkForSingleView(this.currentContext.selectedObject.objectTypeScriptName, this.currentContext.selectedObject);
+            location.href = cwAPI.createLinkForSingleView(
+              this.currentContext.selectedObject.objectTypeScriptName,
+              this.currentContext.selectedObject
+            );
           }
 
           //this.openDiagrams(regionZone.explodedDiagrams);
@@ -80,7 +93,13 @@
       } else {
         cwObject = this.currentContext.selectedShape.shape.cwObject;
         // Object link
-        if (this.currentContext.selectedShape.shape.paletteEntryKey === "OBJECTLINK|0" && cwObject !== undefined && cwObject !== null && cwObject.properties !== undefined && cwObject.properties !== null) {
+        if (
+          this.currentContext.selectedShape.shape.paletteEntryKey === "OBJECTLINK|0" &&
+          cwObject !== undefined &&
+          cwObject !== null &&
+          cwObject.properties !== undefined &&
+          cwObject.properties !== null
+        ) {
           openObjectLink();
         }
         if (cwObject !== null) {
@@ -105,5 +124,78 @@
   if (cwAPI) {
     cwAPI.Diagrams.CwDiagramViewer.prototype.clickOnCanvas = DiagramObjectLinkOnEvolve.clickOnCanvas;
   }
+
+  PsgDiagramFilter.prototype.createFilterButton = function (diagramViewer) {
+    var filterButton,
+      o,
+      that = this;
+    if (diagramViewer.$breadcrumb === undefined) return;
+    filterButton = diagramViewer.$breadcrumb.find("a#cw-diagram-filter");
+    var filterClass = "";
+    if (this.filterEnable === true) filterClass = "enable";
+    if (filterButton.length > 0) {
+      filterButton.unbind("click");
+    } else {
+      o = [];
+      o.push(
+        '<a id="cw-diagram-filter" class="btn btn-diagram-filter no-text ',
+        filterClass,
+        '" title="',
+        $.i18n.prop("DiagramFilterIcon"),
+        '"><span class="btn-text"></span><i class="fa fa-filter"></i></a>'
+      );
+      diagramViewer.$breadcrumb.find(".cwDiagramBreadcrumbZoneRight").append(o.join(""));
+      filterButton = diagramViewer.$breadcrumb.find(".btn-diagram-filter");
+    }
+
+    filterButton.on("click", function () {
+      that.setupDiagramFilterZone(diagramViewer);
+    });
+  };
+
+  var PsgDiagramLegend;
+
+  PsgDiagramLegend = function () {
+    this.PsgDiagramLegend = {};
+  };
+
+  PsgDiagramFilter.prototype.init = function (diagramViewer) {
+    var legendButton,
+      o,
+      that = this;
+    if (diagramViewer.$breadcrumb === undefined) return;
+
+    filterButton = diagramViewer.$breadcrumb.find("a#cw-diagram-legend");
+    if (filterButton.length > 0) {
+      filterButton.unbind("click");
+    } else {
+      o = [];
+      o.push(
+        '<a id="cw-diagram-filter" class="btn btn-diagram-filter no-text ',
+        filterClass,
+        '" title="',
+        $.i18n.prop("DiagramLegendIcon"),
+        '"><span class="btn-text"><i class="fa fa-question-circle" aria-hidden="true"></i></a>'
+      );
+      diagramViewer.$breadcrumb.find(".cwDiagramBreadcrumbZoneRight").append(o.join(""));
+      filterButton = diagramViewer.$breadcrumb.find(".btn-diagram-filter");
+    }
+
+    filterButton.on("click", function () {
+      debugger;
+      that.setupDiagramFilterZone(diagramViewer);
+    });
+  };
+
+  PsgDiagramLegend.prototype.register = function () {
+    cwApi.pluginManager.register("CwDiagramViewer.initWhenDomReady", this.init.bind(this));
+  };
+
+  cwApi.CwPlugins.PsgDiagramLegend = PsgDiagramLegend;
+
+  /********************************************************************************
+  Activation
+  *********************************************************************************/
+/* new cwApi.CwPlugins.PsgDiagramLegend().register();
 })(cwAPI, jQuery);
 */

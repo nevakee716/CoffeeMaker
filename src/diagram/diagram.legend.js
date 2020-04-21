@@ -1,0 +1,51 @@
+/*jslint browser:true*/
+/*global cwAPI, jQuery, cwTabManager*/
+
+(function (cwApi, $) {
+  "use strict";
+
+  var PsgDiagramLegend;
+
+  PsgDiagramLegend = function () {
+    this.PsgDiagramLegend = {};
+  };
+
+  PsgDiagramLegend.prototype.init = function (diagramViewer) {
+    var legendButton,
+      o,
+      that = this;
+    if (diagramViewer.$breadcrumb === undefined) return;
+
+    let popOutName = cwApi.replaceSpecialCharacters(diagramViewer.json.objectTypeScriptName) + "_diagram_popout";
+    if (cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
+      legendButton = diagramViewer.$breadcrumb.find("a#cw-diagram-legend");
+      if (legendButton.length > 0) {
+        legendButton.unbind("click");
+      } else {
+        o = [];
+        o.push(
+          '<a id="cw-diagram-legend" class="btn btn-diagram-legend no-text title="',
+          $.i18n.prop("DiagramLegendIcon"),
+          '"><span class="btn-text"><i class="fa fa-question-circle" aria-hidden="true"></i></a>'
+        );
+        diagramViewer.$breadcrumb.find(".cwDiagramBreadcrumbZoneRight").append(o.join(""));
+        legendButton = diagramViewer.$breadcrumb.find(".btn-diagram-legend");
+      }
+
+      legendButton.on("click", function () {
+        cwApi.customFunction.openDiagramPopoutWithID(diagramViewer.json.object_id, popOutName);
+      });
+    }
+  };
+
+  PsgDiagramLegend.prototype.register = function () {
+    cwApi.pluginManager.register("CwDiagramViewer.initWhenDomReady", this.init.bind(this));
+  };
+
+  cwApi.CwPlugins.PsgDiagramLegend = PsgDiagramLegend;
+
+  /********************************************************************************
+  Activation
+  *********************************************************************************/
+  new cwApi.CwPlugins.PsgDiagramLegend().register();
+})(cwAPI, jQuery);

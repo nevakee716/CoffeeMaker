@@ -1,19 +1,19 @@
 /* Copyright (c) 2012-2013 Casewise Systems Ltd (UK) - All rights reserved */
 /*global cwAPI, jQuery */
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
   if (cwApi && cwApi.cwLayouts && cwApi.cwLayouts.cwCoffeeMaker) {
     var cwCoffeeMaker = cwApi.cwLayouts.cwCoffeeMaker;
   } else {
     // constructor
-    var cwCoffeeMaker = function(options, viewSchema) {
+    var cwCoffeeMaker = function (options, viewSchema) {
       cwApi.extend(this, cwApi.cwLayouts.CwLayout, options, viewSchema); // heritage
       cwApi.registerLayoutForJSActions(this); // execute le applyJavaScript après drawAssociations
       this.construct(options);
     };
   }
 
-  cwCoffeeMaker.prototype.construct = function(options) {
+  cwCoffeeMaker.prototype.construct = function (options) {
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5) {
       this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
       if (this.config === null) {
@@ -27,13 +27,13 @@
       if (this.config.checkEditModel === undefined) this.config.checkEditModel = {};
       if (this.config.pageFilter === undefined) this.config.pageFilter = {};
       if (this.config.tableComplexeEnhanced === undefined) this.config.tableComplexeEnhanced = {};
-      //if (this.config.diagram === undefined) this.config.diagram = {};
+      if (this.config.diagram === undefined) this.config.diagram = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };
 
   // obligatoire appeler par le system
-  cwCoffeeMaker.prototype.drawAssociations = function(output, associationTitleText, object) {
+  cwCoffeeMaker.prototype.drawAssociations = function (output, associationTitleText, object) {
     if (!(cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 2.1)) {
       output.push("<h1> Please Install Utils 2.1 or Higher");
     } else {
@@ -41,7 +41,7 @@
       output.push('<div id="CoffeeMaker_' + this.nodeID + '" class="CoffeeMaker">');
       output.push('<div id="CoffeeMakerTabContainer_' + this.nodeID + '" class="CoffeeMakerTabs">');
 
-      Object.keys(this.config).forEach(function(e) {
+      Object.keys(this.config).forEach(function (e) {
         output.push('<div data-id="' + e + '" id="CoffeeMakerTab_' + e + "_" + self.nodeID + '" class="CoffeeMakerTab">' + $.i18n.prop(e) + "</div>");
       });
 
@@ -64,18 +64,18 @@
     }
   };
 
-  cwCoffeeMaker.prototype.applyJavaScript = function() {
+  cwCoffeeMaker.prototype.applyJavaScript = function () {
     var self = this;
     var $container = $("#CoffeeMakerViewContainer_" + this.nodeID);
 
-    cwApi.CwAsyncLoader.load("angular", function() {
+    cwApi.CwAsyncLoader.load("angular", function () {
       var loader = cwApi.CwAngularLoader;
       loader.setup();
 
       let matches = document.querySelectorAll(".CoffeeMakerTab");
       for (let i = 0; i < matches.length; i++) {
         let t = matches[i];
-        t.addEventListener("click", function(event) {
+        t.addEventListener("click", function (event) {
           loader.setup();
 
           if (t.dataset.id === "saveconfiguration") {
@@ -88,7 +88,7 @@
           let templatePath = cwAPI.getCommonContentPath() + "/html/coffee/" + t.dataset.id + ".ng.html" + "?" + Math.random();
           self.unselectTabs();
           t.className += " selected";
-          loader.loadControllerWithTemplate(t.dataset.id, $container, templatePath, function($scope) {
+          loader.loadControllerWithTemplate(t.dataset.id, $container, templatePath, function ($scope) {
             $scope.metamodel = cwAPI.mm.getMetaModel();
             $scope.views = cwApi.cwConfigs.Pages;
             self.angularScope = $scope;
@@ -98,12 +98,12 @@
             $scope.showDescription = true;
             $scope.FilterOperators = ["=", "!=", ">", "<", "In"];
 
-            $scope.toggle = function(c, e) {
+            $scope.toggle = function (c, e) {
               if (c.hasOwnProperty(e)) delete c[e];
               else c[e] = true;
             };
 
-            $scope.toggleArray = function(c, e) {
+            $scope.toggleArray = function (c, e) {
               var i = c.indexOf(e);
               if (i === -1) c.push(e);
               else c.splice(i, 1);
@@ -116,7 +116,7 @@
     });
   };
 
-  cwCoffeeMaker.prototype.controller_homePage = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_homePage = function ($container, templatePath, $scope) {
     var objectpages = [];
     let config = $scope.config;
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
@@ -124,7 +124,7 @@
     return;
   };
 
-  cwCoffeeMaker.prototype.unselectTabs = function(tabs) {
+  cwCoffeeMaker.prototype.unselectTabs = function (tabs) {
     let matches = document.querySelectorAll(".CoffeeMakerTab");
     for (let i = 0; i < matches.length; i++) {
       let t = matches[i];
@@ -132,17 +132,17 @@
     }
   };
 
-  cwCoffeeMaker.prototype.getPropertiesFromNode = function(node) {
+  cwCoffeeMaker.prototype.getPropertiesFromNode = function (node) {
     let result = [];
     let propertiesScriptnames = {};
-    node.PropertiesSelected.forEach(function(p) {
+    node.PropertiesSelected.forEach(function (p) {
       propertiesScriptnames[p.toLowerCase()] = true;
       result.push(cwApi.mm.getProperty(node.ObjectTypeScriptName, p));
     });
     let pgSchema = node.PropertiesGroups;
     for (let pgk in pgSchema) {
       if (pgSchema[pgk]) {
-        pgSchema[pgk].properties.forEach(function(p) {
+        pgSchema[pgk].properties.forEach(function (p) {
           if (!propertiesScriptnames.hasOwnProperty(p)) {
             propertiesScriptnames[p] = true;
             result.push(cwAPI.mm.getProperty(node.ObjectTypeScriptName, p));

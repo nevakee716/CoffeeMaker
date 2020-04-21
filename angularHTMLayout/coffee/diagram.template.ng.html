@@ -1,0 +1,40 @@
+<div class="cwPropertiesTableContainer bootstrap-iso">
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('diagramFiler')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="checkbox" />
+    </div>
+  </div>
+  <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    {{$root.i18n('palette')}}
+  </div>
+
+  <table class="cwPropertiesTable">
+    <tbody>
+      <tr>
+        <th class="largeMediumCell">{{$root.i18n('property')}} / {{$root.i18n('association')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('Highlight')}}</th>
+      </tr>
+      <tr ng-repeat-start="p in template.data">
+        <th class="cw-edit-property-value">
+          {{p.displayName}}
+        </th>
+        <td class="cw-edit-property-value tableCheckbox">
+          <input type="checkbox" />
+        </td>
+      </tr>
+      <tr ng-repeat="r in p.regions">
+        <td class="cw-edit-property-value">
+          {{r.displayName}}
+        </td>
+        <td class="cw-edit-property-value tableCheckbox">
+          <input type="checkbox" />
+        </td>
+      </tr>
+      <tr ng-repeat-end>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
