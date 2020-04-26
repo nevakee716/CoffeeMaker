@@ -1,3 +1,4 @@
+/* CUSTOM VARIABLES */
 /* GLOBAL */
 /* LOGIN */
 /* DIAGRAM */
@@ -11,6 +12,7 @@
 /* LIST BOX */
 /* PROPERTIES GROUP */
 /* BUTTONS */
+@cwbuttonselectedbackgroundcolor :darken (#ffffff, 5%);
 /* PAGE ACTIONS */
 /* ACCORDIONS */
 /* DISCUSSIONS */
@@ -21,9 +23,9 @@
 /* TASKS & NOTIFICATIONS */
 /* GLOBAL SEARCH */
 /* TOP BAR */
-/* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
 .CoffeeMaker .CoffeeMakerTab {
   margin: 5px;
   transition: box-shadow 0.3s;
@@ -218,7 +220,12 @@
   width: 150px;
 }
 .CoffeeMaker .smallCell {
+  white-space: inherit;
   width: 70px;
+}
+.CoffeeMaker .verySmallCell {
+  white-space: inherit;
+  width: 15px;
 }
 .CoffeeMaker div.cwPropertiesTableContainer.nolimit {
   width: auto;
@@ -260,4 +267,12 @@
 }
 .CoffeeMaker .cwPropertiesTable .cw-edit-property-value {
   white-space: initial;
+}
+.CoffeeMaker .highlightDiagramContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.CoffeeMaker .highlightDiagramContainer > div {
+  width: 650px;
+  margin-right: 50px;
 }

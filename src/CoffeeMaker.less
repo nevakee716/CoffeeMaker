@@ -189,7 +189,12 @@
     width: 150px;
   }
   .smallCell {
+    white-space: inherit;
     width: 70px;
+  }
+  .verySmallCell {
+    white-space: inherit;
+    width: 15px;
   }
   div.cwPropertiesTableContainer.nolimit {
     width: auto;
@@ -238,5 +243,14 @@
 
   .cwPropertiesTable .cw-edit-property-value {
     white-space: initial;
+  }
+
+  .highlightDiagramContainer {
+    display: flex;
+    flex-wrap: wrap;
+    > div {
+      width: 650px;
+      margin-right: 50px;
+    }
   }
 }
