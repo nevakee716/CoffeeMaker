@@ -1,40 +1,74 @@
-<div class="cwPropertiesTableContainer bootstrap-iso">
+<div class="">
   <div class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('diagramFiler')}} :&nbsp;</div>
+    <div class="row-cell row-cell-label">{{$root.i18n('diagramFilter')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
-      <input type="checkbox" />
+      <input ng-model="config.template[template.object_id].filter" type="checkbox" />
     </div>
   </div>
-  <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    {{$root.i18n('palette')}}
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('diagramPopOutButton')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.template[template.object_id].popout" type="checkbox" />
+    </div>
   </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('diagramHighlight')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="config.template[template.object_id].highlight.activated" type="checkbox" />
+    </div>
+  </div>
+  <div class="highlightDiagramContainer" ng-if="config.template[template.object_id].highlight.activated">
+    <div>
+      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+        {{$root.i18n('palette')}}
+      </div>
 
-  <table class="cwPropertiesTable">
-    <tbody>
-      <tr>
-        <th class="largeMediumCell">{{$root.i18n('property')}} / {{$root.i18n('association')}}</th>
-        <th class="tableCheckbox">{{$root.i18n('Highlight')}}</th>
-      </tr>
-      <tr ng-repeat-start="p in template.data">
-        <th class="cw-edit-property-value">
-          {{p.displayName}}
-        </th>
-        <td class="cw-edit-property-value tableCheckbox">
-          <input type="checkbox" />
-        </td>
-      </tr>
-      <tr ng-repeat="r in p.regions">
-        <td class="cw-edit-property-value">
-          {{r.displayName}}
-        </td>
-        <td class="cw-edit-property-value tableCheckbox">
-          <input type="checkbox" />
-        </td>
-      </tr>
-      <tr ng-repeat-end>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+      <table class="cwPropertiesTable">
+        <tbody>
+          <tr>
+            <th class="verySmallCell"></th>
+            <th class="largeMediumCell">{{$root.i18n('property')}} / {{$root.i18n('association')}}</th>
+            <th class="tableCheckbox">{{$root.i18n('Highlight')}}</th>
+            <th class="tableCheckbox">{{$root.i18n('Steps')}}</th>
+          </tr>
+          <tr ng-repeat-start="p in template.data">
+            <th ng-click="p.extended = !p.extended" class="verySmallCell">
+              <span ng-if="p.regions && p.regions.length > 0">
+                <i ng-if="!p.extended" class="fa fa-chevron-down" aria-hidden="true"></i>
+                <i ng-if="p.extended" class="fa fa-chevron-up" aria-hidden="true"></i>
+              </span>
+            </th>
+            <th class="cw-edit-property-value">
+              {{p.displayName}}
+            </th>
+            <td class="cw-edit-property-value tableCheckbox">
+              <input ng-model="config.template[template.object_id].highlight.shape[p.scriptname].activated" type="checkbox" />
+            </td>
+            <td class="cw-edit-property-value tableCheckbox">
+              <input
+                ng-model="config.template[template.object_id].highlight.shape[p.scriptname].stepActivated"
+                ng-click="updateStepValue(config.template[template.object_id].highlight.shape[p.scriptname])"
+                type="checkbox"
+              />
+            </td>
+          </tr>
+          <tr ng-if="p.extended" ng-repeat="r in p.regions">
+            <td></td>
+            <td class="cw-edit-property-value">
+              {{r.displayName}}
+            </td>
+            <td class="cw-edit-property-value tableCheckbox">
+              <input ng-model="config.template[template.object_id].highlight.shape[p.scriptname].region[r.scriptname]" type="checkbox" />
+            </td>
+          </tr>
+          <tr ng-repeat-end>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div ng-include src="'../../common/html/coffee/diagram.step.ng.html'"></div>
+  </div>
 </div>

@@ -1,0 +1,75 @@
+<div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  {{$root.i18n('diagram_highlight_step')}}
+</div>
+<div class="row">
+  <div class="row-cell row-cell-value">
+    <table class="cell-content-wrapper filter-wrapper fullWidthFilterTable">
+      <tr class="filter-row filter-header bootstrap-iso">
+        <th class="filter-cell smallCell filter-operatorheader-cell header-value">{{$root.i18n('objecttype')}}</th>
+        <th class="filter-cell header-cell header-property">{{$root.i18n('step_name')}}</th>
+        <th class="filter-cell header-cell header-property">{{$root.i18n('start_prop')}}</th>
+        <th class="filter-cell header-cell header-operator">{{$root.i18n('end_prop')}}</th>
+        <th class="filter-cell header-cell header-value">{{$root.i18n('color')}}</th>
+      </tr>
+      <tr
+        ng-if="config.template[template.object_id].highlight.shape[p.scriptname].stepActivated && getDateRegion(p.regions,p.scriptname).length > 0"
+        ng-repeat-start="p in template.data"
+      >
+        <th class="cw-edit-property-value">
+          {{p.displayName}}
+        </th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+        <td class="cw-edit-property-value tableCheckbox">
+          <a
+            class="btn-add-operation btn page-action no-text"
+            title="{{$root.i18n('add_step')}}]"
+            ng-click="addStep(config.template[template.object_id].highlight.shape[p.scriptname])"
+            ><i class="fa fa-plus" aria-hidden="true"></i
+          ></a>
+        </td>
+      </tr>
+      <tr ng-repeat="s in config.template[template.object_id].highlight.shape[p.scriptname].steps">
+        <td></td>
+        <td class="cw-edit-property-name">
+          <input ng-if="s.name !== 'out'" ng-model="s.name" type="text" />
+          <span ng-if="s.name == 'out'"> {{s.name}}</span>
+        </td>
+        <td class="cw-edit-property-value mediumCell">
+          <select
+            ng-if="s.name !== 'out'"
+            ng-options="r.scriptname as r.displayName for r in getDateRegion(p.regions,p.scriptname) track by r.scriptname"
+            ng-model="s.start"
+          ></select>
+        </td>
+        <td class="cw-edit-property-value mediumCell">
+          <select
+            ng-if="s.name !== 'out'"
+            ng-options="r.scriptname as r.displayName for r in getDateRegion(p.regions,p.scriptname) track by r.scriptname"
+            ng-model="s.end"
+          ></select>
+        </td>
+        <td class="cw-edit-property-value tableCheckbox">
+          <input ng-model="s.color" type="color" />
+        </td>
+        <td class="cw-edit-property-value tableCheckbox">
+          <a
+            ng-if="s.name !== 'out'"
+            class="btn-add-operation btn page-action no-text"
+            title="{{$root.i18n('add_step')}}]"
+            ng-click="deleteStep(config.template[template.object_id].highlight.shape[p.scriptname],$index)"
+            ><i class="fa fa-close" aria-hidden="true"></i
+          ></a>
+        </td>
+      </tr>
+      <tr ng-repeat-end>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>

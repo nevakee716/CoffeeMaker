@@ -17,7 +17,9 @@
   }
 
   cwCoffeeMaker.prototype.controller_diagram = function ($container, templatePath, $scope) {
+    cwAPI.siteLoadingPageStart();
     this.loadDiagramTemplate("z_diagram_template", function () {
+      cwAPI.siteLoadingPageFinish();
       $scope.$apply();
     });
     this.$scope = $scope;
@@ -28,6 +30,35 @@
       $scope.selectedTemplateID = i;
     };
 
+    $scope.getDateRegion = function (regions, scriptname) {
+      return regions.filter(function (r) {
+        let p = cwAPI.mm.getProperty(scriptname, r.scriptname);
+        return p && p.type == "Date";
+      });
+    };
+
+    $scope.updateStepValue = function (o) {
+      if (o.stepActivated == false) {
+        delete o.steps;
+      }
+    };
+    $scope.addStep = function (o) {
+      if (!o.steps) {
+        o.steps = [
+          {
+            name: "out",
+            color: "#FF2222",
+          },
+        ];
+      }
+      o.steps.push({
+        name: "New Step",
+        color: "#FF2222",
+      });
+    };
+    $scope.deleteStep = function (o, index) {
+      o.steps.splice(i, 1);
+    };
     return;
   };
 
@@ -89,7 +120,6 @@
     this.diagramTemplate = {};
     var idToLoad = [];
     var idLoaded = 0;
-
     $.getJSON(cwApi.getLiveServerURL() + "page/" + templateListUrl + "?" + cwApi.getDeployNumber(), function (json) {
       if (json) {
         for (var associationNode in json) {
