@@ -32,32 +32,51 @@
   };
 
   cwCoffeeMaker.prototype.getPaletteData = function (palettes) {
-    var result = {};
+    let result = {};
+
     Object.values(palettes).forEach(function (p) {
       if (bannedObjectTypeScriptName.indexOf(p.PaletteObjectTypeScriptName) !== -1) return;
       if (!result[p.PaletteObjectTypeScriptName.toLowerCase()]) {
         result[p.PaletteObjectTypeScriptName.toLowerCase()] = {
           displayName: cwApi.getObjectTypeName(p.PaletteObjectTypeScriptName.toLowerCase()),
+          scriptname: p.PaletteObjectTypeScriptName.toLowerCase(),
           regions: [],
         };
       }
+      let scriptname = {};
       p.Regions.forEach(function (r) {
         if (r.RegionData && r.RegionData["AssociationsTypeDisplayName"]) {
-          result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
-            scriptname: r.RegionData.AssociationTypeScriptName,
-            displayName: r.RegionData.AssociationsTypeDisplayName,
-          });
-        } else if (r.RegionTypeString === "VisualizationUsingPaletteValue") {
-          result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
-            scriptname: r.SourcePropertyTypeScriptName,
-            displayName: cwAPI.mm.getProperty(p.PaletteObjectTypeScriptName.toLowerCase(), r.SourcePropertyTypeScriptName).name,
-          });
+          if (!scriptname[r.RegionData.AssociationTypeScriptName]) {
+            result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
+              scriptname: r.RegionData.AssociationTypeScriptName,
+              displayName: r.RegionData.AssociationsTypeDisplayName,
+            });
+            scriptname[r.RegionData.AssociationTypeScriptName] = true;
+          }
+        } else if (
+          r.RegionTypeString === "LocalPropertyActualValue" ||
+          r.RegionTypeString === "PropertiesAsDateRange" ||
+          r.RegionTypeString === "VisualizationUsingPaletteValue" ||
+          r.RegionTypeString === "GaugeUsingPaletteValue" ||
+          r.RegionTypeString === "GaugeUsingReferenceProperty" ||
+          r.RegionTypeString === "VisualizationUsingReferenceProperty"
+        ) {
+          if (!scriptname[r.SourcePropertyTypeScriptName.toLowerCase()]) {
+            result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
+              scriptname: r.SourcePropertyTypeScriptName.toLowerCase(),
+              displayName: cwAPI.mm.getProperty(p.PaletteObjectTypeScriptName.toLowerCase(), r.SourcePropertyTypeScriptName).name,
+            });
+            scriptname[r.SourcePropertyTypeScriptName.toLowerCase()] = true;
+          }
         } else if (r.RegionTypeString === "MultipleProperties") {
           r.PropertyInformation.PropTypes.forEach(function (rp) {
-            result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
-              scriptname: rp.ScriptName,
-              displayName: cwAPI.mm.getProperty(p.PaletteObjectTypeScriptName.toLowerCase(), rp.ScriptName).name,
-            });
+            if (!scriptname[rp.ScriptName.toLowerCase()]) {
+              result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
+                scriptname: rp.ScriptName.toLowerCase(),
+                displayName: cwAPI.mm.getProperty(p.PaletteObjectTypeScriptName.toLowerCase(), rp.ScriptName).name,
+              });
+              scriptname[rp.ScriptName] = true;
+            }
           });
         }
       });
