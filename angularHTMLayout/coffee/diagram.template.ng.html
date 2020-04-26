@@ -2,22 +2,49 @@
   <div class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('diagramFilter')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
-      <input ng-model="config.template[template.object_id].filter" type="checkbox" />
+      <input ng-model="config.template[template.properties.type_id].filter" type="checkbox" />
     </div>
   </div>
-  <div class="rowFlex bootstrap-iso">
+  <div ng-if="diagramPopout.length > 0" class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('diagramPopOutButton')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
-      <input ng-model="config.template[template.object_id].popout" type="checkbox" />
+      <input ng-model="config.template[template.properties.type_id].popout" type="checkbox" />
+    </div>
+  </div>
+  <div ng-if="config.template[template.properties.type_id].popout" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('diagramPopOutToUse')}} :&nbsp;</div>
+    <div ng-init="config.template[template.properties.type_id].popoutId = template.object_id" class="row-cell row-cell-value">
+      <select ng-model="config.template[template.properties.type_id].popoutView" ng-options="v.cwView as v.cwView for v in diagramPopout"></select>
     </div>
   </div>
   <div class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('diagramHighlight')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
-      <input ng-model="config.template[template.object_id].highlight.activated" type="checkbox" />
+      <input ng-model="config.template[template.properties.type_id].highlight.activated" type="checkbox" />
     </div>
   </div>
-  <div class="highlightDiagramContainer" ng-if="config.template[template.object_id].highlight.activated">
+  <div ng-if="config.template[template.properties.type_id].highlight.activated" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('highlightColor')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input
+        ng-init="config.template[template.properties.type_id].highlight.color = config.template[template.properties.type_id].highlight.color ? config.template[template.properties.type_id].highlight.color : '#03a0ce'"
+        ng-model="config.template[template.properties.type_id].highlight.color"
+        type="color"
+      />
+    </div>
+  </div>
+  <div ng-if="config.template[template.properties.type_id].highlight.activated" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('highlightTransparency')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input
+        ng-init="config.template[template.properties.type_id].highlight.globalAlpha = config.template[template.properties.type_id].highlight.globalAlpha ? config.template[template.properties.type_id].highlight.globalAlpha : 0.2"
+        ng-model="config.template[template.properties.type_id].highlight.globalAlpha"
+        type="number"
+      />
+    </div>
+  </div>
+
+  <div class="highlightDiagramContainer" ng-if="config.template[template.properties.type_id].highlight.activated">
     <div>
       <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
         {{$root.i18n('palette')}}
@@ -42,12 +69,12 @@
               {{p.displayName}}
             </th>
             <td class="cw-edit-property-value tableCheckbox">
-              <input ng-model="config.template[template.object_id].highlight.shape[p.scriptname].activated" type="checkbox" />
+              <input ng-model="config.template[template.properties.type_id].highlight.shape[p.scriptname].activated" type="checkbox" />
             </td>
             <td class="cw-edit-property-value tableCheckbox">
               <input
-                ng-model="config.template[template.object_id].highlight.shape[p.scriptname].stepActivated"
-                ng-click="updateStepValue(config.template[template.object_id].highlight.shape[p.scriptname])"
+                ng-model="config.template[template.properties.type_id].highlight.shape[p.scriptname].stepActivated"
+                ng-click="updateStepValue(config.template[template.properties.type_id].highlight.shape[p.scriptname])"
                 type="checkbox"
               />
             </td>
@@ -58,7 +85,7 @@
               {{r.displayName}}
             </td>
             <td class="cw-edit-property-value tableCheckbox">
-              <input ng-model="config.template[template.object_id].highlight.shape[p.scriptname].region[r.scriptname]" type="checkbox" />
+              <input ng-model="config.template[template.properties.type_id].highlight.shape[p.scriptname].region[r.scriptname]" type="checkbox" />
             </td>
           </tr>
           <tr ng-repeat-end>

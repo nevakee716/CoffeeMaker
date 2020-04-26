@@ -1,4 +1,4 @@
-redirectEdit = Redirect Edit
+﻿redirectEdit = Redirect Edit
 evolve_view = Evolve view
 redirect_evolve_view = Redirect to
 duplicateButton = Duplication button
@@ -94,3 +94,9 @@ itemPerPages = List of possible choices for the number of objects per page
 frozen = Frozen
 clearButtonName = Clear Filters
 displayjsonconfig = Display JSON Configuration
+label_pt_filter_column_property = Property
+label_pt_filter_column_operator = Operator
+label_pt_filter_column_value = Value
+label_pt_filter_add_new = Add New
+diagram_selectAObjectToView = Select An Object
+DiagramFilterIcon = Filter Association Region

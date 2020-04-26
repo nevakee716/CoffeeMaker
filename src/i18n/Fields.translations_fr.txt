@@ -1,4 +1,4 @@
-redirectEdit = Redirect Edit
+﻿redirectEdit = Redirect Edit
 evolve_view = Vue Evolve
 redirect_evolve_view = Rediriger vers
 duplicateButton = Bouton de Duplication
@@ -95,3 +95,9 @@ frozen = Geler
 clearButtonName = Effacer les Filtres
 displayjsonconfig = Afficher la Configuration JSON
 donotdisplaytitle = Ne Pas Afficher Le Titre
+label_pt_filter_column_property = Propriété
+label_pt_filter_column_operator = Opérateur
+label_pt_filter_column_value = Valeur
+label_pt_filter_add_new = Ajouter Filtre
+diagram_selectAObjectToView = Selectionner un objet
+DiagramFilterIcon = Filtrer les Régions d'Associations

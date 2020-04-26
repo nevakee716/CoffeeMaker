@@ -17,11 +17,16 @@
     </div>
   </div>
   <div class="tabs">
-    <div ng-repeat="(i, template) in diagramTemplate" ng-class="{active: i == selectedTemplateID}" class="tab-link" ng-click="selectTemplate(i)">
+    <div
+      ng-repeat="(i, template) in diagramTemplate | orderBy:'properties.type'"
+      ng-class="{active: i == selectedTemplateID}"
+      class="tab-link"
+      ng-click="selectTemplate(i)"
+    >
       {{template.properties.type}}
     </div>
   </div>
-  <div class="tabContent" ng-if="iTemplate == selectedTemplateID" ng-repeat="(iTemplate, template) in diagramTemplate">
+  <div class="tabContent" ng-if="iTemplate == selectedTemplateID" ng-repeat="(iTemplate, template) in diagramTemplate | orderBy:'properties.type'">
     <div ng-include src="'../../common/html/coffee/diagram.template.ng.html'"></div>
   </div>
   <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>

@@ -1,0 +1,156 @@
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* GRID */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+.cw-diagram-filter-container table.cw-grid tr:not(:first-child):hover {
+  background-color: inherit;
+}
+.cw-diagram-filter-container .cw-grid {
+  transition: height 1s ease;
+}
+.cw-diagram-filter-container .minimised {
+  height: 0px;
+}
+.cw-diagram-filter-container .minimised table {
+  display: none;
+}
+.cw-diagram-filter-container .buttonTd {
+  width: 30px;
+  text-align: center;
+  color: #808080;
+}
+.cw-diagram-filter-container .buttonTd i.active {
+  color: #e91b2b;
+}
+.cw-diagram-filter-container .cwPropertiesTableHeader i.fa {
+  float: right;
+  font-size: 20px;
+  color: #e91b2b;
+}
+.cw-diagram-filter-container .filterableRegion i {
+  color: #e91b2b;
+  float: right;
+}
+.cw-diagram-filter-container i.buttonTd {
+  color: #03a0ce;
+  float: right;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid:last-child {
+  padding-bottom: 20px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid {
+  padding-bottom: 0px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid th {
+  background-color: #03a0ce;
+  color: #e91b2b;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr td:last-child {
+  border-right: 1px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr td:first-child {
+  border-left: 1px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr td {
+  border-top: 1px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr:first-child td {
+  border-top: 0px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr:last-child td {
+  border-bottom: 1px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr.regionFilter td {
+  border-top: 0px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid tbody tr.regionFilter td table td {
+  border: 0px solid #03a0ce;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper {
+  width: 100%;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 0px 5px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper select {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 1px solid #cccccc;
+  padding: 0px 5px;
+  height: 30px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper input {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 1px solid #cccccc;
+  padding: 0px 5px;
+  height: 30px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper textarea {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 1px solid #cccccc;
+  padding: 0px 5px;
+  min-height: 30px;
+  resize: vertical;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper .filter-content {
+  width: 180px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper .filter-value {
+  width: 180px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper .filter-operator {
+  width: 100px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper .filter-cell {
+  margin: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper .filter-cell input[type="checkbox"] {
+  margin: 0px;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .filter-wrapper .filter-cell .btn.page-action i {
+  color: #808080;
+}
+.cw-diagram-filter-container .filterDiagram table.cw-grid .header-cell {
+  text-align: center;
+  font-weight: bold;
+}
+.cw-diagram-filter-container .add-filter-button a.btn-add-filter {
+  height: auto;
+  width: auto;
+  margin: 5px;
+  color: #808080;
+}
+.btn.btn-diagram-filter.enable i.fa {
+  color: #e9636e;
+}

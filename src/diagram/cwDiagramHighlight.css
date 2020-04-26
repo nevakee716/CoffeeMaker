@@ -1,0 +1,93 @@
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* GRID */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+.cw-diagram-search-container {
+  overflow: hidden;
+}
+.cwDiagramBreadcrumb ul.cwDiagramBreadcrumbZone li.cwDiagramBreadcrumbZoneLeft {
+  width: 60%;
+}
+.cwDiagramBreadcrumb ul.cwDiagramBreadcrumbZone li.cwDiagramBreadcrumbZoneRight {
+  width: 40%;
+}
+.cw-diagram-options-li {
+  display: inline-flex;
+  width: 100%;
+  border: 1px solid white;
+  padding: 5px;
+}
+.cw-diagram-search-objectType {
+  display: inline-flex;
+  width: 100%;
+  border: 1px solid white;
+  padding: 5px;
+}
+.diagramSearchGPS {
+  position: absolute;
+  right: 2px;
+}
+.cw-diagram-options-li input,
+.cw-diagram-options-li select,
+.HTML5searchFiler {
+  width: 55%;
+}
+.cw-diagram-options-li input[type="date"] {
+  margin-left: 10px;
+}
+.searchFilerDateLegend {
+  padding-left: 10px;
+  margin-left: 45%;
+}
+.cw-diagram-options-li select,
+.cw-diagram-options-li input[type="date"],
+.HTML5searchFiler {
+  display: block;
+  padding: 5px;
+  height: 100%;
+  color: #5c5d61;
+  font-size: 12px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+span.diagramSearchHeader {
+  width: 45%;
+  font-weight: bold;
+  border: 1px solid white;
+  padding: 5px;
+  padding-left: 0px;
+  border-top-width: 0;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  -ms-word-break: normal;
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow: hidden;
+}

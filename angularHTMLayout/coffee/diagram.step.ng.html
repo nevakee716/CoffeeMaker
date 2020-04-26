@@ -12,7 +12,7 @@
         <th class="filter-cell header-cell header-value">{{$root.i18n('color')}}</th>
       </tr>
       <tr
-        ng-if="config.template[template.object_id].highlight.shape[p.scriptname].stepActivated && getDateRegion(p.regions,p.scriptname).length > 0"
+        ng-if="config.template[template.properties.type_id].highlight.shape[p.scriptname].stepActivated && getDateRegion(p.regions,p.scriptname).length > 0"
         ng-repeat-start="p in template.data"
       >
         <th class="cw-edit-property-value">
@@ -27,12 +27,12 @@
           <a
             class="btn-add-operation btn page-action no-text"
             title="{{$root.i18n('add_step')}}]"
-            ng-click="addStep(config.template[template.object_id].highlight.shape[p.scriptname])"
+            ng-click="addStep(config.template[template.properties.type_id].highlight.shape[p.scriptname])"
             ><i class="fa fa-plus" aria-hidden="true"></i
           ></a>
         </td>
       </tr>
-      <tr ng-repeat="s in config.template[template.object_id].highlight.shape[p.scriptname].steps">
+      <tr ng-repeat="s in config.template[template.properties.type_id].highlight.shape[p.scriptname].steps">
         <td></td>
         <td class="cw-edit-property-name">
           <input ng-if="s.name !== 'out'" ng-model="s.name" type="text" />
@@ -41,14 +41,14 @@
         <td class="cw-edit-property-value mediumCell">
           <select
             ng-if="s.name !== 'out'"
-            ng-options="r.scriptname as r.displayName for r in getDateRegion(p.regions,p.scriptname) track by r.scriptname"
+            ng-options="r.scriptname as r.displayName for r in getDateRegion(p.regions,p.scriptname)"
             ng-model="s.start"
           ></select>
         </td>
         <td class="cw-edit-property-value mediumCell">
           <select
             ng-if="s.name !== 'out'"
-            ng-options="r.scriptname as r.displayName for r in getDateRegion(p.regions,p.scriptname) track by r.scriptname"
+            ng-options="r.scriptname as r.displayName for r in getDateRegion(p.regions,p.scriptname) "
             ng-model="s.end"
           ></select>
         </td>
@@ -60,7 +60,7 @@
             ng-if="s.name !== 'out'"
             class="btn-add-operation btn page-action no-text"
             title="{{$root.i18n('add_step')}}]"
-            ng-click="deleteStep(config.template[template.object_id].highlight.shape[p.scriptname],$index)"
+            ng-click="deleteStep(config.template[template.properties.type_id].highlight.shape[p.scriptname],$index)"
             ><i class="fa fa-close" aria-hidden="true"></i
           ></a>
         </td>

@@ -22,6 +22,14 @@
       cwAPI.siteLoadingPageFinish();
       $scope.$apply();
     });
+    var views = cwAPI.cwConfigs.Pages;
+    $scope.diagramPopout = [];
+    for (let v in views) {
+      if (views.hasOwnProperty(v)) {
+        if (views[v].type === "DiagramPopout" && views[v].rootObjectType === "diagram") $scope.diagramPopout.push(views[v]);
+      }
+    }
+
     this.$scope = $scope;
     $scope.selectedTemplateID = 0;
     $scope.diagramTemplate = [];
@@ -51,14 +59,15 @@
           },
         ];
       }
-      o.steps.push({
+      o.steps.splice(-1, 0, {
         name: "New Step",
         color: "#FF2222",
       });
     };
     $scope.deleteStep = function (o, index) {
-      o.steps.splice(i, 1);
+      o.steps.splice(index, 1);
     };
+
     return;
   };
 
