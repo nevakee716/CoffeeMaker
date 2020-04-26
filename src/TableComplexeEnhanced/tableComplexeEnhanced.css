@@ -35,10 +35,6 @@ a.k-button.k-button-icontext.k-grid-popoutitem {
   min-width: 30px;
   color: #03a0ce;
 }
-div.k-header.k-grid-toolbar {
-  background: #03a0ce;
-  color: #ffffff;
-}
 .k-button.k-button-icontext i.fa,
 .k-button.k-button-icontext .k-icon.k-i-plus {
   color: #03a0ce;
