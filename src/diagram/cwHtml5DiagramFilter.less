@@ -20,23 +20,23 @@
 
   .buttonTd {
     width: 30px;
+    height: 30px;
     text-align: center;
-    color: rgb(128, 128, 128);
     i.active {
-      color: rgb(233, 27, 43);
+      color: @cwDiagramBreadCrumbBackgroundColor;
     }
   }
   .cwPropertiesTableHeader {
     i.fa {
       float: right;
       font-size: 20px;
-      color: rgb(233, 27, 43);
+      color: @cwDiagramBreadCrumbBackgroundColor;
     }
   }
 
   .filterableRegion {
     i {
-      color: rgb(233, 27, 43);
+      color: @cwDiagramBreadCrumbBackgroundColor;
       float: right;
     }
   }
@@ -53,7 +53,8 @@
 
     th {
       background-color: @cwDiagramBreadCrumbBackgroundColor;
-      color: rgb(233, 27, 43);
+      color: #fff;
+      height: 30px;
     }
 
     tbody {
@@ -132,9 +133,6 @@
         input[type="checkbox"] {
           margin: 0px;
         }
-        .btn.page-action i {
-          color: rgb(128, 128, 128);
-        }
       }
     }
     .header-cell {
@@ -147,7 +145,7 @@
       height: auto;
       width: auto;
       margin: 5px;
-      color: rgb(128, 128, 128);
+      color: @cwHomePageFavoriteTextColor;
     }
   }
 }
