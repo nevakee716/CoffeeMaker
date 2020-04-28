@@ -126,7 +126,7 @@
 
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
-          if (display.extendable !== undefined) {
+          if (display.extendable === true) {
             if (display.extended === true) {
               calcHeight = "unset";
             } else {
