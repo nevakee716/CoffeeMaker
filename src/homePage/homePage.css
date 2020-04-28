@@ -70,6 +70,9 @@
   overflow: auto;
   height: inherit;
 }
+.homePage_main .homePage_column .homePage_display .homePage_evolveView .cw-jvector-map {
+  height: 100%;
+}
 .homePage_main .homePage_column .homePage_display .homePage_evolveView .tableForPopoutWrapper {
   overflow: unset;
 }
