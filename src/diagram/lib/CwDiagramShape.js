@@ -1,7 +1,7 @@
 /* Copyright � 2012-2017 erwin, Inc. - All rights reserved */
 /*global cwAPI : true */
 
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
   // Magic number for padding inside boxes
   var ratioMmToCanvasSize = 8192 / 2180; // 8192 / 2165;
@@ -32,7 +32,7 @@
   // Create the draw engine
   let cwDiagramShape = cwApi.Diagrams.CwDiagramShape;
   // Load region zones inside the shapes
-  cwDiagramShape.prototype.loadRegionsZones = function() {
+  cwDiagramShape.prototype.loadRegionsZones = function () {
     var standardExplosionZone, properties, excludeRegionsTypeFromEditMode;
     var text, style;
 
@@ -62,7 +62,7 @@
         }
 
         regionZone = this.getRegionSize(region);
-        regionZone.RegionSequence = region.RegionSequence;
+        regionZone.RegionSequence = region.RegionSequence; //***adding this information for easier filtering */
         regionZone.explodedDiagrams = [];
         switch (region.RegionTypeString) {
           case "ExplosionWithRuleAndReferenceProperty":
@@ -128,8 +128,14 @@
           // Calculate all regions details
           regionZone.RegionResultReadyToDisplay = this.getRegionTextStyleImage(region, regionZone.defaultRegionSymbol, regionZone.defaultRegionStyle);
           if (regionZone.RegionResultReadyToDisplay !== undefined && regionZone.RegionResultReadyToDisplay !== null) {
-            text = regionZone.RegionResultReadyToDisplay.text !== undefined && regionZone.RegionResultReadyToDisplay.text !== null ? cwAPI.cwPropertiesGroups.getTextFromHTML(regionZone.RegionResultReadyToDisplay.text) : "";
-            style = regionZone.RegionResultReadyToDisplay.style !== undefined && regionZone.RegionResultReadyToDisplay.style !== null ? regionZone.RegionResultReadyToDisplay.style : null;
+            text =
+              regionZone.RegionResultReadyToDisplay.text !== undefined && regionZone.RegionResultReadyToDisplay.text !== null
+                ? cwAPI.cwPropertiesGroups.getTextFromHTML(regionZone.RegionResultReadyToDisplay.text)
+                : "";
+            style =
+              regionZone.RegionResultReadyToDisplay.style !== undefined && regionZone.RegionResultReadyToDisplay.style !== null
+                ? regionZone.RegionResultReadyToDisplay.style
+                : null;
           }
 
           // Region clickable with a valid url then fill ClickableRegionUrl with text
@@ -138,8 +144,16 @@
           }
 
           // Calculate region area for text inside regions
-          textRegionArea = this.prepareTextInsideAnyShape(this.diagramCanvas.ctx, regionZone, style, regionZone.RegionResultReadyToDisplay.symbol, regionZone.VerticalText, regionZone.VerticalTextDirection);
+          textRegionArea = this.prepareTextInsideAnyShape(
+            this.diagramCanvas.ctx,
+            regionZone,
+            style,
+            regionZone.RegionResultReadyToDisplay.symbol,
+            regionZone.VerticalText,
+            regionZone.VerticalTextDirection
+          );
           // Calculate exact text position inside region
+          //***** */ modify to display of multiassociation prop
           if (regionZone.RegionTypeString === "MultiplePropertyAssociations") {
             text = "9";
             regionZone.VerticalJustification = "CentreJustify";
@@ -162,7 +176,11 @@
         }
 
         // Only the regions with explosions but is stopping the labels
-        if ((!cwAPI.isUndefined(regionZone.explodedDiagrams) && regionZone.explodedDiagrams.length > 0) || (!cwAPI.isUndefined(regionZone.navigationDiagrams) && regionZone.navigationDiagrams.length > 0) || other) {
+        if (
+          (!cwAPI.isUndefined(regionZone.explodedDiagrams) && regionZone.explodedDiagrams.length > 0) ||
+          (!cwAPI.isUndefined(regionZone.navigationDiagrams) && regionZone.navigationDiagrams.length > 0) ||
+          other
+        ) {
           this.regions.push(regionZone);
           // If not region represented, no need bounding box
           if (style !== null || regionZone.RegionResultReadyToDisplay.symbol !== null) {
@@ -175,7 +193,10 @@
 
       // Object Link
       if (this.isObjectLink()) {
-        properties = !cwAPI.isUndefinedOrNull(this.shape.cwObject) && !cwAPI.isUndefinedOrNull(this.shape.cwObject.properties) ? this.shape.cwObject.properties : null;
+        properties =
+          !cwAPI.isUndefinedOrNull(this.shape.cwObject) && !cwAPI.isUndefinedOrNull(this.shape.cwObject.properties)
+            ? this.shape.cwObject.properties
+            : null;
         if (properties !== null) {
           // ToDo: Get the name from back-end
           this.shape.name = !cwAPI.isUndefinedOrNull(properties.name) ? properties.name : null;

@@ -16,12 +16,8 @@ adding the support and clickable associated region*/
         var re = /cwOpenDiagram.exe [A-Z0-9]* (\d*)/;
         var result = link.match(re);
         if (result && result[1]) {
-          if (DiagramObjectLinkOnEvolveConfig.behaviour === "drill-down") {
-            that.drillDownInDiagram(result[1]);
-          } else if (DiagramObjectLinkOnEvolveConfig.behaviour === "dbclick") {
-            var newHash = cwApi.getSingleViewHash("diagram", result[1]);
-            cwApi.updateURLHash(newHash);
-          }
+          var newHash = cwApi.getSingleViewHash("diagram", result[1]);
+          cwApi.updateURLHash(newHash);
         } else {
           if (link[0] === "#") {
             window.location.hash = link;
