@@ -1,31 +1,66 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
-(function(cwApi, $) {
+
+/* modified version, adding change of behaviour for the drill down, fixing issue of the objectlink
+adding the support and clickable associated region*/
+(function (cwApi, $) {
   "use strict";
-  cwApi.Diagrams.CwDiagramViewer.prototype.clickOnCanvas = function(e) {
+  cwApi.Diagrams.CwDiagramViewer.prototype.clickOnCanvas = function (e) {
     var regionZone, cwObject, link;
+
+    function openObjectLink() {
+      // Object link
+      cwObject = that.currentContext.selectedShape.shape.cwObject;
+      if (cwObject !== undefined && cwObject !== null && cwObject.properties !== undefined && cwObject.properties !== null) {
+        link = cwObject.properties.link;
+        var re = /cwOpenDiagram.exe [A-Z0-9]* (\d*)/;
+        var result = link.match(re);
+        if (result && result[1]) {
+          if (DiagramObjectLinkOnEvolveConfig.behaviour === "drill-down") {
+            that.drillDownInDiagram(result[1]);
+          } else if (DiagramObjectLinkOnEvolveConfig.behaviour === "dbclick") {
+            var newHash = cwApi.getSingleViewHash("diagram", result[1]);
+            cwApi.updateURLHash(newHash);
+          }
+        } else {
+          if (link[0] === "#") {
+            window.location.hash = link;
+          } else {
+            if (
+              link.indexOf("http://") !== 0 &&
+              link.indexOf("https://") !== 0 &&
+              link.indexOf("/") !== 0 &&
+              link.indexOf("./") !== 0 &&
+              link !== ""
+            ) {
+              link = "http://" + link;
+            }
+            window.open(link);
+          }
+        }
+      }
+    }
 
     if (this.currentContext.selectedShape !== null && this.currentContext.selectedJoiner === null) {
       regionZone = this.currentContext.selectedRegionZone;
       if (!cwApi.isUndefinedOrNull(regionZone)) {
         if (this.currentContext.selectedShape.shape.paletteEntryKey === "OBJECTLINK|0") {
-          // Object link
-          cwObject = this.currentContext.selectedShape.shape.cwObject;
-          if (cwObject !== undefined && cwObject !== null && cwObject.properties !== undefined && cwObject.properties !== null) {
-            link = cwObject.properties.link;
-            if (link.indexOf("http://") !== 0 && link.indexOf("https://") !== 0 && link.indexOf("/") !== 0 && link.indexOf("./") !== 0 && link !== "") {
-              link = "http://" + link;
-            }
-            window.open(link, "_blank");
-          }
+          openObjectLink();
         } else if (regionZone.IsExplosionRegion === true) {
           // Explosion
-          this.openDiagrams(regionZone.explodedDiagrams);
+          let config = cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
+          if (config && config.deactivateDiagramDrillDown) {
+            location.href = cwAPI.createLinkForSingleView(
+              this.currentContext.selectedObject.objectTypeScriptName,
+              this.currentContext.selectedObject
+            );
+          } else this.openDiagrams(regionZone.explodedDiagrams);
         } else if (regionZone.IsNavigationRegion === true) {
           // Navigation
           this.openDiagrams(regionZone.navigationDiagrams);
         } else if (regionZone.RegionTypeString === "MultiplePropertyAssociations" || regionZone.RegionTypeString === "Association") {
-          if (cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.createPopOutFormultipleObjects) cwAPI.customLibs.utils.createPopOutFormultipleObjects(regionZone.filteredObjects);
+          if (cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.createPopOutFormultipleObjects)
+            cwAPI.customLibs.utils.createPopOutFormultipleObjects(regionZone.filteredObjects);
         } else if (regionZone.Clickable === true) {
           // Clickable regions
           if (!cwApi.isUndefined(regionZone) && regionZone.ClickableRegionUrl !== "") {
@@ -53,7 +88,7 @@
     }
   };
 
-  cwApi.Diagrams.CwDiagramViewer.prototype.getImageFromCanvas = function(title, sizeScale, e, isDiagramOverview, callback) {
+  cwApi.Diagrams.CwDiagramViewer.prototype.getImageFromCanvas = function (title, sizeScale, e, isDiagramOverview, callback) {
     var canvas,
       diagramViewer,
       $saveButton,
@@ -86,7 +121,7 @@
       $container: $container,
       fileName: fileName,
       diagramViewer: diagramViewer,
-      remove: function() {
+      remove: function () {
         if (diagramViewer !== undefined) {
           diagramViewer.removed = true;
         }
@@ -96,7 +131,15 @@
     };
 
     if (that.useImage === true) {
-      $container.append('<canvas id="canvas_temp_' + that.id + '" class="cwDiagramViewer" width="' + that.image.width + '" height="' + that.image.height + '"></canvas>');
+      $container.append(
+        '<canvas id="canvas_temp_' +
+          that.id +
+          '" class="cwDiagramViewer" width="' +
+          that.image.width +
+          '" height="' +
+          that.image.height +
+          '"></canvas>'
+      );
       $canvas = $container.find("#canvas_temp_" + that.id);
       canvas = $canvas[0];
       canvas.getContext("2d").drawImage(that.image, 0, 0);
@@ -123,7 +166,7 @@
     $container.css("height", 250);
     diagramViewer = new cwAPI.Diagrams.CwDiagramViewer($container, false, that.BehaviourProperties);
     diagramImage.diagramViewer = diagramViewer;
-    diagramViewer.onReadyToSaveAsImage = function() {
+    diagramViewer.onReadyToSaveAsImage = function () {
       return callback && callback(diagramImage);
     };
     diagramViewer.json = that.json;
