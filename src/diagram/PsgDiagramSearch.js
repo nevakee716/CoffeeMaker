@@ -21,8 +21,8 @@
     this.title1 = "Search";
     this.title2 = diagramViewer.json.properties.type;
     this.width = 5;
-    this.falseString = "False";
-    this.trueString = "True";
+    this.falseString = $.i18n.prop("global_false");
+    this.trueString = $.i18n.prop("global_true");
 
     this.weakArrowSymbol = [0, 3];
     this.highlightShape = {};
@@ -203,7 +203,8 @@
       filterObject.setAttribute("data-size", "10");
       filterObject.setAttribute("data-live-search", "true");
       filterObject.setAttribute("data-selected-text-format", "static");
-      filterObject.setAttribute("data-width", "300px");
+      filterObject.setAttribute("data-width", "200px");
+      filterObject.setAttribute("data-dropdown-align-right", false);
 
       filterObject.className = "cw-diagram-searchBox";
       filterContainer.appendChild(filterObject);
@@ -526,7 +527,7 @@
                 that.config === undefined ||
                 (that.config[selectedOt].activated === true &&
                   (that.config[selectedOt].region === undefined ||
-                    (that.config[selectedOt].region[property.scriptName] && that.config[selectedOt].region[property.scriptName].activated === true)))
+                    (that.config[selectedOt].region[property.scriptName] && that.config[selectedOt].region[property.scriptName] === true)))
               ) {
                 displayPropertyField(output, property);
               }
@@ -543,8 +544,7 @@
                   that.config === undefined ||
                   (that.config[selectedOt].activated === true &&
                     (that.config[selectedOt].region === undefined ||
-                      (that.config[selectedOt].region[property.scriptName] &&
-                        that.config[selectedOt].region[association.scriptName].activated === true)))
+                      (that.config[selectedOt].region[association.ScriptName] && that.config[selectedOt].region[association.ScriptName] === true)))
                 ) {
                   displayAssociationField(output, association);
                 }
