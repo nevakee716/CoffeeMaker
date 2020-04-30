@@ -1,8 +1,8 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
-  cwApi.cwSearchEngine.matchName = function(name, shouldMatch, initialValue) {
+  cwApi.cwSearchEngine.matchName = function (name, shouldMatch, initialValue) {
     var matchesName, nameToSearch, regexp, found, regex, oldValue, oldShouldMatch, shouldMatchs;
 
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("pageFilter");
@@ -10,7 +10,7 @@
     else shouldMatchs = [shouldMatch];
 
     found = false;
-    shouldMatchs.forEach(function(shouldMatch) {
+    shouldMatchs.forEach(function (shouldMatch) {
       if (shouldMatch.length < 2) return;
       oldShouldMatch = shouldMatch;
 
@@ -30,7 +30,7 @@
           name = name.replace(namePart, surroundTextWithSearchEngine(namePart));
         } else {
           regex = new RegExp("(" + oldShouldMatch + ")", "gi");
-          name = name.replace(regex, surroundTextWithSearchEngine(regex));
+          name = name.replace(regex, surroundTextWithSearchEngine(initialValue));
         }
 
         found = true;
@@ -44,7 +44,7 @@
     };
   };
 
-  var surroundTextWithSearchEngine = function(text) {
+  var surroundTextWithSearchEngine = function (text) {
     var res = "<span class='cw-searchengine-item-found'>" + text + "</span>";
     return res;
   };
