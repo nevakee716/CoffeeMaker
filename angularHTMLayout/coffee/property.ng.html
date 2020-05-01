@@ -1,0 +1,40 @@
+<div>
+  <div ng-include src="'../../common/html/coffee/property_description.ng.html'"></div>
+
+  <div ng-click="ext.lookup = !ext.lookup" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    <i ng-if="ext.lookup === true" class="fa fa-angle-up" aria-hidden="true"></i>
+    <i ng-if="!ext.lookup" class="fa fa-angle-down" aria-hidden="true"></i>
+    <span class="homePage_display_title">
+      {{$root.i18n('property_lookup')}}
+    </span>
+  </div>
+  <div ng-if="ext.lookup === true" ng-include src="'../../common/html/coffee/property_lookup.ng.html'"></div>
+
+  <div ng-click="ext.url = !ext.url" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    <i ng-if="ext.url === true" class="fa fa-angle-up" aria-hidden="true"></i>
+    <i ng-if="!ext.url" class="fa fa-angle-down" aria-hidden="true"></i>
+    <span class="homePage_display_title">
+      {{$root.i18n('property_url')}}
+    </span>
+  </div>
+  <div ng-if="ext.url === true" ng-include src="'../../common/html/coffee/property_url.ng.html'"></div>
+
+  <div ng-click="ext.boolean = !ext.boolean" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    <i ng-if="ext.boolean === true" class="fa fa-angle-up" aria-hidden="true"></i>
+    <i ng-if="!ext.boolean" class="fa fa-angle-down" aria-hidden="true"></i>
+    <span class="homePage_display_title">
+      {{$root.i18n('property_boolean')}}
+    </span>
+  </div>
+  <div ng-if="ext.boolean === true" ng-include src="'../../common/html/coffee/property_boolean.ng.html'"></div>
+
+  <div ng-click="ext.numeric = !ext.numeric" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    <i ng-if="ext.numeric === true" class="fa fa-angle-up" aria-hidden="true"></i>
+    <i ng-if="!ext.numeric" class="fa fa-angle-down" aria-hidden="true"></i>
+    <span class="homePage_display_title">
+      {{$root.i18n('property_numeric')}}
+    </span>
+  </div>
+  <div ng-if="ext.numeric === true" ng-include src="'../../common/html/coffee/property_numeric.ng.html'"></div>
+  <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
+</div>

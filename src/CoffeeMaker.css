@@ -84,6 +84,9 @@
 .CoffeeMaker .tabContent .remove-operation {
   float: right;
 }
+.CoffeeMaker div.cwPropertiesTableHeader {
+  font-size: 24px;
+}
 .CoffeeMaker div.row {
   display: block;
 }
@@ -112,6 +115,22 @@
 .CoffeeMaker div.row div.row-cell-value-textarea,
 .CoffeeMaker div.rowFlex div.row-cell-value-textarea {
   width: 80%;
+}
+.CoffeeMaker div.row .tableTextInput input,
+.CoffeeMaker div.rowFlex .tableTextInput input {
+  width: 100%;
+}
+.CoffeeMaker div.row .tableTextInput input,
+.CoffeeMaker div.rowFlex .tableTextInput input {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 1px solid #cccccc;
+  height: 34px;
+}
+.CoffeeMaker div.row .noWhiteSpace,
+.CoffeeMaker div.rowFlex .noWhiteSpace {
+  white-space: inherit;
 }
 .CoffeeMaker div.row div.row-cell-value select,
 .CoffeeMaker div.rowFlex div.row-cell-value select {

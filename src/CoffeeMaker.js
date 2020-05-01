@@ -28,6 +28,7 @@
       if (this.config.pageFilter === undefined) this.config.pageFilter = {};
       if (this.config.tableComplexeEnhanced === undefined) this.config.tableComplexeEnhanced = {};
       if (this.config.diagram === undefined) this.config.diagram = {};
+      if (this.config.property === undefined) this.config.property = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };
