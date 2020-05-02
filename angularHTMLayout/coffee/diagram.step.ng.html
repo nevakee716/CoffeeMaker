@@ -25,7 +25,7 @@
 
         <td class="cw-edit-property-value tableCheckbox">
           <a
-            class="btn-add-operation btn page-action no-text"
+            class="btn btn-add-operation page-action no-text"
             title="{{$root.i18n('add_step')}}]"
             ng-click="addStep(config.template[template.properties.type_id].highlight.shape[p.scriptname])"
             ><i class="fa fa-plus" aria-hidden="true"></i
@@ -58,7 +58,7 @@
         <td class="cw-edit-property-value tableCheckbox">
           <a
             ng-if="s.name !== 'out'"
-            class="btn-add-operation btn page-action no-text"
+            class="btn btn-add-operation page-action no-text"
             title="{{$root.i18n('add_step')}}]"
             ng-click="deleteStep(config.template[template.properties.type_id].highlight.shape[p.scriptname],$index)"
             ><i class="fa fa-close" aria-hidden="true"></i

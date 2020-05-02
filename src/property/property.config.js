@@ -23,11 +23,11 @@
       }
     }
 
-    $scope.getProperties = function (type) {
+    $scope.getProperties = function (types) {
       let result = [];
       let prop = $scope.objectTypes[$scope.ng.selectedObjectTypeScriptname].properties;
       for (let p in prop) {
-        if (prop.hasOwnProperty(p) && prop[p].type == type) {
+        if (prop.hasOwnProperty(p) && types.indexOf(prop[p].type) !== -1) {
           result.push(prop[p]);
         }
       }
@@ -43,7 +43,19 @@
         if (a.length > 0) clearInterval(timerId);
       }, 1000);
     };
-
+    $scope.addStep = function (objectTypesScriptname, propertyTypeScriptname) {
+      if (!$scope.config[objectTypesScriptname]) $scope.config[objectTypesScriptname] = {};
+      if (!$scope.config[objectTypesScriptname][propertyTypeScriptname]) $scope.config[objectTypesScriptname][propertyTypeScriptname] = {};
+      if (!$scope.config[objectTypesScriptname][propertyTypeScriptname].steps)
+        $scope.config[objectTypesScriptname][propertyTypeScriptname].steps = [];
+      $scope.config[objectTypesScriptname][propertyTypeScriptname].steps.push({});
+    };
+    $scope.deleteStep = function (objectTypesScriptname, propertyTypeScriptname, index) {
+      $scope.config[objectTypesScriptname][propertyTypeScriptname].steps.splice(index, 1);
+      if ($scope.config[objectTypesScriptname][propertyTypeScriptname].steps.length === 0) {
+        delete $scope.config[objectTypesScriptname][propertyTypeScriptname];
+      }
+    };
     return;
   };
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;

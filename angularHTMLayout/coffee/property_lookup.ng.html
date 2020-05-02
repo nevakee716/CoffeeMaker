@@ -12,12 +12,13 @@
       <tr>
         <th class="verySmallCell"></th>
         <th class="largeMediumCell noWhiteSpace">{{$root.i18n('lookup_property')}} {{$root.i18n('property')}}</th>
-        <th class="largeMediumCell">{{$root.i18n('icon')}}</th>
         <th class="largeMediumCell">{{$root.i18n('imageUrl')}}</th>
-        <th class="tableCheckbox">{{$root.i18n('color')}}</th>
+        <th class="largeMediumCell">{{$root.i18n('Icon')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('colorIcon')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('colorValue')}}</th>
       </tr>
-      <tr ng-repeat-start="p in getProperties('Lookup')">
-        <th ng-init="p.extended = true" ng-click="p.extended = !p.extended" class="verySmallCell">
+      <tr ng-repeat-start="p in getProperties(['Lookup'])">
+        <th ng-init="p.extended = false" ng-click="p.extended = !p.extended" class="verySmallCell">
           <span>
             <i ng-if="!p.extended" class="fa fa-chevron-down" aria-hidden="true"></i>
             <i ng-if="p.extended" class="fa fa-chevron-up" aria-hidden="true"></i>
@@ -32,12 +33,14 @@
       <tr ng-if="p.extended" ng-repeat="l in p.lookups">
         <td></td>
         <td class="noWhiteSpace">
-          <span data-image-url="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
-            >{{l.name}}
+          <span
+            ng-style="{color: config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].valueColor}"
+            data-image-url="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
+          >
             <i
               ng-if="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon"
               class="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon}}"
-              style="color: {{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].color}}"
+              ng-style="{color: config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].iconColor}"
               aria-hidden="true"
             ></i>
             <img
@@ -45,9 +48,12 @@
               class="scaleImg"
               src="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
             />
+            {{l.name}}
           </span>
         </td>
-
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl" type="text" />
+        </td>
         <td class="cw-edit-property-value" style="overflow: visible;">
           <div class="bootstrap-iso" style="display: flex; overflow: visible;">
             <select
@@ -62,11 +68,11 @@
             ></select>
           </div>
         </td>
-        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
-          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl" type="text" />
+        <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
+          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].iconColor" type="color" />
         </td>
         <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
-          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].color" type="color" />
+          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].valueColor" type="color" />
         </td>
       </tr>
       <tr ng-repeat-end>

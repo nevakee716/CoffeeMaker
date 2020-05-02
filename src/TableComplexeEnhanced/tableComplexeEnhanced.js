@@ -8,11 +8,6 @@
   tableComplexeEnhanced.cwKendoGridToolBar = {};
   tableComplexeEnhanced.cwKendoGridData = {};
 
-  var TableComplexeEnhancedConfig = {
-    urlText: "Cliquez Ici",
-    openInNewTab: true,
-  };
-
   var kendoGridDataSaved = {};
 
   // remove the special column of the table complexe and replace after the switch
@@ -420,44 +415,84 @@
 
   //Vrai Faux
   cwBehaviours.CwKendoGridBooleanType.prototype.getColumnTemplate = function () {
-    return (
-      "#= data." +
-      this.property.scriptName +
-      " ? '" +
-      '<i style="color:green" class="fa fa-check" aria-hidden="true"></i>' +
-      "' : '" +
-      '<i style="color:red" class="fa fa-times" aria-hidden="true"></i>' +
-      "' #"
-    );
-  };
-
-  cwAPI.cwPropertiesGroups.types.booleanValue = function (value) {
-    if (value !== false) {
-      value = '<i style="color:green" class="fa fa-check"><span class="hidden">' + jQuery.i18n.prop("global_true") + "</span></i>";
-    } else {
-      value = '<i style="color:red" class="fa fa-times"><span class="hidden">' + jQuery.i18n.prop("global_false") + "</span></i>";
+    let config;
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+      config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
     }
-    return value;
+    if (!config || !config.booleanIcon) {
+      return "#= data." + this.property.scriptName + " ? '" + $.i18n.prop("global_true") + "' : '" + $.i18n.prop("global_false") + "' #";
+    } else {
+      return (
+        "#= data." +
+        this.property.scriptName +
+        " ? '" +
+        '<i style="color:green" class="fa fa-check" aria-hidden="true"></i>' +
+        "' : '" +
+        '<i style="color:red" class="fa fa-times" aria-hidden="true"></i>' +
+        "' #"
+      );
+    }
   };
 
-  //Url
-  cwApi.cwPropertiesGroups.types.URLValue = function (value) {
-    var txt = "",
-      link = value;
-    if (TableComplexeEnhancedConfig.openInNewTab) txt = 'target="_blank"';
-    value =
-      TableComplexeEnhancedConfig.urlText +
-      " <a " +
-      txt +
-      'href="' +
-      link +
-      '">' +
-      '<div style="display:none">' +
-      link +
-      "</div>" +
-      "<i class='fa fa-file-text' </i>" +
-      "</a>";
-    return value;
+  // number display
+  cwBehaviours.CwKendoGridIntegerType.prototype.getDisplayNumber = function (item) {
+    let result, config;
+
+    if (this.config === undefined) {
+      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
+      }
+      if (config && config[item.objectTypeScriptName] && config[item.objectTypeScriptName][this.property.scriptName]) {
+        this.config = config[item.objectTypeScriptName][this.property.scriptName];
+      } else this.config = null;
+    }
+    let value = item.properties[this.property.scriptName];
+    return cwApi.cwPropertiesGroups.types.numericValue(value, this.config);
+  };
+
+  cwBehaviours.CwKendoGridIntegerType.prototype.getColumnTemplate = function () {
+    /* if (this.property.type === "Integer") {
+      return "#= kendo.toString(data." + this.property.scriptName + ",'n0')#";
+    } else {
+      return "#= kendo.toString(data." + this.property.scriptName + ",'n')#";
+    }*/
+    var self = this;
+    return function (dataItem) {
+      return self.getDisplayNumber(dataItem.item);
+    };
+  };
+
+  //lookup display
+  cwBehaviours.CwKendoGridLookupType.prototype.getDisplayLookup = function (item) {
+    let result, config;
+
+    if (this.config === undefined) {
+      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
+      }
+      if (config && config[item.objectTypeScriptName] && config[item.objectTypeScriptName][this.property.scriptName]) {
+        this.config = config[item.objectTypeScriptName][this.property.scriptName];
+      } else this.config = null;
+    }
+    let value = item.properties[this.property.scriptName];
+    let lookupID = item.properties[this.property.scriptName + "_id"];
+    if (value === cwApi.getLookupUndefinedValue()) {
+      result = $.i18n.prop("global_undefined");
+    }
+    result = value;
+    if (this.config) {
+      if (this.config[lookupID]) {
+        result = cwApi.cwPropertiesGroups.types.getResultForStyling(result, this.config[lookupID]);
+      }
+    }
+    return result;
+  };
+
+  cwBehaviours.CwKendoGridLookupType.prototype.getColumnTemplate = function () {
+    var self = this;
+    return function (dataItem) {
+      return self.getDisplayLookup(dataItem.item);
+    };
   };
 
   // popout button

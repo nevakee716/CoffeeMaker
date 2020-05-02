@@ -1,6 +1,12 @@
 <div class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('textToReplaceURL')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
-    <input ng-model="config.textToReplaceURL" type="text" />
+    <input ng-model="config.urlText" type="text" />
+  </div>
+</div>
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('openUrlInNewTab')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input ng-model="config.openUrlInNewTab" type="checkbox" />
   </div>
 </div>

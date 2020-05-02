@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="row-cell row-cell-value">
+    <select
+      ng-model="ng.selectedObjectTypeScriptname"
+      ng-options="o.scriptName as (o.name + ' (' + o.scriptName + ')')  for o in OTs | orderBy:'name'"
+    >
+    </select>
+  </div>
+
+  <table ng-if="ng.selectedObjectTypeScriptname" class="cwPropertiesTable">
+    <tbody>
+      <tr>
+        <th class="verySmallCell"></th>
+        <th class="largeMediumCell noWhiteSpace">{{$root.i18n('lookup_property')}} {{$root.i18n('property')}}</th>
+        <th class="smallCell">{{$root.i18n('lowValue')}}</th>
+        <th class="smallCell">{{$root.i18n('highValue')}}</th>
+        <th class="largeMediumCell">{{$root.i18n('imageUrl')}}</th>
+        <th class="largeMediumCell">{{$root.i18n('Icon')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('colorIcon')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('colorValue')}}</th>
+        <th class="tableCheckbox"></th>
+      </tr>
+      <tr ng-repeat-start="p in getProperties(['Integer','Double'])">
+        <th ng-init="p.extended = true" ng-click="p.extended = !p.extended" class="verySmallCell">
+          <span>
+            <i ng-if="!p.extended" class="fa fa-chevron-down" aria-hidden="true"></i>
+            <i ng-if="p.extended" class="fa fa-chevron-up" aria-hidden="true"></i>
+          </span>
+        </th>
+        <th class="cw-edit-property-value">
+          {{p.name}}
+        </th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="cw-edit-property-value tableCheckbox">
+          <a
+            class="btn-add-operation btn page-action no-text"
+            title="{{$root.i18n('add_step')}}]"
+            ng-click="addStep(ng.selectedObjectTypeScriptname,p.scriptName)"
+            ><i class="fa fa-plus" aria-hidden="true"></i
+          ></a>
+        </td>
+      </tr>
+      <tr ng-if="p.extended" ng-repeat="step in config[ng.selectedObjectTypeScriptname][p.scriptName].steps">
+        <td></td>
+        <td class="noWhiteSpace">
+          <span ng-style="{color: step.valueColor}" data-image-url="{{step.imageUrl}}">
+            <i ng-if="step.icon" class="{{step.icon}}" ng-style="{color: step.iconColor}" aria-hidden="true"></i>
+            <img ng-if="step.imageUrl" class="scaleImg" src="{{step.imageUrl}}" />
+            42
+          </span>
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.min" type="number" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.max" type="number" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.imageUrl" type="text" />
+        </td>
+        <td class="cw-edit-property-value" style="overflow: visible;">
+          <div class="bootstrap-iso" style="display: flex; overflow: visible;">
+            <select
+              ng-include
+              src="'../../common/html/coffee/fa.ng.html'"
+              data-width="100%"
+              data-live-search="true"
+              class="fa"
+              id="{{p.scriptName}}{{$index}}"
+              ng-init="bootstrapFilter(p.scriptName + $index)"
+              ng-model="step.icon"
+            ></select>
+          </div>
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
+          <input ng-model="step.iconColor" type="color" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
+          <input ng-model="step.valueColor" type="color" />
+        </td>
+        <td class="cw-edit-property-value tableCheckbox">
+          <a
+            class="btn-add-operation btn page-action no-text"
+            title="{{$root.i18n('add_step')}}]"
+            ng-click="deleteStep(ng.selectedObjectTypeScriptname,p.scriptName,$index)"
+            ><i class="fa fa-close" aria-hidden="true"></i
+          ></a>
+        </td>
+      </tr>
+      <tr ng-repeat-end>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
