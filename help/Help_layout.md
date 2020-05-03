@@ -1,6 +1,6 @@
 | **Name** |  Version | **Updated by** |
 | --- | --- | --- |
-| **Layout Custom Configuration** | 1.4 | Mathias PFAUWADEL |
+| **Layout Custom Configuration** | 2.2 | Mathias PFAUWADEL |
 
 ## Description 
 This layout allow you to configuring different specific that will modify the behaviours of evolve
@@ -9,7 +9,7 @@ This layout allow you to configuring different specific that will modify the beh
 https://github.com/casewise/cpm/wiki
 
 This layout required : 
-* utils 1.8 (https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/Utils)
+* utils 1.10 (https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/Utils)
 * the new Cwpopout(https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/cwPopout)
 
 * you need to import this with automodeler :
@@ -39,7 +39,7 @@ The configuration is now save inside your clipboard, copy it inside evolve desig
 * Duplication Button : This plugin will allow you to duplicate an object directly from evolve, it will copy all the properties, association and association properties of the object Page (https://github.com/nevakee716/CoffeeMaker/wiki/Duplication-Button)
 * Home Page : adding option for the home page (https://github.com/nevakee716/CoffeeMaker/wiki/Home-Page)
 * Redirect Edit : This feature will allow you to redirect the Evolve users to different views when they enter the edit mode. (https://github.com/nevakee716/CoffeeMaker/wiki/Redirect-Edit)
-
+* Page Filter : This feature allow you to do change the behaviours of the page filter(search inside page). (https://github.com/nevakee716/CoffeeMaker/wiki/Page-Filter)
 
 ## Main.js
 In order to work in your site, you need to have a main.js inside your deployment node, it can be empty
