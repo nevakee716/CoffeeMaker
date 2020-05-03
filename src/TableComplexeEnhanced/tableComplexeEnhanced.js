@@ -144,12 +144,20 @@
     this.columns = columnModifier(this.columns, this.nodeSchema.NodeID, dataSource);
     this.modifyAssociationFilter();
     let config,
+      groupable,
       itemPerPages = [5, 10, 50, 100];
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
     }
     if (config && config.itemPerPages) {
       itemPerPages = config.itemPerPages.split(",");
+    }
+    if (config && config.groupable) {
+      groupable = {
+        messages: {
+          empty: $.i18n.prop("grid_drop_column"),
+        },
+      };
     }
 
     var kendoGridData = {
@@ -176,11 +184,7 @@
       sortable: {
         virtual: true,
       },
-      groupable: {
-        messages: {
-          empty: $.i18n.prop("grid_drop_column"),
-        },
-      },
+      groupable: groupable,
       height: calcHeight(this.getHeight(), this.nodeSchema.NodeID), // changing height by factor
       remove: this.remove.bind(this),
       filterable: cwApi.cwKendoGridFilter.getFilterValues(),

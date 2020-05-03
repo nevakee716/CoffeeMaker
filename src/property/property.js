@@ -147,7 +147,7 @@
 
   cwPropertiesGroups.types.numericValue = function (value, config) {
     let selectedStep;
-    if (!config) return value;
+    if (!config || !config.steps) return value;
     config.steps.forEach(function (step) {
       if (
         (step.min && step.max === null && step.min < value) ||
