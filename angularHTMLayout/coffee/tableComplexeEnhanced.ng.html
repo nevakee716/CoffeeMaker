@@ -68,7 +68,6 @@
         </div>
       </div>
       <div class="tabContent" ng-if="column.selected" ng-repeat="(i, column) in behaviour.columns">
-        <pre>{{column | json}}</pre>
         <div ng-init="initColumnConfig(behaviour)" class="bootstrap-iso rowFlex">
             <div class="row-cell row-cell-label ">{{$root.i18n('name')}} :&nbsp;</div>
             <div class="row-cell row-cell-value "><input class="largeCell"  placeholder="{{column.name}}" ng-model="config.nodes[behaviour.node.NodeID].columns[column.originalOrder].name"/></div>
