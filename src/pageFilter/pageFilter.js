@@ -6,10 +6,10 @@
     var matchesName, nameToSearch, regexp, found, regex, oldValue, oldShouldMatch, shouldMatchs;
 
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("pageFilter");
-    if (config && config.searchOnAllWord) shouldMatchs = shouldMatch.split(" ");
-    else shouldMatchs = [shouldMatch];
 
-    found = false;
+    if (config && config.searchOnAllWord) found = true;
+    else found = false;
+    shouldMatchs = shouldMatch.split(" ");
     shouldMatchs.forEach(function (shouldMatch) {
       if (shouldMatch.length < 2) return;
       oldShouldMatch = shouldMatch;
@@ -27,15 +27,18 @@
           let cleanShouldMatch = shouldMatch.toLowerCase().replace("\\", "");
           let index = nameToSearch.toLowerCase().indexOf(cleanShouldMatch);
           let namePart = name.slice(index, index + cleanShouldMatch.length);
-          name = name.replace(namePart, surroundTextWithSearchEngine(namePart));
+          name = name.replace(namePart, matchTag(namePart));
         } else {
           regex = new RegExp("(" + oldShouldMatch + ")", "gi");
-          name = name.replace(regex, surroundTextWithSearchEngine(initialValue));
+          name = name.replace(regex, matchTag(oldShouldMatch));
         }
 
-        found = true;
-      }
+        if (!config || !config.searchOnAllWord) found = true;
+      } else if (config && config.searchOnAllWord) found = false;
     });
+
+    name = name.replace(/\<\#\#\#/g, "<span class='cw-searchengine-item-found'>");
+    name = name.replace(/\#\#\#\>/g, "</span>");
 
     return {
       found: found,
@@ -44,8 +47,8 @@
     };
   };
 
-  var surroundTextWithSearchEngine = function (text) {
-    var res = "<span class='cw-searchengine-item-found'>" + text + "</span>";
+  var matchTag = function (text) {
+    var res = "<###" + text + "###>";
     return res;
   };
 })(cwAPI, jQuery);
