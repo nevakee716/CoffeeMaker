@@ -12,7 +12,11 @@
   PsgDiagramFilterManager.prototype.init = function (diagramViewer) {
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
     if (!config) return;
-    if (config.template[diagramViewer.json.properties.type_id] && config.template[diagramViewer.json.properties.type_id].filter === true) {
+    if (
+      config.template &&
+      config.template[diagramViewer.json.properties.type_id] &&
+      config.template[diagramViewer.json.properties.type_id].filter === true
+    ) {
       this.PsgDiagramFilter[diagramViewer.id] = new cwApi.customLibs.PsgDiagramFilter(diagramViewer);
     }
   };

@@ -67,8 +67,25 @@
 
   cwCoffeeMaker.prototype.applyJavaScript = function () {
     var self = this;
-    var $container = $("#CoffeeMakerViewContainer_" + this.nodeID);
 
+    if (cwAPI.isDebugMode() === true) {
+      self.loadAngularTemplate();
+    } else {
+      let libToLoad = ["modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
+      // AsyncLoad
+      cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
+        if (error === null) {
+          self.loadAngularTemplate();
+        } else {
+          cwAPI.Log.Error(error);
+        }
+      });
+    }
+  };
+
+  cwCoffeeMaker.prototype.loadAngularTemplate = function () {
+    var self = this;
+    var $container = $("#CoffeeMakerViewContainer_" + this.nodeID);
     cwApi.CwAsyncLoader.load("angular", function () {
       var loader = cwApi.CwAngularLoader;
       loader.setup();
