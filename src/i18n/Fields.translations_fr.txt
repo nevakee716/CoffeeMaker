@@ -104,6 +104,7 @@ diagram_selectAObjectToView = Selectionner un objet
 DiagramFilterIcon = Filtrer les Régions d'Associations
 diagramFilter = Filtrer les associations de Régions
 diagramPopOutButton = Popout
+diagramPopOutToUse = Popout de Diagramme à utiliser
 diagramHighlight = Activer la mise en Evidence des Objets
 Highlight = Mise En évidence
 highlightColor = Coleur de Mise en Evidence
