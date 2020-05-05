@@ -1,6 +1,6 @@
 <div>
   <div ng-if="showDescription" class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/duplicationButton_description.ng.html'"></div>
     </div>
   </div>
@@ -8,9 +8,9 @@
     <div class="row-cell row-cell-label labelTitle">{{$root.i18n('view_to_activate_duplicate_button')}} :</div>
   </div>
   <div class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
-        <div class="add-filter-button" ng-repeat="v in objectpages | orderBy:'name'">
+        <div class="choiceBox" ng-repeat="v in objectpages | orderBy:'name'">
           <a
             class="btn-add-filter btn page-action"
             ng-class="config.pageWithDuplicateButton.hasOwnProperty(v.cwView) ? ['selected'] : []"
@@ -49,9 +49,9 @@
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_property_to_exclude')}} :</div>
   </div>
   <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
-        <div class="add-filter-button" ng-repeat="p in metamodel.objectTypes[views[configSelected].rootObjectType].properties | orderBy:'name'">
+        <div class="choiceBox" ng-repeat="p in metamodel.objectTypes[views[configSelected].rootObjectType].properties | orderBy:'name'">
           <a
             class="btn-add-filter btn page-action"
             ng-class="config[configSelected].propertyScriptNameToExclude.indexOf(p.scriptName) !== -1? ['selected'] : []"
@@ -66,12 +66,9 @@
     <div class="row-cell row-cell-label">{{$root.i18n('duplicate_button_association_to_exclude')}} :</div>
   </div>
   <div class="row bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="cell-content-wrapper filter-wrapper propertieslist">
-        <div
-          class="add-filter-button"
-          ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'"
-        >
+        <div class="choiceBox" ng-repeat="a in metamodel.objectTypes[views[configSelected].rootObjectType].AssociationTypes | orderBy:'DisplayName'">
           <a
             class="btn-add-filter btn page-action"
             ng-class="config[configSelected].associationScriptNameToExclude.indexOf(a.ScriptName.toLowerCase()) !== -1? ['selected'] : []"

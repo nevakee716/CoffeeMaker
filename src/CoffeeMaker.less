@@ -238,10 +238,27 @@
     flex-wrap: wrap;
   }
 
-  a.selected {
-    background-color: lighten(@cwDiagramBreadCrumbBackgroundColor, 5%);
-    border-color: @cwColor1Shade;
+  .choiceBox {
+    a {
+      height: auto;
+      width: auto;
+      margin: 5px;
+      background-color: @cwColor1Tint;
+      color: #ffffff;
+      border-color: @cwColor1Shade;
+    }
+    a:hover {
+      background-color: @cwColor1;
+      color: #ffffff;
+      border-color: @cwColor1Shade;
+    }
+    a.selected {
+      background-color: @cwColor1;
+      color: #ffffff;
+      border-color: @cwColor1Shade;
+    }
   }
+
   div.add-first-operation-button {
     a.btn-add-first-operation {
       height: auto;

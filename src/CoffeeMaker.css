@@ -263,8 +263,22 @@
   display: flex;
   flex-wrap: wrap;
 }
-.CoffeeMaker a.selected {
-  background-color: #03b4e7;
+.CoffeeMaker .choiceBox a {
+  height: auto;
+  width: auto;
+  margin: 5px;
+  background-color: #5c5d61;
+  color: #ffffff;
+  border-color: #546e7a;
+}
+.CoffeeMaker .choiceBox a:hover {
+  background-color: #03a0ce;
+  color: #ffffff;
+  border-color: #546e7a;
+}
+.CoffeeMaker .choiceBox a.selected {
+  background-color: #03a0ce;
+  color: #ffffff;
   border-color: #546e7a;
 }
 .CoffeeMaker div.add-first-operation-button a.btn-add-first-operation {
