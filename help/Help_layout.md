@@ -9,7 +9,7 @@ This layout allow you to configuring different specific that will modify the beh
 https://github.com/casewise/cpm/wiki
 
 This layout required : 
-* utils 1.10 (https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/Utils)
+* utils 2.1 (https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/Utils)
 * the new Cwpopout(https://github.com/ErwinConsultingFrance/evolve-layouts/tree/master/dist/cwPopout)
 
 * you need to import this with automodeler :
