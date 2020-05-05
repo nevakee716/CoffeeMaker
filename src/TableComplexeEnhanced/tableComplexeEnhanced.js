@@ -441,7 +441,7 @@
   // number display
   cwBehaviours.CwKendoGridIntegerType.prototype.getDisplayNumber = function (item) {
     let result, config;
-
+    if (!item) return;
     if (this.config === undefined) {
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
         config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
@@ -469,7 +469,7 @@
   //lookup display
   cwBehaviours.CwKendoGridLookupType.prototype.getDisplayLookup = function (item) {
     let result, config;
-
+    if (!item) return;
     if (this.config === undefined) {
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
         config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
