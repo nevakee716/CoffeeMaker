@@ -16,7 +16,7 @@
       that = this;
     if (diagramViewer.$breadcrumb === undefined) return;
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
-    if (!config) return;
+    if (!config || !config.template) return;
     if (
       config.template[diagramViewer.json.properties.type_id] &&
       config.template[diagramViewer.json.properties.type_id].popout === true &&
