@@ -345,7 +345,7 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
       if (config && config.clearFilterAtStart) {
-        this.ClearFilter.call(gridObject);
+        gridObject.ClearFilter();
       }
     }
   };
