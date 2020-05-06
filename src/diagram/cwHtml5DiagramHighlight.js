@@ -11,7 +11,7 @@
 
   PsgDiagramSearchManager.prototype.init = function (diagramViewer) {
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
-    if (!config || config.template) return;
+    if (!config || !config.template) return;
     if (
       config.template[diagramViewer.json.properties.type_id] &&
       config.template[diagramViewer.json.properties.type_id].highlight &&
