@@ -439,18 +439,18 @@
   };
 
   // number display
-  cwBehaviours.CwKendoGridIntegerType.prototype.getDisplayNumber = function (item) {
+  cwBehaviours.CwKendoGridIntegerType.prototype.getDisplayNumber = function (dataItem) {
     let result, config;
-    if (!item) return;
+    if (!dataItem || !dataItem.item) return;
     if (this.config === undefined) {
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
         config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
       }
-      if (config && config[item.objectTypeScriptName] && config[item.objectTypeScriptName][this.property.scriptName]) {
-        this.config = config[item.objectTypeScriptName][this.property.scriptName];
+      if (config && config[dataItem.item.objectTypeScriptName] && config[dataItem.item.objectTypeScriptName][this.property.scriptName]) {
+        this.config = config[dataItem.item.objectTypeScriptName][this.property.scriptName];
       } else this.config = null;
     }
-    let value = item.properties[this.property.scriptName];
+    let value = dataItem[this.property.scriptName];
     return cwApi.cwPropertiesGroups.types.numericValue(value, this.config);
   };
 
@@ -462,24 +462,24 @@
     }*/
     var self = this;
     return function (dataItem) {
-      return self.getDisplayNumber(dataItem.item);
+      return self.getDisplayNumber(dataItem);
     };
   };
 
   //lookup display
-  cwBehaviours.CwKendoGridLookupType.prototype.getDisplayLookup = function (item) {
+  cwBehaviours.CwKendoGridLookupType.prototype.getDisplayLookup = function (dataItem) {
     let result, config;
-    if (!item) return;
+    if (!dataItem || !dataItem.item) return;
     if (this.config === undefined) {
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
         config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
       }
-      if (config && config[item.objectTypeScriptName] && config[item.objectTypeScriptName][this.property.scriptName]) {
-        this.config = config[item.objectTypeScriptName][this.property.scriptName];
+      if (config && config[dataItem.item.objectTypeScriptName] && config[dataItem.item.objectTypeScriptName][this.property.scriptName]) {
+        this.config = config[dataItem.item.objectTypeScriptName][this.property.scriptName];
       } else this.config = null;
     }
-    let value = item.properties[this.property.scriptName];
-    let lookupID = item.properties[this.property.scriptName + "_id"];
+    let value = dataItem[this.property.scriptName];
+    let lookupID = dataItem[this.property.scriptName + "_id"];
     if (value === cwApi.getLookupUndefinedValue()) {
       result = $.i18n.prop("global_undefined");
     }
@@ -495,7 +495,7 @@
   cwBehaviours.CwKendoGridLookupType.prototype.getColumnTemplate = function () {
     var self = this;
     return function (dataItem) {
-      return self.getDisplayLookup(dataItem.item);
+      return self.getDisplayLookup(dataItem);
     };
   };
 
