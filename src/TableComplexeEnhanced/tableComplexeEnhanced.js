@@ -19,7 +19,13 @@
       iCreate: undefined,
       columnCleared: columnCleared,
     };
-
+    let firstColumnToFroze = false;
+    for (let cl in config) {
+      if (config.hasOwnProperty(cl) && config[cl].frozen) {
+        firstColumnToFroze = true;
+        break;
+      }
+    }
     for (i = 0; i < columns.length; i++) {
       if (columns[i].title === "CanCreate" && columns[i].field === "type_id_cancreate") {
         result.Create = i;
@@ -28,7 +34,7 @@
       } else if (columns[i].title === "Options" && columns[i].field === undefined) {
         result.Options = i;
         if (i == 0) {
-          columns[i].locked = config.freezeFirstOption;
+          columns[i].locked = firstColumnToFroze;
         }
       } else if (columns[i].title === "ID" && columns[i].field === "id") {
         result.ID = i;
@@ -90,10 +96,10 @@
       if (columns[0].title == "Options") columns[0].width += 35;
       if (columns[columns.length - 1].title == "Options") columns[columns.length - 1].width += 35;
     }
-    if (config.freezeFirstOption) clearColumn(columns, config);
+
     if (config.nodes && config.nodes[nodeID] && config.nodes[nodeID].columns) {
       let configColumn = config.nodes[nodeID].columns;
-      clearColumnResult = clearColumn(columns, config);
+      clearColumnResult = clearColumn(columns, config.nodes[nodeID].columns);
       columnsObj = reOrderColumn(clearColumnResult.columnCleared, config, configColumn);
       result = reBuildColumn(columnsObj, clearColumnResult, columns);
       if (result === null) {
