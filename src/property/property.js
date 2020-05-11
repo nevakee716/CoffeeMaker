@@ -135,6 +135,7 @@
     let result = value;
     if (value === cwApi.getLookupUndefinedValue()) {
       value = $.i18n.prop("global_undefined");
+      result = value;
     }
     if (config) {
       if (config[lookupID]) {

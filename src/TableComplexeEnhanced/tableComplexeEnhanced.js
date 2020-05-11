@@ -487,7 +487,7 @@
     let value = dataItem[this.property.scriptName];
     let lookupID = dataItem[this.property.scriptName + "_id"];
     if (value === cwApi.getLookupUndefinedValue()) {
-      result = $.i18n.prop("global_undefined");
+      value = $.i18n.prop("global_undefined");
     }
     result = value;
     if (this.config) {
