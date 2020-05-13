@@ -1,13 +1,13 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
 
   var PsgDiagramFilter;
 
   var bannedObjectTypeScriptName = ["EVENTRESULT", "PROCESSBREAK", "CONNECTORSET", "FREETEXTOBJECT", "CONNECTOR"];
 
-  PsgDiagramFilter = function(diagramViewer) {
+  PsgDiagramFilter = function (diagramViewer) {
     function hex(x) {
       return ("0" + parseInt(x).toString(16)).slice(-2);
     }
@@ -51,7 +51,7 @@
     }
   };
 
-  PsgDiagramFilter.prototype.getRegion = function(diagramViewer) {
+  PsgDiagramFilter.prototype.getRegion = function (diagramViewer) {
     var i, entry, objectTypeScriptName, propertyScriptname, paletteEntry, associationRegionEntry, associationRegion;
     this.regionsByObjectType = {};
     for (paletteEntry in diagramViewer.json.diagram.paletteEntries) {
@@ -62,13 +62,18 @@
         if (!this.regionsByObjectType.hasOwnProperty(objectTypeScriptName)) {
           this.regionsByObjectType[objectTypeScriptName] = {};
           this.regionsByObjectType[objectTypeScriptName].paletteEntries = [];
-          this.regionsByObjectType[objectTypeScriptName].label = cwAPI.getObjectTypeName(objectTypeScriptName);
+          try {
+            // in case of stupid hierachy link
+            this.regionsByObjectType[objectTypeScriptName].label = cwAPI.getObjectTypeName(objectTypeScriptName);
+          } catch (e) {
+            this.regionsByObjectType[objectTypeScriptName].label = objectTypeScriptName;
+          }
         }
       }
     }
   };
 
-  PsgDiagramFilter.prototype.createFilterButton = function(diagramViewer) {
+  PsgDiagramFilter.prototype.createFilterButton = function (diagramViewer) {
     var filterButton,
       o,
       that = this;
@@ -80,22 +85,28 @@
       filterButton.unbind("click");
     } else {
       o = [];
-      o.push('<a id="cw-diagram-filter" class="btn btn-diagram-filter no-text ', filterClass, '" title="', $.i18n.prop("DiagramFilterIcon"), '"><span class="btn-text"></span><i class="fa fa-filter"></i></a>');
+      o.push(
+        '<a id="cw-diagram-filter" class="btn btn-diagram-filter no-text ',
+        filterClass,
+        '" title="',
+        $.i18n.prop("DiagramFilterIcon"),
+        '"><span class="btn-text"></span><i class="fa fa-filter"></i></a>'
+      );
       diagramViewer.$breadcrumb.find(".cwDiagramBreadcrumbZoneRight").append(o.join(""));
       filterButton = diagramViewer.$breadcrumb.find(".btn-diagram-filter");
     }
 
-    filterButton.on("click", function() {
+    filterButton.on("click", function () {
       that.setupDiagramFilterZone(diagramViewer);
     });
   };
 
-  PsgDiagramFilter.prototype.updateFilterEnableStatus = function() {
+  PsgDiagramFilter.prototype.updateFilterEnableStatus = function () {
     var self = this;
     self.filterEnable = false;
-    Object.keys(self.configuration).forEach(function(objectTypeScriptName) {
+    Object.keys(self.configuration).forEach(function (objectTypeScriptName) {
       let config = self.configuration[objectTypeScriptName];
-      Object.keys(config.regions).forEach(function(regionKey) {
+      Object.keys(config.regions).forEach(function (regionKey) {
         let configRegion = config.regions[regionKey];
         self.filterEnable = self.filterEnable || configRegion.enable === false || configRegion.calc === true || configRegion.filters.length > 0;
       });
@@ -106,7 +117,7 @@
     localStorage.setItem("HTML5DiagramFilter_" + self.templateID, JSON.stringify(self.configuration));
   };
 
-  PsgDiagramFilter.prototype.setupDiagramFilterZone = function(diagramViewer) {
+  PsgDiagramFilter.prototype.setupDiagramFilterZone = function (diagramViewer) {
     var o,
       $div,
       paletteEntry,
@@ -122,23 +133,23 @@
     cwApi.CwPopout.setContent($div);
 
     this.setupTemplate(diagramViewer);
-    cwApi.CwPopout.onClose(function() {
+    cwApi.CwPopout.onClose(function () {
       localStorage.setItem("HTML5DiagramFilter_" + that.templateID, JSON.stringify(that.configuration));
       //that.setupSearchParameters(false);
     });
   };
 
-  PsgDiagramFilter.prototype.getTemplatePath = function(folder, templateName) {
+  PsgDiagramFilter.prototype.getTemplatePath = function (folder, templateName) {
     return cwApi.format("{0}/html/{1}/{2}.ng.html", cwApi.getCommonContentPath(), folder, templateName) + "?" + Math.random();
   };
 
-  PsgDiagramFilter.prototype.filtersObjects = function(objects, filterArray) {
+  PsgDiagramFilter.prototype.filtersObjects = function (objects, filterArray) {
     var self = this,
       filteredObjects = [];
-    objects.forEach(function(object) {
+    objects.forEach(function (object) {
       if (
         filterArray.length === 0 ||
-        filterArray.every(function(filter) {
+        filterArray.every(function (filter) {
           return self.matchPropertyFilter(object, filter);
         })
       ) {
@@ -149,7 +160,7 @@
     return filteredObjects;
   };
 
-  PsgDiagramFilter.prototype.matchPropertyFilter = function(object, filter) {
+  PsgDiagramFilter.prototype.matchPropertyFilter = function (object, filter) {
     if (filter.scriptname !== undefined && filter.Operator !== undefined && filter.Value !== undefined) {
       let propertyType = cwApi.mm.getProperty(object.objectTypeScriptName, filter.scriptname);
       let objPropertyValue;
@@ -199,8 +210,13 @@
     }
   };
 
-  PsgDiagramFilter.prototype.getGlobalAlpha = function(shape, region) {
-    if (region.RegionTypeString === "MultiplePropertyAssociations" && region.TextandCoordinates && region.TextandCoordinates.texts && region.TextandCoordinates.texts.length > 0) {
+  PsgDiagramFilter.prototype.getGlobalAlpha = function (shape, region) {
+    if (
+      region.RegionTypeString === "MultiplePropertyAssociations" &&
+      region.TextandCoordinates &&
+      region.TextandCoordinates.texts &&
+      region.TextandCoordinates.texts.length > 0
+    ) {
       region.TextandCoordinates.texts[0].text = "";
     }
     let config = this.configuration[shape.shape.cwObject.objectTypeScriptName.toUpperCase()];
@@ -225,7 +241,7 @@
     }
   };
 
-  PsgDiagramFilter.prototype.drawNumberOfAssociation = function(shape, region) {
+  PsgDiagramFilter.prototype.drawNumberOfAssociation = function (shape, region) {
     if (region.RegionTypeString !== "MultiplePropertyAssociations" && region.RegionTypeString !== "Association") return 1;
     if (region.filteredObjects && region.filteredObjects.length > 0) {
       let config = this.configuration[shape.shape.cwObject.objectTypeScriptName.toUpperCase()];
@@ -246,7 +262,7 @@
     }
   };
 
-  PsgDiagramFilter.prototype.isRegionTypeToDisplay = function(region) {
+  PsgDiagramFilter.prototype.isRegionTypeToDisplay = function (region) {
     switch (region.RegionTypeString) {
       case "LocalPropertyActualValue":
       case "MultipleProperties":
@@ -269,7 +285,7 @@
     }
   };
 
-  PsgDiagramFilter.prototype.getConfiguration = function() {
+  PsgDiagramFilter.prototype.getConfiguration = function () {
     var self = this;
     this.filterEnable = false;
     let paletteEntrySortByObjectType = {};
@@ -283,14 +299,14 @@
       }
     }
     let paletteKeys = Object.keys(this.diagramViewer.objectTypesStyles);
-    paletteKeys.sort(function(ka, kb) {
+    paletteKeys.sort(function (ka, kb) {
       let a = ka.split("|");
       let b = kb.split("|");
       if (a[0] === b[0]) return a[1] - b[1];
       return a[0] - b[0];
     });
 
-    paletteKeys.forEach(function(key) {
+    paletteKeys.forEach(function (key) {
       let paletteEntry = self.diagramViewer.objectTypesStyles[key];
       let s = key.split("|");
       let objectTypeScriptName = key.split("|")[0];
@@ -311,12 +327,16 @@
       }
       self.configuration[objectTypeScriptName].paletteEntries[typeId] = {};
       self.configuration[objectTypeScriptName].paletteEntries[typeId].displayHeader = false;
-      paletteEntry.Regions.forEach(function(r) {
+      paletteEntry.Regions.forEach(function (r) {
         if (self.isRegionTypeToDisplay(r)) {
           self.configuration[objectTypeScriptName].empty = false;
           self.configuration[objectTypeScriptName].paletteEntries[typeId].displayHeader = true;
           var configRegion;
-          if (savedConfiguration && savedConfiguration[objectTypeScriptName] && savedConfiguration[objectTypeScriptName].regions[r.RegionSequence + "_" + typeId] !== undefined) {
+          if (
+            savedConfiguration &&
+            savedConfiguration[objectTypeScriptName] &&
+            savedConfiguration[objectTypeScriptName].regions[r.RegionSequence + "_" + typeId] !== undefined
+          ) {
             configRegion = savedConfiguration[objectTypeScriptName].regions[r.RegionSequence + "_" + typeId];
           } else {
             configRegion = {};
@@ -333,16 +353,16 @@
     return paletteEntrySortByObjectType;
   };
 
-  PsgDiagramFilter.prototype.setupTemplate = function(diagramViewer) {
+  PsgDiagramFilter.prototype.setupTemplate = function (diagramViewer) {
     let self = this;
-    cwApi.CwAsyncLoader.load("angular", function() {
+    cwApi.CwAsyncLoader.load("angular", function () {
       let loader = cwApi.CwAngularLoader,
         templatePath,
         $container = $("#cw-diagram-filter-id");
       loader.setup();
 
       templatePath = self.getTemplatePath("cwHtml5DiagramFilter", "cwHtml5DiagramFilter");
-      loader.loadControllerWithTemplate("cwHtml5DiagramFilter", $container, templatePath, function($scope, $sce) {
+      loader.loadControllerWithTemplate("cwHtml5DiagramFilter", $container, templatePath, function ($scope, $sce) {
         self.angularScope = $scope;
         $scope.diagramViewer = diagramViewer;
         $scope.getObjectType = cwApi.mm.getObjectType;
@@ -352,39 +372,43 @@
         $scope.updateFilterEnableStatus = self.updateFilterEnableStatus;
 
         $scope.configuration = self.configuration;
-        $scope.isObjectTypeToDisplay = function(objectTypeScriptName) {
+        $scope.isObjectTypeToDisplay = function (objectTypeScriptName) {
           return bannedObjectTypeScriptName.indexOf(objectTypeScriptName) === -1 && self.configuration[objectTypeScriptName].empty !== true;
         };
 
         $scope.paletteEntrySortByObjectType = self.paletteEntrySortByObjectType;
 
-        $scope.updateCalc = function(objectTypeScriptName, region, paletteEntry) {
-          self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].calc = !self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].calc;
+        $scope.updateCalc = function (objectTypeScriptName, region, paletteEntry) {
+          self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].calc = !self.configuration[
+            objectTypeScriptName
+          ].regions[region.RegionSequence + "_" + paletteEntry.typeId].calc;
           self.updateFilterEnableStatus();
         };
 
-        $scope.updateEnable = function(objectTypeScriptName, region, paletteEntry) {
-          self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].enable = !self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].enable;
+        $scope.updateEnable = function (objectTypeScriptName, region, paletteEntry) {
+          self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].enable = !self.configuration[
+            objectTypeScriptName
+          ].regions[region.RegionSequence + "_" + paletteEntry.typeId].enable;
           self.updateFilterEnableStatus();
         };
 
-        $scope.parseDate = function(filter) {
+        $scope.parseDate = function (filter) {
           filter.Value = new Date(filter.Value);
         };
         $scope.FilterOperators = ["=", "!=", ">", "<"];
 
-        $scope.processFilter = function(filter) {
+        $scope.processFilter = function (filter) {
           delete filter.Value;
           delete filter.Operator;
           self.updateFilterEnableStatus();
         };
 
-        $scope.deleteFilter = function(objectTypeScriptName, region, paletteEntry, $index) {
+        $scope.deleteFilter = function (objectTypeScriptName, region, paletteEntry, $index) {
           self.configuration[objectTypeScriptName].regions[region.RegionSequence + "_" + paletteEntry.typeId].filters.splice($index, 1);
           self.updateFilterEnableStatus();
         };
 
-        $scope.getFilterOperator = function(objectTypeScriptName, scriptname) {
+        $scope.getFilterOperator = function (objectTypeScriptName, scriptname) {
           let type = $scope.getPropertyDataType(objectTypeScriptName, scriptname);
           switch (type) {
             case "checkbox":
@@ -401,7 +425,7 @@
           }
         };
 
-        $scope.getPropertyDataType = function(objectTypeScriptName, scriptname) {
+        $scope.getPropertyDataType = function (objectTypeScriptName, scriptname) {
           if (cwApi.isUndefined(objectTypeScriptName)) {
             return "";
           }
@@ -429,17 +453,17 @@
     });
   };
 
-  PsgDiagramFilter.prototype.setGlobalAlphaRegion = function(shape, region) {
+  PsgDiagramFilter.prototype.setGlobalAlphaRegion = function (shape, region) {
     if (!cwApi.isUndefinedOrNull(shape) && !cwApi.isUndefinedOrNull(shape.shape) && !cwApi.isUndefinedOrNull(shape.shape.cwObject)) {
       this.diagramViewer.ctx.globalAlpha = this.getGlobalAlpha(shape, region);
     }
   };
 
-  PsgDiagramFilter.prototype.resetGlobalAlpha = function(diagramViewer) {
+  PsgDiagramFilter.prototype.resetGlobalAlpha = function (diagramViewer) {
     this.diagramViewer.ctx.globalAlpha = 1;
   };
 
-  PsgDiagramFilter.prototype.register = function() {};
+  PsgDiagramFilter.prototype.register = function () {};
 
   if (!cwApi.customLibs) {
     cwApi.customLibs = {};
