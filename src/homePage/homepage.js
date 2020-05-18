@@ -366,12 +366,14 @@
       var asynFunction = [];
       if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
 
-      if (config.columns) {
+      if (config.columns && config.columns.length > 0) {
         asynFunction.push(function (callback) {
           loadHomePage(config, function () {
             callback(null, err);
           });
         });
+      } else {
+        cwAPI.CwHomePage.outputFirstPageOld(callback);
       }
       async.series(asynFunction, function (err, results) {
         callback(null);
