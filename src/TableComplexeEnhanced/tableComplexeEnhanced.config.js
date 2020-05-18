@@ -1,32 +1,46 @@
 /* Copyright (c) 2012-2013 Casewise Systems Ltd (UK) - All rights reserved */
 /*global cwAPI, jQuery */
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
   if (cwApi && cwApi.cwLayouts && cwApi.cwLayouts.cwCoffeeMaker) {
     var cwCoffeeMaker = cwApi.cwLayouts.cwCoffeeMaker;
   } else {
     // constructor
-    var cwCoffeeMaker = function(options, viewSchema) {
+    var cwCoffeeMaker = function (options, viewSchema) {
       cwApi.extend(this, cwApi.cwLayouts.CwLayout, options, viewSchema); // heritage
       cwApi.registerLayoutForJSActions(this); // execute le applyJavaScript après drawAssociations
       this.construct(options);
     };
   }
 
-  cwCoffeeMaker.prototype.getColumnOfTableBehaviour = function(behaviour, viewSchema) {
-    let prop = behaviour.Behaviour.Options["property-order"].Properties.map(function(p) {
+  cwCoffeeMaker.prototype.getColumnOfTableBehaviour = function (behaviour, viewSchema) {
+    let prop = behaviour.Behaviour.Options["property-order"].Properties.map(function (p) {
+      let label = p.PropertyScriptName;
+      try {
+        let prop = cwApi.mm.getProperty(p.ObjectTypeScriptName, p.PropertyScriptName);
+        if (prop) label = prop.name;
+      } catch (e) {
+        console.log(e);
+      }
       return {
-        name: cwApi.mm.getProperty(p.ObjectTypeScriptName, p.PropertyScriptName).name,
+        name: label,
         size: p.Size,
       };
     });
 
     let iprop = behaviour.Behaviour.Options["property-order"].iProperties;
     if (iprop !== null) {
-      iprop = iprop.map(function(p) {
+      iprop = iprop.map(function (p) {
         if (iprop) iprop = iprop;
+        let label = p.PropertyScriptName;
+        try {
+          let prop = cwApi.mm.getProperty(p.ObjectTypeScriptName, p.PropertyScriptName);
+          if (prop) label = prop.name;
+        } catch (e) {
+          console.log(e);
+        }
         return {
-          name: cwApi.mm.getProperty(p.ObjectTypeScriptName, p.PropertyScriptName).name,
+          name: label,
           size: p.Size,
         };
       });
@@ -34,7 +48,7 @@
       iprop = [];
     }
     let columns = [];
-    let assoColumn = viewSchema.NodesByID[behaviour.NodeID].SortedChildren.map(function(c) {
+    let assoColumn = viewSchema.NodesByID[behaviour.NodeID].SortedChildren.map(function (c) {
       return {
         name: viewSchema.NodesByID[c.NodeId].NodeName,
         size: 200,
@@ -44,14 +58,14 @@
     columns = columns.concat(prop, iprop, assoColumn);
 
     //viewSchema.NodesByID[behaviour.node.NodeID];
-    columns.forEach(function(c, i) {
+    columns.forEach(function (c, i) {
       c.order = i + 1;
       c.originalOrder = i + 1;
     });
     return columns;
   };
 
-  cwCoffeeMaker.prototype.controller_tableComplexeEnhanced = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_tableComplexeEnhanced = function ($container, templatePath, $scope) {
     var evolveViews = [];
     var self = this;
     let config = $scope.config;
@@ -62,9 +76,9 @@
           let containTable = false;
           view.schema = JSON.parse(JSON.stringify(cwAPI.getViewsSchemas()[$scope.views[v].cwView]));
 
-          view.schema.Behaviours = view.schema.Behaviours.filter(function(b) {
+          view.schema.Behaviours = view.schema.Behaviours.filter(function (b) {
             return b.Properties.Behaviour.JSMethodName === "CwKendoGrid";
-          }).map(function(b, i) {
+          }).map(function (b, i) {
             let r = b.Properties;
             r.node = view.schema.NodesByID[b.Properties.NodeID];
             r.columns = self.getColumnOfTableBehaviour(b.Properties, view.schema);
@@ -77,21 +91,21 @@
     }
     $scope.evolveViews = evolveViews;
 
-    $scope.selectNode = function(i) {
-      $scope.currentView.schema.Behaviours.map(function(c, ii) {
+    $scope.selectNode = function (i) {
+      $scope.currentView.schema.Behaviours.map(function (c, ii) {
         if (i == ii) c.selected = true;
         else c.selected = false;
       });
     };
 
-    $scope.selectColumn = function(behaviour, i) {
-      behaviour.columns.map(function(c, ii) {
+    $scope.selectColumn = function (behaviour, i) {
+      behaviour.columns.map(function (c, ii) {
         if (i == ii) c.selected = true;
         else c.selected = false;
       });
     };
 
-    $scope.reOrderColumn = function(behaviour, i) {
+    $scope.reOrderColumn = function (behaviour, i) {
       let newOrder = behaviour.columns[i].order;
       behaviour.columns[newOrder - 1].order = i + 1;
 
@@ -105,12 +119,12 @@
       config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder].order = i + 1;
       config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder].order = newOrder;
 
-      behaviour.columns.sort(function(a, b) {
+      behaviour.columns.sort(function (a, b) {
         return a.order - b.order;
       });
     };
 
-    $scope.initColumnConfig = function(behaviour) {
+    $scope.initColumnConfig = function (behaviour) {
       if ($scope.config.nodes === undefined) $scope.config.nodes = {};
       if ($scope.config.nodes[behaviour.node.NodeID] === undefined) $scope.config.nodes[behaviour.node.NodeID] = {};
       if ($scope.config.nodes[behaviour.node.NodeID].columns === undefined) $scope.config.nodes[behaviour.node.NodeID].columns = {};
