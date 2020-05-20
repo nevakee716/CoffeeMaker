@@ -155,7 +155,7 @@
           // Calculate exact text position inside region
           //***** */ modify to display of multiassociation prop
           if (regionZone.RegionTypeString === "MultiplePropertyAssociations") {
-            text = "9";
+            text = this.getAssociationTypeCustomRegionText(regionZone);
             regionZone.VerticalJustification = "CentreJustify";
             regionZone.HorizontalJustification = "CentreJustify";
             regionZone.DisplayText = true;
