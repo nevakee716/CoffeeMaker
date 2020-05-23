@@ -56,6 +56,11 @@
         delete $scope.config[objectTypesScriptname][propertyTypeScriptname];
       }
     };
+
+    $scope.manageUndefined = function (value) {
+      return value === cwApi.getLookupUndefinedValue() ? (value = $.i18n.prop("global_undefined")) : value;
+    };
+
     return;
   };
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;
