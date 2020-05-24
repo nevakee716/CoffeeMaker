@@ -18,6 +18,34 @@
     );
   };
 
+  cdsEnhanced.checkFilters = function (config, itemDisplayName, item) {
+    let filterString,
+      info,
+      split,
+      result = "",
+      display;
+    if (config) {
+      while (itemDisplayName.indexOf("<?") !== -1 && itemDisplayName.indexOf("?>") !== -1) {
+        info = itemDisplayName.split("<?")[1].split("?>")[0];
+        if (info.indexOf("?") === -1) {
+          // no splitter char
+          result = "";
+        } else {
+          split = info.split("?");
+          filterString = split[0];
+          display = split[1];
+          let cwFilter = new cwApi.customLibs.utils.cwFilter();
+          cwFilter.initWithString(filterString);
+          result = cwFilter.isMatching(item) ? display : "";
+        }
+
+        itemDisplayName = itemDisplayName.replace("<?" + info + "?>", result);
+      }
+    }
+
+    return itemDisplayName;
+  };
+
   cdsEnhanced.getPopoutCds = function (config, itemDisplayName, item) {
     let popOutText, popOutName, popOutSplit, popOutInfo, popoutElement;
     if (config) {
@@ -43,8 +71,6 @@
           } else {
             popoutElement = "";
           }
-          console.table(popOutInfo);
-          console.table(itemDisplayName);
           itemDisplayName = itemDisplayName.replace("<#" + popOutInfo + "#>", popoutElement);
         }
       }
@@ -64,18 +90,24 @@
         if (info.indexOf("§") === -1) {
           // simple node ID
           nodeID = info;
-          if (item.associations[nodeID] && item.associations[nodeID].length > 0) result = item.associations[nodeID][0].name;
+          if (item.associations[nodeID] && item.associations[nodeID].length > 0) {
+            result = item.associations[nodeID]
+              .map(function (a) {
+                return a.name;
+              })
+              .join(", ");
+          }
         } else {
           split = info.split("§");
           nodeID = split[0];
           display = split[1];
 
-          if (info === "count") {
+          if (display === "count") {
             // display number of associations
             result = item.associations[nodeID] ? item.associations[nodeID].length : "";
           } else {
             // display info if more than 1 associations
-            result = item.associations[nodeID] && item.associations[nodeID].length > 0 ? display : 0;
+            result = item.associations[nodeID] && item.associations[nodeID].length > 0 ? display : "";
           }
         }
 
@@ -87,6 +119,7 @@
   };
 
   cdsEnhanced.getEnhancedDisplayItem = function (config, itemDisplayName, item) {
+    itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutCds(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutAssociation(config, itemDisplayName, item);
     return itemDisplayName;
@@ -117,12 +150,7 @@
       linkTag = "<a class='" + this.nodeID + markedForDeletion + "' href='" + link + "'>";
       linkEndTag = "</a>";
       if (itemLabel.indexOf("<@") !== -1 && itemLabel.indexOf("\\<@") === -1) {
-        let info = itemLabel.split("<@")[1].split("@>")[0];
-        if (info.split("@")[0] === "contrib" && cwApi.cwUser.isCurrentUserSocial()) {
-          itemDisplayName = itemLabel.replace(/<@.*@>/g, "");
-        } else {
-          itemDisplayName = itemLabel.replace(/<@[contrib@]*/g, linkTag).replace(/@>/g, linkEndTag);
-        }
+        itemDisplayName = itemLabel.replace(/<@/g, linkTag).replace(/@>/g, linkEndTag);
       } else {
         itemDisplayName = linkTag + itemLabel + linkEndTag;
       }
