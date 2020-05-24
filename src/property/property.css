@@ -9,6 +9,9 @@
 .spanLookup i {
   margin-right: 0.3rem;
 }
+.cw-item .spanLookup {
+  display: initial;
+}
 .k-grid-content .spanLookup {
   align-items: center;
 }
