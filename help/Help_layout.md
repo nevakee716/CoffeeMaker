@@ -40,6 +40,8 @@ The configuration is now save inside your clipboard, copy it inside evolve desig
 * Home Page : adding option for the home page (https://github.com/nevakee716/CoffeeMaker/wiki/Home-Page)
 * Redirect Edit : This feature will allow you to redirect the Evolve users to different views when they enter the edit mode. (https://github.com/nevakee716/CoffeeMaker/wiki/Redirect-Edit)
 * Page Filter : This feature allow you to do change the behaviours of the page filter(search inside page). (https://github.com/nevakee716/CoffeeMaker/wiki/Page-Filter)
+* Diagram : Enable Filter and highlight and legend  (https://github.com/nevakee716/CoffeeMaker/wiki/Diagram)
+* Page Filter : This feature allow you to do change the behaviours of the page filter(search inside page). (https://github.com/nevakee716/CoffeeMaker/wiki/Page-Filter)
 
 ## Main.js
 In order to work in your site, you need to have a main.js inside your deployment node, it can be empty
