@@ -71,6 +71,10 @@
     <div class="row-cell row-cell-label">{{$root.i18n('collapse_by_default')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.collapseByDefault" /></div>
   </div>
+  <div ng-if="display.extendable" class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('use_old_accordeon_style')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.oldAccordeonStyle" /></div>
+  </div>
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('type')}} :</div>
     <div class="row-cell row-cell-value">

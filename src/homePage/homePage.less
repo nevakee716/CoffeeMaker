@@ -41,13 +41,25 @@
     .homePage_display {
       margin: 5px;
 
-      .cwPropertiesTableHeader span.homePage_display_title {
+      .cwPropertiesTableHeader span.homePage_display_title,
+      .fa.expendIcon {
         font-size: 24px;
+      }
+      .oldAccordeon {
+        background-color: @cwAccordionHeaderBackgroundColor;
+        color: @cwAccordionHeaderTextColor;
       }
 
       .homePage_display_content {
-        transition: height 0.42s ease-out;
+        transition: max-height 0.42s ease-out;
         overflow: hidden;
+      }
+
+      .homePage_display_content.oldAccordeonContent {
+        border: 1px solid @cwAccordionHeaderBackgroundColor;
+        div {
+          margin: 10px;
+        }
       }
 
       .homePage_evolveView {
