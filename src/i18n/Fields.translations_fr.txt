@@ -23,6 +23,7 @@ homepage_displaydescriptionSelect = Selectionner l''objet
 homepage_last_modified_display_image_in_favourite = Afficher une icone si un favori a été modifié
 homepage_last_modified_display_image_in_favourite_link = Url icone
 homepage_custom_background_url_image = Url Image d''arrière plan
+use_old_accordeon_style = Utiliser le style de accordeon
 save_configuration = La configuration a été copiée dans votre presse-papiers, veuillez la copier ici :
 cds_display_popout_by_default = Afficher un popout par default dans toutes les Custom Display String
 cds_default_icon = Icone par default pour les popout dans les Custom Display String

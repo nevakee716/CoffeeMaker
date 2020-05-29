@@ -23,6 +23,7 @@ homepage_last_modified_index_page_text = text
 homepage_custom_background_url_image = Immagine URL di sfondo
 homepage_last_modified_display_image_in_favourite = Visualizza un'icona se un preferito è stato modificato
 homepage_last_modified_display_image_in_favourite_link = Icona URL
+use_old_accordeon_style = Usa lo stile della fisarmonica
 save_configuration = La configurazione è stata copiata negli appunti, copiarla qui:
 cds_display_popout_by_default = Effettua i popout di default in tutti i display personalizzati stringa di visualizzazione
 cds_default_icon = Icona per impostazione predefinita per i popup

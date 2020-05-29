@@ -23,6 +23,7 @@ homepage_displaydescription = Display Description on an object on the Home Page
 homepage_displaydescriptionSelect = Select the object
 homepage_last_modified_display_image_in_favourite = Display an icon if a favorite has been modified
 homepage_last_modified_display_image_in_favourite_link = Url icon
+use_old_accordeon_style = Use Accordeon Style
 save_configuration = Configuration has been copied to your clipboard, please copy it here :
 cds_display_popout_by_default = Display default popout on custom display string
 cds_default_icon = Default icon for custom display string
