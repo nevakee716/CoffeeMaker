@@ -67,6 +67,7 @@ collapse_by_default = Collapse By Default
 favorite = Favorite
 quicklink = Link Based on Roles
 object_description = Description of an Object
+description = Description
 homepage_image_width = Image Width
 links = Links 
 label_text_to_display = Text to Display

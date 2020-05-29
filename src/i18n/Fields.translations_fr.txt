@@ -86,6 +86,7 @@ tableComplexeEnhanced = Table Complexe
 columnSize = Largeur de la Colonne (px)
 tableHeight = Hauteur de la Table (%)
 order = Ordre
+description = Description
 title = Titre
 specificPopout = Popout à utiliser
 grid_drop_column = Glisser ici une en-tête de colonne, pour réaliser un regroupement

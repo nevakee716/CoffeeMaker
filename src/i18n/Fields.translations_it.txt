@@ -67,6 +67,7 @@ collapse_by_default = Comprimi per impostazione predefinita
 favorite = Preferito
 quicklink = Collegamento basato sui ruoli
 object_description = Descrizione di un oggetto
+description = Descrizione
 homepage_image_width = Larghezza immagine
 links = link
 label_text_to_display = Testo da visualizzare
