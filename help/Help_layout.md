@@ -1,6 +1,6 @@
 | **Name** |  Version | **Updated by** |
 | --- | --- | --- |
-| **Layout Custom Configuration** | 2.2 | Mathias PFAUWADEL |
+| **Layout Custom Configuration** | 2.4.1 | Mathias PFAUWADEL |
 
 ## Description 
 This layout allow you to configuring different specific that will modify the behaviours of evolve
