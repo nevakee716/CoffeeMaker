@@ -1,0 +1,7 @@
+{
+  "Name": "custom-display-string-simulator",
+  "DisplayName": "Custom Display String Simulator",
+  "Description": "The layout allow you to simulate custom display string behaviours",
+  "JavaScriptClassName": "customDisplayStringSimulator",
+  "Options": []
+}

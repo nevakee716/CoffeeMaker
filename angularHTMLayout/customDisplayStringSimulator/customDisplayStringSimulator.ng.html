@@ -1,0 +1,213 @@
+<div class="customDisplayStringSimulator" ng-controller="customDisplayStringSimulator">
+  <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader CoffeeMaker">
+    <div class="bootstrap-iso rowFlex ng-scope">
+      <div class="row-cell row-cell-label ng-binding">Custom Display String :&nbsp;</div>
+      <div class="row-cell row-cell-value">
+        <input ng-model="ng.cds" ng-model-options="{ debounce: 200 }" class="ng-pristine ng-untouched ng-valid" />
+      </div>
+    </div>
+  </div>
+
+  <div class="list">
+    <ul id="cw-layout-42" class="cw-list list cwLayoutList cw-visible">
+      <li class="cw-item" ng-repeat="item in ng.objects">
+        <div ng-bind-html="getCDS(item,ng.cds)"></div>
+      </li>
+    </ul>
+    <div class="nodeConfig">
+      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">Command</div>
+
+      <table class="cwPropertiesTable">
+        <tbody>
+          <tr>
+            <th>
+              Link of the object &lsaquo;@ @&rsaquo;
+            </th>
+            <td>&lsaquo;@<span style="color: red;">HTML</span>@&rsaquo;</td>
+            <td class="cw-edit-property-value">The <span style="color: red;">HTML</span> will contains the link of your object Page</td>
+          </tr>
+          <tr>
+            <th>
+              Popout &lsaquo;# #&rsaquo;
+            </th>
+            <td>&lsaquo;#<span style="color: red;">name of the popout</span>#&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will display the icon default popout, and when clicking will open the <span style="color: red;">popout</span> if exist
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Popout &lsaquo;# # #&rsaquo;
+            </th>
+            <td>&lsaquo;#<span style="color: blue;">HTML</span>#<span style="color: red;">name of the popout</span>#&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will display your <span style="color: blue;">HTML</span> and when clicking will open the <span style="color: red;">popout</span> if
+              exist
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Association &lsaquo;§ §&rsaquo;
+            </th>
+            <td>&lsaquo;§<span style="color: red;">Association Node ID</span>§&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will list the associated object of your <span style="color: red;">Association Node ID</span> separator is a comma
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Association &lsaquo;§ § §&rsaquo;
+            </th>
+            <td>&lsaquo;§<span style="color: red;">Association Node ID</span>§count§&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will display the number of associated object of your <span style="color: red;">Association Node ID</span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Association &lsaquo;§ § §&rsaquo;
+            </th>
+            <td>&lsaquo;§<span style="color: red;">Association Node ID</span>§<span style="color: blue;">HTML</span>§&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will display your <span style="color: blue;">HTML</span> if there is more than one object in your
+              <span style="color: red;">Association Node ID</span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              If then &lsaquo;? ? ?&rsaquo;
+            </th>
+            <td>&lsaquo;?<span style="color: darkorange;">filter</span>?<span style="color: red;">HTML</span>?&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              If your <span style="color: darkorange;">filter</span> is fullfill will display your HTML <span style="color: red;">HTML</span>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              If Then Else &lsaquo;? ? ? ?&rsaquo;
+            </th>
+            <td>
+              &lsaquo;?<span style="color: darkorange;">filter</span>?<span style="color: red;">HTML</span>?<span style="color: red;">HTML2</span
+              >?&rsaquo;
+            </td>
+            <td class="cw-edit-property-value">
+              If your <span style="color: darkorange;">filter</span> is fullfill will display your HTML <span style="color: red;">HTML</span> if not
+              fullfill will display your <span style="color: red;">HTML2</span>
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              <span style="color: darkorange;">Filter</span>
+            </th>
+            <td>
+              <span style="color: green;">Condition1</span>#<span style="color: green;">Condition2</span>
+            </td>
+            <td class="cw-edit-property-value">
+              Your Filter can contain multiple <span style="color: green;">Condition</span>, your filter will be fullfilled if all your condition
+              are fullfilled
+            </td>
+          </tr>
+
+          <tr>
+            <th rowspan="3">
+              <span style="color: green;">Condition</span>
+            </th>
+            <td rowspan="3">
+              <span style="color: blue;">Asset</span>:<span style="color: darkred;">Operand</span>:<span style="color: darkorange;"
+                >Value</span
+              >
+            </td>
+            <td class="cw-edit-property-value">
+              <div>
+                <span style="color: blue;">Asset</span> can be contrib, if you are Contributor and Diagrammer, your
+                <span style="color: green;">Condition</span> is fullfill
+              </div>
+              <div>
+                <span style="color: blue;">Asset</span> can be property scriptname
+              <div>
+                <span style="color: blue;">Asset</span> can be property intersection scriptname (use cwintersection_)
+              </div>
+              <div>
+                <span style="color: blue;">Asset</span> can be association node ID then it will consider the number of associated objects
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="cw-edit-property-value">
+              <span style="color: darkred;">Operand</span> can be =,&rsaquo;,&lsaquo;,!=
+            </td>
+          </tr>
+          <tr>
+            <td class="cw-edit-property-value">
+              <span style="color: darkorange;">Value</span>, for lookup use the id of the lookup 
+              <br> for date, you can use {@currentDate}-numberOfDays
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">Properties</div>
+
+      <table class="cwPropertiesTable">
+        <tbody>
+          <tr ng-repeat="prop in getProperties()">
+            <th>
+              {{prop.name}}
+            </th>
+            <td class="cw-edit-property-value">
+              <div>{{prop.scriptName}}</div>
+              <div ng-if="prop.type=== 'Lookup'">{{prop.scriptName}}_abbr</div>
+              <div ng-if="prop.type=== 'Lookup'">{{prop.scriptName}}_icon</div>
+            </td>
+            <td class="cw-edit-property-value">
+              <div ng-if="prop.type=== 'Lookup'" ng-repeat="l in prop.lookups">
+                <span ng-style="{color: ng.config[prop.scriptName][l.id].valueColor}" data-image-url="{{ng.config[prop.scriptName][l.id].imageUrl}}">
+                  <i
+                    ng-if="ng.config[prop.scriptName][l.id].icon"
+                    class="{{ng.config[prop.scriptName][l.id].icon}}"
+                    ng-style="{color: ng.config[prop.scriptName][l.id].iconColor}"
+                    aria-hidden="true"
+                  ></i>
+                  <img ng-if="ng.config[prop.scriptName][l.id].imageUrl" class="scaleImg" src="{{ng.config[prop.scriptName][l.id].imageUrl}}" />
+                  {{manageUndefined(l.name)}} (id: {{l.id}})
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">Intersection Properties</div>
+      <table class="cwPropertiesTable">
+        <tbody>
+          <tr ng-repeat="prop in getIProperties()">
+            <th>
+              <span>{{prop.name}}</span>
+            </th>
+            <td class="cw-edit-property-value">
+              <span>cwintersection_{{prop.scriptName}}</span>
+            </td>
+            <td class="cw-edit-property-value">
+              <div ng-if="prop.type=== 'Lookup'" ng-repeat="lookup in prop.lookups">{{lookup.name}} (id: {{lookup.id}})</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">Association</div>
+      <table class="cwPropertiesTable">
+        <tbody>
+          <tr ng-repeat="asso in ng.viewSchema.AssociationsTargetObjectTypes">
+            <th>
+              {{asso.displayNodeName}}
+            </th>
+            <td class="cw-edit-property-value">
+              <span>{{asso.nodeID}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
