@@ -34,12 +34,38 @@
           split = info.split("?");
           filterString = split[0];
           display = split[1];
+          let notDisplay = split.length > 2 ? split[2] : "";
           let cwFilter = new cwApi.customLibs.utils.cwFilter();
           cwFilter.initWithString(filterString);
-          result = cwFilter.isMatching(item) ? display : "";
+          result = cwFilter.isMatching(item) ? display : notDisplay;
         }
 
         itemDisplayName = itemDisplayName.replace("<?" + info + "?>", result);
+      }
+    }
+
+    return itemDisplayName;
+  };
+
+  cdsEnhanced.checkIcon = function (config, itemDisplayName, item) {
+    let filterString,
+      info,
+      split,
+      result = "",
+      display;
+    if (config) {
+      while (itemDisplayName.indexOf("{") !== -1 && itemDisplayName.indexOf("_icon}") !== -1) {
+        let propScriptname = itemDisplayName.split("{")[1].split("_icon}")[0];
+        let display = cwApi.cwPropertiesGroups.getDisplayValue(
+          item.objectTypeScriptName,
+          propScriptname,
+          item.properties[propScriptname],
+          item,
+          "properties",
+          true
+        );
+
+        itemDisplayName = itemDisplayName.replace("{" + propScriptname + "_icon}", display);
       }
     }
 
@@ -101,7 +127,6 @@
           split = info.split("§");
           nodeID = split[0];
           display = split[1];
-
           if (display === "count") {
             // display number of associations
             result = item.associations[nodeID] ? item.associations[nodeID].length : "";
@@ -119,6 +144,7 @@
   };
 
   cdsEnhanced.getEnhancedDisplayItem = function (config, itemDisplayName, item) {
+    itemDisplayName = cdsEnhanced.checkIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutCds(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutAssociation(config, itemDisplayName, item);
