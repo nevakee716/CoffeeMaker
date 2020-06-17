@@ -49,7 +49,7 @@
     return "<a " + targetBlank + "href='" + value + "'>" + value + "</a>";
   };
 
-  cwPropertiesGroups.getDisplayValue = function (objectTypeScriptName, propertyScriptName, currentValue, object, propertiesContainer) {
+  cwPropertiesGroups.getDisplayValue = function (objectTypeScriptName, propertyScriptName, currentValue, object, propertiesContainer, noValue) {
     var timePeriodValue, probabilityFunctionValue, growthRateValue, property, value;
     property = cwApi.mm.getProperty(objectTypeScriptName, propertyScriptName);
     value = currentValue;
@@ -81,7 +81,7 @@
           break;
         case "Lookup":
           property.valueID = object[propertiesContainer][property.scriptName + "_id"];
-          value = cwPropertiesGroups.types.lookupValue(value, property.valueID, config);
+          value = cwPropertiesGroups.types.lookupValue(value, property.valueID, config, noValue);
           break;
         case "Memo":
           value = cwPropertiesGroups.formatMemoProperty(value);
@@ -124,14 +124,14 @@
         case "Double":
           if (property.scriptName !== "id") {
             value = cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value);
-            value = cwPropertiesGroups.types.numericValue(value, config);
+            value = cwPropertiesGroups.types.numericValue(value, config, noValue);
           }
       }
     }
     return value;
   };
 
-  cwPropertiesGroups.types.lookupValue = function (value, lookupID, config) {
+  cwPropertiesGroups.types.lookupValue = function (value, lookupID, config, noValue) {
     let result = value;
     if (value === cwApi.getLookupUndefinedValue()) {
       value = $.i18n.prop("global_undefined");
@@ -139,14 +139,14 @@
     }
     if (config) {
       if (config[lookupID]) {
-        result = this.getResultForStyling(value, config[lookupID]);
+        result = this.getResultForStyling(value, config[lookupID], noValue);
       }
     }
 
     return result;
   };
 
-  cwPropertiesGroups.types.numericValue = function (value, config) {
+  cwPropertiesGroups.types.numericValue = function (value, config, noValue) {
     let selectedStep;
     if (!config || !config.steps) return value;
     config.steps.forEach(function (step) {
@@ -159,10 +159,10 @@
       }
     });
 
-    return this.getResultForStyling(value, selectedStep);
+    return this.getResultForStyling(value, selectedStep, noValue);
   };
 
-  cwPropertiesGroups.types.getResultForStyling = function (value, config) {
+  cwPropertiesGroups.types.getResultForStyling = function (value, config, noValue) {
     let result = value;
     if (!config) return result;
     if (config.icon || config.valueColor) {
@@ -179,7 +179,7 @@
         result += '<img class="scaleImg" src="' + config.imageUrl + '" />';
       }
 
-      result += "<span>" + value + "</span>";
+      if (!noValue) result += "<span>" + value + "</span>";
       result += "</span>";
     }
     return result;
