@@ -47,6 +47,32 @@
     return itemDisplayName;
   };
 
+  cdsEnhanced.checkFontAwesomeIcon = function (config, itemDisplayName, item) {
+    let fa,
+      info,
+      split,
+      result = "",
+      color;
+    if (config) {
+      while (itemDisplayName.indexOf("<¤") !== -1 && itemDisplayName.indexOf("¤>") !== -1) {
+        info = itemDisplayName.split("<¤")[1].split("¤>")[0];
+        if (info.indexOf("¤") === -1) {
+          // no splitter char
+          result = '<i class="fa ' + info + '" aria-hidden="true"></i>';
+        } else {
+          split = info.split("¤");
+          fa = split[0];
+          color = split[1];
+          result = '<i class="fa ' + fa + '" style="color:' + color + '"aria-hidden="true"></i>';
+        }
+
+        itemDisplayName = itemDisplayName.replace("<¤" + info + "¤>", result);
+      }
+    }
+
+    return itemDisplayName;
+  };
+
   cdsEnhanced.checkIcon = function (config, itemDisplayName, item) {
     let filterString,
       info,
@@ -144,6 +170,7 @@
   };
 
   cdsEnhanced.getEnhancedDisplayItem = function (config, itemDisplayName, item) {
+    itemDisplayName = cdsEnhanced.checkFontAwesomeIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutCds(config, itemDisplayName, item);

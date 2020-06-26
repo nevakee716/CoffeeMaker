@@ -24,9 +24,6 @@
 /* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
-.customDisplayStringSimulator div.row-cell.row-cell-value {
-  width: calc(100% - 250px);
-}
 .customDisplayStringSimulator div.row-cell.row-cell-value input {
   width: 100%;
 }

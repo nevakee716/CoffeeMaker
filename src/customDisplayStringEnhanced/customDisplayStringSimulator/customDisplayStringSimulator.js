@@ -26,6 +26,7 @@
   customDisplayStringSimulator.prototype.applyJavaScript = function () {
     let self = this;
 
+    if (!this.objects || !this.objects.length || this.objects.length == 0) return;
     cwApi.CwAsyncLoader.load("angular", function () {
       let loader = cwApi.CwAngularLoader,
         templatePath,
