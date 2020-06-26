@@ -38,7 +38,10 @@
         self.angularScope = $scope;
         $scope.ng = {};
         $scope.ng.objects = self.objects;
-        $scope.ng.cds = "{name}";
+        $scope.ng.cds =
+          self.viewSchema.NodesByID[self.nodeID].LayoutOptions.DisplayPropertyScriptName !== ""
+            ? self.viewSchema.NodesByID[self.nodeID].LayoutOptions.DisplayPropertyScriptName
+            : "{name}";
         $scope.ng.viewSchema = self.viewSchema.NodesByID[self.nodeID];
         $scope.displayItemString = function (item) {
           return $sce.trustAsHtml(item.displayName);
