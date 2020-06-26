@@ -53,7 +53,9 @@
         if (columnConfig[i + 1].size) columns[i].width = columnConfig[i + 1].size; // gestion size
         if (columnConfig[i + 1].name) columns[i].title = columnConfig[i + 1].name; // gestion rename
         if (columnConfig[i + 1].frozen) columns[i].locked = columnConfig[i + 1].frozen; // freeze
-        if (columnConfig[i + 1].order) columnsObj[columnConfig[i + 1].order - 1] = columns[i]; // custom order
+        // custom order
+        if (columnConfig[i + 1].order) columnsObj[columnConfig[i + 1].order - 1] = columns[i];
+        else columnsObj[i] = columns[i];
       } else {
         columnsObj[i] = columns[i];
       }

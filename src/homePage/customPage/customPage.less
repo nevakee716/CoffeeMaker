@@ -1,0 +1,25 @@
+@import "../../../_variables";
+
+.customDisplayStringSimulator {
+  div.row-cell.row-cell-value {
+    width: calc(100% - 250px);
+    input {
+      width: 100%;
+    }
+  }
+  div.list {
+    display: flex;
+
+    ul {
+      width: 40%;
+    }
+
+    div.nodeConfig {
+      width: 60%;
+      table.cwPropertiesTable td,
+      table.cwPropertiesTable th {
+        white-space: initial;
+      }
+    }
+  }
+}
