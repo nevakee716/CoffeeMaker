@@ -1,7 +1,0 @@
-{
-  "Name": "customPageLayout",
-  "DisplayName": "Custom Page Layout",
-  "Description": "The layout allow you to configure multiple element inside you evolve page",
-  "JavaScriptClassName": "customPageLayout",
-  "Options": []
-}
