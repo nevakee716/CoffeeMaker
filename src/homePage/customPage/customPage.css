@@ -1,0 +1,45 @@
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* GRID */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+.customDisplayStringSimulator div.row-cell.row-cell-value {
+  width: calc(100% - 250px);
+}
+.customDisplayStringSimulator div.row-cell.row-cell-value input {
+  width: 100%;
+}
+.customDisplayStringSimulator div.list {
+  display: flex;
+}
+.customDisplayStringSimulator div.list ul {
+  width: 40%;
+}
+.customDisplayStringSimulator div.list div.nodeConfig {
+  width: 60%;
+}
+.customDisplayStringSimulator div.list div.nodeConfig table.cwPropertiesTable td,
+.customDisplayStringSimulator div.list div.nodeConfig table.cwPropertiesTable th {
+  white-space: initial;
+}

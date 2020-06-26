@@ -2,7 +2,7 @@
   <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader CoffeeMaker">
     <div class="bootstrap-iso rowFlex ng-scope">
       <div class="row-cell row-cell-label ng-binding">Custom Display String :&nbsp;</div>
-      <div class="row-cell row-cell-value">
+      <div class="row-cell row-cell-value" style="width: calc(100% - 250px)">
         <input ng-model="ng.cds" ng-model-options="{ debounce: 200 }" class="ng-pristine ng-untouched ng-valid" />
       </div>
     </div>
@@ -43,6 +43,24 @@
             <td class="cw-edit-property-value">
               Will display your <span style="color: blue;">HTML</span> and when clicking will open the <span style="color: red;">popout</span> if
               exist
+            </td>
+          </tr>
+          <tr>
+            <th>
+              FontAwesome Icon &lsaquo;¤ ¤&rsaquo;
+            </th>
+            <td>&lsaquo;¤<span style="color: red;">Font awesome name</span>¤&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will display a the <span style="color: red;">fontawesome icon</span>, you can find the list <a target="_blank" href="https://fontawesome.com/v4.7.0/icons/" >here</a>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              FontAwesome Icon &lsaquo;¤ ¤ ¤&rsaquo;
+            </th>
+            <td>&lsaquo;¤<span style="color: red;">Font awesome name</span>¤<span style="color: green;">Css Color</span>¤&rsaquo;</td>
+            <td class="cw-edit-property-value">
+              Will display a the <span style="color: red;">fontawesome icon</span> with a <span style="color: green;">Css Color</span>, you can find the list <a target="_blank" href="https://fontawesome.com/v4.7.0/icons/" >here</a>
             </td>
           </tr>
           <tr>
