@@ -1,6 +1,6 @@
 <div>
   <div ng-if="showDescription" class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/checkEditModel_description.ng.html'"></div>
     </div>
   </div>
@@ -19,7 +19,7 @@
     <div class="row-cell row-cell-value">
       <select
         ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'"
-        ng-model="config[currentView.cwView].unicityView"
+        ng-model="ng.config[currentView.cwView].unicityView"
       ></select>
     </div>
   </div>
@@ -36,12 +36,12 @@
           <th class="mediumCell cw-hidden" ng-repeat="r in roles">{{r.name}}</th>
         </tr>
         <tr ng-repeat="p in properties">
-          <th class="cw-edit-property-value ">{{p.name}} ({{p.scriptName}})</th>
+          <th class="cw-edit-property-value">{{p.name}} ({{p.scriptName}})</th>
           <td ng-if="indexUniqueOption" class="cw-edit-property-value tableCheckbox">
-            <input ng-model="config[currentView.cwView][p.scriptName].unique" type="checkbox" />
+            <input ng-model="ng.config[currentView.cwView][p.scriptName].unique" type="checkbox" />
           </td>
           <td class="cw-edit-property-value">
-            <input class="cw-edit-attr" ng-model="config[currentView.cwView][p.scriptName].automaticValue" type="text" />
+            <input class="cw-edit-attr" ng-model="ng.config[currentView.cwView][p.scriptName].automaticValue" type="text" />
           </td>
           <td class="cw-hidden cw-edit-property-value tableCheckbox" ng-repeat="r in roles">
             <select class="cw-edit-attr cw-edit-attr-combobox mediumCell">
@@ -67,9 +67,9 @@
         </tr>
         <tr ng-repeat="a in associations">
           <th class="cw-edit-property-value">{{a.displayNodeName}} ({{a.nodeID}})</th>
-          <td class="cw-edit-property-value tableCheckbox"><input ng-model="config[currentView.cwView][a.nodeID].min" type="number" /></td>
+          <td class="cw-edit-property-value tableCheckbox"><input ng-model="ng.config[currentView.cwView][a.nodeID].min" type="number" /></td>
           <td class="cw-edit-property-value tableCheckbox">
-            <input class="cw-edit-attr" ng-model="config[currentView.cwView][a.nodeID].max" type="number" />
+            <input class="cw-edit-attr" ng-model="ng.config[currentView.cwView][a.nodeID].max" type="number" />
           </td>
         </tr>
       </tbody>

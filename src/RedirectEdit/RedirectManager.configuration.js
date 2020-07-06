@@ -1,19 +1,19 @@
 /* Copyright (c) 2012-2013 Casewise Systems Ltd (UK) - All rights reserved */
 /*global cwAPI, jQuery */
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
   if (cwApi && cwApi.cwLayouts && cwApi.cwLayouts.cwCoffeeMaker) {
     var cwCoffeeMaker = cwApi.cwLayouts.cwCoffeeMaker;
   } else {
     // constructor
-    var cwCoffeeMaker = function(options, viewSchema) {
+    var cwCoffeeMaker = function (options, viewSchema) {
       cwApi.extend(this, cwApi.cwLayouts.CwLayout, options, viewSchema); // heritage
       cwApi.registerLayoutForJSActions(this); // execute le applyJavaScript après drawAssociations
       this.construct(options);
     };
   }
 
-  cwCoffeeMaker.prototype.controller_redirectEdit = function($container, templatePath, $scope) {
+  cwCoffeeMaker.prototype.controller_redirectEdit = function ($container, templatePath, $scope) {
     var objectpages = [];
     var views = cwAPI.cwConfigs.Pages;
     for (let v in views) {
@@ -24,13 +24,13 @@
 
     $scope.objectpages = objectpages;
     $scope.redirectViews = [];
-    $scope.configInit = function() {
+    $scope.configInit = function () {
       if ($scope.currentView.cwView) {
-        if ($scope.config[$scope.currentView.cwView] === undefined) {
-          $scope.config[$scope.currentView.cwView] = {};
+        if ($scope.ng.config[$scope.currentView.cwView] === undefined) {
+          $scope.ng.config[$scope.currentView.cwView] = {};
         }
         let r = [];
-        cwApi.cwConfigs.SingleViewsByObjecttype[$scope.currentView.rootObjectType].forEach(function(v) {
+        cwApi.cwConfigs.SingleViewsByObjecttype[$scope.currentView.rootObjectType].forEach(function (v) {
           r.push(cwApi.getView(v));
         });
         $scope.redirectViews = r;

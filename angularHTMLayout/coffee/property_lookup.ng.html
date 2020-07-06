@@ -27,32 +27,33 @@
         <th class="cw-edit-property-value">
           {{p.name}}
         </th>
-        <td class="cw-edit-property-value tableCheckbox"></td>
-        <td class="cw-edit-property-value tableCheckbox"></td>
+        <td colspan="4" class="cw-edit-property-value tableCheckbox">
+          <input type="text" ng-model="eConfig" />
+        </td>
       </tr>
       <tr ng-if="p.extended" ng-repeat="l in p.lookups">
         <td></td>
         <td class="noWhiteSpace">
           <span
-            ng-style="{color: config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].valueColor}"
-            data-image-url="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
+            ng-style="{color: ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].valueColor}"
+            data-image-url="{{ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
           >
             <i
-              ng-if="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon"
-              class="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon}}"
-              ng-style="{color: config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].iconColor}"
+              ng-if="ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon"
+              class="{{ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon}}"
+              ng-style="{color: ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].iconColor}"
               aria-hidden="true"
             ></i>
             <img
-              ng-if="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl"
+              ng-if="ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl"
               class="scaleImg"
-              src="{{config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
+              src="{{ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl}}"
             />
             {{manageUndefined(l.name)}}
           </span>
         </td>
         <td class="cw-edit-property-value bootstrap-iso tableTextInput">
-          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl" type="text" />
+          <input ng-model="ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].imageUrl" type="text" />
         </td>
         <td class="cw-edit-property-value" style="overflow: visible;">
           <div class="bootstrap-iso" style="display: flex; overflow: visible;">
@@ -63,16 +64,16 @@
               data-live-search="true"
               class="fa"
               id="{{p.scriptName}}{{l.id}}"
-              ng-init="bootstrapFilter(p.scriptName+l.id,config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon)"
-              ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon"
+              ng-init="bootstrapFilter(p.scriptName+l.id,ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon)"
+              ng-model="ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].icon"
             ></select>
           </div>
         </td>
         <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
-          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].iconColor" type="color" />
+          <input ng-model="ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].iconColor" type="color" />
         </td>
         <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
-          <input ng-model="config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].valueColor" type="color" />
+          <input ng-model="ng.config[ng.selectedObjectTypeScriptname][p.scriptName][l.id].valueColor" type="color" />
         </td>
       </tr>
       <tr ng-repeat-end>

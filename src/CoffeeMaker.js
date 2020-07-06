@@ -13,6 +13,70 @@
     };
   }
 
+  var loader = cwApi.CwAngularLoader;
+  if (cwApi.ngDirectives) {
+    cwApi.ngDirectives.push(function () {
+      loader.registerDirective("jsonText", [
+        "$http",
+        function ($http) {
+          return {
+            restrict: "A", // only activate on element attribute
+            require: "ngModel", // get a hold of NgModelController
+            link: function (scope, element, attrs, ngModelCtrl) {
+              var lastValid;
+
+              // push() if faster than unshift(), and avail. in IE8 and earlier (unshift isn't)
+              ngModelCtrl.$parsers.push(fromUser);
+              ngModelCtrl.$formatters.push(toUser);
+
+              // clear any invalid changes on blur
+              element.bind("blur", function () {
+                element.val(toUser(scope.$eval(attrs.ngModel)));
+              });
+
+              // $watch(attrs.ngModel) wouldn't work if this directive created a new scope;
+              // see https://stackoverflow.com/questions/14693052/watch-ngmodel-from-inside-directive-using-isolate-scope how to do it then
+              scope.$watch(
+                attrs.ngModel,
+                function (newValue, oldValue) {
+                  lastValid = lastValid || newValue;
+
+                  if (newValue != oldValue) {
+                    ngModelCtrl.$setViewValue(toUser(newValue));
+
+                    // TODO avoid this causing the focus of the input to be lost..
+                    ngModelCtrl.$render();
+                  }
+                },
+                true
+              ); // MUST use objectEquality (true) here, for some reason..
+
+              function fromUser(text) {
+                // Beware: trim() is not available in old browsers
+                if (!text || text.trim() === "") {
+                  return {};
+                } else {
+                  try {
+                    lastValid = angular.fromJson(text);
+                    ngModelCtrl.$setValidity("invalidJson", true);
+                  } catch (e) {
+                    ngModelCtrl.$setValidity("invalidJson", false);
+                  }
+                  return lastValid;
+                }
+              }
+
+              function toUser(object) {
+                // better than JSON.stringify(), because it formats + filters $$hashKey etc.
+                return angular.toJson(object, true);
+              }
+            },
+          };
+        },
+      ]);
+    });
+  }
+
   cwCoffeeMaker.prototype.construct = function (options) {
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.version && cwAPI.customLibs.utils.version >= 1.5) {
       this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration();
@@ -110,12 +174,19 @@
             $scope.metamodel = cwAPI.mm.getMetaModel();
             $scope.views = cwApi.cwConfigs.Pages;
             self.angularScope = $scope;
-            $scope.config = self.config[t.dataset.id];
+            $scope.ng = {};
+            $scope.ng.config = self.config[t.dataset.id];
+            self.config[t.dataset.id] = $scope.ng.config;
+            $scope.gConfig = self.config;
             $scope.cwApi = cwApi;
             $scope.lang = cwApi.getSelectedLanguage();
             $scope.showDescription = true;
             $scope.FilterOperators = ["=", "!=", ">", "<", "In"];
 
+            $scope.$watchCollection("ng", function (newValue, oldValue) {
+              self.config[t.dataset.id] = $scope.ng.config;
+            });
+            $scope.jsonText = {};
             $scope.toggle = function (c, e) {
               if (c.hasOwnProperty(e)) delete c[e];
               else c[e] = true;
@@ -126,8 +197,9 @@
               if (i === -1) c.push(e);
               else c.splice(i, 1);
             };
+            $scope.configError = false;
 
-            if (self["controller_" + t.dataset.id] && $scope.config) self["controller_" + t.dataset.id]($container, templatePath, $scope);
+            if (self["controller_" + t.dataset.id] && $scope.ng.config) self["controller_" + t.dataset.id]($container, templatePath, $scope);
           });
         });
       }

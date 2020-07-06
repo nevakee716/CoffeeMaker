@@ -68,7 +68,7 @@
   cwCoffeeMaker.prototype.controller_tableComplexeEnhanced = function ($container, templatePath, $scope) {
     var evolveViews = [];
     var self = this;
-    let config = $scope.config;
+    let config = $scope.ng.config;
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
         if ($scope.views[v].name.indexOf("|>B") === -1) {
@@ -125,9 +125,9 @@
     };
 
     $scope.initColumnConfig = function (behaviour) {
-      if ($scope.config.nodes === undefined) $scope.config.nodes = {};
-      if ($scope.config.nodes[behaviour.node.NodeID] === undefined) $scope.config.nodes[behaviour.node.NodeID] = {};
-      if ($scope.config.nodes[behaviour.node.NodeID].columns === undefined) $scope.config.nodes[behaviour.node.NodeID].columns = {};
+      if ($scope.ng.config.nodes === undefined) $scope.ng.config.nodes = {};
+      if ($scope.ng.config.nodes[behaviour.node.NodeID] === undefined) $scope.ng.config.nodes[behaviour.node.NodeID] = {};
+      if ($scope.ng.config.nodes[behaviour.node.NodeID].columns === undefined) $scope.ng.config.nodes[behaviour.node.NodeID].columns = {};
     };
 
     return;

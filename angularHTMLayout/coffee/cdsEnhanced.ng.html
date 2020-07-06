@@ -7,7 +7,7 @@
   <div class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-label">{{$root.i18n('cds_display_popout_by_default')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
-      <input ng-model="config.displayPopoutByDefault" type="checkbox" />
+      <input ng-model="ng.config.displayPopoutByDefault" type="checkbox" />
     </div>
   </div>
   <div class="rowFlex bootstrap-iso">
@@ -22,7 +22,7 @@
           class="fa"
           id="{{filterId}}"
           ng-init="bootstrapFilter(filterId)"
-          ng-model="config.defaultIcon"
+          ng-model="ng.config.defaultIcon"
         ></select>
       </div>
     </div>

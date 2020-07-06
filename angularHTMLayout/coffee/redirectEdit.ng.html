@@ -1,6 +1,6 @@
 <div>
   <div ng-if="showDescription" class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-value row-cell-max-width ">
+    <div class="row-cell row-cell-value row-cell-max-width">
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/redirect_description.ng.html'"></div>
     </div>
   </div>
@@ -19,7 +19,7 @@
     <div class="row-cell row-cell-value">
       <select
         ng-options="v.cwView as (v.name + ' (' + v.cwView + ')') for v in redirectViews | orderBy:'name'"
-        ng-model="config[currentView.cwView].default"
+        ng-model="ng.config[currentView.cwView].default"
       ></select>
     </div>
   </div>

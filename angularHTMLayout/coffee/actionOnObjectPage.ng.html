@@ -16,7 +16,7 @@
   </div>
   <div class="tabs">
     <div
-      ng-repeat="(i, op) in config[currentView.cwView] | orderBy:'order'"
+      ng-repeat="(i, op) in ng.config[currentView.cwView] | orderBy:'order'"
       ng-class="{active: op.selected == true}"
       class="tab-link tab-{{op.Id}}"
       ng-click="selectOperation(i)"
@@ -30,7 +30,7 @@
       ></a>
     </div>
   </div>
-  <div class="tabContent" ng-if="op.selected" ng-repeat="(i, op) in config[currentView.cwView]">
+  <div class="tabContent" ng-if="op.selected" ng-repeat="(i, op) in ng.config[currentView.cwView]">
     <div class="remove-operation">
       <a class="btn-remove btn page-action no-text" data-id="{{op.Id}}" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeOperation(i)"
         ><i class="fa fa-trash-o" aria-hidden="true"></i
