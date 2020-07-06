@@ -111,10 +111,13 @@
         } else if (r.RegionTypeString === "MultipleProperties") {
           r.PropertyInformation.PropTypes.forEach(function (rp) {
             if (!scriptname[rp.ScriptName.toLowerCase()]) {
-              result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
-                scriptname: rp.ScriptName.toLowerCase(),
-                displayName: cwAPI.mm.getProperty(p.PaletteObjectTypeScriptName.toLowerCase(), rp.ScriptName).name,
-              });
+              let cwProperty = cwAPI.mm.getProperty(p.PaletteObjectTypeScriptName.toLowerCase(), rp.ScriptName);
+              if (cwProperty) {
+                result[p.PaletteObjectTypeScriptName.toLowerCase()].regions.push({
+                  scriptname: rp.ScriptName.toLowerCase(),
+                  displayName: cwProperty.name,
+                });
+              }
               scriptname[rp.ScriptName] = true;
             }
           });
