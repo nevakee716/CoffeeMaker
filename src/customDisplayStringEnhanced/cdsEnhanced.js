@@ -23,9 +23,11 @@
       info,
       split,
       result = "",
-      display;
+      display,
+      n = 0;
     if (config) {
-      while (itemDisplayName.indexOf("<?") !== -1 && itemDisplayName.indexOf("?>") !== -1) {
+      while (itemDisplayName.indexOf("<?") !== -1 && itemDisplayName.indexOf("?>") !== -1 && n < 100) {
+        n++;
         info = itemDisplayName.split("<?")[1].split("?>")[0];
         if (info.indexOf("?") === -1) {
           // no splitter char
@@ -52,9 +54,11 @@
       info,
       split,
       result = "",
-      color;
+      color,
+      n = 0;
     if (config) {
-      while (itemDisplayName.indexOf("<¤") !== -1 && itemDisplayName.indexOf("¤>") !== -1) {
+      while (itemDisplayName.indexOf("<¤") !== -1 && itemDisplayName.indexOf("¤>") !== -1 && n < 100) {
+        n++;
         info = itemDisplayName.split("<¤")[1].split("¤>")[0];
         if (info.indexOf("¤") === -1) {
           // no splitter char
@@ -74,13 +78,9 @@
   };
 
   cdsEnhanced.checkIcon = function (config, itemDisplayName, item) {
-    let filterString,
-      info,
-      split,
-      result = "",
-      display;
+    let n = 0;
     if (config) {
-      while (itemDisplayName.indexOf("{") !== -1 && itemDisplayName.indexOf("_icon}") !== -1) {
+      while (itemDisplayName.indexOf("{") !== -1 && itemDisplayName.indexOf("_icon}") !== -1 && n < 100) {
         let propScriptname = itemDisplayName.split("{")[1].split("_icon}")[0];
         let display = cwApi.cwPropertiesGroups.getDisplayValue(
           item.objectTypeScriptName,
@@ -108,7 +108,9 @@
           itemDisplayName = cdsEnhanced.generatePopoutString(item.object_id, popOutName, popOutText) + "  " + itemDisplayName;
         }
       } else {
-        while (itemDisplayName.indexOf("<#") !== -1 && itemDisplayName.indexOf("#>") !== -1) {
+        let n = 0;
+        while (itemDisplayName.indexOf("<#") !== -1 && itemDisplayName.indexOf("#>") !== -1 && n < 100) {
+          n++;
           popOutInfo = itemDisplayName.split("<#")[1].split("#>")[0];
           if (popOutInfo.indexOf("#") === -1) {
             popOutName = popOutInfo;
@@ -135,9 +137,11 @@
       info,
       split,
       result = "",
-      display;
+      display,
+      n = 0;
     if (config) {
-      while (itemDisplayName.indexOf("<§") !== -1 && itemDisplayName.indexOf("§>") !== -1) {
+      while (itemDisplayName.indexOf("<§") !== -1 && itemDisplayName.indexOf("§>") !== -1 && n < 100) {
+        n++;
         info = itemDisplayName.split("<§")[1].split("§>")[0];
         if (info.indexOf("§") === -1) {
           // simple node ID
