@@ -57,8 +57,20 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
     }
-    if (config && config[objectTypeScriptName] && config[objectTypeScriptName][propertyScriptName]) {
-      config = config[objectTypeScriptName][propertyScriptName];
+    if (config) {
+      if (config[objectTypeScriptName] && config[objectTypeScriptName][propertyScriptName]) {
+        config = config[objectTypeScriptName][propertyScriptName];
+      } else if (config.hardcoded && config.hardcoded.length > 0) {
+        // check for label Mapping
+        let r;
+        let v = value == "__|UndefinedValue|__" ? $.i18n.prop("global_undefined") : value;
+        config.hardcoded.forEach(function (mapping) {
+          if (v === mapping.value) {
+            r = mapping;
+          }
+        });
+        if (r) config = r;
+      }
     }
 
     if (!cwApi.isUndefined(value) && !cwApi.isUndefined(property.type) && !cwApi.isNull(value)) {
@@ -141,6 +153,9 @@
       if (config[lookupID]) {
         result = this.getResultForStyling(value, config[lookupID], noValue);
       }
+      if (config.value) {
+        result = this.getResultForStyling(value, config, noValue);
+      }
     }
 
     return result;
@@ -148,7 +163,8 @@
 
   cwPropertiesGroups.types.numericValue = function (value, config, noValue) {
     let selectedStep;
-    if (!config || !config.steps) return value;
+    if (!config || (!config.steps && !config.value)) return value;
+    if (!config.steps && config.value) return this.getResultForStyling(value, config, noValue);
     config.steps.forEach(function (step) {
       if (
         (step.min && step.max === null && step.min < value) ||

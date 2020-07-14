@@ -132,3 +132,4 @@ openUrlInNewTab = Ouvrir le lien dans une nouvelle tab
 property_boolean = Propriété Booléane
 useIconToDisplayTrueFalse = Utiliser un icône
 property_numeric = Propriété Numérique
+property_hardcoded = Mapping Globaux

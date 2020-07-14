@@ -1,0 +1,64 @@
+<div class="row">
+  <table class="cwPropertiesTable">
+    <tbody>
+      <tr>
+        <th class="tableCheckbox"></th>
+        <th class="largeMediumCell noWhiteSpace">{{$root.i18n('label_pt_filter_column_value')}}</th>
+        <th class="largeMediumCell">{{$root.i18n('imageUrl')}}</th>
+        <th class="largeMediumCell">{{$root.i18n('Icon')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('colorIcon')}}</th>
+        <th class="tableCheckbox">{{$root.i18n('colorValue')}}</th>
+        <th class="tableCheckbox cw-edit-property-value">
+          <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_mapping')}}]" ng-click="addMapping()"
+            ><i class="fa fa-plus" aria-hidden="true"></i
+          ></a>
+        </th>
+      </tr>
+      <tr ng-repeat="mapping in ng.config.hardcoded">
+        <td class="noWhiteSpace">
+          <span ng-style="{color: mapping.valueColor}" data-image-url="{{mapping.imageUrl}}">
+            <i ng-if="mapping.icon" class="{{mapping.icon}}" ng-style="{color: mapping.iconColor}" aria-hidden="true"></i>
+            <img ng-if="mapping.imageUrl" class="scaleImg" src="{{mapping.imageUrl}}" />
+            {{mapping.value}}
+          </span>
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="mapping.value" type="text" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="mapping.imageUrl" type="text" />
+        </td>
+        <td class="cw-edit-property-value" style="overflow: visible;">
+          <div class="bootstrap-iso" style="display: flex; overflow: visible;">
+            <select
+              ng-include
+              src="'../../common/html/coffee/fa.ng.html'"
+              data-width="100%"
+              data-live-search="true"
+              class="fa"
+              id="hardcoded{{$index}}"
+              ng-init="bootstrapFilter(hardcoded + $index)"
+              ng-model="mapping.icon"
+            ></select>
+          </div>
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
+          <input ng-model="mapping.iconColor" type="color" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableCheckbox">
+          <input ng-model="mapping.valueColor" type="color" />
+        </td>
+        <td class="cw-edit-property-value tableCheckbox">
+          <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_step')}}]" ng-click="deleteMapping($index)"
+            ><i class="fa fa-close" aria-hidden="true"></i
+          ></a>
+        </td>
+      </tr>
+      <tr ng-repeat-end>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

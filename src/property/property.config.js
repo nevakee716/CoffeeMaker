@@ -16,6 +16,7 @@
   cwCoffeeMaker.prototype.controller_property = function ($container, templatePath, $scope) {
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
     $scope.OTs = [];
+    if (!$scope.ng.config.hardcoded) $scope.ng.config.hardcoded = [];
 
     for (let o in $scope.objectTypes) {
       if ($scope.objectTypes.hasOwnProperty(o) && !$scope.objectTypes[o].properties.hasOwnProperty("allowautomaticdeletion")) {
@@ -55,6 +56,13 @@
       if ($scope.ng.config[objectTypesScriptname][propertyTypeScriptname].steps.length === 0) {
         delete $scope.ng.config[objectTypesScriptname][propertyTypeScriptname];
       }
+    };
+
+    $scope.addMapping = function () {
+      $scope.ng.config.hardcoded.push({});
+    };
+    $scope.deleteStep = function (index) {
+      delete $scope.ng.config.hardcoded.splice(index, 1);
     };
 
     $scope.manageUndefined = function (value) {

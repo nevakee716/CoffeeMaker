@@ -450,16 +450,27 @@
   cwBehaviours.CwKendoGridIntegerType.prototype.getDisplayNumber = function (dataItem) {
     let result, config;
     if (!dataItem || !dataItem.item) return;
-    if (this.config === undefined) {
-      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
-        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
-      }
-      if (config && config[dataItem.item.objectTypeScriptName] && config[dataItem.item.objectTypeScriptName][this.property.scriptName]) {
-        this.config = config[dataItem.item.objectTypeScriptName][this.property.scriptName];
-      } else this.config = null;
-    }
     let value = dataItem[this.property.scriptName];
-    return cwApi.cwPropertiesGroups.types.numericValue(value, this.config);
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+      config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
+    }
+    if (config) {
+      if (config[dataItem.item.objectTypeScriptName] && config[dataItem.item.objectTypeScriptName][this.property.scriptName]) {
+        config = config[dataItem.item.objectTypeScriptName][this.property.scriptName];
+      } else if (config && config.hardcoded && config.hardcoded.length > 0) {
+        // check for label Mapping
+        let r;
+        let v = value == "__|UndefinedValue|__" ? $.i18n.prop("global_undefined") : value;
+        config.hardcoded.forEach(function (mapping) {
+          if (v === mapping.value) {
+            r = mapping;
+          }
+        });
+        if (r) config = r;
+      }
+    } else config = null;
+
+    return cwApi.cwPropertiesGroups.types.numericValue(value, config);
   };
 
   cwBehaviours.CwKendoGridIntegerType.prototype.getColumnTemplate = function () {
@@ -477,27 +488,31 @@
   //lookup display
   cwBehaviours.CwKendoGridLookupType.prototype.getDisplayLookup = function (dataItem) {
     let result, config;
-    if (!dataItem || !dataItem.item) return;
-    if (this.config === undefined) {
-      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
-        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
-      }
-      if (config && config[dataItem.item.objectTypeScriptName] && config[dataItem.item.objectTypeScriptName][this.property.scriptName]) {
-        this.config = config[dataItem.item.objectTypeScriptName][this.property.scriptName];
-      } else this.config = null;
-    }
+
     let value = dataItem[this.property.scriptName];
     let lookupID = dataItem[this.property.scriptName + "_id"];
-    if (value === cwApi.getLookupUndefinedValue()) {
-      value = $.i18n.prop("global_undefined");
+
+    if (!dataItem || !dataItem.item) return;
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+      config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
     }
-    result = value;
-    if (this.config) {
-      if (this.config[lookupID]) {
-        result = cwApi.cwPropertiesGroups.types.getResultForStyling(result, this.config[lookupID]);
+    if (config) {
+      if (config[dataItem.item.objectTypeScriptName] && config[dataItem.item.objectTypeScriptName][this.property.scriptName]) {
+        config = config[dataItem.item.objectTypeScriptName][this.property.scriptName];
+      } else if (config.hardcoded && config.hardcoded.length > 0) {
+        // check for label Mapping
+        let r;
+        let v = value == "__|UndefinedValue|__" ? $.i18n.prop("global_undefined") : value;
+        config.hardcoded.forEach(function (mapping) {
+          if (v === mapping.value) {
+            r = mapping;
+          }
+        });
+        if (r) config = r;
       }
-    }
-    return result;
+    } else config = null;
+
+    return cwApi.cwPropertiesGroups.types.lookupValue(value, lookupID, config);
   };
 
   cwBehaviours.CwKendoGridLookupType.prototype.getColumnTemplate = function () {

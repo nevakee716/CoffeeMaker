@@ -131,3 +131,4 @@ openUrlInNewTab = Open link in new tab
 property_boolean = Boolean property
 useIconToDisplayTrueFalse = Use an icon
 property_numeric = Number Property
+property_hardcoded = Global Mapping
