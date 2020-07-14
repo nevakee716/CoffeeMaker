@@ -5,4 +5,10 @@
     {{$root.i18n('displayjsonconfig')}}
   </span>
 </div>
-<textarea json-text style="width: 100%; height: 400px;" ng-model="ng.config" ng-if="ng.config.extended === true"></textarea>
+<textarea
+  json-text
+  style="width: 100%; height: 400px;"
+  ng-model="ng.config"
+  ng-model-options="{ debounce: 1000 }"
+  ng-if="ng.config.extended === true"
+></textarea>
