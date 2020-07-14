@@ -213,9 +213,9 @@
     if (!config || !config.title) {
       var obj = {
         name: "Title",
-        template: '<h3 style="right:50%; position:absolute">' + this.nodeSchema.NodeName + "</h3>",
+        template: '<span style="font-size: 1.5em; margin: 0 0 1em 100px;">' + this.nodeSchema.NodeName + "</span>",
       };
-      kendoGridData.toolbar.unshift(obj);
+      kendoGridData.toolbar.push(obj);
     }
     kendoGridDataSaved = kendoGridData;
     return kendoGridData;
