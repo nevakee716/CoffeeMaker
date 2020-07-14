@@ -45,7 +45,7 @@
           ></a>
         </td>
       </tr>
-      <tr ng-if="p.extended" ng-repeat="step in config[ng.selectedObjectTypeScriptname][p.scriptName].steps">
+      <tr ng-if="p.extended" ng-repeat="step in ng.config[ng.selectedObjectTypeScriptname][p.scriptName].steps">
         <td></td>
         <td class="noWhiteSpace">
           <span ng-style="{color: step.valueColor}" data-image-url="{{step.imageUrl}}">
