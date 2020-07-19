@@ -66,7 +66,7 @@
   <link rel="assets" href="https://github.githubassets.com/">
   
 
-  <meta name="request-id" content="F1D4:6079:147444:1DC7F8:5F0E307F" data-pjax-transient="true"/><meta name="html-safe-nonce" content="4a14e59662dea032e943e4c0d4ef63120e757d54" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJGMUQ0OjYwNzk6MTQ3NDQ0OjFEQzdGODo1RjBFMzA3RiIsInZpc2l0b3JfaWQiOiI0OTUxMzkzOTY3MjE4MjQxNjYzIiwicmVnaW9uX2VkZ2UiOiJhbXMiLCJyZWdpb25fcmVuZGVyIjoiYW1zIn0=" data-pjax-transient="true"/><meta name="visitor-hmac" content="11b4f6388f2777678fbe89cb46a1d86998cdb676025eda808d98b5084862441b" data-pjax-transient="true"/>
+  <meta name="request-id" content="F46F:4E01:201AA3:2F1078:5F0E3E0F" data-pjax-transient="true"/><meta name="html-safe-nonce" content="438876f297e74ef56dab4492e0ec0a036e275c61" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJGNDZGOjRFMDE6MjAxQUEzOjJGMTA3ODo1RjBFM0UwRiIsInZpc2l0b3JfaWQiOiIyNzY3MzE0NDkyMDI2OTI4NjU1IiwicmVnaW9uX2VkZ2UiOiJhbXMiLCJyZWdpb25fcmVuZGVyIjoiYW1zIn0=" data-pjax-transient="true"/><meta name="visitor-hmac" content="ea3f2c8ab7a8edd2c3d461a48da762e49623c615804038206c40f8e922f8da8b" data-pjax-transient="true"/>
 
 
 
@@ -309,7 +309,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="O2neV7qoHgGrG+7qo4oZmC6mWzfVTsaHS+VxDL1Do8+59GVrct4oRo7aNL3A9hFyIfVsvjaQiwTlbU8XzDOkPA==" />
+          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="r8/ynYox2O5w7jkNp6jdEOfgtygtRvWIaAdCe9JQl8DupsyAccu3X7x/IQuyUK+ibVxGsmh7tO7bdNqOWje7JQ==" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
