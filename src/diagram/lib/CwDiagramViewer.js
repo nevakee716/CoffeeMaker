@@ -7,7 +7,7 @@ adding the support and clickable associated region*/
   "use strict";
   cwApi.Diagrams.CwDiagramViewer.prototype.clickOnCanvas = function (e) {
     var regionZone, cwObject, link;
-
+    var that = this;
     function openObjectLink() {
       // Object link
       cwObject = that.currentContext.selectedShape.shape.cwObject;
