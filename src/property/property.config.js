@@ -14,8 +14,10 @@
   }
 
   cwCoffeeMaker.prototype.controller_property = function ($container, templatePath, $scope) {
+    console.log("property controller");
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
     $scope.OTs = [];
+    $scope.focused = -1;
     if (!$scope.ng.config.hardcoded) $scope.ng.config.hardcoded = [];
 
     for (let o in $scope.objectTypes) {
@@ -35,23 +37,40 @@
       return result;
     };
 
-    $scope.bootstrapFilter = function (id, icon) {
+    $scope.bootstrapFilter = function (id, icon, open) {
       // repeat with the interval of 2 seconds
+      console.log("initBootstrap");
       let timerId = window.setInterval(function (params) {
-        let a = $("#" + id).selectpicker();
+        console.log("check " + id);
+        let q = $("#" + id);
+        if (q.length > 0) clearInterval(timerId);
+        q.selectpicker();
 
-        $("#" + id).selectpicker("val", icon);
-        if (a.length > 0) clearInterval(timerId);
-      }, 1000);
+        q.selectpicker("val", icon);
+        if (open) {
+          q.selectpicker("toggle");
+          q.on("hide.bs.select", function () {
+            console.log("Hide Focus");
+            $scope.focused = -1;
+          });
+        }
+      }, 20);
     };
+
+    $scope.setFocus = function (index) {
+      $scope.focused = index;
+      console.log("Set Focus");
+    };
+
     $scope.addStep = function (objectTypesScriptname, propertyTypeScriptname) {
       if (!$scope.ng.config[objectTypesScriptname]) $scope.ng.config[objectTypesScriptname] = {};
       if (!$scope.ng.config[objectTypesScriptname][propertyTypeScriptname]) $scope.ng.config[objectTypesScriptname][propertyTypeScriptname] = {};
       if (!$scope.ng.config[objectTypesScriptname][propertyTypeScriptname].steps)
         $scope.ng.config[objectTypesScriptname][propertyTypeScriptname].steps = [];
       $scope.ng.config[objectTypesScriptname][propertyTypeScriptname].steps.push({});
+      $scope.ng.config[objectTypesScriptname][propertyTypeScriptname].extended = true;
     };
-    $scope.deleteStep = function (objectTypesScriptname, propertyTypeScriptname, index) {
+    $scope.deleteNumericStep = function (objectTypesScriptname, propertyTypeScriptname, index) {
       $scope.ng.config[objectTypesScriptname][propertyTypeScriptname].steps.splice(index, 1);
       if ($scope.ng.config[objectTypesScriptname][propertyTypeScriptname].steps.length === 0) {
         delete $scope.ng.config[objectTypesScriptname][propertyTypeScriptname];
@@ -59,9 +78,9 @@
     };
 
     $scope.addMapping = function () {
-      $scope.ng.config.hardcoded.push({});
+      $scope.ng.config.hardcoded.push({ icon: "fa fa-question" });
     };
-    $scope.deleteStep = function (index) {
+    $scope.deleteHarcodedMapping = function (index) {
       delete $scope.ng.config.hardcoded.splice(index, 1);
     };
 

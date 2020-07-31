@@ -5,7 +5,7 @@
         <th class="tableCheckbox"></th>
         <th class="largeMediumCell noWhiteSpace">{{$root.i18n('label_pt_filter_column_value')}}</th>
         <th class="largeMediumCell">{{$root.i18n('imageUrl')}}</th>
-        <th class="largeMediumCell">{{$root.i18n('Icon')}}</th>
+        <th class="smallCell">{{$root.i18n('Icon')}}</th>
         <th class="tableCheckbox">{{$root.i18n('colorIcon')}}</th>
         <th class="tableCheckbox">{{$root.i18n('colorValue')}}</th>
         <th class="tableCheckbox cw-edit-property-value">
@@ -30,14 +30,18 @@
         </td>
         <td class="cw-edit-property-value" style="overflow: visible;">
           <div class="bootstrap-iso" style="display: flex; overflow: visible;">
+            <div ng-if="focused !== $index" ng-click="setFocus($index)" style="width: 100%;">
+              <i ng-if="mapping.icon" class="{{mapping.icon}}" aria-hidden="true"></i>
+            </div>
             <select
               ng-include
+              ng-if="focused === $index"
               src="'../../common/html/coffee/fa.ng.html'"
               data-width="100%"
               data-live-search="true"
               class="fa"
               id="hardcoded{{$index}}"
-              ng-init="bootstrapFilter('hardcoded' + $index)"
+              ng-init="bootstrapFilter('hardcoded' + $index,mapping.icon,true)"
               ng-model="mapping.icon"
             ></select>
           </div>
@@ -49,7 +53,7 @@
           <input ng-model="mapping.valueColor" type="color" />
         </td>
         <td class="cw-edit-property-value tableCheckbox">
-          <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_step')}}]" ng-click="deleteMapping($index)"
+          <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_step')}}]" ng-click="deleteHarcodedMapping($index)"
             ><i class="fa fa-close" aria-hidden="true"></i
           ></a>
         </td>
