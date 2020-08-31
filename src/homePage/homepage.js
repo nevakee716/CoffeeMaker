@@ -178,6 +178,7 @@
               return;
             }
             display.html = $sce.trustAsHtml(cwApi.cwPropertiesGroups.formatMemoProperty(res[0].properties.description));
+            $scope.$apply();
           });
         };
 
