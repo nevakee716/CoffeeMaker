@@ -68,7 +68,7 @@
   cwCoffeeMaker.prototype.controller_tableComplexeEnhanced = function ($container, templatePath, $scope) {
     var evolveViews = [];
     var self = this;
-    let config = $scope.ng.config;
+
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
         if ($scope.views[v].name.indexOf("|>B") === -1) {
@@ -110,14 +110,14 @@
       behaviour.columns[newOrder - 1].order = i + 1;
 
       $scope.initColumnConfig(behaviour);
-      if (config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder] === undefined) {
-        config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder] = {};
+      if ($scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder] === undefined) {
+        $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder] = {};
       }
-      if (config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder] === undefined) {
-        config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder] = {};
+      if ($scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder] === undefined) {
+        $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder] = {};
       }
-      config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder].order = i + 1;
-      config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder].order = newOrder;
+      $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder].order = i + 1;
+      $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder].order = newOrder;
 
       behaviour.columns.sort(function (a, b) {
         return a.order - b.order;
