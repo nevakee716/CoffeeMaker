@@ -141,22 +141,35 @@
             }
           }
         }
-        idToLoad.forEach(function (id) {
-          var url = cwApi.getLiveServerURL() + "Diagram/Vector/" + id + "?" + cwApi.getDeployNumber();
-          $.getJSON(url, function (json) {
-            if (json.status === "Ok") {
-              json.result.data = self.getPaletteData(json.result.diagram.paletteEntries);
-              self.$scope.diagramTemplate.push(json.result);
-              console.log(" Load Diagram Template ID : " + id);
-            } else {
-              console.log("Failed to Load Diagram Template ID : " + id);
-            }
-            idLoaded = idLoaded + 1;
-            if (idLoaded === idToLoad.length) callback();
-          });
-        });
+
+        self.getBatchOfDiagram(idToLoad, 10, callback);
       }
     });
+  };
+
+  cwCoffeeMaker.prototype.getBatchOfDiagram = function (idToLoad, batchSize, callback) {
+    var self = this;
+    let idLoaded = 0;
+    for (let i = 0; i < Math.min(idToLoad.length, batchSize); i++) {
+      let id = idToLoad[i];
+      let url = cwApi.getLiveServerURL() + "Diagram/Vector/" + id + "?" + cwApi.getDeployNumber();
+
+      $.getJSON(url, function (json) {
+        if (json.status === "Ok") {
+          json.result.data = self.getPaletteData(json.result.diagram.paletteEntries);
+          self.$scope.diagramTemplate.push(json.result);
+          console.log(" Load Diagram Template ID : " + id);
+        } else {
+          console.log("Failed to Load Diagram Template ID : " + id);
+        }
+        idLoaded = idLoaded + 1;
+        if (idLoaded === Math.min(idToLoad.length, batchSize)) {
+          idToLoad = idToLoad.slice(Math.min(idToLoad.length, batchSize));
+          if (idToLoad.length === 0) callback();
+          else self.getBatchOfDiagram(idToLoad, batchSize, callback);
+        }
+      });
+    }
   };
 
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;
