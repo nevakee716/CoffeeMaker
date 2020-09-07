@@ -110,6 +110,7 @@
       behaviour.columns[newOrder - 1].order = i + 1;
 
       $scope.initColumnConfig(behaviour);
+
       if ($scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder] === undefined) {
         $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder] = {};
       }
@@ -118,6 +119,20 @@
       }
       $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[newOrder - 1].originalOrder].order = i + 1;
       $scope.ng.config.nodes[behaviour.node.NodeID].columns[behaviour.columns[i].originalOrder].order = newOrder;
+
+      behaviour.columns.sort(function (a, b) {
+        return a.order - b.order;
+      });
+    };
+
+    $scope.applyConfig = function (behaviour) {
+      $scope.initColumnConfig(behaviour);
+      Object.keys($scope.ng.config.nodes[behaviour.node.NodeID].columns).forEach(function (c) {
+        if ($scope.ng.config.nodes[behaviour.node.NodeID].columns[c].order !== undefined) {
+          behaviour.columns[c - 1].originalOrder = behaviour.columns[c - 1].order;
+          behaviour.columns[c - 1].order = $scope.ng.config.nodes[behaviour.node.NodeID].columns[c].order;
+        }
+      });
 
       behaviour.columns.sort(function (a, b) {
         return a.order - b.order;

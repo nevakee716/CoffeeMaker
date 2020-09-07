@@ -53,7 +53,7 @@
       <div class="row-cell row-cell-label">{{$root.i18n('tableHeight')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input ng-model="ng.config.nodes[behaviour.node.NodeID].heightPercent" /></div>
     </div>
-    <div class="tabs">
+    <div  ng-init="applyConfig(behaviour)"  class="tabs">
         <div
           ng-repeat="(i, column) in behaviour.columns"
           ng-class="{active: column.selected == true}"
@@ -65,7 +65,7 @@
         </div>
       </div>
       <div class="tabContent" ng-if="column.selected" ng-repeat="(i, column) in behaviour.columns">
-        <div ng-init="initColumnConfig(behaviour)" class="bootstrap-iso rowFlex">
+         <div  class="bootstrap-iso rowFlex">
             <div class="row-cell row-cell-label ">{{$root.i18n('name')}} :&nbsp;</div>
             <div class="row-cell row-cell-value "><input class="largeCell"  placeholder="{{column.name}}" ng-model="ng.config.nodes[behaviour.node.NodeID].columns[column.originalOrder].name"/></div>
           </div>
