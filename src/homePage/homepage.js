@@ -408,7 +408,7 @@
       }
     } else {
       homePage.handleOfflineHomePage(function () {
-        cwHomePage.outputHomePageCustom();
+        cwApi.CwHomePage.outputHomePageCustom();
         return doActions(callback);
       });
     }
