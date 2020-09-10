@@ -32,19 +32,19 @@
     if (!config) return "<a href='" + value + "'>" + value + "</a>";
     if (config.openUrlInNewTab) targetBlank = 'target="_blank"';
     if (config.urlText && config.urlText != "") {
-      return (
-        config.urlText +
-        " <a " +
-        targetBlank +
-        'href="' +
-        link +
-        '">' +
-        '<div style="display:none">' +
-        link +
-        "</div>" +
-        "<i class='fa fa-file-text' </i>" +
-        "</a>"
-      );
+      return link == ""
+        ? ""
+        : config.urlText +
+            " <a " +
+            targetBlank +
+            'href="' +
+            link +
+            '">' +
+            '<div style="display:none">' +
+            link +
+            "</div>" +
+            "<i class='fa fa-file-text' </i>" +
+            "</a>";
     }
     return "<a " + targetBlank + "href='" + value + "'>" + value + "</a>";
   };
