@@ -65,7 +65,7 @@
         let r;
         let v = value == "__|UndefinedValue|__" ? $.i18n.prop("global_undefined") : value;
         config.hardcoded.forEach(function (mapping) {
-          if (v === mapping.value) {
+          if (v.toString() === mapping.value) {
             r = mapping;
           }
         });
