@@ -133,3 +133,6 @@ property_boolean = Propriété Booléane
 useIconToDisplayTrueFalse = Utiliser un icône
 property_numeric = Propriété Numérique
 property_hardcoded = Mapping Globaux
+diagram_drilldown_filter = Filtres Drill Down
+diagram_drilldown_message_to_display = Message à Afficher
+dontapplytorole = Ne pas Appliquer à ces Roles

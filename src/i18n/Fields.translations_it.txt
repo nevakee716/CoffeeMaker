@@ -132,3 +132,6 @@ property_boolean = Boolean property
 useIconToDisplayTrueFalse = Use an icon
 property_numeric = Number Property
 property_hardcoded = Global Mapping
+diagram_drilldown_filter = Drill Down Filters
+diagram_drilldown_message_to_display = Message To Display
+dontapplytorole = Don't Apply to these Roles
