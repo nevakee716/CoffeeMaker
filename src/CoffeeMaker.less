@@ -2,6 +2,10 @@
 @import "../../_variables";
 
 .CoffeeMaker {
+  .fullWidth {
+    width: 100% !important;
+  }
+
   .CoffeeMakerTab {
     margin: 5px;
     transition: box-shadow 0.3s;
@@ -287,8 +291,17 @@
     display: flex;
     flex-wrap: wrap;
     > div {
-      width: 650px;
+      width: 850px;
       margin-right: 50px;
     }
+  }
+
+  .drillDownObjectTitle {
+    font-size: 25px;
+    color: @cwColor1;
+  }
+
+  div.row div.row-cell-value.row-cell-max-width .filter-wrapper .drillDownSubtitle th {
+    text-align: start;
   }
 }

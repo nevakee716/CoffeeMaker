@@ -46,6 +46,20 @@
     <div class="row bootstrap-iso">
       <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="op.description"></textarea></div>
     </div>
+
+    <div class="bootstrap-iso row"><div class="row-cell row-cell-label">{{$root.i18n('dontapplytorole')}} :</div></div>
+    <div class="rowFlex bootstrap-iso">
+      <div class="row-cell row-cell-value row-cell-max-width">
+        <div class="cell-content-wrapper filter-wrapper propertieslist">
+          <div class="choiceBox" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById" ng-init="op.notRole = op.notRole ? op.notRole : {}">
+            <a class="btn-add-filter btn page-action" ng-class="op.notRole.hasOwnProperty(k) ? ['selected'] : []" ng-click="toggle(op.notRole,k)"
+              >{{v}}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="bootstrap-iso rowFlex">
       <div class="row-cell row-cell-label">{{$root.i18n('label_order')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input type="number" ng-model="op.order" ng-change="reOrderCurrentConfig()" /></div>
@@ -65,11 +79,11 @@
             <td class="filter-property-scriptname filter-cell">
               <select ng-model="f.id" ng-change="processFilter(f)">
                 <optgroup label="{{$root.i18n('properties')}}">
-                  <option ng-selected="'prop_' + x.scriptName === f.id" value="prop_{{x.scriptName}}" ng-repeat="x in properties">{{x.name}} </option>
+                  <option ng-selected="'prop_' + x.scriptName === f.id" value="prop_{{x.scriptName}}" ng-repeat="x in properties">{{x.name}}</option>
                 </optgroup>
                 <optgroup label="{{$root.i18n('associations')}}">
-                  <option ng-selected="'asso_' + n.nodeID === f.id" value="asso_{{n.nodeID}}" ng-repeat="n in rootNode.AssociationsTargetObjectTypes"
-                    >{{n.displayNodeName}}
+                  <option ng-selected="'asso_' + n.nodeID === f.id" value="asso_{{n.nodeID}}" ng-repeat="n in rootNode.AssociationsTargetObjectTypes">
+                    {{n.displayNodeName}}
                   </option>
                 </optgroup>
               </select>
@@ -89,7 +103,7 @@
                 ng-options="x.id as x.name for x in objectType.properties[f.scriptname].lookups"
               ></select>
               <select
-                style="height: initial;"
+                style="height: initial"
                 multiple
                 size="{{objectType.properties[f.scriptname].lookups.length}}"
                 ng-model="f.Value"
@@ -112,7 +126,7 @@
       </div>
       <div class="rowFlex bootstrap-iso">
         <div class="row-cell row-cell-label">{{$root.i18n('hideElement_action_type')}} :&nbsp;</div>
-        <div class="row-cell row-cell-value" style="display: inline-flex;">
+        <div class="row-cell row-cell-value" style="display: inline-flex">
           <select ng-options="t as t for t in actionType" ng-model="op.actionType" ng-change="clearOperationnParam(op)"></select>
           <input ng-if="op.actionType === 'highlight'" type="color" ng-model="op.highlightColor" />
         </div>
@@ -208,7 +222,7 @@
         </div>
         <div class="bootstrap-iso rowFlex">
           <div class="row-cell row-cell-label">{{$root.i18n('fontawesome_icon')}} :&nbsp;</div>
-          <div class="row-cell row-cell-value" style="display: flex; overflow: visible;">
+          <div class="row-cell row-cell-value" style="display: flex; overflow: visible">
             <select
               id="{{'action_on_page_' + i}}"
               ng-include

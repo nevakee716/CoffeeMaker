@@ -12,7 +12,6 @@
 /* LIST BOX */
 /* PROPERTIES GROUP */
 /* BUTTONS */
-@cwbuttonselectedbackgroundcolor :darken (#ffffff, 5%);
 /* PAGE ACTIONS */
 /* ACCORDIONS */
 /* DISCUSSIONS */
@@ -26,6 +25,9 @@
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
 /* DIAGRAM OVERLAY */
+.CoffeeMaker .fullWidth {
+  width: 100% !important;
+}
 .CoffeeMaker .CoffeeMakerTab {
   margin: 5px;
   transition: box-shadow 0.3s;
@@ -306,6 +308,13 @@
   flex-wrap: wrap;
 }
 .CoffeeMaker .highlightDiagramContainer > div {
-  width: 650px;
+  width: 850px;
   margin-right: 50px;
+}
+.CoffeeMaker .drillDownObjectTitle {
+  font-size: 25px;
+  color: #03a0ce;
+}
+.CoffeeMaker div.row div.row-cell-value.row-cell-max-width .filter-wrapper .drillDownSubtitle th {
+  text-align: start;
 }

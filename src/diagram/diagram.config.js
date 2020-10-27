@@ -46,10 +46,17 @@
     };
 
     $scope.updateStepValue = function (o) {
+      if (o.DrillDownFilteringActivated == false) {
+        delete o.drillDownFilters;
+      }
+    };
+
+    $scope.updateDrillDownFilteringValue = function (o) {
       if (o.stepActivated == false) {
         delete o.steps;
       }
     };
+
     $scope.addStep = function (o) {
       if (!o.steps) {
         o.steps = [
@@ -66,6 +73,59 @@
     };
     $scope.deleteStep = function (o, index) {
       o.steps.splice(index, 1);
+    };
+
+    $scope.addDrillDownFilter = function (o) {
+      if (!o.drillDownfilters) {
+        o.drillDownfilters = [];
+      }
+      o.drillDownfilters.push({});
+    };
+    $scope.deleteDrillDownFilter = function (o, index) {
+      o.drillDownfilters.splice(index, 1);
+    };
+
+    $scope.isPropertyInRegion = function (propertyScriptname, regions) {
+      return regions.some(function (r) {
+        return r.scriptname === propertyScriptname;
+      });
+    };
+    $scope.processFilter = function (f) {
+      let s;
+      if (f.id.indexOf("prop") !== -1) {
+        s = f.id.split("prop_");
+        f.type = "property";
+        delete f.nodeID;
+        f.scriptname = s[1];
+        f.Asset = s[1];
+      } else {
+        s = f.id.split("asso_");
+        delete f.scriptname;
+        f.type = "association";
+        f.nodeID = s[1];
+      }
+    };
+    $scope.getPropertyDataType = function (ot, scriptname) {
+      if (cwApi.isUndefined(ot)) {
+        return "";
+      }
+      if (scriptname) {
+        var p = cwApi.mm.getProperty(ot.scriptname, scriptname);
+        if (cwApi.isUndefined(p)) {
+          return "";
+        }
+        switch (p.type) {
+          case "Boolean":
+            return "checkbox";
+          case "Integer":
+          case "Double":
+            return "number";
+          case "Lookup":
+            return "lookup";
+          default:
+            return "text";
+        }
+      } else return "number";
     };
 
     return;

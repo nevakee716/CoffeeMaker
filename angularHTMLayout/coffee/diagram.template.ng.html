@@ -46,9 +46,7 @@
 
   <div class="highlightDiagramContainer" ng-if="ng.config.template[template.properties.type_id].highlight.activated">
     <div>
-      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-        {{$root.i18n('palette')}}
-      </div>
+      <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">{{$root.i18n('palette')}}</div>
 
       <table class="cwPropertiesTable">
         <tbody>
@@ -57,6 +55,7 @@
             <th class="largeMediumCell">{{$root.i18n('property')}} / {{$root.i18n('association')}}</th>
             <th class="tableCheckbox">{{$root.i18n('Highlight')}}</th>
             <th class="tableCheckbox">{{$root.i18n('Steps')}}</th>
+            <th class="tableCheckbox">{{$root.i18n('Drill-Down Filtering')}}</th>
           </tr>
           <tr ng-repeat-start="p in template.data">
             <th ng-click="p.extended = !p.extended" class="verySmallCell">
@@ -65,9 +64,7 @@
                 <i ng-if="p.extended" class="fa fa-chevron-up" aria-hidden="true"></i>
               </span>
             </th>
-            <th class="cw-edit-property-value">
-              {{p.displayName}}
-            </th>
+            <th class="cw-edit-property-value">{{p.displayName}}</th>
             <td class="cw-edit-property-value tableCheckbox">
               <input ng-model="ng.config.template[template.properties.type_id].highlight.shape[p.scriptname].activated" type="checkbox" />
             </td>
@@ -78,12 +75,17 @@
                 type="checkbox"
               />
             </td>
+            <td class="cw-edit-property-value tableCheckbox">
+              <input
+                ng-model="ng.config.template[template.properties.type_id].highlight.shape[p.scriptname].DrillDownFilteringActivated"
+                ng-click="updateDrillDownFilteringValue(ng.config.template[template.properties.type_id].highlight.shape[p.scriptname])"
+                type="checkbox"
+              />
+            </td>
           </tr>
           <tr ng-if="p.extended" ng-repeat="r in p.regions">
             <td></td>
-            <td class="cw-edit-property-value">
-              {{r.displayName}}
-            </td>
+            <td class="cw-edit-property-value">{{r.displayName}}</td>
             <td class="cw-edit-property-value tableCheckbox">
               <input ng-model="ng.config.template[template.properties.type_id].highlight.shape[p.scriptname].region[r.scriptname]" type="checkbox" />
             </td>
@@ -97,5 +99,6 @@
       </table>
     </div>
     <div ng-include src="'../../common/html/coffee/diagram.step.ng.html'"></div>
+    <div ng-include src="'../../common/html/coffee/diagram.drillDownFilters.ng.html'"></div>
   </div>
 </div>

@@ -8,6 +8,38 @@ adding the support and clickable associated region*/
   cwApi.Diagrams.CwDiagramViewer.prototype.clickOnCanvas = function (e) {
     var regionZone, cwObject, link;
     var that = this;
+
+    function userHasRightToDrillDown(config) {
+      var scriptname = that.currentContext.selectedObject.objectTypeScriptName;
+      var templateId = that.json.properties.type_id;
+      if (
+        config &&
+        config.template &&
+        config.template[templateId] &&
+        config.template[templateId].highlight &&
+        config.template[templateId].highlight.shape &&
+        config.template[templateId].highlight.shape[scriptname] &&
+        config.template[templateId].highlight.shape[scriptname].DrillDownFilteringActivated
+      ) {
+        var config = config.template[templateId].highlight.shape[scriptname];
+
+        if (config.notRole) {
+          // check is the rules doesn't apply to the user
+          var currentUser = cwApi.currentUser;
+          for (var i = 0; i < currentUser.RolesId.length; i++) {
+            if (config.notRole.hasOwnProperty(currentUser.RolesId[i])) return true;
+          }
+        }
+        var cwfilter = new cwAPI.customLibs.utils.cwFilter();
+        cwfilter.init(config.drillDownfilters);
+        if (cwfilter.isMatching(that.currentContext.selectedShape.shape.cwObject)) {
+          cwApi.cwNotificationManager.addError(config.message);
+          return false;
+        }
+      }
+      return true;
+    }
+
     function openObjectLink() {
       // Object link
       cwObject = that.currentContext.selectedShape.shape.cwObject;
@@ -45,11 +77,15 @@ adding the support and clickable associated region*/
         } else if (regionZone.IsExplosionRegion === true) {
           // Explosion
           let config = cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
-          if (config && config.deactivateDiagramDrillDown) {
-            location.href = cwAPI.createLinkForSingleView(
-              this.currentContext.selectedObject.objectTypeScriptName,
-              this.currentContext.selectedObject
-            );
+          if (config) {
+            if (userHasRightToDrillDown(config)) {
+              if (config.deactivateDiagramDrillDown) {
+                location.href = cwAPI.createLinkForSingleView(
+                  this.currentContext.selectedObject.objectTypeScriptName,
+                  this.currentContext.selectedObject
+                );
+              } else this.openDiagrams(regionZone.explodedDiagrams);
+            }
           } else this.openDiagrams(regionZone.explodedDiagrams);
         } else if (regionZone.IsNavigationRegion === true) {
           // Navigation

@@ -1,4 +1,4 @@
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
 
   /********************************************************************************
@@ -8,7 +8,7 @@
   /********************************************************************************
     Custom Action for Single Page : See Impact here http://bit.ly/2qy5bvB
     *********************************************************************************/
-  cwCustomerSiteActions.doActionsForSingle_Custom = function(rootNode) {
+  cwCustomerSiteActions.doActionsForSingle_Custom = function (rootNode) {
     var currentView, url, i;
     currentView = cwAPI.getCurrentView();
 
@@ -21,7 +21,7 @@
     }
   };
 
-  actionOnObjectPage.do = function(rootNode) {
+  actionOnObjectPage.do = function (rootNode) {
     var config,
       i,
       self = this;
@@ -29,7 +29,7 @@
     this.viewName = cwAPI.getCurrentView().cwView;
     var doAction = true;
     if (this.config && this.config.hasOwnProperty(this.viewName)) {
-      this.config[this.viewName].forEach(function(currenConfig) {
+      this.config[this.viewName].forEach(function (currenConfig) {
         if (self.isActionToDo(rootNode, currenConfig)) {
           self.execute(currenConfig, rootNode);
         }
@@ -37,31 +37,31 @@
     }
   };
 
-  actionOnObjectPage.isActionToDo = function(rootNode, config) {
+  actionOnObjectPage.isActionToDo = function (rootNode, config) {
     let isActionToDo = true;
     var self = this;
     if (rootNode) {
       var objPropertyValue;
-      // non implemented in coffemaker yet
-      if (config.nonActiveRole) {
+
+      if (config.notRole) {
         var currentUser = cwApi.currentUser;
         for (var i = 0; i < currentUser.RolesId.length; i++) {
-          if (config.nonActiveRole.indexOf(currentUser.RolesId[i]) !== -1) return false;
+          if (config.notRole.hasOwnProperty(currentUser.RolesId[i]) !== -1) return false;
         }
       }
 
-      return config.filters.every(function(filter) {
+      return config.filters.every(function (filter) {
         return self.matchFilter(rootNode, filter);
       });
     }
   };
 
-  actionOnObjectPage.matchFilter = function(rootNode, filter) {
+  actionOnObjectPage.matchFilter = function (rootNode, filter) {
     if (filter.scriptname) return this.matchPropertyFilter(rootNode, filter);
     else return this.matchAssociationFilter(rootNode, filter);
   };
 
-  actionOnObjectPage.matchPropertyFilter = function(rootNode, filter) {
+  actionOnObjectPage.matchPropertyFilter = function (rootNode, filter) {
     let propertyType = cwApi.mm.getProperty(rootNode.objectTypeScriptName, filter.scriptname);
     let objPropertyValue;
     let value = filter.Value;
@@ -106,7 +106,7 @@
     return false;
   };
 
-  actionOnObjectPage.matchAssociationFilter = function(rootNode, filter) {
+  actionOnObjectPage.matchAssociationFilter = function (rootNode, filter) {
     let objPropertyValue;
     if (rootNode.associations[filter.nodeID]) {
       objPropertyValue = rootNode.associations[filter.nodeID].length;
@@ -133,7 +133,7 @@
     return false;
   };
 
-  actionOnObjectPage.execute = function(config, mainObject) {
+  actionOnObjectPage.execute = function (config, mainObject) {
     var self = this;
     this.getStyleFromConfiguration(config);
     function doForElementOrArray(elem, callback) {
@@ -151,41 +151,41 @@
     }
 
     if (config.tabs) {
-      config.tabs.forEach(function(t) {
+      config.tabs.forEach(function (t) {
         self.actionOnId(config.style, config.styleValue, self.viewName + "-tab-" + t);
       });
     }
 
     if (config.views) {
-      config.views.forEach(function(v) {
+      config.views.forEach(function (v) {
         self.actionOnId(config.style, config.styleValue, "navview-" + v);
       });
     }
 
     if (config.propertygroups) {
-      config.propertygroups.forEach(function(p) {
+      config.propertygroups.forEach(function (p) {
         self.actionWithQuery(config.style, config.styleValue, "[id^=pg-" + p + "]");
       });
     }
 
     if (config.class) {
-      doForElementOrArray(config.class, function(c) {
+      doForElementOrArray(config.class, function (c) {
         self.actionOnClass(config.style, config.styleValue, c);
       });
     }
     if (config.htmlId) {
-      doForElementOrArray(config.htmlId, function(id) {
+      doForElementOrArray(config.htmlId, function (id) {
         self.actionOnId(config.style, config.styleValue, id);
       });
     }
     if (config.jQuerySelector) {
-      doForElementOrArray(config.jQuerySelector, function(q) {
+      doForElementOrArray(config.jQuerySelector, function (q) {
         self.actionWithQuery(config.style, config.styleValue, q);
       });
     }
   };
 
-  actionOnObjectPage.getStyleFromConfiguration = function(config) {
+  actionOnObjectPage.getStyleFromConfiguration = function (config) {
     if (config.actionType === "hide") {
       config.style = "display";
       config.styleValue = "none";
@@ -196,7 +196,7 @@
     }
   };
 
-  actionOnObjectPage.actionOnClass = function(style, value, className) {
+  actionOnObjectPage.actionOnClass = function (style, value, className) {
     var elements = document.getElementsByClassName(className);
     var i;
     for (i = 0; i < elements.length; i++) {
@@ -204,7 +204,7 @@
     }
   };
 
-  actionOnObjectPage.actionWithQuery = function(style, value, query) {
+  actionOnObjectPage.actionWithQuery = function (style, value, query) {
     try {
       $(query).css(style, value);
     } catch (e) {
@@ -212,14 +212,14 @@
     }
   };
 
-  actionOnObjectPage.actionOnId = function(style, value, id) {
+  actionOnObjectPage.actionOnId = function (style, value, id) {
     var element = document.getElementById(id);
     if (element && element.style) {
       element.style[style] = value;
     }
   };
 
-  actionOnObjectPage.actionOnClassAndId = function(style, value, className, id) {
+  actionOnObjectPage.actionOnClassAndId = function (style, value, className, id) {
     var elements = document.getElementsByClassName(className);
     var i;
     for (i = 0; i < elements.length; i++) {
@@ -229,7 +229,7 @@
     }
   };
 
-  actionOnObjectPage.displaymsg = function(config, mainObject) {
+  actionOnObjectPage.displaymsg = function (config, mainObject) {
     var elems = document.getElementsByClassName("tab-content");
     if (elems.length > 0) {
       for (var i = 0; i < elems.length; i += 1) {
@@ -245,7 +245,7 @@
     }
   };
 
-  actionOnObjectPage.createMsg = function(config, mainObject) {
+  actionOnObjectPage.createMsg = function (config, mainObject) {
     var p = new cwApi.CwDisplayProperties(config.htmlMessage, false);
     let itemLabel = p.getDisplayString(mainObject);
 

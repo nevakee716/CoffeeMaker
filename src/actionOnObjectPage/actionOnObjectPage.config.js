@@ -45,6 +45,7 @@
       });
     };
 
+    $scope.updateRoleOperation = function () {};
     $scope.addOperation = function () {
       $scope.currentConfig.push({
         label: "New Operation",
