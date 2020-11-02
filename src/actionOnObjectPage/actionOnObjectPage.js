@@ -46,7 +46,7 @@
       if (config.notRole) {
         var currentUser = cwApi.currentUser;
         for (var i = 0; i < currentUser.RolesId.length; i++) {
-          if (config.notRole.hasOwnProperty(currentUser.RolesId[i]) !== -1) return false;
+          if (config.notRole.hasOwnProperty(currentUser.RolesId[i])) return false;
         }
       }
 
