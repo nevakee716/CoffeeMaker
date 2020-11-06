@@ -8,8 +8,8 @@
     >
       <div ng-if="display.extendable" ng-click="display.extended = !display.extended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
         <span ng-class="{'rightExpandButton':display.rightExpandButton}">
-          <span ng-if="display.rightExpandButton && display.extended === true">{{$root.i18n('open')}}</span>
-          <span ng-if="display.rightExpandButton && display.extended === false">{{$root.i18n('close')}}</span>
+          <span ng-if="display.rightExpandButton && display.extended === true">{{$root.i18n('close')}}</span>
+          <span ng-if="display.rightExpandButton && display.extended === false">{{$root.i18n('open')}}</span>
           <i
             ng-if="display.extended === false"
             class="fa expendIcon"
