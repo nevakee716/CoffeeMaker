@@ -86,7 +86,7 @@
   <link rel="assets" href="https://github.githubassets.com/">
   
 
-  <meta name="request-id" content="C5C7:AB06:A2DC0:DFD5E:5FA53091" data-pjax-transient="true"/><meta name="html-safe-nonce" content="c131c56e5a5b4be7d4254c55ae4a67fdbb64d96d07e1d5fb7413ef3ca5d808b6" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJDNUM3OkFCMDY6QTJEQzA6REZENUU6NUZBNTMwOTEiLCJ2aXNpdG9yX2lkIjoiNjA2ODc0MzY1NTA0MTM0NzczMCIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImZyYSJ9" data-pjax-transient="true"/><meta name="visitor-hmac" content="84887c9e3e7c59564bc9ff51f30ba05818f9d2fca5a756d326343db4dbb38f27" data-pjax-transient="true"/><meta name="cookie-consent-required" content="true" data-pjax-transient="true"/>
+  <meta name="request-id" content="C629:60EC:77685:A6135:5FA53211" data-pjax-transient="true"/><meta name="html-safe-nonce" content="584df5a838575be2b691ce555f6b951e843c54e4c46c7f52c46e98eff0565f38" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJDNjI5OjYwRUM6Nzc2ODU6QTYxMzU6NUZBNTMyMTEiLCJ2aXNpdG9yX2lkIjoiNjI3MTYwMDEyMjk4MjExNzkwNSIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImZyYSJ9" data-pjax-transient="true"/><meta name="visitor-hmac" content="58d2e232657fdfc51378c62e936c9cb86f8a83df79db807e012df1ecff845697" data-pjax-transient="true"/><meta name="cookie-consent-required" content="true" data-pjax-transient="true"/>
 
 
 
@@ -331,7 +331,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="o8vD8VL3/+tRmSgKewoVCcQQIwJ80H6QomZtoe4Me7ICJhYt1tEp0szp7I140AwMlWsQzuxMZpvMgRrhiqetTw==" />
+          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="WziWkrBxy3WVFx4YkwRIdYI4SnMzs24r1FV0GoSm/7QbGwKBMIu3mLQfM+v1CP1NZuQZSRC2nqoA2fW65F0oMg==" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
