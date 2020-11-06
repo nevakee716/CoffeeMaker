@@ -94,6 +94,16 @@
 
         // duplicate config to not spoil it
         $scope.config = JSON.parse(JSON.stringify(config));
+        let acc = 0,
+          viewLoaded = 0;
+        config.columns.forEach(function (c) {
+          c.displays.forEach(function (d) {
+            if (d.type === "evolve_view") {
+              acc += 1;
+            }
+          });
+        });
+        $scope.viewToLoad = acc;
         $scope.cwApi = cwApi;
         manageFavAndBookmark(homeContainer, $scope);
 
@@ -145,18 +155,21 @@
         };
 
         $scope.getHTMLView = function (display) {
+          console.log("get evolve view " + display.view);
           let jsonFile = cwApi.getIndexViewDataUrl(display.view);
           display.loading = true;
           cwApi.getJSONFile(
             jsonFile,
             function (o) {
+              console.log("got evolve view " + display.view);
               if (cwApi.checkJsonCallback(o)) {
                 let output = [];
                 let object = { associations: o };
                 cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
                 display.html = $sce.trustAsHtml(output.join(""));
                 $scope.$apply();
-                cwApi.cwSiteActions.doLayoutsSpecialActions(true);
+                viewLoaded += 1;
+                if ($scope.viewToLoad === viewLoaded) cwApi.cwSiteActions.doLayoutsSpecialActions(true);
                 let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
                 cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
               }

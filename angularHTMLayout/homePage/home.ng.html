@@ -6,33 +6,29 @@
       ng-style="getStyleForDisplay(display)"
       class="homePage_display"
     >
-      <div
-        ng-if="display.extendable"
-        ng-click="display.extended = !display.extended"
-        class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader"
-        ng-class="{'oldAccordeon':display.oldAccordeonStyle}"
-      >
-        <i
-          ng-if="display.extended === false"
-          class="fa expendIcon"
-          ng-class="{'fa-angle-down':!display.oldAccordeonStyle, 'fa-plus': display.oldAccordeonStyle}"
-          aria-hidden="true"
-        ></i>
-        <i
-          ng-if="display.extended === true"
-          class="fa expendIcon"
-          ng-class="{'fa-angle-up': !display.oldAccordeonStyle, 'fa-minus': display.oldAccordeonStyle}"
-          aria-hidden="true"
-        ></i>
-
-        <span class="homePage_display_title">
-          {{display.label}}
+      <div ng-if="display.extendable" ng-click="display.extended = !display.extended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+        <span ng-class="{'rightExpandButton':display.rightExpandButton}">
+          <span ng-if="display.rightExpandButton && display.extended === true">{{$root.i18n('open')}}</span>
+          <span ng-if="display.rightExpandButton && display.extended === false">{{$root.i18n('close')}}</span>
+          <i
+            ng-if="display.extended === false"
+            class="fa expendIcon"
+            ng-class="{'fa-angle-down':!display.rightExpandButton, 'fa-caret-square-o-up': display.rightExpandButton}"
+            aria-hidden="true"
+          ></i>
+          <i
+            ng-if="display.extended === true"
+            class="fa expendIcon"
+            ng-class="{'fa-angle-up': !display.rightExpandButton, 'fa-caret-square-o-down': display.rightExpandButton}"
+            aria-hidden="true"
+          ></i>
         </span>
+        <span class="homePage_display_title"> {{display.label}} </span>
       </div>
       <div
         ng-style="getStyleForDisplayContent(display)"
         class="homePage_display_content"
-        ng-class="{'oldAccordeonContent':display.oldAccordeonStyle}"
+        ng-class="{'rightExpandButtonContent':display.rightExpandButtonStyle}"
       >
         <div class="homePage_evolveView" ng-if='display.type==="evolve_view"' ng-init="getHTMLView(display)" ng-bind-html="display.html"></div>
         <div

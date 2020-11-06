@@ -45,21 +45,21 @@
       .fa.expendIcon {
         font-size: 24px;
       }
-      .oldAccordeon {
-        background-color: @cwAccordionHeaderBackgroundColor;
-        color: @cwAccordionHeaderTextColor;
+      .rightExpandButton {
+        color: @cwColor2;
+        position: absolute;
+        display: flex;
+        right: 0px;
+        align-items: center;
+        padding: 5px;
+        span {
+          margin-right: 3px;
+        }
       }
 
       .homePage_display_content {
         transition: max-height 0.42s ease-out;
         overflow: hidden;
-      }
-
-      .homePage_display_content.oldAccordeonContent {
-        border: 1px solid @cwAccordionHeaderBackgroundColor;
-        div {
-          margin: 10px;
-        }
       }
 
       .homePage_evolveView {

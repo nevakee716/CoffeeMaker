@@ -135,3 +135,6 @@ property_hardcoded = Global Mapping
 diagram_drilldown_filter = Drill Down Filters
 diagram_drilldown_message_to_display = Message To Display
 dontapplytorole = Don't Apply to these Roles
+open = Open
+close = Close
+right_text_expand_button = Expand Button With Text 

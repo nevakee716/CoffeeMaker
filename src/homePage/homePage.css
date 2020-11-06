@@ -63,19 +63,20 @@
 .homePage_main .homePage_column .homePage_display .fa.expendIcon {
   font-size: 24px;
 }
-.homePage_main .homePage_column .homePage_display .oldAccordeon {
-  background-color: #03a0ce;
-  color: #ffffff;
+.homePage_main .homePage_column .homePage_display .rightExpandButton {
+  color: #03a0ce;
+  position: absolute;
+  display: flex;
+  right: 0px;
+  align-items: center;
+  padding: 5px;
+}
+.homePage_main .homePage_column .homePage_display .rightExpandButton span {
+  margin-right: 3px;
 }
 .homePage_main .homePage_column .homePage_display .homePage_display_content {
   transition: max-height 0.42s ease-out;
   overflow: hidden;
-}
-.homePage_main .homePage_column .homePage_display .homePage_display_content.oldAccordeonContent {
-  border: 1px solid #03a0ce;
-}
-.homePage_main .homePage_column .homePage_display .homePage_display_content.oldAccordeonContent div {
-  margin: 10px;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView {
   overflow: auto;
