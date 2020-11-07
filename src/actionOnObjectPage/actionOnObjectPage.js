@@ -5,21 +5,6 @@
     Config
     *********************************************************************************/
   var actionOnObjectPage = {};
-  /********************************************************************************
-    Custom Action for Single Page : See Impact here http://bit.ly/2qy5bvB
-    *********************************************************************************/
-  cwCustomerSiteActions.doActionsForSingle_Custom = function (rootNode) {
-    var currentView, url, i;
-    currentView = cwAPI.getCurrentView();
-
-    for (i in cwAPI.customLibs.doActionForSingle) {
-      if (cwAPI.customLibs.doActionForSingle.hasOwnProperty(i)) {
-        if (typeof cwAPI.customLibs.doActionForSingle[i] === "function") {
-          cwAPI.customLibs.doActionForSingle[i](rootNode, currentView.cwView);
-        }
-      }
-    }
-  };
 
   actionOnObjectPage.do = function (rootNode) {
     var config,
