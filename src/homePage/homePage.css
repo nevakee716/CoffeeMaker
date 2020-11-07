@@ -204,3 +204,7 @@
   overflow: auto;
   height: inherit;
 }
+body .main-nav .main-level a.cw-menu-link.activeLink {
+  color: #03a0ce;
+  background-color: rgba(147, 176, 193, 0.15);
+}

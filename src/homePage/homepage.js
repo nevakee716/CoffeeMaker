@@ -1,20 +1,6 @@
 (function (cwApi, $, cwCustomerSiteActions) {
   "use strict";
 
-  cwCustomerSiteActions.doActionsForAll_Custom = function (rootNode) {
-    var currentView, url, i, cwView;
-    currentView = cwAPI.getCurrentView();
-    if (currentView) cwView = currentView.cwView;
-
-    for (i in cwAPI.customLibs.doActionsForAll_Custom) {
-      if (cwAPI.customLibs.doActionsForAll_Custom.hasOwnProperty(i)) {
-        if (typeof cwAPI.customLibs.doActionsForAll_Custom[i] === "function") {
-          cwAPI.customLibs.doActionsForAll_Custom[i](rootNode, cwView);
-        }
-      }
-    }
-  };
-
   cwCustomerSiteActions.removeMonMenu = function (rootNode, cwView) {
     let config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
     if (config && config.removeMyMenu === true) {
@@ -32,6 +18,24 @@
         }
       }
     }
+  };
+
+  cwCustomerSiteActions.activateLinks = function () {
+    $("a.cw-menu-link").each(function () {
+      var status = false;
+      $(this)
+        .parent()
+        .find("a.cw-menu-link")
+        .each(function () {
+          var q = cwAPI.cwPageManager.parseQueryString($(this).prop("href"));
+          var cq = cwAPI.cwPageManager.parseQueryString(window.location.href);
+          if (q && ((q.cwview && q.cwview == cq.cwview && (q.cwtype !== "single" || q.cwid == cq.cwid)) || (!cq.cwview && q.homepage == "true"))) {
+            status = true;
+          }
+        });
+      if (status) $(this).addClass("activeLink");
+      else $(this).removeClass("activeLink");
+    });
   };
 
   var removeMyMenuHomepage = function (config, callback) {
@@ -155,7 +159,6 @@
         };
 
         $scope.getHTMLView = function (display) {
-          console.log("get evolve view " + display.view);
           let jsonFile = cwApi.getIndexViewDataUrl(display.view);
           display.loading = true;
           cwApi.getJSONFile(
@@ -169,7 +172,10 @@
                 display.html = $sce.trustAsHtml(output.join(""));
                 $scope.$apply();
                 viewLoaded += 1;
-                if ($scope.viewToLoad === viewLoaded) cwApi.cwSiteActions.doLayoutsSpecialActions(true);
+                if ($scope.viewToLoad === viewLoaded) {
+                  cwApi.cwSiteActions.doLayoutsSpecialActions(true);
+                  cwCustomerSiteActions.doActionsForAll_Custom({});
+                }
                 let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
                 cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
               }
@@ -462,8 +468,11 @@
   if (cwAPI.customLibs === undefined) {
     cwAPI.customLibs = {};
   }
-  if (cwAPI.customLibs.doActionForAll_Custom === undefined) {
-    cwAPI.customLibs.doActionsForAll_Custom = {};
+
+  if (cwAPI.customLibs.doActionForAll === undefined) {
+    cwAPI.customLibs.doActionForAll = {};
   }
-  cwAPI.customLibs.doActionsForAll_Custom.removeMonMenu = cwCustomerSiteActions.removeMonMenu;
+
+  cwAPI.customLibs.doActionForAll.activateLinks = cwCustomerSiteActions.activateLinks;
+  cwAPI.customLibs.doActionForAll.removeMonMenu = cwCustomerSiteActions.removeMonMenu;
 })(cwAPI, jQuery, cwCustomerSiteActions);
