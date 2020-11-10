@@ -208,3 +208,16 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
   color: #03a0ce;
   background-color: rgba(147, 176, 193, 0.15);
 }
+.separatorMenu {
+  height: 30px;
+}
+.separatorMenu::after {
+  content: "";
+  width: 70%;
+  height: 2px;
+  background: #e4e4e7;
+  display: block;
+  position: relative;
+  top: -20px;
+  margin-left: 15%;
+}

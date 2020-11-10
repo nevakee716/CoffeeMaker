@@ -207,3 +207,18 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
   color: @cwMenuLeftMainNavigationTextColorActive;
   background-color: @cwMenuLeftMainNavigationBackgroundColorActive;
 }
+
+.separatorMenu {
+  height: 30px;
+}
+
+.separatorMenu::after {
+  content: "";
+  width: 70%;
+  height: 2px;
+  background: #e4e4e7;
+  display: block;
+  position: relative;
+  top: -20px;
+  margin-left: 15%;
+}
