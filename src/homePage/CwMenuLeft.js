@@ -189,6 +189,8 @@
         }
       } else if (viewName === "homepage") {
         o.push('<a class="cw-menu-link" href="#/homepage=true">');
+      } else if (viewName === "separator") {
+        o.push('<a class="separatorMenu" href="#/homepage=true">');
       } else {
         o.push('<a class="cw-menu-link" href="', href, '">');
       }
@@ -453,7 +455,7 @@
       cwApi.pluginManager.execute("CwMenuLeft.outputMenuBeforeItems", o);
       for (i = 0; i < links.length; i += 1) {
         menu = links[i];
-        if (menu.Children.length > 0 || menu.type === "index") {
+        if (menu && (menu.Children.length > 0 || menu.type === "index")) {
           outputMenuItem(o, menu, 0);
         }
       }
