@@ -198,6 +198,34 @@
               else c.splice(i, 1);
             };
             $scope.configError = false;
+            $scope.bootstrapFilter = function (id, value) {
+              window.setTimeout(function (params) {
+                $("#" + id).selectpicker();
+                if (value) $("#" + id).selectpicker("val", value);
+              }, 1000);
+            };
+            $scope.getPropertyDataType = function (ot, scriptname) {
+              if (cwApi.isUndefined(ot)) {
+                return "";
+              }
+              if (scriptname) {
+                var p = cwApi.mm.getProperty(ot.scriptName, scriptname);
+                if (cwApi.isUndefined(p)) {
+                  return "";
+                }
+                switch (p.type) {
+                  case "Boolean":
+                    return "checkbox";
+                  case "Integer":
+                  case "Double":
+                    return "number";
+                  case "Lookup":
+                    return "lookup";
+                  default:
+                    return "text";
+                }
+              } else return "number";
+            };
 
             if (self["controller_" + t.dataset.id] && $scope.ng.config) self["controller_" + t.dataset.id]($container, templatePath, $scope);
           });

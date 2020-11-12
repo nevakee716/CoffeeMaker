@@ -105,32 +105,7 @@
         f.nodeID = s[1];
       }
     };
-    $scope.getPropertyDataType = function (ot, scriptname) {
-      if (cwApi.isUndefined(ot)) {
-        return "";
-      }
-      if (scriptname) {
-        var p = cwApi.mm.getProperty(ot.scriptname, scriptname);
-        if (cwApi.isUndefined(p)) {
-          return "";
-        }
-        switch (p.type) {
-          case "Boolean":
-            return "checkbox";
-          case "Integer":
-          case "Double":
-            return "number";
-          case "Lookup":
-            return "lookup";
-          default:
-            return "text";
-        }
-      } else return "number";
-    };
-
-    return;
   };
-
   cwCoffeeMaker.prototype.getPaletteData = function (palettes) {
     let result = {};
 
