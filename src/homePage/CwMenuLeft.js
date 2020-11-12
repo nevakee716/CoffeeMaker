@@ -226,11 +226,17 @@
       o.push('<div class="menuText">', title, "</div>");
       o.push("</li>");
       o.push('<li class="cw-menu-text-zone cw-menu-badge-zone">');
-      if (!cwApi.isUndefined(badgeNum)) {
-        if (badgeNum <= 0) {
-          o.push('<span style="display:none;" class="badge numericFont">', badgeNum, badgeNumMaxExceeded === true ? "+" : "", "</span>");
-        } else {
+      if (cwAPI.cwConfigs.EnabledVersion.indexOf("v2020.") === -1) {
+        if (!cwApi.isUndefined(badgeNum) && badgeNum > 0) {
           o.push('<span class="badge numericFont">', badgeNum, badgeNumMaxExceeded === true ? "+" : "", "</span>");
+        }
+      } else {
+        if (!cwApi.isUndefined(badgeNum)) {
+          if (badgeNum <= 0) {
+            o.push('<span style="display:none;" class="badge numericFont">', badgeNum, badgeNumMaxExceeded === true ? "+" : "", "</span>");
+          } else {
+            o.push('<span class="badge numericFont">', badgeNum, badgeNumMaxExceeded === true ? "+" : "", "</span>");
+          }
         }
       }
       o.push("</li>");
@@ -315,8 +321,20 @@
         for (i = 0; i < notifications.length; i += 1) {
           notification = notifications[i];
           sendDate = cwApi.CwWorkflowNotificationManager.formatDate(notification.SendDate);
-          cwApi.CwWorkflowNotificationManager.outputNotificationItem(notification, output, sendDate, notification.Sender, false);
-          cwApi.CwViewNotification.registerMenuElementForShowNotification(notification);
+          if (cwAPI.cwConfigs.EnabledVersion.indexOf("v2020.") === -1) {
+            cwApi.CwWorkflowNotificationManager.outputNotificationItem(
+              notification.Id,
+              output,
+              notification.Subject,
+              sendDate,
+              notification.Sender,
+              false
+            );
+            cwApi.CwViewNotification.registerMenuElementForShowNotification(notification.Id);
+          } else {
+            cwApi.CwWorkflowNotificationManager.outputNotificationItem(notification, output, sendDate, notification.Sender, false);
+            cwApi.CwViewNotification.registerMenuElementForShowNotification(notification);
+          }
         }
       } else {
         cwApi.CwWorkflowNotificationManager.outputNoNotificationsMenuItem(output);
@@ -442,15 +460,19 @@
       o.push('<ul id="main_menu" class="main-level collapsed">');
 
       if (cwApi.isModelSelectionPage() === false) {
-        if (cwApi.isLive()) {
+      if (cwApi.isLive()) {
+        if (cwApi.cwConfigs.EnabledVersion.indexOf("v2020.") !== -1) {
           outputListNotifications(o);
-          if (cwApi.isWorkflowEnabled()) {
-            outputListTasks(o);
-          }
-          if (cwApi.cwConfigs.SocialSiteDefinition.FavouritesEnabled) {
-            outputListFavourites(o);
-          }
+          if (cwApi.isWorkflowEnabled()) outputListTasks(o);
+        } else if (cwApi.isWorkflowEnabled()) {
+          outputListNotifications(o);
+          outputListTasks(o);
         }
+
+        if (cwApi.cwConfigs.SocialSiteDefinition.FavouritesEnabled) {
+          outputListFavourites(o);
+        }
+      }
       }
       cwApi.pluginManager.execute("CwMenuLeft.outputMenuBeforeItems", o);
       for (i = 0; i < links.length; i += 1) {
