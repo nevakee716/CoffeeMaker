@@ -65,7 +65,7 @@
 }
 .homePage_main .homePage_column .homePage_display .rightExpandButton {
   color: #03a0ce;
-  position: absolute;
+  float: right;
   display: flex;
   right: 0px;
   align-items: center;
