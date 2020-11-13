@@ -4,3 +4,24 @@
     <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'" ng-model="display.view"></select>
   </div>
 </div>
+
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('textIfEmpty')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input type="text" ng-model="display.textIfEmpty" />
+  </div>
+</div>
+
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('descriptionIfEmpty')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.descriptionIfEmpty"></textarea></div>
+  </div>
+</div>
+
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('pictureIfEmpty')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input type="text" ng-model="display.pictureIfEmpty" />
+  </div>
+</div>

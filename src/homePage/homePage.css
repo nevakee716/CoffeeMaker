@@ -221,3 +221,23 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
   top: -20px;
   margin-left: 15%;
 }
+.emptyZone {
+  display: flex;
+}
+.emptyZone img {
+  width: 60%;
+}
+.emptyZone .emptyZoneText {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+.emptyZone .emptyZoneText .emptyZoneTitle {
+  font-size: 1.5rem;
+  color: #03a0ce;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.emptyZone .emptyZoneText .emptyZoneDesciption {
+  color: #03a0ce;
+}

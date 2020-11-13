@@ -81,7 +81,8 @@
     });
   };
 
-  var loadHomePage = function (config, callback) {
+  var loadHomePage = function (config, containerId, callback) {
+    containerId = !containerId ? "cw-home-navigation" : containerId;
     cwApi.CwAsyncLoader.load("angular", function () {
       var loader = cwApi.CwAngularLoader;
       loader.setup();
@@ -90,7 +91,7 @@
       let homeContainerAngular = document.createElement("div");
       homeContainerAngular.id = "cw-home-navigation-angular";
 
-      let homeContainer = document.getElementById("cw-home-navigation");
+      let homeContainer = document.getElementById(containerId);
       homeContainer.appendChild(homeContainerAngular);
       let templatePath = cwAPI.getCommonContentPath() + "/html/homePage/home.ng.html" + "?" + Math.random();
       loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation-angular"), templatePath, function ($scope, $sce) {
@@ -158,25 +159,41 @@
           return { width: display.boxLinkwidth };
         };
 
+        $scope.getEmptyZoneFromDisplay = function (display) {
+          let output = '<div class="emptyZone">';
+          if (display.pictureIfEmpty) output += '<img src="' + display.pictureIfEmpty + '">';
+          if (display.textIfEmpty || display.descriptionIfEmpty) output += "<div class='emptyZoneText'>";
+          if (display.textIfEmpty) output += '<div class="emptyZoneTitle" >' + display.textIfEmpty + "</div>";
+          if (display.descriptionIfEmpty) output += '<div class="emptyZoneDesciption">' + display.descriptionIfEmpty + "</div>";
+          if (display.textIfEmpty || display.descriptionIfEmpty) output += "</div>";
+          output += "</div></div>";
+          return output;
+        };
+
         $scope.getHTMLView = function (display) {
           let jsonFile = cwApi.getIndexViewDataUrl(display.view);
           display.loading = true;
           cwApi.getJSONFile(
             jsonFile,
             function (o) {
-              console.log("got evolve view " + display.view);
               if (cwApi.checkJsonCallback(o)) {
-                let output = [];
-                let object = { associations: o };
-                cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
-                display.html = $sce.trustAsHtml(output.join(""));
+                let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
+                if (o[schema.RootNodesId].length === 0 && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
+                  display.html = $scope.getEmptyZoneFromDisplay(display);
+                } else {
+                  let output = [];
+                  let object = { associations: o };
+                  cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
+                  display.html = $sce.trustAsHtml(output.join(""));
+                }
+
                 $scope.$apply();
                 viewLoaded += 1;
                 if ($scope.viewToLoad === viewLoaded) {
                   cwApi.cwSiteActions.doLayoutsSpecialActions(true);
                   cwCustomerSiteActions.doActionsForAll_Custom({});
                 }
-                let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
+
                 cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
               }
             },
@@ -388,7 +405,7 @@
 
       if (config.columns && config.columns.length > 0) {
         asynFunction.push(function (callback) {
-          loadHomePage(config, function () {
+          loadHomePage(config, null, function () {
             callback(null, err);
           });
         });
@@ -472,7 +489,7 @@
   if (cwAPI.customLibs.doActionForAll === undefined) {
     cwAPI.customLibs.doActionForAll = {};
   }
-
+  cwAPI.customLibs.loadHomePage = loadHomePage;
   cwAPI.customLibs.doActionForAll.activateLinks = cwCustomerSiteActions.activateLinks;
   cwAPI.customLibs.doActionForAll.removeMonMenu = cwCustomerSiteActions.removeMonMenu;
 })(cwAPI, jQuery, cwCustomerSiteActions);

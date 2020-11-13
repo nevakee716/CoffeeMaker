@@ -1,0 +1,14 @@
+{
+  "Name": "cw-grid",
+  "DisplayName": "Grid Layout",
+  "Description": "Allow Create an Page composed by other page",
+  "JavaScriptClassName": "cwGrid",
+  "Options": [
+    {
+      "Id": "configuration",
+      "DisplayName": "Configuration",
+      "Description": "Configuration",
+      "Type": 0
+    }
+  ]
+}
