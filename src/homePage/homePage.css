@@ -240,4 +240,14 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
 }
 .emptyZone .emptyZoneText .emptyZoneDesciption {
   color: #03a0ce;
+  margin-bottom: 20px;
+}
+.emptyZone .emptyZoneText .emptyLink {
+  background-color: #03a0ce;
+  color: #ffffff;
+  border: 1px solid #03a0ce;
+  padding: 8px;
+  box-shadow: 1px 1px 1px #bdbdbd;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }

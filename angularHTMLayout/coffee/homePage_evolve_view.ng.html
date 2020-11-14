@@ -14,9 +14,14 @@
 
 <div class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('descriptionIfEmpty')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value">
-    <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.descriptionIfEmpty"></textarea></div>
-  </div>
+  <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.descriptionIfEmpty"></textarea></div>
+</div>
+
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('linkTextIfEmpty')}} :&nbsp;</div>
+  <input type="text" ng-model="display.linkTextIfEmpty" />
+  <div class="row-cell row-cell-label">{{$root.i18n('linkIfEmpty')}} :&nbsp;</div>
+  <input type="text" ng-model="display.linkIfEmpty" />
 </div>
 
 <div class="rowFlex bootstrap-iso">

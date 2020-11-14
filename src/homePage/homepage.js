@@ -162,10 +162,14 @@
         $scope.getEmptyZoneFromDisplay = function (display) {
           let output = '<div class="emptyZone">';
           if (display.pictureIfEmpty) output += '<img src="' + display.pictureIfEmpty + '">';
-          if (display.textIfEmpty || display.descriptionIfEmpty) output += "<div class='emptyZoneText'>";
+          if (display.textIfEmpty || display.descriptionIfEmpty || (display.linkIfEmpty && display.linkTextIfEmpty))
+            output += "<div class='emptyZoneText'>";
           if (display.textIfEmpty) output += '<div class="emptyZoneTitle" >' + display.textIfEmpty + "</div>";
           if (display.descriptionIfEmpty) output += '<div class="emptyZoneDesciption">' + display.descriptionIfEmpty + "</div>";
-          if (display.textIfEmpty || display.descriptionIfEmpty) output += "</div>";
+          if (display.linkIfEmpty && display.linkTextIfEmpty) {
+            output += '<div><a class="emptyLink" href="' + display.linkIfEmpty + '">' + display.linkTextIfEmpty + "</a></div>";
+          }
+          if (display.textIfEmpty || display.descriptionIfEmpty || (display.linkIfEmpty && display.linkTextIfEmpty)) output += "</div>";
           output += "</div></div>";
           return output;
         };
