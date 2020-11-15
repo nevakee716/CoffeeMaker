@@ -231,23 +231,29 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
   width: 40%;
   display: flex;
   flex-direction: column;
+  margin: 10px;
+  justify-content: center;
 }
-.emptyZone .emptyZoneText .emptyZoneTitle {
+.emptyZone .emptyZoneText > div {
+  display: flex;
+  flex-direction: column;
+}
+.emptyZone .emptyZoneText > div .emptyZoneTitle {
   font-size: 1.5rem;
   color: #03a0ce;
   margin-bottom: 10px;
-  margin-top: 10px;
 }
-.emptyZone .emptyZoneText .emptyZoneDesciption {
+.emptyZone .emptyZoneText > div .emptyZoneDesciption {
   color: #03a0ce;
-  margin-bottom: 20px;
 }
-.emptyZone .emptyZoneText .emptyLink {
+.emptyZone .emptyZoneText > div span {
+  margin-top: 20px;
+}
+.emptyZone .emptyZoneText > div span .emptyLink {
   background-color: #03a0ce;
   color: #ffffff;
   border: 1px solid #03a0ce;
   padding: 8px;
   box-shadow: 1px 1px 1px #bdbdbd;
   border-radius: 5px;
-  margin-bottom: 10px;
 }

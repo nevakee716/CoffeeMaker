@@ -163,13 +163,13 @@
           let output = '<div class="emptyZone">';
           if (display.pictureIfEmpty) output += '<img src="' + display.pictureIfEmpty + '">';
           if (display.textIfEmpty || display.descriptionIfEmpty || (display.linkIfEmpty && display.linkTextIfEmpty))
-            output += "<div class='emptyZoneText'>";
+            output += "<div class='emptyZoneText'><div>";
           if (display.textIfEmpty) output += '<div class="emptyZoneTitle" >' + display.textIfEmpty + "</div>";
           if (display.descriptionIfEmpty) output += '<div class="emptyZoneDesciption">' + display.descriptionIfEmpty + "</div>";
           if (display.linkIfEmpty && display.linkTextIfEmpty) {
-            output += '<div><a class="emptyLink" href="' + display.linkIfEmpty + '">' + display.linkTextIfEmpty + "</a></div>";
+            output += '<span><a class="emptyLink" href="' + display.linkIfEmpty + '">' + display.linkTextIfEmpty + "</a></span>";
           }
-          if (display.textIfEmpty || display.descriptionIfEmpty || (display.linkIfEmpty && display.linkTextIfEmpty)) output += "</div>";
+          if (display.textIfEmpty || display.descriptionIfEmpty || (display.linkIfEmpty && display.linkTextIfEmpty)) output += "</div></div>";
           output += "</div></div>";
           return output;
         };
