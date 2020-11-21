@@ -63,7 +63,18 @@
 .homePage_main .homePage_column .homePage_display .fa.expendIcon {
   font-size: 24px;
 }
-.homePage_main .homePage_column .homePage_display .rightExpandButton {
+.homePage_main .homePage_column .homePage_display .extendableTitle {
+  display: flex;
+  align-items: center;
+}
+.homePage_main .homePage_column .homePage_display .extendableTitle .homePage_display_title {
+  flex: 1;
+}
+.homePage_main .homePage_column .homePage_display .extendableTitle .display_sortProperty {
+  width: 250px;
+}
+.homePage_main .homePage_column .homePage_display .extendableTitle .rightExpandButton {
+  width: 65px;
   color: #03a0ce;
   float: right;
   display: flex;
@@ -71,7 +82,7 @@
   align-items: center;
   padding: 5px;
 }
-.homePage_main .homePage_column .homePage_display .rightExpandButton span {
+.homePage_main .homePage_column .homePage_display .extendableTitle .rightExpandButton span {
   margin-right: 3px;
 }
 .homePage_main .homePage_column .homePage_display .homePage_display_content {

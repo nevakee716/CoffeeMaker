@@ -1,7 +1,29 @@
 <div class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('evolve_view')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
-    <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'" ng-model="display.view"></select>
+    <select ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'cwView'" ng-model="display.view"></select>
+  </div>
+</div>
+<div ng-if="display.view" class="row bootstrap-iso">
+  <div class="row-cell row-cell-label labelTitle">{{$root.i18n('sort_by')}} :</div>
+</div>
+<div ng-if="display.view" class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-value row-cell-max-width">
+    <div class="cell-content-wrapper filter-wrapper propertieslist">
+      <div
+        class="choiceBox"
+        ng-repeat="p in cwApi.getViewsSchemas()[display.view].NodesByID[cwApi.getViewsSchemas()[display.view].RootNodesId[0]].PropertiesSelected"
+      >
+        <a
+          ng-init="initSortProperties(display)"
+          class="btn-add-filter btn page-action"
+          ng-class="display.sortProperties.hasOwnProperty(p.toLowerCase()) ? ['selected'] : []"
+          ng-click="toggle(display.sortProperties,p.toLowerCase())"
+          >{{cwApi.mm.getProperty(cwApi.getViewsSchemas()[display.view].NodesByID[cwApi.getViewsSchemas()[display.view].RootNodesId[0]].ObjectTypeScriptName,p).name}}
+          ({{p}})</a
+        >
+      </div>
+    </div>
   </div>
 </div>
 

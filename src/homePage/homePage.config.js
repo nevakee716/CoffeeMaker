@@ -108,6 +108,9 @@
       });
     };
 
+    $scope.initSortProperties = function (display) {
+      if (display.sortProperties === undefined) display.sortProperties = {};
+    };
     $scope.reOrderDisplays = function (col) {
       col.displays.sort(function (a, b) {
         return a.order - b.order;

@@ -6,24 +6,27 @@
       ng-style="getStyleForDisplay(display)"
       class="homePage_display"
     >
-      <div ng-if="display.extendable" ng-click="display.extended = !display.extended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-        <span ng-class="{'rightExpandButton':display.rightExpandButton}">
-          <span ng-if="display.rightExpandButton && display.extended === true">{{$root.i18n('close')}}</span>
-          <span ng-if="display.rightExpandButton && display.extended === false">{{$root.i18n('open')}}</span>
-          <i
-            ng-if="display.extended === false"
-            class="fa expendIcon"
-            ng-class="{'fa-angle-right':!display.rightExpandButton, 'fa-caret-square-o-left': display.rightExpandButton}"
-            aria-hidden="true"
-          ></i>
-          <i
-            ng-if="display.extended === true"
-            class="fa expendIcon"
-            ng-class="{'fa-angle-down': !display.rightExpandButton, 'fa-caret-square-o-down': display.rightExpandButton}"
-            aria-hidden="true"
-          ></i>
+      <div ng-if="display.extendable" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+        <span ng-click="display.extended = !display.extended" ng-if="!display.rightExpandButton">
+          <i ng-if="display.extended === false" class="fa fa-angle-right"></i>
+          <i ng-if="display.extended === false" class="fa fa-angle-down"></i>
         </span>
-        <span class="homePage_display_title"> {{display.label}} </span>
+        <span ng-click="display.extended = !display.extended" class="homePage_display_title"> {{display.label}} </span>
+        <span
+          ng-init="selectNextSortProperty(display)"
+          ng-if="keys(display.sortProperties).length > 0"
+          ng-click="selectNextSortProperty(display)"
+          class="display_sortProperty"
+        >
+          <span> {{$root.i18n('sortby')}} {{display.sortPropertyLabel}} </span>
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </span>
+        <span ng-click="display.extended = !display.extended" ng-if="display.rightExpandButton" class="rightExpandButton">
+          <span ng-if="display.extended === true">{{$root.i18n('close')}}</span>
+          <span ng-if="display.extended === false">{{$root.i18n('open')}}</span>
+          <i ng-if="display.extended === false" class="fa fa-caret-square-o-left expendIcon"></i>
+          <i ng-if="display.extended === true" class="fa fa-caret-square-o-down expendIcon"></i>
+        </span>
       </div>
       <div
         ng-style="getStyleForDisplayContent(display)"

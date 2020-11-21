@@ -108,6 +108,9 @@
             }
           });
         });
+        $scope.keys = function (o) {
+          return o ? Object.keys(o) : null;
+        };
         $scope.viewToLoad = acc;
         $scope.cwApi = cwApi;
         manageFavAndBookmark(homeContainer, $scope);
@@ -191,6 +194,41 @@
           return output;
         };
 
+        $scope.createHTMLFromJSON = function (display, sync) {
+          let o = display.objects;
+          if (!o) return;
+          let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
+          if (o[schema.RootNodesId].length === 0 && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
+            display.html = $scope.getEmptyZoneFromDisplay(display);
+          } else {
+            if (display.selectedSortProperty) {
+              o[schema.RootNodesId].sort(function (a, b) {
+                if (display.selectedSortPropertyObj.type === "Date")
+                  return new Date(b.properties[display.selectedSortProperty]) - new Date(a.properties[display.selectedSortProperty]);
+                if (display.selectedSortPropertyObj.type === "Double" || display.selectedSortPropertyObj.type === "Integer")
+                  return a.properties[display.selectedSortProperty] - b.properties[display.selectedSortProperty];
+                return a.properties[display.selectedSortProperty].toString().localeCompare(b.properties[display.selectedSortProperty].toString());
+              });
+            }
+
+            let output = [];
+            let object = { associations: o };
+            cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
+            display.html = $sce.trustAsHtml(output.join(""));
+          }
+
+          viewLoaded += 1;
+          if ($scope.viewToLoad === viewLoaded) {
+            setTimeout(function () {
+              $scope.$apply();
+              cwApi.cwSiteActions.doLayoutsSpecialActions(true);
+              cwCustomerSiteActions.doActionsForAll_Custom({});
+            }, 6);
+          }
+
+          cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
+        };
+
         $scope.getHTMLView = function (display) {
           let jsonFile = cwApi.getIndexViewDataUrl(display.view);
           display.loading = true;
@@ -198,24 +236,8 @@
             jsonFile,
             function (o) {
               if (cwApi.checkJsonCallback(o)) {
-                let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
-                if (o[schema.RootNodesId].length === 0 && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
-                  display.html = $scope.getEmptyZoneFromDisplay(display);
-                } else {
-                  let output = [];
-                  let object = { associations: o };
-                  cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
-                  display.html = $sce.trustAsHtml(output.join(""));
-                }
-
-                $scope.$apply();
-                viewLoaded += 1;
-                if ($scope.viewToLoad === viewLoaded) {
-                  cwApi.cwSiteActions.doLayoutsSpecialActions(true);
-                  cwCustomerSiteActions.doActionsForAll_Custom({});
-                }
-
-                cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
+                display.objects = o;
+                $scope.createHTMLFromJSON(display);
               }
             },
             cwApi.errorOnLoadPage
@@ -237,6 +259,38 @@
             display.html = $sce.trustAsHtml(cwApi.cwPropertiesGroups.formatMemoProperty(res[0].properties.description));
             $scope.$apply();
           });
+        };
+
+        $scope.selectNextSortProperty = function (display) {
+          let props = Object.keys(display.sortProperties);
+          if (!display.selectedSortProperty) display.selectedSortProperty = props[0];
+
+          let i = props.indexOf(display.selectedSortProperty);
+          display.selectedSortProperty = i > props.length - 2 ? props[0] : props[i + 1];
+          let view = cwAPI.getViewsSchemas()["home_fav_documents_types"];
+          display.selectedSortPropertyObj = cwAPI.mm.getProperty(
+            view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName,
+            display.selectedSortProperty
+          );
+          display.sortPropertyLabel = display.selectedSortPropertyObj.name;
+
+          if ($scope.viewToLoad == viewLoaded) {
+            $scope.config.columns.forEach(function (c) {
+              c.displays.forEach(function (d) {
+                if (d.type === "evolve_view") {
+                  d.html = null;
+                }
+              });
+            });
+            viewLoaded = 0;
+            $scope.config.columns.forEach(function (c) {
+              c.displays.forEach(function (d) {
+                if (d.type === "evolve_view") {
+                  $scope.createHTMLFromJSON(d, true);
+                }
+              });
+            });
+          }
         };
 
         $scope.searchForObjects = function (display) {

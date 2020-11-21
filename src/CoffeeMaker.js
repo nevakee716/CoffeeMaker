@@ -182,7 +182,9 @@
             $scope.lang = cwApi.getSelectedLanguage();
             $scope.showDescription = true;
             $scope.FilterOperators = ["=", "!=", ">", "<", "In"];
-
+            $scope.keys = function (o) {
+              return Object.keys(o);
+            };
             $scope.$watchCollection("ng", function (newValue, oldValue) {
               self.config[t.dataset.id] = $scope.ng.config;
             });
