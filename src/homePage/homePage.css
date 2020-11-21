@@ -124,7 +124,7 @@
   flex-grow: 1;
 }
 .homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   justify-content: center;
 }
@@ -135,7 +135,7 @@
   margin: 1px;
 }
 .homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideButton {
-  flex-grow: 1;
+  width: 100px;
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
