@@ -62,6 +62,70 @@
         overflow: hidden;
       }
 
+      .homePage_carrousel {
+        .slide {
+          display: flex;
+          .slidePicture {
+            flex-grow: 1;
+            height: 220px;
+          }
+          .leftSlider {
+            flex-grow: 1;
+          }
+
+          .slideText {
+            flex-grow: 1;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .slideTitle {
+              font-size: 20px;
+              font-weight: bold;
+            }
+            .slideDescription {
+              margin-top: 10px;
+            }
+          }
+
+          .rightSlider {
+            flex-grow: 1;
+          }
+        }
+        .lowNavBar {
+          display: flex;
+          justify-content: flex-end;
+          .emptyLow {
+            flex-grow: 1;
+          }
+          .slideslider {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            .selected {
+              color: @cwColor1;
+            }
+            i {
+              margin: 1px;
+            }
+          }
+          .slideButton {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 10px;
+            a {
+              margin: 2px;
+              background-color: @cwColor1;
+              color: #ffffff;
+              border: 1px solid @cwColor1;
+              padding: 8px;
+              box-shadow: 1px 1px 1px #bdbdbd;
+              border-radius: 5px;
+            }
+          }
+        }
+      }
       .homePage_evolveView {
         overflow: auto;
         height: inherit;

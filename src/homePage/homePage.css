@@ -78,6 +78,66 @@
   transition: max-height 0.42s ease-out;
   overflow: hidden;
 }
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide {
+  display: flex;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slidePicture {
+  flex-grow: 1;
+  height: 220px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .leftSlider {
+  flex-grow: 1;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slideText {
+  flex-grow: 1;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slideText .slideTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slideText .slideDescription {
+  margin-top: 10px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .rightSlider {
+  flex-grow: 1;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar {
+  display: flex;
+  justify-content: flex-end;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .emptyLow {
+  flex-grow: 1;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider .selected {
+  color: #03a0ce;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider i {
+  margin: 1px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideButton {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideButton a {
+  margin: 2px;
+  background-color: #03a0ce;
+  color: #ffffff;
+  border: 1px solid #03a0ce;
+  padding: 8px;
+  box-shadow: 1px 1px 1px #bdbdbd;
+  border-radius: 5px;
+}
 .homePage_main .homePage_column .homePage_display .homePage_evolveView {
   overflow: auto;
   height: inherit;

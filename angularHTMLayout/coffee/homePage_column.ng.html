@@ -84,6 +84,7 @@
         <option value="evolve_view">{{$root.i18n('evolve_view')}}</option>
         <option value="object_description">{{$root.i18n('object_description')}}</option>
         <option value="last_modified_object">{{$root.i18n('last_modified_object')}}</option>
+        <option value="carrousel">Carrousel</option>
         <option value="links_in_bloc">Links In Box</option>
       </select>
     </div>
@@ -92,4 +93,5 @@
   <div ng-if="display.type === 'object_description'" ng-include src="'../../common/html/coffee/homePage_object_description.ng.html'"></div>
   <div ng-if="display.type === 'last_modified_object'" ng-include src="'../../common/html/coffee/homePage_last_modified_object.ng.html'"></div>
   <div ng-if="display.type === 'links_in_bloc'" ng-include src="'../../common/html/coffee/homePage_link_in_box.ng.html'"></div>
+  <div ng-if="display.type === 'carrousel'" ng-include src="'../../common/html/coffee/homePage_carrousel.ng.html'"></div>
 </div>

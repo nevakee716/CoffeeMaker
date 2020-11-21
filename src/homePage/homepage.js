@@ -121,6 +121,23 @@
           if (quick) quick.append($scope.quicklinkHTML);
         };
 
+        $scope.initCarrousel = function (display) {
+          display.slideSelected = 0;
+          display.closed = false;
+        };
+
+        $scope.nextSlide = function (display) {
+          display.slideSelected += 1;
+        };
+
+        $scope.previousSlide = function (display) {
+          display.slideSelected -= 1;
+        };
+
+        $scope.closeSlides = function (display) {
+          display.closed = true;
+        };
+
         $scope.getStyleForColumn = function (col) {
           return { width: col.width };
         };

@@ -1,0 +1,55 @@
+<div class="tabs">
+  <div
+    ng-repeat=" slide in display.slides | orderBy:'order'"
+    ng-class="{active: slide.selected == true}"
+    class="tab-link tab-{{slide.Id}}"
+    ng-click="selectSlide(display,$index)"
+  >
+    {{slide.label}}
+  </div>
+  <div class="add-tab-link">
+    <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_slide')}}" ng-click="addSlide(display)"
+      ><i class="fa fa-plus" aria-hidden="true"></i
+    ></a>
+  </div>
+</div>
+<div class="tabContent" ng-if="slide.selected" ng-repeat="slide in display.slides">
+  <div class="remove-operation">
+    <a class="btn-remove btn page-action no-text" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeSlide(display,$index)"
+      ><i class="fa fa-trash-o" aria-hidden="true"></i
+    ></a>
+  </div>
+
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('title')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="text" ng-model="slide.title" />
+    </div>
+  </div>
+
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('description')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="slide.description"></textarea></div>
+  </div>
+
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="number" ng-model="slide.order" />
+    </div>
+  </div>
+
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('pictureLeft')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="text" ng-model="slide.pictureLeft" />
+    </div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('pictureRight')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="text" ng-model="slide.pictureRight" />
+    </div>
+  </div>
+  <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
+</div>

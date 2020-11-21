@@ -1,0 +1,28 @@
+<div class="homePage_carrousel_inner" ng-init="initCarrousel(display)">
+  <div ng-if="display.closed === false && $index == display.slideSelected" ng-repeat="slide in display.slides | orderBy: 'order'" class="slide">
+    <div class="leftSlider">
+      <img class="slidePicture" ng-src="{{slide.pictureLeft}}" />
+    </div>
+
+    <div class="slideText">
+      <div class="slideTitle">{{slide.title}}</div>
+      <div class="slideDescription">{{slide.description}}</div>
+    </div>
+    <div class="rightSlider">
+      <img class="slidePicture" ng-src="{{slide.pictureRight}}" />
+    </div>
+  </div>
+  <div ng-if="display.closed === false" class="lowNavBar">
+    <div ng-if="slide.pictureRight && slide.pictureLeft && slide.title" class="emptyLow"></div>
+    <div class="slideslider">
+      <div ng-repeat="s in display.slides">
+        <i ng-class="display.slideSelected == $index? ['selected'] : []" class="fa fa-circle" ng-aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="slideButton">
+      <a ng-if="display.slideSelected > 0" ng-click="previousSlide(display)" class="emptyLink"> {{$root.i18n('previous')}} </a>
+      <a ng-if="(display.slides.length -1) > display.slideSelected" ng-click="nextSlide(display)" class="emptyLink"> {{$root.i18n('next')}} </a>
+      <a ng-click="closeSlides(display)" class="emptyLink">{{$root.i18n('close')}} </a>
+    </div>
+  </div>
+</div>
