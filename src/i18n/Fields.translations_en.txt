@@ -138,3 +138,6 @@ dontapplytorole = Don't Apply to these Roles
 open = Open
 close = Close
 right_text_expand_button = Expand Button With Text 
+sortby = Sort By
+previous = Previous
+next = Next

@@ -4,7 +4,7 @@
       ng-repeat="(idisp, display) in col.displays | orderBy:'order'"
       ng-init="display.extended = !display.collapseByDefault"
       ng-style="getStyleForDisplay(display)"
-      class="homePage_display"
+      class="homePage_display {{display.label}}"
     >
       <div ng-if="display.extendable" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
         <span ng-click="display.extended = !display.extended" ng-if="!display.rightExpandButton">
