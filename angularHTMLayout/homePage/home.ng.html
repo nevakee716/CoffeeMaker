@@ -9,7 +9,7 @@
       <div ng-if="display.extendable" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
         <span ng-click="display.extended = !display.extended" ng-if="!display.rightExpandButton">
           <i ng-if="display.extended === false" class="fa fa-angle-right"></i>
-          <i ng-if="display.extended === false" class="fa fa-angle-down"></i>
+          <i ng-if="display.extended === true" class="fa fa-angle-down"></i>
         </span>
         <span ng-click="display.extended = !display.extended" class="homePage_display_title"> {{display.label}} </span>
         <span

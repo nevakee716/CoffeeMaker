@@ -198,7 +198,10 @@
           let o = display.objects;
           if (!o) return;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
-          if (o[schema.RootNodesId].length === 0 && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
+          let containsItems = schema.RootNodesId.some(function (nId) {
+            return o[nId] && o[nId].length > 1;
+          });
+          if (!containsItems && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
             display.html = $scope.getEmptyZoneFromDisplay(display);
           } else {
             if (display.selectedSortProperty) {
