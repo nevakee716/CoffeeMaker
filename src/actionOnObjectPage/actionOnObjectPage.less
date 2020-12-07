@@ -10,51 +10,6 @@ div.CwPropertiesLayoutHelpText {
   }
 }
 
-.cw-diagram-zone {
-  border: 0px !important;
-}
-.cwDiagramViewer {
-  border-radius: 10px;
-  border: 1px solid @cwColor1;
-}
-
-.cwDiagramBreadcrumb {
-  background-color: transparent !important;
-  height: 10px !important;
-}
-.cwDiagramBreadcrumbZoneLeft {
-  .cwDiagramBreadcrumbCurrentTitle {
-    display: none;
-  }
-}
-.cwDiagramBreadcrumbZoneRight {
-  display: flex !important;
-  background-color: transparent !important;
-  justify-content: flex-end;
-  width: 100% !important;
-  color: @cwColor1!important;
-  .diagramAction,
-  .btn.btn-diagram-save.no-text {
-    width: unset !important;
-    cursor: pointer;
-    font-size: 18px;
-    margin-right: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    color: @cwColor1!important;
-    a,
-    i.fa {
-      margin-right: 2px;
-      color: @cwColor1!important;
-    }
-  }
-
-  .btn.btn-diagram-save.no-text:hover {
-    background-color: transparent !important;
-  }
-}
-
 .singlePageCarrousel {
   position: absolute;
   display: flex;
@@ -69,6 +24,8 @@ div.CwPropertiesLayoutHelpText {
     border-radius: 20px;
     border: 1px solid @cwColor1;
     box-shadow: 5px 5px 5px @cwColor1;
+    background: white;
+    overflow: hidden;
     .slide {
       display: flex;
       .slidePicture {
