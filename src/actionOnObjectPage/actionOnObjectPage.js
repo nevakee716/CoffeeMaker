@@ -135,6 +135,11 @@
       return;
     }
 
+    if (config.actionType === "carrousel") {
+      this.displayCarrousel(config, mainObject);
+      return;
+    }
+
     if (config.tabs) {
       config.tabs.forEach(function (t) {
         self.actionOnId(config.style, config.styleValue, self.viewName + "-tab-" + t);
@@ -255,6 +260,74 @@
     }
     return document.createElement("div");
   };
+
+  actionOnObjectPage.displayCarrousel = function (config, mainObject) {
+    let zone = document.getElementById("zone_" + this.viewName);
+    if (zone) {
+      let container = document.createElement("div");
+      container.className = "singlePageCarrousel";
+      zone.insertBefore(container, zone.firstChild);
+      cwApi.CwAsyncLoader.load("angular", function () {
+        var loader = cwApi.CwAngularLoader;
+        loader.setup();
+        let templatePath = cwAPI.getCommonContentPath() + "/html/homePage/carrousel.ng.html" + "?" + Math.random();
+        loader.loadControllerWithTemplate("homePage", $(".singlePageCarrousel"), templatePath, function ($scope, $sce) {
+          $scope.display = config;
+          $scope.initCarrousel = function (display) {
+            display.slideSelected = 0;
+            display.closed = false;
+          };
+
+          $scope.nextSlide = function (display) {
+            display.slideSelected += 1;
+          };
+
+          $scope.previousSlide = function (display) {
+            display.slideSelected -= 1;
+          };
+
+          $scope.closeSlides = function (display) {
+            display.closed = true;
+          };
+        });
+      });
+    }
+  };
+
+  var changeDiagramTopBar = function (rootNode) {
+    let view = cwAPI.getCurrentView().cwView;
+
+    if (["famille_metier", "process", "activite", "procedure"].indexOf(view) !== -1) {
+      var interval = setInterval(() => {
+        let s = document.getElementsByClassName("cwDiagramBreadcrumbZoneRight");
+        if (s.length > 0) {
+          clearInterval(interval);
+          for (let index = 0; index < s.length; index++) {
+            let diagTopBar = s[index];
+            let c = document.createElement("a");
+            c.className = "diagramAction";
+            c.innerHTML = '<i class="fa fa-user" aria-hidden="true"></i> Contacter un Référent';
+            c.addEventListener("click", function () {
+              cwAPI.customLibs.utils.openDiagramPopoutWithID(rootNode.object_id, view + "_diagram_popout_referent");
+            });
+
+            diagTopBar.prepend(c);
+
+            c = document.createElement("a");
+            c.className = "diagramAction";
+            c.innerHTML = '<i class="fa fa-flag-o" aria-hidden="true"></i> Légende';
+            c.addEventListener("click", function () {
+              cwAPI.customLibs.utils.openDiagramPopoutWithID(rootNode.associations["diagram_" + view], "diagram_popout_legend");
+            });
+
+            diagTopBar.prepend(c);
+
+            document.getElementById("cw-diagram-save").innerHTML = '<i class="fa fa-download" aria-hidden="true"></i> Exporter';
+          }
+        }
+      }, 1000);
+    }
+  };
   /********************************************************************************
     Configs : add trigger for single page
     *********************************************************************************/
@@ -264,6 +337,7 @@
   if (cwAPI.customLibs.doActionForSingle === undefined) {
     cwAPI.customLibs.doActionForSingle = {};
   }
+  cwAPI.customLibs.doActionForSingle.changeDiagramTopBar = changeDiagramTopBar;
   cwAPI.customLibs.doActionForSingle.actionOnObjectPage = actionOnObjectPage.do.bind(actionOnObjectPage);
   cwAPI.customLibs.isActionToDo = actionOnObjectPage.isActionToDo.bind(actionOnObjectPage);
 })(cwAPI, jQuery);

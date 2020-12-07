@@ -102,7 +102,7 @@
     $scope.objectpages = objectpages;
     $scope.selectConfig(0);
     $scope.typeOftarget = ["tabs", "propertygroups", "views", "cssClass", "htmlId", "jQuerySelector"];
-    $scope.actionType = ["hide", "highlight", "displaymsg"];
+    $scope.actionType = ["hide", "highlight", "displaymsg", "carrousel"];
     return;
   };
 

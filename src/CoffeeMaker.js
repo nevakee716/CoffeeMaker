@@ -228,7 +228,28 @@
                 }
               } else return "number";
             };
+            $scope.addSlide = function (display) {
+              if (display.slides === undefined) display.slides = [];
+              display.slides.push({ label: "Slide " + display.slides.length });
+              $scope.selectSlide(display, display.slides.length - 1);
+            };
 
+            $scope.removeSlide = function (display, i) {
+              display.slides.splice(i, 1);
+            };
+
+            $scope.selectSlide = function (display, i) {
+              display.slides.forEach(function (c, ii) {
+                if (i == ii) c.selected = true;
+                else c.selected = false;
+              });
+            };
+
+            $scope.reOrderSlides = function () {
+              $scope.ng.config.columns.sort(function (a, b) {
+                return a.order - b.order;
+              });
+            };
             if (self["controller_" + t.dataset.id] && $scope.ng.config) self["controller_" + t.dataset.id]($container, templatePath, $scope);
           });
         });

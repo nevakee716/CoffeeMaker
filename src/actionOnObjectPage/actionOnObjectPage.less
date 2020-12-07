@@ -1,8 +1,135 @@
+@import "../../_mixins";
+@import "../../_variables";
+
 div.CwPropertiesLayoutHelpText {
   img {
     vertical-align: middle;
   }
   div {
     display: contents;
+  }
+}
+
+.cw-diagram-zone {
+  border: 0px !important;
+}
+.cwDiagramViewer {
+  border-radius: 10px;
+  border: 1px solid @cwColor1;
+}
+
+.cwDiagramBreadcrumb {
+  background-color: transparent !important;
+  height: 10px !important;
+}
+.cwDiagramBreadcrumbZoneLeft {
+  .cwDiagramBreadcrumbCurrentTitle {
+    display: none;
+  }
+}
+.cwDiagramBreadcrumbZoneRight {
+  display: flex !important;
+  background-color: transparent !important;
+  justify-content: flex-end;
+  width: 100% !important;
+  color: @cwColor1!important;
+  .diagramAction,
+  .btn.btn-diagram-save.no-text {
+    width: unset !important;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    color: @cwColor1!important;
+    a,
+    i.fa {
+      margin-right: 2px;
+      color: @cwColor1!important;
+    }
+  }
+
+  .btn.btn-diagram-save.no-text:hover {
+    background-color: transparent !important;
+  }
+}
+
+.singlePageCarrousel {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background: #ffffffe6;
+  .homePage_carrousel_inner {
+    width: 800px;
+    border-radius: 20px;
+    border: 1px solid @cwColor1;
+    box-shadow: 5px 5px 5px @cwColor1;
+    .slide {
+      display: flex;
+      .slidePicture {
+        flex-grow: 1;
+        height: 220px;
+      }
+      .leftSlider {
+        flex-grow: 1;
+      }
+
+      .slideText {
+        flex-grow: 1;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .slideTitle {
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .slideDescription {
+          margin-top: 10px;
+        }
+      }
+
+      .rightSlider {
+        flex-grow: 1;
+      }
+    }
+    .lowNavBar {
+      display: flex;
+      justify-content: flex-end;
+      .emptyLow {
+        flex-grow: 1;
+      }
+      .slideslider {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        .selected {
+          color: @cwColor2;
+        }
+        i {
+          margin: 1px;
+        }
+      }
+      .slideButton {
+        width: 100px;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+        a {
+          margin: 2px;
+          background-color: @cwColor1;
+          color: #ffffff;
+          border: 1px solid @cwColor1;
+          padding: 8px;
+          box-shadow: 1px 1px 1px #bdbdbd;
+          border-radius: 5px;
+        }
+      }
+    }
   }
 }
