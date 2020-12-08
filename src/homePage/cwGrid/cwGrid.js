@@ -52,6 +52,7 @@
   };
 
   cwLayout.prototype.saveConfiguration = function () {
+    this.loadDisplayLayout();
     cwApi.customLibs.utils.copyToClipboard(JSON.stringify(this.config));
   };
 
@@ -125,6 +126,9 @@
           let str = angular.toJson($scope.configuration);
           cwApi.customLibs.utils.copyToClipboard(str);
         };
+
+        $scope.refresh = self.loadDisplayLayout.bind(self);
+
         $scope.monMenuOff = true;
         cwAPI.cwLayouts.cwCoffeeMaker.prototype.controller_homePage($container, templatePath, $scope);
       });
