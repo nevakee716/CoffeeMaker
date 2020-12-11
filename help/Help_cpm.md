@@ -18,7 +18,7 @@
 
 
   <link crossorigin="anonymous" media="all" integrity="sha512-Zp5Bi1AD1Kw9L9fsBlTqVd0cvO/hoTq1Zuk8hGbjzxC62qw7S7/rYbha2A6C7B5icFPUNRaqRxI+F+EEk29esQ==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-color-modes-669e418b5003d4ac3d2fd7ec0654ea55.css" />
-  <link crossorigin="anonymous" media="all" integrity="sha512-ytCT6rIUt8Ndsxi4b02OeL/GDJYlbMVd6Pm7ohonIBiyc7f2k1OECh1IgILqj7ZZ1PfoFkVCJmOUvzjTzqnOdQ==" rel="stylesheet" href="https://github.githubassets.com/assets/site-cad093eab214b7c35db318b86f4d8e78.css" />
+  <link crossorigin="anonymous" media="all" integrity="sha512-WFyRun7wNSQ9sNvWeusj8BG9JITv1Evv1jvseHNhC7XwedQcvZjtZqyWi/nuloh33jjW5NIzKJcIqKXg1TpocA==" rel="stylesheet" href="https://github.githubassets.com/assets/site-585c91ba7ef035243db0dbd67aeb23f0.css" />
     <link crossorigin="anonymous" media="all" integrity="sha512-QOeuMOe9dEkJ4uEnqmyyLmOFyz0v2rjoKCrXXs7FhkJ98av5NjeLBYDE/nE9xhLocmTtdbtMyy1vwq5i2ARajw==" rel="stylesheet" href="https://github.githubassets.com/assets/github-40e7ae30e7bd744909e2e127aa6cb22e.css" />
     
     
@@ -35,7 +35,6 @@
     <script crossorigin="anonymous" defer="defer" integrity="sha512-obMR8mPKx8OvqRe34LgnUcxeJ1qujiA4ND3H6UX13ExMlA/WfHLjEzXRmgGRcRvN/8J1nzc+Z+jgz/PLTFy6zg==" type="application/javascript" data-module-id="./chunk-drag-drop.js" data-src="https://github.githubassets.com/assets/chunk-drag-drop-a1b311f2.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-9zy4ibZe36ye7kOl+7GyJOLVxae8pRSGuTp92DSAI0GJ9ztkgDTGtvfXFHnZ7T3Qh1LRsn2iyn3mJ/Z5Pfo1Fg==" type="application/javascript" data-module-id="./chunk-jump-to.js" data-src="https://github.githubassets.com/assets/chunk-jump-to-f73cb889.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-biWH4OAQPiDiTkaeyDnXf6hHF3u3Mv3eaDEvt8AdT/QvWDpLbnusALT4ZO+f+DgYp07UiHxNRAB6/J7IwPW6TQ==" type="application/javascript" data-module-id="./chunk-lib.dev.js" data-src="https://github.githubassets.com/assets/chunk-lib.dev-6e2587e0.js"></script>
-    <script crossorigin="anonymous" defer="defer" integrity="sha512-0g7QiOMaUN2UyqUl8cAtvedx2Y7dU1yYPW+1U2hXrz5FjtjUPesLGAjCB9wyXu52N0SdEHSXmWtNyr1zi7TFLw==" type="application/javascript" data-module-id="./chunk-prefetch-location.js" data-src="https://github.githubassets.com/assets/chunk-prefetch-location-d20ed088.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-tcH4xCRuMBAh1PruDaiwGnRIbHlF6bGLhxyCQ16uqok1cV5QFMguVPWJtN9KI0jGQOgN+Pha3+uOUXhXdfK/qw==" type="application/javascript" data-module-id="./chunk-profile-pins-element.js" data-src="https://github.githubassets.com/assets/chunk-profile-pins-element-b5c1f8c4.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-gPx3bYhTjyC83X5u5KlEDJpwGAHt3AC2p5s9iMuAfPTeSj7kHlKMW231C3K3c7+jvlpWpELk8DJsefrYdRzqjA==" type="application/javascript" data-module-id="./chunk-randomColor.js" data-src="https://github.githubassets.com/assets/chunk-randomColor-80fc776d.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-E+H+wAtjiqutBvn2cnXzDIvmasIhYiS7i7JzOfFUwo+Ej8zT54OrJtP//RhwixnypgOpCF4JvqzYy6zOtORDmg==" type="application/javascript" data-module-id="./chunk-runner-groups.js" data-src="https://github.githubassets.com/assets/chunk-runner-groups-13e1fec0.js"></script>
@@ -88,7 +87,7 @@
   <link rel="assets" href="https://github.githubassets.com/">
   
 
-  <meta name="request-id" content="FE34:6D9F:CB211:10C2B7:5FD3ABC3" data-pjax-transient="true"/><meta name="html-safe-nonce" content="ea53c0336b5140cfa396f784c827b29bae222d5202e695e1e563932031e9455a" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJGRTM0OjZEOUY6Q0IyMTE6MTBDMkI3OjVGRDNBQkMzIiwidmlzaXRvcl9pZCI6IjQwNzQzNzcxOTMxNjk1OTUzMzEiLCJyZWdpb25fZWRnZSI6ImZyYSIsInJlZ2lvbl9yZW5kZXIiOiJmcmEifQ==" data-pjax-transient="true"/><meta name="visitor-hmac" content="31304e0851ad9ae62c78dae3d71630bbd9b758da2189706508e398fc0ca99443" data-pjax-transient="true"/><meta name="cookie-consent-required" content="true" data-pjax-transient="true"/>
+  <meta name="request-id" content="FF2E:102A0:20A070:2BE2D1:5FD3AFB3" data-pjax-transient="true"/><meta name="html-safe-nonce" content="a005f7d35d546f6eb2385f208c7e0ad03732015a33d153badf411f7c651f2ff8" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJGRjJFOjEwMkEwOjIwQTA3MDoyQkUyRDE6NUZEM0FGQjMiLCJ2aXNpdG9yX2lkIjoiNjAzMTg2MjA0OTMxOTEzNzIwMyIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImZyYSJ9" data-pjax-transient="true"/><meta name="visitor-hmac" content="1d8cd990364c35e71e8e2c203d7dab4a714c52e3f4dffaceda38cb2788e9e439" data-pjax-transient="true"/><meta name="cookie-consent-required" content="true" data-pjax-transient="true"/>
 
 
 
@@ -128,7 +127,7 @@
   <meta http-equiv="x-pjax-version" content="a6038d54becc25122f9a1da7fa145cb24f3c39d452cafcb49afdc5fd63549cda">
   
 
-      <link crossorigin="anonymous" media="all" integrity="sha512-ytCT6rIUt8Ndsxi4b02OeL/GDJYlbMVd6Pm7ohonIBiyc7f2k1OECh1IgILqj7ZZ1PfoFkVCJmOUvzjTzqnOdQ==" rel="stylesheet" href="https://github.githubassets.com/assets/site-cad093eab214b7c35db318b86f4d8e78.css" />
+      <link crossorigin="anonymous" media="all" integrity="sha512-WFyRun7wNSQ9sNvWeusj8BG9JITv1Evv1jvseHNhC7XwedQcvZjtZqyWi/nuloh33jjW5NIzKJcIqKXg1TpocA==" rel="stylesheet" href="https://github.githubassets.com/assets/site-585c91ba7ef035243db0dbd67aeb23f0.css" />
 
 
 
@@ -327,7 +326,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="/S2KcoiTFSMBWd0vUj+VhDxAEsdkK4pvpNVHfSiqe5ZFqGP38gLswOm4t73wWzRRXH8opSKZ9Rp4IB5JwgYtFw==" />
+          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="i5lG+/X6jjEFw+XQl25jrX6Ai9ejy3EsOA8qZMbIDnbvAAdC9yxS0Pv/5rU/tsyRToibnx1K4b+HM9ktT4MFmg==" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
