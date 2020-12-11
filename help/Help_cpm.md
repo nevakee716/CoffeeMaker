@@ -17,9 +17,9 @@
 
 
 
-  <link crossorigin="anonymous" media="all" integrity="sha512-ALIxky2PvUju1rpdpRsdPS8czJy69Gi8m3AOgwPSjxedUCMECGuHoLXDg3Zf6FC69ZYceWXukcdI1SkOpRTUuA==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-00b231932d8fbd48eed6ba5da51b1d3d.css" />
-  <link crossorigin="anonymous" media="all" integrity="sha512-BdoyFO7S40/884LcSnNkwn6PVx2VUObnUpwYsN8q9MdUqPFdn0rI71Ke0Xby8eB00PNsEugEbuWOQkgKFMaPQA==" rel="stylesheet" href="https://github.githubassets.com/assets/site-05da3214eed2e34ffcf382dc4a7364c2.css" />
-    <link crossorigin="anonymous" media="all" integrity="sha512-T+ayDqwW3FhvcZMSEZWGdzn1rkoFcomqoKy2j3kZiuOqFD1Dkl76n4TP5nN/Ow7bjtTuwZYZdpkwP0/GwnXuYQ==" rel="stylesheet" href="https://github.githubassets.com/assets/github-4fe6b20eac16dc586f71931211958677.css" />
+  <link crossorigin="anonymous" media="all" integrity="sha512-Zp5Bi1AD1Kw9L9fsBlTqVd0cvO/hoTq1Zuk8hGbjzxC62qw7S7/rYbha2A6C7B5icFPUNRaqRxI+F+EEk29esQ==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-color-modes-669e418b5003d4ac3d2fd7ec0654ea55.css" />
+  <link crossorigin="anonymous" media="all" integrity="sha512-6mlxnwoIm9nMWPE7OS19AbEIQ9eyk3X4B5jg0m0eI0S/4nSspXNKjRmeRQhDziU7tj4/SyG1OKmhd6rbZhuPTg==" rel="stylesheet" href="https://github.githubassets.com/assets/site-ea69719f0a089bd9cc58f13b392d7d01.css" />
+    <link crossorigin="anonymous" media="all" integrity="sha512-QOeuMOe9dEkJ4uEnqmyyLmOFyz0v2rjoKCrXXs7FhkJ98av5NjeLBYDE/nE9xhLocmTtdbtMyy1vwq5i2ARajw==" rel="stylesheet" href="https://github.githubassets.com/assets/github-40e7ae30e7bd744909e2e127aa6cb22e.css" />
     
     
     
@@ -29,7 +29,7 @@
     <script crossorigin="anonymous" defer="defer" integrity="sha512-O/NSW+dygCw89FEFysgRjgS45N7cRdVr4XXg2CCslXi5QlxHG7ttTcUx8nSv1YyVkwKciu+vVCuBJCwQ+nmg2A==" type="application/javascript" src="https://github.githubassets.com/assets/chunk-frameworks-3bf3525b.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-fifeLCDzeD/nCXw8oPU2CKwv5FZBJPALvJsX89Kh5ENx/lxl+svFDWk0BjvIgtPZGuP6v76INtuILnrurUiNsw==" type="application/javascript" src="https://github.githubassets.com/assets/chunk-vendor-7e27de2c.js"></script>
   
-  <script crossorigin="anonymous" defer="defer" integrity="sha512-oWYRzt3Wiqs+rO+bUQIyafCNEmEZn2ykIbXvPxnoQ5u+u/GMNApA3tNnp3DjxeJxkhauebYbXxKnBC1kTWP82A==" type="application/javascript" src="https://github.githubassets.com/assets/behaviors-a16611ce.js"></script>
+  <script crossorigin="anonymous" defer="defer" integrity="sha512-9JB4yS1u4mvm4FuakXWuM+ufMsw9k1mfY2sIsXHp0hCXZj+sRMAOPzkFFSPsiKZXvMKPxzQDCaHz9WPasDUGEg==" type="application/javascript" src="https://github.githubassets.com/assets/behaviors-f49078c9.js"></script>
   
     <script crossorigin="anonymous" defer="defer" integrity="sha512-F/8sNCLF603gJL0egQeZwFTYP9dfZAVEWHdjMssZ2opLZXRK08vgowBRzKyra6u9zU/rGVxe+igfJsSWzfO2lg==" type="application/javascript" data-module-id="./chunk-contributions-spider-graph.js" data-src="https://github.githubassets.com/assets/chunk-contributions-spider-graph-17ff2c34.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-obMR8mPKx8OvqRe34LgnUcxeJ1qujiA4ND3H6UX13ExMlA/WfHLjEzXRmgGRcRvN/8J1nzc+Z+jgz/PLTFy6zg==" type="application/javascript" data-module-id="./chunk-drag-drop.js" data-src="https://github.githubassets.com/assets/chunk-drag-drop-a1b311f2.js"></script>
@@ -87,7 +87,7 @@
   <link rel="assets" href="https://github.githubassets.com/">
   
 
-  <meta name="request-id" content="C2D5:FD51:5ABBEC1:800D324:5FCE43BB" data-pjax-transient="true"/><meta name="html-safe-nonce" content="3080c17f2cfc59a0f5ff84e53e374681700f6e486945f9700a24dfcbe2ce3a17" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJDMkQ1OkZENTE6NUFCQkVDMTo4MDBEMzI0OjVGQ0U0M0JCIiwidmlzaXRvcl9pZCI6IjI0MTM2OTM3NDEzMTczNzQ5MDgiLCJyZWdpb25fZWRnZSI6ImZyYSIsInJlZ2lvbl9yZW5kZXIiOiJmcmEifQ==" data-pjax-transient="true"/><meta name="visitor-hmac" content="50cacf2467f263cf2ad8758b9d93b7d97b698f3cf6be13010786bb6a428a3acd" data-pjax-transient="true"/><meta name="cookie-consent-required" content="true" data-pjax-transient="true"/>
+  <meta name="request-id" content="C744:2115:17EB5AC:220E7A7:5FD3442F" data-pjax-transient="true"/><meta name="html-safe-nonce" content="a3bb4042238f5802ed80e272c8b9ec0d5cde94b5933fdcc02e55c028f302c4a5" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJDNzQ0OjIxMTU6MTdFQjVBQzoyMjBFN0E3OjVGRDM0NDJGIiwidmlzaXRvcl9pZCI6IjExMDYzNDU2MTgxMzYzMTkwMjMiLCJyZWdpb25fZWRnZSI6ImZyYSIsInJlZ2lvbl9yZW5kZXIiOiJmcmEifQ==" data-pjax-transient="true"/><meta name="visitor-hmac" content="bc3322afe0704562fe31036cb10a8fc5da5020011dafe4a259b3b0e7ded9ff3b" data-pjax-transient="true"/><meta name="cookie-consent-required" content="true" data-pjax-transient="true"/>
 
 
 
@@ -122,12 +122,12 @@
       <meta name="expected-hostname" content="github.com">
 
 
-    <meta name="enabled-features" content="MARKETPLACE_PENDING_INSTALLATIONS">
+    <meta name="enabled-features" content="CORPORATE_SPONSORS_CREDIT_CARD,MARKETPLACE_PENDING_INSTALLATIONS">
 
-  <meta http-equiv="x-pjax-version" content="18debaaedd8a46188a9f54e7358df8c0db29a657086feb19e4a9b1bf8b586777">
+  <meta http-equiv="x-pjax-version" content="092c6f50fef226c95533b388f92d1fe939bdfb06dd0e9a6767d814cb1b189a07">
   
 
-      <link crossorigin="anonymous" media="all" integrity="sha512-BdoyFO7S40/884LcSnNkwn6PVx2VUObnUpwYsN8q9MdUqPFdn0rI71Ke0Xby8eB00PNsEugEbuWOQkgKFMaPQA==" rel="stylesheet" href="https://github.githubassets.com/assets/site-05da3214eed2e34ffcf382dc4a7364c2.css" />
+      <link crossorigin="anonymous" media="all" integrity="sha512-6mlxnwoIm9nMWPE7OS19AbEIQ9eyk3X4B5jg0m0eI0S/4nSspXNKjRmeRQhDziU7tj4/SyG1OKmhd6rbZhuPTg==" rel="stylesheet" href="https://github.githubassets.com/assets/site-ea69719f0a089bd9cc58f13b392d7d01.css" />
 
 
 
@@ -144,6 +144,7 @@
   <link rel="icon" class="js-site-favicon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg">
 
 <meta name="theme-color" content="#1e2327">
+  <meta name="color-scheme" content="light dark">
 
 
   <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials">
@@ -325,7 +326,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="8doRNghS9RgsAioEYb2FkrkVAg89/61NdxGxl0CAj/qeIl/ZMpEotNka7n1VXC8ms2JbBsJ+VgZmTSpj2awBzw==" />
+          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="XwcSV6PigwBf8EunbmtaHWX3yc7t/VS/1QnAq4Mg3fmHjCRAuDorbzKPTt73Fqr3jY9tZLaoEP2X8b+NLGXWhg==" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
