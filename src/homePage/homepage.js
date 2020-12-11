@@ -29,7 +29,11 @@
         .each(function () {
           var q = cwAPI.cwPageManager.parseQueryString($(this).prop("href"));
           var cq = cwAPI.cwPageManager.parseQueryString(window.location.href);
-          if (q && ((q.cwview && q.cwview == cq.cwview && (q.cwtype !== "single" || q.cwid == cq.cwid)) || (!cq.cwview && q.homepage == "true"))) {
+          if (
+            q &&
+            ((q.cwview && q.cwview == cq.cwview && ((q.cwtype !== "single" && q.cwtype !== "create") || q.cwid == cq.cwid)) ||
+              (!cq.cwview && q.homepage == "true"))
+          ) {
             status = true;
           }
         });
