@@ -89,7 +89,8 @@ adding the support and clickable associated region*/
           } else this.openDiagrams(regionZone.explodedDiagrams);
         } else if (regionZone.IsNavigationRegion === true) {
           // Navigation
-          this.openDiagrams(regionZone.navigationDiagrams);
+          let config = cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration("diagram");
+          this.openDiagrams(regionZone.navigationDiagrams, config);
         } else if (regionZone.RegionTypeString === "MultiplePropertyAssociations" || regionZone.RegionTypeString === "Association") {
           if (cwAPI.customLibs && cwAPI.customLibs.utils && cwAPI.customLibs.utils.createPopOutFormultipleObjects)
             cwAPI.customLibs.utils.createPopOutFormultipleObjects(regionZone.filteredObjects);
@@ -116,6 +117,34 @@ adding the support and clickable associated region*/
         }
       } else {
         this.resetSelectedShapesForEditor();
+      }
+    }
+  };
+
+  cwApi.Diagrams.CwDiagramViewer.prototype.openDiagrams = function (diagrams, config) {
+    cwApi.CwPopout.hide();
+    if (diagrams.length === 1) {
+      // One Diagram
+      if (config && config.deactivateDiagramDrillDown) {
+        let p = diagrams[0].properties;
+        windows.location.hash = cwAPI.getSingleViewHash(cwApi.mm.getObjectTypeById(p.tablenumber).scriptName, p.objectid);
+      } else {
+        this.drillDownInDiagram(diagrams[0].object_id);
+      }
+    } else if (diagrams.length > 1) {
+      // Multiple diagrams
+      if (config && config.deactivateDiagramDrillDown) {
+        let om = diagrams.map(function (d) {
+          return {
+            name: d.name,
+            object_id: d.properties.objectid,
+            objectTypeScriptName: cwApi.mm.getObjectTypeById(d.properties.tablenumber).scriptName,
+            properties: { name: d.name },
+          };
+        });
+        cwAPI.customLibs.utils.createPopOutFormultipleObjects(om);
+      } else {
+        this.createDialogForExplodedDiagram(diagrams);
       }
     }
   };
