@@ -127,7 +127,7 @@ adding the support and clickable associated region*/
       // One Diagram
       if (config && config.deactivateDiagramDrillDown) {
         let p = diagrams[0].properties;
-        windows.location.hash = cwAPI.getSingleViewHash(cwApi.mm.getObjectTypeById(p.tablenumber).scriptName, p.objectid);
+        window.location.hash = cwAPI.getSingleViewHash(cwApi.mm.getObjectTypeById(p.tablenumber).scriptName, p.objectid);
       } else {
         this.drillDownInDiagram(diagrams[0].object_id);
       }
