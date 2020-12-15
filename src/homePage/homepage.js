@@ -222,17 +222,16 @@
             let object = { associations: o };
             cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
             display.html = $sce.trustAsHtml(output.join(""));
+            $scope.$apply();
           }
 
           viewLoaded += 1;
           if ($scope.viewToLoad === viewLoaded) {
             setTimeout(function () {
-              $scope.$apply();
               cwApi.cwSiteActions.doLayoutsSpecialActions(true);
               cwCustomerSiteActions.doActionsForAll_Custom({});
             }, 6);
           }
-
           cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
         };
 
