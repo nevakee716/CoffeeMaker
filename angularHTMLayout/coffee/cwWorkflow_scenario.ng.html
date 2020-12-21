@@ -1,0 +1,46 @@
+<div>
+  <div class="remove-operation">
+    <a
+      class="btn-remove btn page-action no-text"
+      data-id="{{display.Id}}"
+      title="{{$root.i18n('label_remove_scenario')}}"
+      ng-click="removeScenario(ng.config.objectTypes[ng.selectedObjectTypeScriptname].scenarios,isce)"
+      ><i class="fa fa-trash-o" aria-hidden="true"></i
+    ></a>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('name')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input ng-model="sce.label" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input ng-change="reOrderScenarios()" type="number" ng-model="sce.order" /></div>
+  </div>
+  <div ng-click="sce.extNework = !sce.extNework" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    <i ng-if="sce.extNework === true" class="fa fa-angle-down" aria-hidden="true"></i>
+    <i ng-if="!sce.extNework" class="fa fa-angle-right" aria-hidden="true"></i>
+    <span class="homePage_display_title"> {{$root.i18n('sce_schema')}} </span>
+  </div>
+  <div ng-if="sce.extNework === true">
+    <div ng-init="createNetwork(sce)" class="workFlowNetwork" id="network_{{sce.label}}"></div>
+  </div>
+  <div class="tabs">
+    <div
+      ng-repeat="(i, step) in sce.steps"
+      ng-class="{active: step.selected == true}"
+      class="tab-link tab-{{step.Id}}"
+      ng-click="selectStep(sce,i)"
+      data-id="{{step.Id}}"
+    >
+      {{step.label}}
+    </div>
+    <div class="add-tab-link">
+      <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_step')}}" ng-click="addStep(sce)"
+        ><i class="fa fa-plus" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+  <div class="tabContent" ng-if="step.selected" ng-repeat="(istep, step) in sce.steps">
+    <div ng-include src="'../../common/html/coffee/cwWorkflow_step.ng.html'"></div>
+  </div>
+</div>

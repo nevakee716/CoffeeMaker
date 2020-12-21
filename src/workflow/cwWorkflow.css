@@ -1,0 +1,108 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
+.cwWorkflow {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cwWorkflow .input.memoInput {
+  align-items: flex-start;
+}
+.cwWorkflow .input {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+.cwWorkflow .input .label {
+  max-width: 400px;
+  vertical-align: top;
+  font-size: large;
+  font-weight: 700;
+  color: #03a0ce;
+}
+.cwWorkflow .input .value {
+  font-size: large;
+}
+.cwWorkflow .input textarea.value,
+.cwWorkflow .input input.value {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border: 1px solid #cccccc;
+  height: 30px;
+}
+.cwWorkflow .input textarea.value {
+  height: 65px;
+}
+.cwWorkflow .documentAttach {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+.cwWorkflow .documentAttach .label {
+  max-width: 400px;
+  vertical-align: top;
+  font-size: large;
+  font-weight: 700;
+  color: #03a0ce;
+}
+.cwWorkflow .documentAttach .fa.fa-plus {
+  color: #03a0ce;
+}
+.cwWorkflow .documentAttach table {
+  max-width: 500px;
+}
+.cwWorkflow .message {
+  margin-top: 2px;
+  margin-left: 30px;
+}
+.cwWorkflow .buttonLarge {
+  max-width: 200px;
+  margin: 2px;
+  background-color: #03a0ce;
+  color: #ffffff;
+  border: 1px solid #03a0ce;
+  padding: 8px;
+  box-shadow: 1px 1px 1px #bdbdbd;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+}
+.cwWorkflow .formValid {
+  margin-top: 20px;
+  padding-top: 5px;
+  border-top: 1px solid #03a0ce;
+  display: flex;
+}
+.cwWorkflow .formValid input:disabled {
+  background-color: gray;
+  border: 1px solid gray;
+  cursor: not-allowed;
+}

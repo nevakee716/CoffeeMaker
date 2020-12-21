@@ -93,6 +93,7 @@
       if (this.config.tableComplexeEnhanced === undefined) this.config.tableComplexeEnhanced = {};
       if (this.config.diagram === undefined) this.config.diagram = {};
       if (this.config.property === undefined) this.config.property = {};
+      // if (this.config.cwWorkflow === undefined) this.config.cwWorkflow = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };
@@ -177,6 +178,7 @@
             $scope.ng = {};
             $scope.ng.config = self.config[t.dataset.id];
             self.config[t.dataset.id] = $scope.ng.config;
+            $scope.ng.config.extended = true;
             $scope.gConfig = self.config;
             $scope.cwApi = cwApi;
             $scope.lang = cwApi.getSelectedLanguage();
@@ -244,25 +246,37 @@
                 else c.selected = false;
               });
             };
-
+            $scope.getSortPropFromOT = function (ot) {
+              let r = [];
+              for (let p in ot.properties) {
+                if (ot.properties.hasOwnProperty(p)) {
+                  r.push(ot.properties[p]);
+                }
+              }
+              r.sort(function (pa, pb) {
+                return pa.name.localeCompare(pb.name);
+              });
+              return r;
+            };
             $scope.reOrderSlides = function () {
               $scope.ng.config.columns.sort(function (a, b) {
                 return a.order - b.order;
               });
             };
+
+            $scope.OTs = [];
+            $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
+            for (let o in $scope.objectTypes) {
+              if ($scope.objectTypes.hasOwnProperty(o) && !$scope.objectTypes[o].properties.hasOwnProperty("allowautomaticdeletion")) {
+                $scope.OTs.push($scope.objectTypes[o]);
+              }
+            }
+
             if (self["controller_" + t.dataset.id] && $scope.ng.config) self["controller_" + t.dataset.id]($container, templatePath, $scope);
           });
         });
       }
     });
-  };
-
-  cwCoffeeMaker.prototype.controller_homePage = function ($container, templatePath, $scope) {
-    var objectpages = [];
-    let config = $scope.config;
-    $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
-
-    return;
   };
 
   cwCoffeeMaker.prototype.unselectTabs = function (tabs) {

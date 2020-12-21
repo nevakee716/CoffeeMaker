@@ -1,0 +1,16 @@
+<div class="label">{{stepConfiguration.label}} :&nbsp;</div>
+<select
+  ng-if="stepConfiguration.type == 'cw_user'"
+  ng-disabled="stepConfiguration.readOnly"
+  ng-required="stepConfiguration.mandatory"
+  ng-model="ng.stepmapping[stepConfiguration.stepName]"
+  data-width="150px"
+  data-live-search="true"
+  id="{{'cwuser_' + $index}}"
+  ng-init="bootstrapFilter('cwuser_' + $index,ng.stepmapping[stepConfiguration.stepName],getStepValue(stepConfiguration))"
+>
+  <option value=""></option>
+  <option ng-selected="cwUser.object_id == getStepValue(stepConfiguration)" value="{{cwUser.object_id}}" ng-repeat="cwUser in ng.cwUsers">
+    {{cwUser.name}}
+  </option>
+</select>

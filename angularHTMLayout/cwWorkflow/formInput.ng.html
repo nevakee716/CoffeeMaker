@@ -1,0 +1,16 @@
+<div
+  ng-init="initValue(formInput)"
+  class="input bootstrap-iso"
+  ng-include
+  ng-if="formInput.type  == 'property'"
+  ng-class="{memoInput :getPropertyDataType(ng.objectType, formInput.scriptname)==='memo'}"
+  src="'../../common/html/cwWorkflow/propertyInput.ng.html'"
+></div>
+<div class="message" ng-if="formInput.type == 'message'">{{formInput.message}}</div>
+<div
+  class="input bootstrap-iso"
+  ng-init="getView(formInput)"
+  ng-include
+  ng-if="formInput.type == 'evolveViewItemList'"
+  src="'../../common/html/cwWorkflow/evolveViewList.ng.html'"
+></div>

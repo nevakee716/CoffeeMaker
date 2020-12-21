@@ -318,3 +318,6 @@
 .CoffeeMaker div.row div.row-cell-value.row-cell-max-width .filter-wrapper .drillDownSubtitle th {
   text-align: start;
 }
+.CoffeeMaker .workFlowNetwork {
+  height: 500px;
+}

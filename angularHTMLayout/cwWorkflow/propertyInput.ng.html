@@ -1,0 +1,68 @@
+<div class="label">{{getPropertyName(formInput.scriptname)}} :&nbsp;</div>
+<span class="value" ng-if="formInput.value && formInput.readOnly && getPropertyDataType(ng.objectType, formInput.scriptname) !=='lookup'">
+  {{ng.changeset.properties[formInput.scriptname]}}
+</span>
+<span class="value" ng-if="formInput.value && formInput.readOnly && getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup' ">
+  {{getLookupLabel(ng.objectType.properties[formInput.scriptname],ng.changeset.properties[formInput.scriptname])}}
+</span>
+<input
+  class="value"
+  ng-readonly="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  class="largeCell"
+  ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='text'"
+/>
+<input
+  class="value"
+  ng-readonly="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  ng-model="ng.changeset.properties[formInput.scriptname]"
+  type="checkbox"
+  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='checkbox'"
+/>
+<textarea
+  class="value"
+  ng-readonly="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='memo'"
+></textarea>
+
+<input
+  ng-readonly="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  ng-model="ng.changeset.properties[formInput.scriptname]"
+  type="date"
+  class="value"
+  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='date'"
+/>
+<input
+  ng-readonly="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  ng-model="ng.changeset.properties[formInput.scriptname]"
+  type="number"
+  class="value"
+  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='number'"
+/>
+
+<select
+  ng-disabled="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  ng-model="ng.changeset.properties[formInput.scriptname]"
+  data-width="400px"
+  data-live-search="true"
+  class="bootstrap-iso value"
+  id="{{'lookupFilter_' + $index}}"
+  ng-init="bootstrapFilter('lookupFilter_' + $index,ng.changeset.properties[formInput.scriptname])"
+  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
+>
+  <option value=""></option>
+  <option
+    ng-selected="lookup.id === ng.changeset.properties[formInput.scriptname]"
+    value="{{lookup.id}}"
+    ng-repeat="lookup in ng.objectType.properties[formInput.scriptname].lookups"
+  >
+    {{lookup.name}}
+  </option>
+</select>

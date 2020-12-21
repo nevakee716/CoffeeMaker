@@ -16,15 +16,9 @@
   cwCoffeeMaker.prototype.controller_property = function ($container, templatePath, $scope) {
     console.log("property controller");
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
-    $scope.OTs = [];
+
     $scope.focused = -1;
     if (!$scope.ng.config.hardcoded) $scope.ng.config.hardcoded = [];
-
-    for (let o in $scope.objectTypes) {
-      if ($scope.objectTypes.hasOwnProperty(o) && !$scope.objectTypes[o].properties.hasOwnProperty("allowautomaticdeletion")) {
-        $scope.OTs.push($scope.objectTypes[o]);
-      }
-    }
 
     $scope.getProperties = function (types) {
       let result = [];

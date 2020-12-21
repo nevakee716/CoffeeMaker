@@ -1,0 +1,86 @@
+@import "../../_variables";
+@import "../../_mixins";
+@import "../../_common";
+
+.cwWorkflow {
+  display: flex;
+  flex-wrap: wrap;
+
+  .input.memoInput {
+    align-items: flex-start;
+  }
+  .input {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    .label {
+      max-width: 400px;
+      vertical-align: top;
+      font-size: large;
+      font-weight: 700;
+      color: @cwJVectorMapPathFilledBackgroundColor;
+    }
+    .value {
+      font-size: large;
+    }
+    textarea.value,
+    input.value {
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border: 1px solid #cccccc;
+      height: 30px;
+    }
+    textarea.value {
+      height: 65px;
+    }
+  }
+  .documentAttach {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    .label {
+      max-width: 400px;
+      vertical-align: top;
+      font-size: large;
+      font-weight: 700;
+      color: @cwJVectorMapPathFilledBackgroundColor;
+    }
+    .fa.fa-plus {
+      color: @cwColor1;
+    }
+    table {
+      max-width: 500px;
+    }
+  }
+  .message {
+    margin-top: 2px;
+    margin-left: 30px;
+  }
+  .buttonLarge {
+    max-width: 200px;
+    margin: 2px;
+    background-color: @cwColor1;
+    color: #ffffff;
+    border: 1px solid @cwColor1;
+    padding: 8px;
+    box-shadow: 1px 1px 1px #bdbdbd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .formValid {
+    margin-top: 20px;
+    padding-top: 5px;
+    border-top: 1px solid @cwColor1;
+    display: flex;
+    input:disabled {
+      background-color: gray;
+      border: 1px solid gray;
+      cursor: not-allowed;
+    }
+  }
+}

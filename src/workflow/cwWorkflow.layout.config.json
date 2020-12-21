@@ -1,0 +1,20 @@
+{
+  "Name": "cw-workflow",
+  "DisplayName": "Workflow",
+  "Description": "Allow have a workflow with different steps",
+  "JavaScriptClassName": "cwWorkflow",
+  "Options": [
+    {
+      "Id": "login",
+      "DisplayName": "Login",
+      "Description": "Login",
+      "Type": 0
+    },
+    {
+      "Id": "password",
+      "DisplayName": "Password",
+      "Description": "Password",
+      "Type": 0
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+<div class="remove-operation">
+  <a class="btn-remove btn page-action no-text" data-id="{{display.Id}}" title="{{$root.i18n('label_remove_step')}}" ng-click="removeStep(sce,istep)"
+    ><i class="fa fa-trash-o" aria-hidden="true"></i
+  ></a>
+</div>
+<div class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('name')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input ng-model="step.label" /></div>
+</div>
+<div class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input ng-change="reOrderSteps(sce)" type="number" ng-model="step.order" /></div>
+</div>
+
+<div ng-click="step.extFormInput = !step.extFormInput" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  <i ng-if="step.extFormInput === true" class="fa fa-angle-down" aria-hidden="true"></i>
+  <i ng-if="!step.extFormInput" class="fa fa-angle-right" aria-hidden="true"></i>
+  <span class="homePage_display_title"> {{$root.i18n('form_input')}} </span>
+</div>
+<div ng-if="step.extFormInput === true">
+  <div class="tabs">
+    <div
+      ng-repeat="(i, input) in step.formInput"
+      ng-class="{active: input.selected == true}"
+      class="tab-link tab-{{input.Id}}"
+      ng-click="selectFormInput(step,i)"
+      data-id="{{input.Id}}"
+    >
+      {{input.label}}
+    </div>
+    <div class="add-tab-link">
+      <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_form_input')}}" ng-click="addFormInput(step)"
+        ><i class="fa fa-plus" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+  <div
+    class="tabContent"
+    ng-include
+    src="'../../common/html/coffee/cwWorkflow_formInput.ng.html'"
+    ng-if="input.selected"
+    ng-repeat="(iInput, input) in step.formInput"
+  ></div>
+</div>
+
+<div ng-click="step.extStepSettings = !step.extStepSettings" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  <i ng-if="step.extStepSettings === true" class="fa fa-angle-down" aria-hidden="true"></i>
+  <i ng-if="!step.extStepSettings" class="fa fa-angle-right" aria-hidden="true"></i>
+  <span class="homePage_display_title"> {{$root.i18n('step_settings')}} </span>
+</div>
+<div ng-if="step.extStepSettings === true">
+  <div class="tabs">
+    <div
+      ng-repeat="(i, stepSetting) in step.stepsSettings"
+      ng-class="{active: stepSetting.selected == true}"
+      class="tab-link tab-{{stepSetting.Id}}"
+      ng-click="selectStepSetting(step,i)"
+      data-id="{{stepSetting.Id}}"
+    >
+      {{stepSetting.label}}
+    </div>
+    <div class="add-tab-link">
+      <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_step_setting')}}" ng-click="addStepsSettings(step)"
+        ><i class="fa fa-plus" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+  <div
+    class="tabContent"
+    ng-include
+    src="'../../common/html/coffee/cwWorkflow_stepsSettings.ng.html'"
+    ng-if="stepSetting.selected"
+    ng-repeat="(iStepSetting, stepSetting) in step.stepsSettings"
+  ></div>
+</div>
+
+<div ng-click="step.extNextStep = !step.extNextStep" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  <i ng-if="step.extNextStep === true" class="fa fa-angle-down" aria-hidden="true"></i>
+  <i ng-if="!step.extNextStep" class="fa fa-angle-right" aria-hidden="true"></i>
+  <span class="homePage_display_title"> {{$root.i18n('next_step')}} </span>
+</div>
+<div ng-if="step.extNextStep === true">
+  <div class="tabs">
+    <div
+      ng-repeat="(i, nStep) in step.nextStep"
+      ng-class="{active: nStep.selected == true}"
+      class="tab-link tab-{{nStep.Id}}"
+      ng-click="selectNextStep(step,i)"
+      data-id="{{nStep.Id}}"
+    >
+      {{nStep.label}}
+    </div>
+    <div class="add-tab-link">
+      <a class="btn-add-operation btn page-action no-text" title="{{$root.i18n('add_step_setting')}}" ng-click="addNextStep(step)"
+        ><i class="fa fa-plus" aria-hidden="true"></i
+      ></a>
+    </div>
+  </div>
+  <div
+    class="tabContent"
+    ng-include
+    src="'../../common/html/coffee/cwWorkflow_nextStep.ng.html'"
+    ng-if="nStep.selected"
+    ng-repeat="(inStep, nStep) in step.nextStep"
+  ></div>
+</div>

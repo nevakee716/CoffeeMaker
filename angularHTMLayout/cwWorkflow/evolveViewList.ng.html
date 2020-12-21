@@ -1,0 +1,22 @@
+<div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
+
+<select
+  ng-disabled="formInput.readOnly"
+  ng-required="formInput.mandatory"
+  ng-model="formInput.selectedId"
+  data-width="400px"
+  data-live-search="true"
+  id="{{'evolveFilterView_' + $index}}"
+  ng-if="formInput.loaded"
+  ng-init="bootstrapFilter('evolveFilterView_' + $index)"
+  ng-change="setProperty(formInput)"
+>
+  <option value=""></option>
+  <option
+    value="{{$index}}"
+    ng-init="initValueEvolveViewOption('evolveFilterView_' + formInput.index,formInput.selectedId,object,$index)"
+    ng-repeat="object in formInput.objects"
+  >
+    {{object.name}}
+  </option>
+</select>

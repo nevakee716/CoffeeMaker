@@ -1,0 +1,38 @@
+<div class="label">Attachment :</div>
+<table class="value">
+  <tr ng-repeat="document in ng.documents">
+    <td>
+      <i ng-if="document.status == 'new'" class="fa fa-plus" aria-hidden="true"></i>
+      <a ng-if="document.status !== 'deleted'" target="_blank" href="{{document.url}}">{{document.name}}</a>
+      <del ng-if="document.status === 'deleted'">
+        <a target="_blank" href="{{document.url}}">{{document.name}}</a>
+      </del>
+    </td>
+
+    <td>
+      <a ng-if="document.status !== 'deleted'" class="btn page-action no-text" ng-click="deleteDocument($index)"
+        ><i class="fa fa-trash" aria-hidden="true"></i
+      ></a>
+      <a ng-if="document.status === 'deleted'" class="btn page-action no-text" ng-click="restoreDocument($index)"
+        ><i class="fa fa-recycle" aria-hidden="true"></i
+      ></a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="buttonLarge">
+        <label for="document-input"><i class="attach-doc fa fa-paperclip fa-2x" aria-hidden="true"></i> Select Document(s) to Attach</label>
+        <input
+          class="cw-hidden"
+          ng-change="addDocument(ng.documentation)"
+          type="file"
+          multiple
+          base-sixty-four-input
+          ng-model="ng.documentation"
+          type="file"
+          id="document-input"
+        />
+      </div>
+    </td>
+  </tr>
+</table>
