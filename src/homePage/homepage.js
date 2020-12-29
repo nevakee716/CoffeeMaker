@@ -203,7 +203,7 @@
           if (!o) return;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
           let containsItems = schema.RootNodesId.some(function (nId) {
-            return o[nId] && o[nId].length > 1;
+            return o[nId] && o[nId].length > 0;
           });
           if (!containsItems && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
             display.html = $scope.getEmptyZoneFromDisplay(display);
