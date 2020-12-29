@@ -444,9 +444,22 @@
         },
       },
     };
-    this.objectTypeScriptName = this.options.CustomOptions["objecttypescriptname"];
+    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+      configuration = cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow");
+    } else return;
+
+    this.objectTypeScriptName = this.options.CustomOptions["objecttypescriptname"]
+      ? this.options.CustomOptions["objecttypescriptname"]
+      : "actionrequest";
     this.scenario = this.options.CustomOptions["scenario"] ? this.options.CustomOptions["scenario"] : "adhoc";
-    this.configuration = configuration[this.objectTypeScriptName][this.scenario];
+    if (
+      configuration &&
+      configuration.objectTypes &&
+      configuration.objectTypes[this.objectTypeScriptName] &&
+      configuration.objectTypes[this.objectTypeScriptName].scenarios
+    ) {
+      this.configuration = configuration.objectTypes[this.objectTypeScriptName].scenarios[0];
+    }
   };
 
   cwLayout.prototype.getTemplatePath = function (folder, templateName) {
