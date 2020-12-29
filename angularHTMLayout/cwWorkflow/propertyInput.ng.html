@@ -61,6 +61,7 @@
   <option
     ng-selected="lookup.id === ng.changeset.properties[formInput.scriptname]"
     value="{{lookup.id}}"
+    ng-if="!formInput.inactiveLookups || formInput.inactiveLookups[lookup.id] !== true"
     ng-repeat="lookup in ng.objectType.properties[formInput.scriptname].lookups"
   >
     {{lookup.name}}
