@@ -46,9 +46,12 @@
     };
 
     cwAPI.siteLoadingPageStart();
-
+    //clean the SOAP request
+    while (strRequest.indexOf("&") !== -1) {
+      strRequest = strRequest.replace(/&/, "amp;");
+    }
     //send the SOAP request
-    xmlhttp.send(strRequest.replace(/&/, "amp;"));
+    xmlhttp.send(strRequest);
   };
 
   cwLayout.prototype.loadScopeRequestFunction = function ($scope) {
