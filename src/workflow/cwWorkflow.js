@@ -349,25 +349,26 @@
 
   cwLayout.prototype.applyJavaScript = function () {
     let self = this;
-    if (!cwAPI.isWebSocketConnected) cwApi.customLibs.utils.setupWebSocketForSocial(this.loadCWUsers().bind(this));
-    else this.loadCWUsers();
+    if (!cwAPI.isWebSocketConnected) cwApi.customLibs.utils.setupWebSocketForSocial(this.loadLibs().bind(this));
+    else this.loadLibs();
   };
 
-  cwLayout.prototype.loadCWUsers = function () {
+  cwLayout.prototype.loadLibs = function () {
     let self = this;
-    let query = {
-      ObjectTypeScriptName: "CW_USER",
-      PropertiesToLoad: ["name", "id"],
-      Where: [],
-    };
-    cwApi.CwDataServicesApi.send("flatQuery", query, function (err, res) {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      self.cwUsers = res;
+
+    if (cwAPI.isDebugMode() === true) {
       self.load();
-    });
+    } else {
+      libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
+      // AsyncLoad
+      cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
+        if (error === null) {
+          self.load();
+        } else {
+          cwAPI.Log.Error(error);
+        }
+      });
+    }
   };
 
   cwApi.cwLayouts.cwWorkflow = cwLayout;
