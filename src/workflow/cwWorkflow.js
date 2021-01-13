@@ -151,9 +151,12 @@
           return cwApi.mm.getProperty(self.objectTypeScriptName, propertyScriptname).name;
         };
         $scope.checkFilter = function (formInput) {
-          if (formInput.hasOwnProperty("filter")) {
+          if (formInput.hasOwnProperty("filters") && formInput.filters.length && formInput.filters.length > 0) {
             let cwFilter = new cwApi.customLibs.utils.cwFilter();
-            cwFilter.init(formInput.filter);
+            formInput.filters.forEach(function (filter) {
+              filter.Asset = filter.scriptname;
+            });
+            cwFilter.init(formInput.filters);
             $scope.ng.changeset.objectTypeScriptName = $scope.ng.changeset.objectTypeScriptname;
             return cwFilter.isMatching($scope.ng.changeset);
           }
