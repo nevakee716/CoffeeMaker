@@ -17,7 +17,7 @@
     let config = $scope.ng.config;
     if (!config.objectTypes) config.objectTypes = {};
 
-    $scope.formInputType = ["property", "evolveViewItemList", "objectType", "message"];
+    $scope.formInputType = ["property", "objectType", "message"]; // "evolveViewItemList",
     $scope.indexpages = [];
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {
@@ -80,6 +80,12 @@
       if (sce.steps === undefined) sce.steps = [];
       sce.steps.push({ label: "Step " + sce.steps.length, order: sce.steps.length });
       $scope.selectStep(sce, sce.steps.length - 1);
+    };
+
+    $scope.duplicateStep = function (sce, step) {
+      let s = JSON.parse(angular.toJson(step));
+      s.label = s.label + cwApi.getRandomNumber();
+      sce.steps.push(s);
     };
 
     $scope.removeStep = function (sce, i) {
@@ -183,6 +189,22 @@
     };
 
     $scope.createNetwork = function (sce) {
+      if (cwAPI.isDebugMode() === true) {
+        $scope.buildNetwork(sce);
+      } else {
+        libToLoad = ["modules/vis/vis.min.js"];
+        // AsyncLoad
+        cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
+          if (error === null) {
+            $scope.buildNetwork(sce);
+          } else {
+            cwAPI.Log.Error(error);
+          }
+        });
+      }
+    };
+
+    $scope.buildNetwork = function (sce) {
       var a = setInterval(function () {
         var networkContainer = document.getElementById("network_" + sce.label);
         if (!networkContainer) return;
@@ -224,5 +246,6 @@
     };
     return;
   };
+
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;
 })(cwAPI, jQuery);

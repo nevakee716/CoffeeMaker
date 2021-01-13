@@ -1,7 +1,15 @@
 <div class="remove-operation">
-  <a class="btn-remove btn page-action no-text" data-id="{{display.Id}}" title="{{$root.i18n('label_remove_step')}}" ng-click="removeStep(sce,istep)"
-    ><i class="fa fa-trash-o" aria-hidden="true"></i
-  ></a>
+  <a
+    class="btn-remove btn page-action no-text"
+    data-id="{{display.Id}}"
+    title="{{$root.i18n('label_remove_step')}}"
+    ng-click="duplicateStep(sce,step)"
+  >
+    <i class="fa fa-clone" aria-hidden="true"></i>
+  </a>
+  <a class="btn-remove btn page-action no-text" data-id="{{display.Id}}" title="{{$root.i18n('label_remove_step')}}" ng-click="removeStep(sce,istep)">
+    <i class="fa fa-trash-o" aria-hidden="true"></i>
+  </a>
 </div>
 <div class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('name')}} :&nbsp;</div>

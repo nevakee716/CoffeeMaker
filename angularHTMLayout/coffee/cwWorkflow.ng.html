@@ -13,6 +13,15 @@
       ></select>
     </div>
   </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('cwrole_to_use_share_workflow')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <select ng-model="ng.config.cwRole">
+        <option value=""></option>
+        <option value="{{k}}" ng-selected="ng.config.cwRole === k" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById">{{v}}</option>
+      </select>
+    </div>
+  </div>
   <div ng-if="ng.selectedObjectTypeScriptname" class="tabs">
     <div
       ng-repeat="(i, sce) in ng.config.objectTypes[ng.selectedObjectTypeScriptname].scenarios"

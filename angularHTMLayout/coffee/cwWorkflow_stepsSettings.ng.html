@@ -35,6 +35,12 @@
   <div class="row-cell row-cell-value"><input type="checkbox" ng-model="stepSetting.mandatory" /></div>
 </div>
 <div class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('mapped_to_the_creator')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input type="checkbox" ng-model="stepSetting.creator" /></div>
+  </div>
+</div>
+<div ng-if="!stepSetting.creator" class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('cwrole')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
     <select ng-model="stepSetting.cwRole">

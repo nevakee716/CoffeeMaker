@@ -69,13 +69,17 @@
 <div ng-if="input.type === 'objectType'" class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('objectType')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
-    <select ng-model="ng.objectType" ng-options="o.scriptName as (o.name + ' (' + o.scriptName + ')')  for o in OTs | orderBy:'name'"></select>
+    <select ng-model="input.objectType">
+      <option ng-repeat="o in OTs  | orderBy:'name'" ng-selected="input.objectType === o.scriptName" value="{{o.scriptName}}">
+        {{o.name}} ({{o.scriptName}})
+      </option>
+    </select>
   </div>
 </div>
 <div ng-if="input.type === 'evolveViewItemList'" class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('evolveview')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
-    <select ng-model="ng.viewName" ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'"></select>
+    <select ng-model="input.viewName" ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'"></select>
   </div>
 </div>
 

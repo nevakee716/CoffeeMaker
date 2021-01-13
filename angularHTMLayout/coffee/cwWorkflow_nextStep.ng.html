@@ -30,6 +30,14 @@
   <div class="row-cell row-cell-label">{{$root.i18n('createObject')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input type="checkbox" ng-model="nStep.createObject" /></div>
 </div>
+<div ng-if="nStep.shareWorkflow || nStep.createObject" class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('shareWorkflow_notification_label')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input ng-model="nStep.notificationLabel" /></div>
+</div>
+<div ng-if="nStep.shareWorkflow || nStep.createObject" class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('shareWorkflow_notification_message')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input ng-model="nStep.notificationMessage" /></div>
+</div>
 
 <div class="bootstrap-iso row">
   <div class="row-cell row-cell-label">{{$root.i18n('label_filter')}} :</div>

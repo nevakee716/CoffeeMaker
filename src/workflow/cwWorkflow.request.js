@@ -48,10 +48,11 @@
     cwAPI.siteLoadingPageStart();
 
     //send the SOAP request
-    xmlhttp.send(strRequest);
+    xmlhttp.send(strRequest.replace(/&/, "amp;"));
   };
 
   cwLayout.prototype.loadScopeRequestFunction = function ($scope) {
+    var self = this;
     $scope.manageStepClick = function (step) {
       $scope.manageDocumentsBeforeSavingWI();
       $scope.ng.jsonObjects = {
@@ -62,7 +63,6 @@
           step: step.stepName,
           changeset: angular.toJson($scope.ng.changeset),
           name: $scope.ng.changeset.properties.name,
-          stepmapping: angular.toJson($scope.ng.stepmapping),
           documents: angular.toJson($scope.ng.documents),
           history: "{}",
         },
@@ -71,18 +71,31 @@
             {
               object_id: cwApi.currentUser.ID,
               iProperties: {
-                step: $scope.ng.currentStep.name,
-              },
-            },
-            {
-              object_id: $scope.ng.stepmapping[step.stepName],
-              iProperties: {
-                step: step.stepName,
+                step: $scope.ng.currentStep.label,
               },
             },
           ],
         },
       };
+
+      $scope.ng.currentStep.stepsSettings.forEach(function (stepSetting) {
+        if (stepSetting.creator === true && !$scope.ng.stepmapping.creator) {
+          $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwusercreatortocw_user = [
+            { object_id: cwApi.currentUser.ID, iProperties: {} },
+          ];
+          $scope.ng.stepmapping.creator = cwApi.currentUser.ID;
+        }
+      });
+      $scope.ng.jsonObjects.properties.stepmapping = angular.toJson($scope.ng.stepmapping);
+      Object.keys($scope.ng.stepmapping).forEach(function (k) {
+        $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role = [];
+        $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role.push({
+          object_id: $scope.ng.stepmapping[k],
+          iProperties: {
+            step: k,
+          },
+        });
+      });
 
       self.sendRequest(
         "CwCreateUpdateObjectWithDocs",
@@ -105,25 +118,36 @@
         function (response) {
           let id = $scope.parseObjectID(response);
           if (step.shareWorkflow) {
-            $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
-              cwApi.customLibs.utils.shareWorkflow(
-                $scope.ng.changeset.properties.name,
-                id,
-                "cwworkflowitem",
-                "Hello Can you check this request ?",
-                [cwWorkFlowItemRoleID],
-                "New Action Request",
-                window.location.origin + window.location.pathname + cwApi.getSingleViewHash("cwworkflowitem", id),
-                function () {
-                  window.location = "http://192.168.1.112/evolve/sites/sce/index.html#/lang=en";
-                }
-              );
+            let t = $scope.ng.currentStep.stepsSettings.some(function (stepSetting) {
+              if (stepSetting.creator === true && stepSetting.stepName === step.stepName) {
+                $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
+                  $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
+                });
+                return true;
+              }
             });
+            if (!t) $scope.triggerShareWorkflow(id, step);
           }
 
           if (step.createObject) {
             $scope.createFinalObject(step);
           }
+        }
+      );
+    };
+
+    $scope.triggerShareWorkflow = function (id, step, cw_role) {
+      cw_role = cw_role ? cw_role : $scope.ng.stepmapping[step.stepName];
+      cwApi.customLibs.utils.shareWorkflow(
+        $scope.ng.changeset.properties.name,
+        id,
+        "cwworkflowitem",
+        step.notificationMessage,
+        [cw_role],
+        step.notificationLabel,
+        window.location.origin + window.location.pathname + cwApi.getSingleViewHash("cwworkflowitem", id),
+        function () {
+          window.location = window.location.origin + window.location.pathname;
         }
       );
     };
@@ -141,14 +165,14 @@
         function (response) {
           let id = $scope.parseObjectID(response);
           if (step.shareWorkflow) {
-            $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
+            $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
               cwApi.customLibs.utils.shareWorkflow(
                 $scope.ng.changeset.properties.name,
                 id,
                 $scope.ng.changeset.objectTypeScriptName,
-                "Your object was Created",
-                [cwWorkFlowItemRoleID],
-                "Your Request for a new Object was validated, please follow this link to access it",
+                step.notificationMessage,
+                [self.cwWorkFlowItemRoleID],
+                step.notificationLabel,
                 window.location.origin + window.location.pathname + cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id),
                 function () {
                   window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
@@ -163,7 +187,7 @@
     $scope.associateUserToCwWorkflowRole = function (cwUserID, callback) {
       let jsonObject = {
         objectTypeScriptname: "cw_role",
-        object_id: cwWorkFlowItemRoleID,
+        object_id: self.cwWorkFlowItemRoleID,
         iProperties: {},
         properties: {
           name: "WorkFlow Role",

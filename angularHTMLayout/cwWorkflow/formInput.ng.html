@@ -14,3 +14,10 @@
   ng-if="formInput.type == 'evolveViewItemList'"
   src="'../../common/html/cwWorkflow/evolveViewList.ng.html'"
 ></div>
+<div
+  class="input bootstrap-iso"
+  ng-init="getObjectTypeList(formInput)"
+  ng-include
+  ng-if="formInput.type == 'objectType'"
+  src="'../../common/html/cwWorkflow/objectTypeInput.ng.html'"
+></div>

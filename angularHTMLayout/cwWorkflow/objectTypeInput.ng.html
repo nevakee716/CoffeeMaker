@@ -1,0 +1,24 @@
+<div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
+
+<input
+  ng-disabled="formInput.objects === undefined || formInput.readOnly || !formInput.objects || !formInput.objects.length === 0"
+  ng-required="formInput.mandatory"
+  ng-model="formInput.searchText"
+  id="{{'objectType_' + $index}}"
+  placeholder="Search"
+  ng-change="setFormFilter(formInput)"
+/>
+<i ng-if="formInput.objects === undefined" class="fa fa-circle-o-notch fa-spin"></i>
+<span ng-if="formInput.objects && formInput.objectsFiltered.length > 199"
+  >Too many result to display.... Please Reduce the scope by typing some text</span
+>
+<span ng-if="formInput.objectsFiltered.length === 0">No Result</span>
+<select
+  id="{{'objectTypeSelect_' + $index}}"
+  ng-if="formInput.objectsFiltered.length < 200 && formInput.objectsFiltered.length > 0"
+  ng-init="openDropDown('objectTypeSelect_' + $index)"
+  ng-model="formInput.selectedId"
+  ng-change="getPropertiesFromObjectList(formInput)"
+>
+  <option value="{{$index}}" ng-repeat="object in formInput.objectsFiltered">{{object.name}}</option>
+</select>

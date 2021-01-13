@@ -5,15 +5,15 @@
   "JavaScriptClassName": "cwWorkflow",
   "Options": [
     {
-      "Id": "login",
-      "DisplayName": "Login",
-      "Description": "Login",
+      "Id": "objecttypescriptname",
+      "DisplayName": "ObjectType Scriptname",
+      "Description": "ObjectType Scriptname",
       "Type": 0
     },
     {
-      "Id": "password",
-      "DisplayName": "Password",
-      "Description": "Password",
+      "Id": "scenario",
+      "DisplayName": "Scenario Name",
+      "Description": "Fill the scenario name that you configure in the custom layout configuration page",
       "Type": 0
     }
   ]
