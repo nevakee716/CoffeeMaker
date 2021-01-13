@@ -164,22 +164,21 @@
         ],
         function (response) {
           let id = $scope.parseObjectID(response);
-          if (step.shareWorkflow) {
-            $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
-              cwApi.customLibs.utils.shareWorkflow(
-                $scope.ng.changeset.properties.name,
-                id,
-                $scope.ng.changeset.objectTypeScriptName,
-                step.notificationMessage,
-                [self.cwWorkFlowItemRoleID],
-                step.notificationLabel,
-                window.location.origin + window.location.pathname + cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id),
-                function () {
-                  window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
-                }
-              );
-            });
-          }
+
+          $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
+            cwApi.customLibs.utils.shareWorkflow(
+              $scope.ng.changeset.properties.name,
+              id,
+              $scope.ng.changeset.objectTypeScriptName,
+              step.notificationMessage,
+              [self.cwWorkFlowItemRoleID],
+              step.notificationLabel,
+              window.location.origin + window.location.pathname + cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id),
+              function () {
+                window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
+              }
+            );
+          });
         }
       );
     };
