@@ -192,7 +192,7 @@
       if (cwAPI.isDebugMode() === true) {
         $scope.buildNetwork(sce);
       } else {
-        libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
+        var libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
         // AsyncLoad
         cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
           if (error === null) {
