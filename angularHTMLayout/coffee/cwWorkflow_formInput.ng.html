@@ -10,12 +10,12 @@
 
 <div class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('label')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value"><input ng-model="input.label" /></div>
+  <div class="row-cell row-cell-value"><input class="largeCell" ng-model="input.label" /></div>
 </div>
 
 <div class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value"><input ng-change="reOrderFormInput(step)" type="number" ng-model="input.order" /></div>
+  <div class="row-cell row-cell-value"><input class="largeCell" ng-change="reOrderFormInput(step)" type="number" ng-model="input.order" /></div>
 </div>
 <div class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('type')}} :&nbsp;</div>
@@ -89,7 +89,7 @@
 </div>
 <div ng-if="input.type != 'message'" class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('value')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value"><input ng-model="input.value" /></div>
+  <div class="row-cell row-cell-value"><input class="largeCell" ng-model="input.value" /></div>
 </div>
 <div ng-if="input.type === 'message'" class="bootstrap-iso row">
   <div class="row-cell row-cell-label">{{$root.i18n('message')}} :</div>
