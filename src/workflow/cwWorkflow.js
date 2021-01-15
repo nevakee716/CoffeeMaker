@@ -20,7 +20,7 @@
     this.options = options;
 
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
-      configuration = cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow");
+      configuration = JSON.parse(JSON.stringify(cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow")));
     } else return;
 
     this.objectTypeScriptName = this.options.CustomOptions["objecttypescriptname"]
@@ -176,7 +176,7 @@
         $scope.initValue = function (formInput) {
           if (!formInput.value) return;
           let result = formInput.value.toString();
-          let r = formInput.value.toString().match(/{(.*)}/);
+          let r = formInput.value.toString().match(/{(.*?)}/);
 
           while (r !== null) {
             let cds = r[1];
@@ -190,21 +190,35 @@
             }
             result = result.replace(r[0], v);
 
-            r = result.toString().match(/{(.*)}/);
+            r = result.toString().match(/{(.*?)}/);
           }
 
           result = result.replace("@currentDate", new Date().toLocaleDateString());
           result = result.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
+          result = result.replace("@currentTimeStamp", $scope.getTimeStamp());
 
           let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
           if (prop.type === "Lookup") {
             prop.lookups.forEach(function (l) {
-              if (l.value === result) result = l.id;
+              if (l.name === result) result = l.id;
             });
           }
           $scope.ng.changeset.properties[formInput.scriptname] = result;
           return result;
         };
+
+        $scope.getTimeStamp = function () {
+          let d = new Date();
+          return (
+            d.getFullYear() +
+            ("0" + (d.getMonth() + 1)).slice(-2) +
+            ("0" + d.getDate()).slice(-2) +
+            ("0" + d.getHours()).slice(-2) +
+            ("0" + d.getMinutes()).slice(-2) +
+            ("0" + d.getSeconds()).slice(-2)
+          );
+        };
+
         $scope.selectObjectInObjectTypeList = function ($index, object, formInput) {
           formInput.selectedIndex = $index;
           formInput.selectedId = object.object_id;

@@ -19,7 +19,10 @@
   <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input ng-change="reOrderSteps(sce)" type="number" ng-model="step.order" /></div>
 </div>
-
+<div class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('readOnlyDocument')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input type="checkbox" ng-model="step.readOnlyDocument" /></div>
+</div>
 <div ng-click="step.extFormInput = !step.extFormInput" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
   <i ng-if="step.extFormInput === true" class="fa fa-angle-down" aria-hidden="true"></i>
   <i ng-if="!step.extFormInput" class="fa fa-angle-right" aria-hidden="true"></i>

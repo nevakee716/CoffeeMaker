@@ -50,11 +50,8 @@
   ng-disabled="formInput.readOnly"
   ng-required="formInput.mandatory"
   ng-model="ng.changeset.properties[formInput.scriptname]"
-  data-width="400px"
-  data-live-search="true"
-  class="bootstrap-iso value"
+  class="value selectDropDownList"
   id="{{'lookupFilter_' + $index}}"
-  ng-init="bootstrapFilter('lookupFilter_' + $index,ng.changeset.properties[formInput.scriptname])"
   ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
 >
   <option value=""></option>
