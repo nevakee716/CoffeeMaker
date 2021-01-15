@@ -3,6 +3,8 @@
 /*global cwAPI, jQuery */
 (function (cwApi, $) {
   "use strict";
+  var userCST = "ADMIN";
+  var passwordCST = "";
   if (cwApi && cwApi.cwLayouts && cwApi.cwLayouts.cwWorkflow) {
     var cwLayout = cwApi.cwLayouts.cwWorkflow;
   } else {
@@ -104,8 +106,8 @@
         "CwCreateUpdateObjectWithDocs",
         [
           { key: "Connection", value: "" },
-          { key: "Username", value: "admin" },
-          { key: "Password", value: "" },
+          { key: "Username", value: userCST },
+          { key: "Password", value: passwordCST },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
           { key: "ObjectJsonStr", value: angular.toJson($scope.ng.jsonObjects) },
           { key: "SessionId", value: $scope.ng.sessionUuid },
@@ -160,8 +162,8 @@
         "CwCreateUpdateObject",
         [
           { key: "Connection", value: "" },
-          { key: "Username", value: "admin" },
-          { key: "Password", value: "" },
+          { key: "Username", value: userCST },
+          { key: "Password", value: passwordCST },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
           { key: "ObjectJsonStr", value: angular.toJson($scope.ng.changeset) },
         ],
@@ -206,8 +208,8 @@
         "CwCreateUpdateObject",
         [
           { key: "Connection", value: "" },
-          { key: "Username", value: "admin" },
-          { key: "Password", value: "" },
+          { key: "Username", value: userCST },
+          { key: "Password", value: passwordCST },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
           { key: "ObjectJsonStr", value: angular.toJson(jsonObject) },
         ],
