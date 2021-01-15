@@ -83,4 +83,87 @@
       cursor: not-allowed;
     }
   }
+  .searchList {
+    width: 400px;
+    height: 39px;
+    display: flex;
+    overflow-y: hidden;
+    flex-direction: column;
+
+    .searchText {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      input {
+        margin: 3px 0 2px 0;
+        padding: 5px;
+        border-radius: 2px;
+
+        outline: none;
+        height: 29px;
+        box-sizing: border-box;
+        font-size: 100%;
+        width: 380px;
+        border: 0px;
+        background-color: white;
+      }
+    }
+
+    .workFlowListObjectTypeResult,
+    .workFlowListObjectTypeMessage {
+      position: absolute;
+      width: 400px;
+      height: 39px;
+
+      z-index: 1;
+
+      .workFlowListObjectTypeResultSubList {
+        margin-top: 39px;
+        background-color: white;
+        border-right: solid 1px rgba(0, 0, 0, 0.2);
+        border-left: solid 1px rgba(0, 0, 0, 0.2);
+        border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+        border-bottom: solid 0px rgba(0, 0, 0, 0.2);
+        overflow-y: scroll;
+        height: 0px;
+        z-index: 1;
+        > div:hover {
+          background-color: @cwColor1;
+          color: #ffffff;
+        }
+        .selected {
+          background-color: @cwColor1;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+  .searchList:hover,
+  .searchList:focus,
+  .searchList:active,
+  .searchList:focus-within {
+    .searchText {
+      z-index: 99999;
+    }
+    .workFlowListObjectTypeMessage {
+      position: absolute;
+      z-index: 99990;
+      .workFlowListObjectTypeResultSubList {
+        z-index: 99999;
+        height: 59px;
+      }
+    }
+
+    .workFlowListObjectTypeResult {
+      position: absolute;
+      z-index: 99990;
+      .workFlowListObjectTypeResultSubList {
+        z-index: 99999;
+        height: 200px;
+      }
+      max-height: 200px;
+    }
+  }
 }

@@ -196,19 +196,25 @@
           result = result.replace("@currentDate", new Date().toLocaleDateString());
           result = result.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
 
+          let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
+          if (prop.type === "Lookup") {
+            prop.lookups.forEach(function (l) {
+              if (l.value === result) result = l.id;
+            });
+          }
           $scope.ng.changeset.properties[formInput.scriptname] = result;
           return result;
         };
+        $scope.selectObjectInObjectTypeList = function ($index, object, formInput) {
+          formInput.selectedIndex = $index;
+          formInput.selectedId = object.object_id;
+          formInput.searchText = object.name;
+          formInput.result = object.name;
+          $scope.getPropertiesFromObjectList(formInput, object);
+        };
 
-        $scope.getPropertiesFromObjectList = function (formInput) {
-          var url =
-            cwApi.getLiveServerURL() +
-            "page/" +
-            formInput.objectsFiltered[formInput.selectedId].objectTypeScriptName +
-            "/" +
-            formInput.objectsFiltered[formInput.selectedId].object_id +
-            "?" +
-            Math.random();
+        $scope.getPropertiesFromObjectList = function (formInput, object) {
+          var url = cwApi.getLiveServerURL() + "page/" + object.objectTypeScriptName + "/" + object.object_id + "?" + Math.random();
           $.getJSON(url, function (json) {
             $scope.ng.changeset.properties[formInput.scriptname] = json.object;
             $scope.refreshProperties();
@@ -269,16 +275,6 @@
               );
             });
           }
-        };
-
-        $scope.openDropDown = function (id) {
-          setTimeout(() => {
-            var element = document.getElementById(id);
-            var event;
-            event = document.createEvent("MouseEvents");
-            event.initMouseEvent("mousedown", true, true, window);
-            element.dispatchEvent(event);
-          }, 500);
         };
 
         $scope.initValueEvolveViewOption = function (filter_id, selectedId, object, index) {

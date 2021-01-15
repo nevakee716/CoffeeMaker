@@ -1,4 +1,3 @@
-/* CUSTOM VARIABLES */
 /* GLOBAL */
 /* LOGIN */
 /* DIAGRAM */
@@ -22,9 +21,9 @@
 /* TASKS & NOTIFICATIONS */
 /* GLOBAL SEARCH */
 /* TOP BAR */
+/* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
-/* DIAGRAM OVERLAY */
 .cwWorkflow {
   display: flex;
   flex-wrap: wrap;
@@ -105,4 +104,94 @@
   background-color: gray;
   border: 1px solid gray;
   cursor: not-allowed;
+}
+.cwWorkflow .searchList {
+  width: 400px;
+  height: 39px;
+  display: flex;
+  overflow-y: hidden;
+  flex-direction: column;
+}
+.cwWorkflow .searchList .searchText {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+.cwWorkflow .searchList .searchText input {
+  margin: 3px 0 2px 0;
+  padding: 5px;
+  border-radius: 2px;
+  outline: none;
+  height: 29px;
+  box-sizing: border-box;
+  font-size: 100%;
+  width: 380px;
+  border: 0px;
+  background-color: white;
+}
+.cwWorkflow .searchList .workFlowListObjectTypeResult,
+.cwWorkflow .searchList .workFlowListObjectTypeMessage {
+  position: absolute;
+  width: 400px;
+  height: 39px;
+  z-index: 1;
+}
+.cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
+  margin-top: 39px;
+  background-color: white;
+  border-right: solid 1px rgba(0, 0, 0, 0.2);
+  border-left: solid 1px rgba(0, 0, 0, 0.2);
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  border-bottom: solid 0px rgba(0, 0, 0, 0.2);
+  overflow-y: scroll;
+  height: 0px;
+  z-index: 1;
+}
+.cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList > div:hover,
+.cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList > div:hover {
+  background-color: #03a0ce;
+  color: #ffffff;
+}
+.cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList .selected,
+.cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList .selected {
+  background-color: #03a0ce;
+  color: #ffffff;
+}
+.cwWorkflow .searchList:hover .searchText,
+.cwWorkflow .searchList:focus .searchText,
+.cwWorkflow .searchList:active .searchText,
+.cwWorkflow .searchList:focus-within .searchText {
+  z-index: 99999;
+}
+.cwWorkflow .searchList:hover .workFlowListObjectTypeMessage,
+.cwWorkflow .searchList:focus .workFlowListObjectTypeMessage,
+.cwWorkflow .searchList:active .workFlowListObjectTypeMessage,
+.cwWorkflow .searchList:focus-within .workFlowListObjectTypeMessage {
+  position: absolute;
+  z-index: 99990;
+}
+.cwWorkflow .searchList:hover .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList:focus .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList:active .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList:focus-within .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
+  z-index: 99999;
+  height: 59px;
+}
+.cwWorkflow .searchList:hover .workFlowListObjectTypeResult,
+.cwWorkflow .searchList:focus .workFlowListObjectTypeResult,
+.cwWorkflow .searchList:active .workFlowListObjectTypeResult,
+.cwWorkflow .searchList:focus-within .workFlowListObjectTypeResult {
+  position: absolute;
+  z-index: 99990;
+  max-height: 200px;
+}
+.cwWorkflow .searchList:hover .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList:focus .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList:active .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
+.cwWorkflow .searchList:focus-within .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList {
+  z-index: 99999;
+  height: 200px;
 }
