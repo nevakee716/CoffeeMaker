@@ -1,0 +1,53 @@
+<div class="associationContainer">
+  <div class="searchContainer">
+    <div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
+    <div class="searchList">
+      <div class="searchText">
+        <input
+          ng-disabled="formInput.objects === undefined || formInput.readOnly || !formInput.objects || !formInput.objects.length === 0"
+          ng-required="formInput.mandatory"
+          ng-model="formInput.searchText"
+          id="{{'objectType_' + $index}}"
+          ng-change="setFormFilter(formInput)"
+        />
+        <div><i ng-if="formInput.objects === undefined" class="fa fa-circle-o-notch fa-spin"></i></div>
+      </div>
+      <div
+        ng-if="formInput.objects && (formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result) || formInput.objectsFiltered.length > 199)"
+        class="workFlowListObjectTypeMessage"
+      >
+        <div class="workFlowListObjectTypeResultSubList">
+          <span ng-if="formInput.objectsFiltered.length > 199">Too many result to display.... Please Reduce the scope by typing some text</span>
+          <span
+            ng-if="formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result)"
+          >
+            No Result
+          </span>
+        </div>
+      </div>
+      <div
+        ng-if="formInput.objects && formInput.objectsFiltered.length < 199 && formInput.objectsFiltered.length > 0 && (formInput.objectsFiltered.length !== 1 || formInput.objectsFiltered[0].name !== formInput.result )"
+        class="workFlowListObjectTypeResult"
+      >
+        <div id="{{'objectTypeSelect_' + $index}}" ng-model="formInput.selectedId" class="workFlowListObjectTypeResultSubList">
+          <div
+            ng-class="{selected: isInTheListOfAssociation(object.object_id,formInput)}"
+            ng-click="selectAssociationObjectInObjectTypeList($index,object,formInput)"
+            ng-repeat="object in formInput.objectsFiltered"
+          >
+            {{object.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="associationContainerResult">
+    <div
+      ng-if="ng.changeset.associations && ng.changeset.associations[formInput.association.toLowerCase()]"
+      ng-repeat="(id,o) in ng.changeset.associations[formInput.association.toLowerCase()]"
+    >
+      <i ng-click="removeAssociation(formInput,o)" class="fa fa-times" aria-hidden="true"></i>
+      <a target="_blank" href="{{cwApi.getSingleViewHash(cwApi.replaceSpecialCharacters(o.objectTypeScriptName),o.object_id)}}">{{o.name}}</a>
+    </div>
+  </div>
+</div>

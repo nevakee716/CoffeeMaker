@@ -17,7 +17,7 @@
     let config = $scope.ng.config;
     if (!config.objectTypes) config.objectTypes = {};
 
-    $scope.formInputType = ["property", "objectType", "message"]; // "evolveViewItemList",
+    $scope.formInputType = ["property", "objectType", "association", "message"]; // "evolveViewItemList",
     $scope.indexpages = [];
     for (let v in $scope.views) {
       if ($scope.views.hasOwnProperty(v)) {

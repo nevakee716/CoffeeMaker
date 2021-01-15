@@ -224,7 +224,45 @@
           formInput.selectedId = object.object_id;
           formInput.searchText = object.name;
           formInput.result = object.name;
+          $scope.ng.changeset.properties[formInput.scriptname] = object;
           $scope.getPropertiesFromObjectList(formInput, object);
+        };
+
+        $scope.selectAssociationObjectInObjectTypeList = function ($index, object, formInput) {
+          if (!formInput.selectedObjects) formInput.selectedObjects = {};
+          formInput.selectedObjects[object.object_id] = object;
+
+          formInput.result = object.name;
+          if (!$scope.ng.changeset.associations) $scope.ng.changeset.associations = {};
+          if (!$scope.ng.changeset.associations[formInput.association.toLowerCase()]) {
+            $scope.ng.changeset.associations[formInput.association.toLowerCase()] = [];
+          }
+
+          $scope.ng.changeset.associations[formInput.association.toLowerCase()].push({
+            object_id: object.object_id,
+            name: object.name,
+            objectTypeScriptName: object.objectTypeScriptName,
+            iProperties: {},
+          });
+        };
+
+        $scope.isInTheListOfAssociation = function (id, formInput) {
+          return (
+            $scope.ng.changeset.associations &&
+            $scope.ng.changeset.associations[formInput.association.toLowerCase()] &&
+            $scope.ng.changeset.associations[formInput.association.toLowerCase()].some(function (ao) {
+              return ao.object_id === id;
+            })
+          );
+        };
+
+        $scope.removeAssociation = function (formInput, object) {
+          $scope.ng.changeset.associations[formInput.association.toLowerCase()] = $scope.ng.changeset.associations[
+            formInput.association.toLowerCase()
+          ].filter(function (a) {
+            return a.object_id !== object.object_id;
+          });
+          delete formInput.selectedObjects[object.object_id];
         };
 
         $scope.getPropertiesFromObjectList = function (formInput, object) {
@@ -257,6 +295,33 @@
                   ? $scope.ng.changeset.properties[formInput.scriptname].object_id
                   : "";
 
+              $scope.$apply();
+            }
+          });
+        };
+
+        $scope.getAssociationList = function (formInput) {
+          /*
+          cwApi.CwRest.Diagram.getExistingObjects(
+            objName, //searchingString
+            currentSearchPage, //PageNumber
+            assoToLoad.targetObjectTypeScriptName, //objectType
+            null, //categoryId
+            function (isSuccess, results) {
+              if (isSuccess) {*/
+          let associationtype;
+          cwApi.mm.getObjectType(self.objectTypeScriptName).AssociationTypes.some(function (a) {
+            if (a.ScriptName === formInput.association) {
+              associationtype = a;
+              return true;
+            }
+            return false;
+          });
+          let tOt = associationtype.TargetObjectTypeScriptName.toLowerCase();
+          var url = cwApi.getLiveServerURL() + "page/" + tOt + "AllNames?" + cwAPI.getRandomNumber();
+          $.getJSON(url, function (json) {
+            if (json[tOt]) {
+              formInput.objects = json[tOt];
               $scope.$apply();
             }
           });

@@ -27,13 +27,7 @@
     ng-if="formInput.objects && formInput.objectsFiltered.length < 199 && formInput.objectsFiltered.length > 0 && (formInput.objectsFiltered.length !== 1 || formInput.objectsFiltered[0].name !== formInput.result )"
     class="workFlowListObjectTypeResult"
   >
-    <div
-      id="{{'objectTypeSelect_' + $index}}"
-      ng-init="openDropDown('objectTypeSelect_' + $index)"
-      ng-model="formInput.selectedId"
-      ng-change="getPropertiesFromObjectList(formInput)"
-      class="workFlowListObjectTypeResultSubList"
-    >
+    <div id="{{'objectTypeSelect_' + $index}}" class="workFlowListObjectTypeResultSubList">
       <div
         ng-class="{selected: formInput.selectedId === object.object_id}"
         ng-click="selectObjectInObjectTypeList($index,object,formInput)"

@@ -117,6 +117,23 @@
   border: 1px solid gray;
   cursor: not-allowed;
 }
+.cwWorkflow .searchContainer {
+  display: flex;
+  align-items: center;
+}
+.cwWorkflow .associationContainerResult {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.cwWorkflow .associationContainerResult > div {
+  width: 400px;
+}
+.cwWorkflow .associationContainerResult > div .fa {
+  color: red;
+  margin: 2px;
+  cursor: pointer;
+}
 .cwWorkflow .searchList {
   width: 400px;
   height: 39px;

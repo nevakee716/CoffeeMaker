@@ -76,6 +76,20 @@
     </select>
   </div>
 </div>
+<div ng-if="input.type === 'association'" class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('associationType')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <select ng-model="input.association">
+      <option
+        ng-repeat="a in cwApi.mm.getObjectType(ng.selectedObjectTypeScriptname).AssociationTypes | orderBy:'DisplayName'"
+        ng-selected="input.association === a.ScriptName"
+        value="{{a.ScriptName}}"
+      >
+        {{a.DisplayName}} ({{a.TargetObjectTypeScriptName}})
+      </option>
+    </select>
+  </div>
+</div>
 <div ng-if="input.type === 'evolveViewItemList'" class="rowFlex bootstrap-iso">
   <div class="row-cell row-cell-label">{{$root.i18n('evolveview')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
