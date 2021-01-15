@@ -1,9 +1,9 @@
 /*jslint browser:true*/
 /*global cwAPI, jQuery, cwTabManager*/
-(function(cwApi, $) {
+(function (cwApi, $) {
   "use strict";
 
-  cwApi.CwMandatoryValueChange.prototype.checkMandatoryValues = function() {
+  cwApi.CwMandatoryValueChange.prototype.checkMandatoryValues = function () {
     var config,
       view = cwAPI.getCurrentView();
     let globalConfig = cwAPI.customLibs.utils.getCustomLayoutConfiguration("checkEditModel");
@@ -13,14 +13,14 @@
       if (config) {
         this.modifyAutomaticProperty(config);
         this.checkNumberOfAssociation(config);
-        //this.checkUniqueProperties(config);
+        if (config.unicityView) this.checkUniqueProperties(config);
       }
     }
     this.checkMandatoryProperties();
     this.checkMandatoryAssociations();
   };
 
-  cwApi.CwMandatoryValueChange.prototype.modifyAutomaticProperty = function(config) {
+  cwApi.CwMandatoryValueChange.prototype.modifyAutomaticProperty = function (config) {
     var propertyScriptName;
     for (let s in this.sourceObject.properties) {
       if (this.sourceObject.properties.hasOwnProperty(s) && config[s] && config[s].automaticValue) {
@@ -29,7 +29,7 @@
     }
   };
 
-  cwApi.CwMandatoryValueChange.prototype.getDisplayString = function(cds) {
+  cwApi.CwMandatoryValueChange.prototype.getDisplayString = function (cds) {
     var assoCDSPart,
       pages = {},
       cdsP,
@@ -72,38 +72,45 @@
     return cds;
   };
 
-  cwApi.CwMandatoryValueChange.prototype.addEmptyMandatoryPropertiesToList = function(propertyValue, propertyType) {
+  cwApi.CwMandatoryValueChange.prototype.addEmptyMandatoryPropertiesToList = function (propertyValue, propertyType) {
     if (this.isPropertyEmpty(propertyValue, propertyType.type)) {
       this.emptyMandatoryProperties.push(propertyType.name + " : " + $.i18n.prop("checkeditmode_propertywihtoutvalue"));
     }
   };
 
-  cwApi.CwMandatoryValueChange.prototype.checkUniqueProperties = function(config) {
+  cwApi.CwMandatoryValueChange.prototype.checkUniqueProperties = function (config) {
     var pages = {},
       propertyScriptName,
       propertyType,
       sourceIsNotNull;
     if (this.pendingObject.mandatory === undefined) this.pendingObject.mandatory = {};
 
-    if (config.uniqueProperty) {
-      for (propertyScriptName in this.pendingObject.properties) {
-        if (this.pendingObject.properties.hasOwnProperty(propertyScriptName) && config.hasOwnProperty(propertyScriptName) && config[propertyScriptName].unique) {
-          propertyType = cwApi.mm.getProperty(this.objectTypeScriptName, propertyScriptName);
+    for (propertyScriptName in this.pendingObject.properties) {
+      if (
+        this.pendingObject.properties.hasOwnProperty(propertyScriptName) &&
+        config.hasOwnProperty(propertyScriptName) &&
+        config[propertyScriptName].unique
+      ) {
+        propertyType = cwApi.mm.getProperty(this.objectTypeScriptName, propertyScriptName);
 
-          if (this.checkPropertyUnicity(propertyScriptName, config.uniqueProperty[propertyScriptName], pages) === false) {
-            this.emptyMandatoryProperties.push(propertyType.name + " : " + $.i18n.prop("checkeditmode_notuniquevalue"));
-            this.pendingObject.mandatory[propertyScriptName] = true;
-          } else {
-            this.pendingObject.mandatory[propertyScriptName] = false;
-          }
+        if (this.checkPropertyUnicity(propertyScriptName, config.unicityView, pages) === false) {
+          this.emptyMandatoryProperties.push(propertyType.name + " : " + $.i18n.prop("checkeditmode_notuniquevalue"));
+          this.pendingObject.mandatory[propertyScriptName] = true;
+        } else {
+          this.pendingObject.mandatory[propertyScriptName] = false;
         }
       }
     }
   };
 
-  cwApi.CwMandatoryValueChange.prototype.getPropertyFromObjectPage = function(propertyScriptName, objectPage, pages, id) {
+  cwApi.CwMandatoryValueChange.prototype.getPropertyFromObjectPage = function (propertyScriptName, objectPage, pages, id) {
     function getQueryStringValue(key) {
-      return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+      return decodeURIComponent(
+        window.location.search.replace(
+          new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"),
+          "$1"
+        )
+      );
     }
 
     var o,
@@ -128,14 +135,20 @@
       } else return null;
     }
 
-    if (pages[objectPage][id].object && pages[objectPage][id].object.properties && pages[objectPage][id].object.properties[propertyScriptName]) return pages[objectPage][id].object.properties[propertyScriptName];
+    if (pages[objectPage][id].object && pages[objectPage][id].object.properties && pages[objectPage][id].object.properties[propertyScriptName])
+      return pages[objectPage][id].object.properties[propertyScriptName];
 
     return null;
   };
 
-  cwApi.CwMandatoryValueChange.prototype.checkPropertyUnicity = function(propertyScriptName, indexPage, pages, callback) {
+  cwApi.CwMandatoryValueChange.prototype.checkPropertyUnicity = function (propertyScriptName, indexPage, pages, callback) {
     function getQueryStringValue(key) {
-      return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+      return decodeURIComponent(
+        window.location.search.replace(
+          new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"),
+          "$1"
+        )
+      );
     }
 
     var o,
@@ -162,7 +175,9 @@
     for (n in pages[indexPage]) {
       if (pages[indexPage].hasOwnProperty(n)) {
         for (var i = 0; i < pages[indexPage][n].length; i++) {
-          if (this.pendingObject.properties[propertyScriptName].toLowerCase() === pages[indexPage][n][i].properties[propertyScriptName].toLowerCase()) {
+          if (
+            this.pendingObject.properties[propertyScriptName].toLowerCase() === pages[indexPage][n][i].properties[propertyScriptName].toLowerCase()
+          ) {
             if (pages[indexPage][n][i].object_id.toString() !== cwApi.cwPageManager.getQueryString().cwid) {
               return false;
             }
@@ -174,7 +189,7 @@
     return true;
   };
 
-  cwApi.CwMandatoryValueChange.prototype.checkNumberOfAssociation = function(config) {
+  cwApi.CwMandatoryValueChange.prototype.checkNumberOfAssociation = function (config) {
     var node, a, n, c, l;
     for (n in this.pendingObject.associations) {
       if (this.pendingObject.associations.hasOwnProperty(n) && config.hasOwnProperty(n)) {
@@ -193,10 +208,10 @@
     }
   };
 
-  cwApi.CwPendingChangeset.prototype.hasName = function() {
+  cwApi.CwPendingChangeset.prototype.hasName = function () {
     var self = this;
     if (this.objectName === "") {
-      this.propertyChanges.some(function(pc) {
+      this.propertyChanges.some(function (pc) {
         if (pc.propertyTypeScriptName === "NAME") {
           self.objectName = pc.pendingProperty.value;
           return true;
