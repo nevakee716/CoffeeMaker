@@ -178,7 +178,6 @@
             $scope.ng = {};
             $scope.ng.config = self.config[t.dataset.id];
             self.config[t.dataset.id] = $scope.ng.config;
-            $scope.ng.config.extended = true;
             $scope.gConfig = self.config;
             $scope.cwApi = cwApi;
             $scope.lang = cwApi.getSelectedLanguage();
