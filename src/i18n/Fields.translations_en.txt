@@ -172,3 +172,5 @@ cwrole = Cw Role
 message = Informative Message
 fakeScriptname = Scriptname to use in other property value
 cwWorkflow = Workflow
+readOnlyDocument = Document Section in ReadOnly
+cannotEditThisWorkflow = You don''t have the access right to edit this Workflow Item
