@@ -15,11 +15,11 @@
     class="workFlowListObjectTypeMessage"
   >
     <div class="workFlowListObjectTypeResultSubList">
-      <span ng-if="formInput.objectsFiltered.length > 199">Too many result to display.... Please Reduce the scope by typing some text</span>
+      <span ng-if="formInput.objectsFiltered.length > 199">{{$root.i18n('toManyResult')}}</span>
       <span
         ng-if="formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result)"
       >
-        No Result
+        {{$root.i18n('noResult')}}
       </span>
     </div>
   </div>
