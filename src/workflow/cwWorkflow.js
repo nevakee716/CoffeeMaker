@@ -44,7 +44,7 @@
 
   cwLayout.prototype.drawAssociations = function (output, associationTitleText, object) {
     output.push('<div class="cw-visible cwWorkflow" id="cwWorkflow' + this.nodeID + '"></div>');
-    this.object = object.associations[this.mmNode.NodeID][0];
+    this.object = object;
   };
 
   // sort by key
@@ -104,7 +104,9 @@
             "/" +
             doc.name;
         });
-
+        if (self.object.associations && self.object.associations[Object.keys(self.object.associations)]) {
+          self.task = self.object.associations[Object.keys(self.object.associations)][0];
+        }
         self.changeset = JSON.parse(self.cleanJSON(o.properties.changeset));
         self.stepmapping = JSON.parse(self.cleanJSON(o.properties.stepmapping));
       } else {
@@ -116,6 +118,7 @@
         self.documents = [];
         self.stepmapping = {};
         self.changeset = { objectTypeScriptname: self.objectTypeScriptName, iProperties: {}, properties: {}, associations: {} };
+        self.creation = true;
       }
       this.currentStep = this.getStep(this.step);
     } catch (e) {
@@ -147,6 +150,18 @@
         $scope.ng.stepmapping = self.stepmapping;
         $scope.ng.sessionUuid = null;
         $scope.ng.deletedDocument = [];
+
+        $scope.ng.canEdit = self.creation;
+        if (!self.creation && $scope.ng.stepmapping[$scope.ng.currentStep.label]) {
+          if (($scope.ng.stepmapping[$scope.ng.currentStep.label] ^ 0) === $scope.ng.stepmapping[$scope.ng.currentStep.label]) {
+            $scope.ng.canEdit = cwApi.currentUser.ID == $scope.ng.stepmapping[$scope.ng.currentStep.label];
+          } else {
+            $scope.ng.canEdit = cwApi.currentUser.RolesId.some(function (r) {
+              return $scope.ng.stepmapping[$scope.ng.currentStep.label] == r;
+            });
+          }
+        }
+
         $scope.getPropertyName = function (propertyScriptname) {
           return cwApi.mm.getProperty(self.objectTypeScriptName, propertyScriptname).name;
         };

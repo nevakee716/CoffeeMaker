@@ -1,0 +1,9 @@
+<ul stepped class="progress-indicator">
+  <li ng-repeat="step in ng.configuration.steps" ng-class="{active : step.label === ng.currentStep.label,completed:ng.history[step.label]}">
+    <span class="bubble"></span>
+    <i ng-if="step.label === ng.currentStep.label" class="indicator fa fa-caret-down" aria-hidden="true"></i>
+    {{step.label}}<br /><small ng-if="ng.history[step.label]"
+      >{{$root.i18n('wiCompletedBy')}} {{ng.history[step.label].user}} ({{ng.history[step.label].action}})</small
+    >
+  </li>
+</ul>

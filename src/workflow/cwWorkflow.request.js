@@ -69,7 +69,6 @@
           changeset: angular.toJson($scope.ng.changeset),
           name: $scope.ng.changeset.properties.name,
           documents: angular.toJson($scope.ng.documents),
-          history: "{}",
         },
         associations: {
           cwworkflowitemtoasso_cwworkflowitem_cw_usertocw_user: [
@@ -92,6 +91,13 @@
         }
       });
       $scope.ng.jsonObjects.properties.stepmapping = angular.toJson($scope.ng.stepmapping);
+
+      //fullfill history
+      $scope.ng.history[$scope.ng.currentStep.label] = {};
+      $scope.ng.history[$scope.ng.currentStep.label].user = cwApi.currentUser.FullName;
+      $scope.ng.history[$scope.ng.currentStep.label].action = step.label;
+      $scope.ng.jsonObjects.properties.history = angular.toJson($scope.ng.history);
+
       Object.keys($scope.ng.stepmapping).forEach(function (k) {
         $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role = [];
         $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role.push({
@@ -121,24 +127,45 @@
           },
         ],
         function (response) {
-          let id = $scope.parseObjectID(response);
-          if (step.shareWorkflow) {
-            let t = $scope.ng.currentStep.stepsSettings.some(function (stepSetting) {
-              if (stepSetting.creator === true && stepSetting.stepName === step.stepName) {
-                $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
-                  $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
-                });
-                return true;
-              }
-            });
-            if (!t) $scope.triggerShareWorkflow(id, step);
-          }
+          $scope.deleteRequest(function () {
+            let id = $scope.parseObjectID(response);
+            if (step.shareWorkflow) {
+              let t = $scope.ng.currentStep.stepsSettings.some(function (stepSetting) {
+                if (stepSetting.creator === true && stepSetting.stepName === step.stepName) {
+                  $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
+                    $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
+                  });
+                  return true;
+                }
+              });
+              if (!t) $scope.triggerShareWorkflow(id, step);
+            }
 
-          if (step.createObject) {
-            $scope.createFinalObject(step);
-          }
+            if (step.createObject) {
+              $scope.createFinalObject(step);
+            }
+          });
         }
       );
+    };
+
+    $scope.deleteRequest = function (callback) {
+      if (self.task) {
+        self.sendRequest(
+          "CwDeleteObject",
+          [
+            { key: "Connection", value: "" },
+            { key: "Username", value: userCST },
+            { key: "Password", value: passwordCST },
+            { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
+            { key: "ObjectTypeScriptName", value: "CW_TASK" },
+            { key: "ObjectId", value: self.task.object_id },
+          ],
+          function (response) {
+            callback();
+          }
+        );
+      } else callback();
     };
 
     $scope.triggerShareWorkflow = function (id, step, cw_role) {
@@ -152,7 +179,7 @@
         step.notificationLabel,
         window.location.origin + window.location.pathname + cwApi.getSingleViewHash("cwworkflowitem", id),
         function () {
-          window.location = window.location.origin + window.location.pathname;
+          if (!cwApi.isDebugMode()) window.location = window.location.origin + window.location.pathname;
         }
       );
     };
@@ -180,7 +207,7 @@
               step.notificationLabel,
               window.location.origin + window.location.pathname + cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id),
               function () {
-                window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
+                if (!cwApi.isDebugMode()) window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
               }
             );
           });
