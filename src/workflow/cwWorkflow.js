@@ -149,7 +149,19 @@
         $scope.ng.cwUsers = self.cwUsers;
         $scope.ng.stepmapping = self.stepmapping;
         $scope.ng.sessionUuid = null;
+        $scope.ng.scenario = self.scenario;
         $scope.ng.deletedDocument = [];
+        $scope.ng.otherUsers = "";
+        if (self.task && self.task.associations) {
+          let ou;
+          ou = self.task.associations[Object.keys(self.task.associations)[0]].filter(function (u) {
+            return u.object_id != cwApi.currentUser.ID && u.iProperties.read === true;
+          });
+          ou = ou.map(function (u) {
+            return u.name;
+          });
+          if (ou.length > 0) $scope.ng.otherUsers = " (" + $.i18n.prop("otherPeopleAreWorkingOn") + " : " + ou.join(",") + ")";
+        }
 
         $scope.ng.canEdit = self.creation;
         if (!self.creation && $scope.ng.stepmapping[$scope.ng.currentStep.label]) {

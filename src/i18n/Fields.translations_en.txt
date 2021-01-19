@@ -174,3 +174,4 @@ fakeScriptname = Scriptname to use in other property value
 cwWorkflow = Workflow
 readOnlyDocument = Document Section in ReadOnly
 cannotEditThisWorkflow = You don''t have the access right to edit this Workflow Item
+otherPeopleAreWorkingOn = Other People Are Working On This
