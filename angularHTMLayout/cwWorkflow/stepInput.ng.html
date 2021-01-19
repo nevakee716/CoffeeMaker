@@ -1,4 +1,4 @@
-<div class="label">{{stepConfiguration.label}} :&nbsp;</div>
+<div class="label">{{stepConfiguration.label}} : &nbsp;</div>
 <select
   ng-if="!stepConfiguration.creator"
   ng-disabled="stepConfiguration.readOnly"
@@ -13,4 +13,4 @@
   <option value="{{k}}" ng-selected="k == stepConfiguration.cwRole" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById">{{v}}</option>
 </select>
 <span class="value" ng-if="stepConfiguration.creator === true && !ng.stepmapping.creator"> {{cwApi.cwUser.GetCurrentUserFullName()}} </span>
-<span class="value" ng-if="stepConfiguration.creator === true && ng.stepmapping.creator"> {{ng.stepmapping.creator}} </span>
+<span class="value" ng-if="stepConfiguration.creator === true && ng.stepmapping.creator"> {{ng.history.creator}} </span>
