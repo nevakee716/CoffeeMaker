@@ -367,6 +367,8 @@
           $.getJSON(url, function (json) {
             if (json[formInput.objectType]) {
               formInput.objects = json[formInput.objectType];
+              if ($scope.ng.changeset.properties[formInput.scriptname])
+                formInput.searchText = $scope.ng.changeset.properties[formInput.scriptname].name;
               $scope.$apply();
             }
           });
