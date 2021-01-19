@@ -113,7 +113,7 @@
         //creation page
         self.step = self.configuration.steps[0].name;
         self.history = {
-          creator: cwAPI.cwUser.getCurrentUserItem().FullName,
+          creator: cwApi.currentUser.FullName,
         };
         self.documents = [];
         self.stepmapping = {};
