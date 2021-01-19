@@ -27,4 +27,5 @@
     </div>
   </form>
   <div ng-if="!ng.canEdit">{{$root.i18n('cannotEditThisWorkflow')}}</div>
+  <pre>{{ng.changeset|json}}</pre>
 </div>
