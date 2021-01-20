@@ -368,7 +368,9 @@
     o.push('<div class="cw-diagram-search">');
 
     o.push(
-      '<div class="cw-diagram-search-objectType"><span class="diagramSearchHeader">Objet Type : </span> <select class="HTML5searchFiler" id="',
+      '<div class="cw-diagram-search-objectType"><span class="diagramSearchHeader">',
+      $.i18n.prop("globalSearch_objectType"),
+      ' : </span> <select class="HTML5searchFiler" id="',
       diagramViewer.id,
       '-options-select">'
     );
