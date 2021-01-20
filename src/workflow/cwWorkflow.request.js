@@ -70,42 +70,56 @@
           name: $scope.ng.changeset.properties.name,
           documents: angular.toJson($scope.ng.documents),
         },
-        associations: {
-          cwworkflowitemtoasso_cwworkflowitem_cw_usertocw_user: [
-            {
-              object_id: cwApi.currentUser.ID,
-              iProperties: {
-                step: $scope.ng.currentStep.label,
-              },
-            },
-          ],
-        },
+        associations: {},
       };
-
-      $scope.ng.currentStep.stepsSettings.forEach(function (stepSetting) {
-        if (stepSetting.creator === true && !$scope.ng.stepmapping.creator) {
-          $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwusercreatortocw_user = [
-            { object_id: cwApi.currentUser.ID, iProperties: {} },
-          ];
-          $scope.ng.stepmapping.creator = cwApi.currentUser.ID;
-        }
-      });
-      $scope.ng.jsonObjects.properties.stepmapping = angular.toJson($scope.ng.stepmapping);
 
       //fullfill history
       $scope.ng.history[$scope.ng.currentStep.label] = {};
       $scope.ng.history[$scope.ng.currentStep.label].user = cwApi.currentUser.FullName;
+      $scope.ng.history[$scope.ng.currentStep.label].userID = cwApi.currentUser.ID;
       $scope.ng.history[$scope.ng.currentStep.label].action = step.label;
-      $scope.ng.jsonObjects.properties.history = angular.toJson($scope.ng.history);
+      $scope.ng.jsonObjects.properties.history = JSON.stringify(JSON.parse(angular.toJson($scope.ng.history)), undefined, 4);
 
+      // deduce association of user depending of the history
+      $scope.ng.jsonObjects.associations.cwworkflowitemtoasso_cwworkflowitem_cw_usertocw_user = [];
+      Object.keys($scope.ng.history).forEach(function (stepLabel) {
+        if ($scope.ng.history[stepLabel] && $scope.ng.history[stepLabel].user) {
+          $scope.ng.jsonObjects.associations.cwworkflowitemtoasso_cwworkflowitem_cw_usertocw_user.push({
+            object_id: $scope.ng.history[stepLabel].userID,
+            iProperties: {
+              step: stepLabel,
+            },
+          });
+        }
+      });
+
+      $scope.ng.currentStep.stepsSettings.forEach(function (stepSetting) {
+        if (stepSetting.creator === true) {
+          if (!$scope.ng.stepmapping.creator) {
+            //adding a creator if there isn't already one
+            $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwusercreatortocw_user = [
+              { object_id: cwApi.currentUser.ID, iProperties: {} },
+            ];
+            $scope.ng.stepmapping.creator = cwApi.currentUser.ID;
+          } else {
+            $scope.ng.stepmapping[stepSetting.stepName] = $scope.ng.stepmapping.creator;
+          }
+        }
+      });
+
+      $scope.ng.jsonObjects.properties.stepmapping = angular.toJson($scope.ng.stepmapping);
+
+      // mapping the role to the wi
+      $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role = [];
       Object.keys($scope.ng.stepmapping).forEach(function (k) {
-        $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role = [];
-        $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role.push({
-          object_id: $scope.ng.stepmapping[k],
-          iProperties: {
-            step: k,
-          },
-        });
+        if (($scope.ng.stepmapping[k] ^ 0) !== $scope.ng.stepmapping[k]) {
+          $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role.push({
+            object_id: $scope.ng.stepmapping[k],
+            iProperties: {
+              step: k,
+            },
+          });
+        }
       });
 
       self.sendRequest(
@@ -142,7 +156,7 @@
             }
 
             if (step.createObject) {
-              $scope.createFinalObject(step);
+              $scope.createFinalObject(step, id);
             }
           });
         }
@@ -184,7 +198,9 @@
       );
     };
 
-    $scope.createFinalObject = function (step) {
+    $scope.createFinalObject = function (step, id) {
+      $scope.ng.changeset.associations.anyobjecttoassocwworkflowitemtocwworkflowitem = [{ object_id: id, iProperties: {} }];
+
       self.sendRequest(
         "CwCreateUpdateObject",
         [
