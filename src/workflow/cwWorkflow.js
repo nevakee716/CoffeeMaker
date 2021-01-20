@@ -226,9 +226,14 @@
 
           let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
           if (prop.type === "Lookup") {
-            prop.lookups.forEach(function (l) {
-              if (l.name === result) result = l.id.toString();
+            let found = false;
+            found = prop.lookups.some(function (l) {
+              if (l.name === result) {
+                result = l.id.toString();
+                return true;
+              }
             });
+            if (!found) result = 0;
           }
           $scope.ng.changeset.properties[formInput.scriptname] = result;
           return result;
