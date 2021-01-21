@@ -36,7 +36,7 @@
 </div>
 <div ng-if="nStep.shareWorkflow || nStep.createObject" class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('shareWorkflow_notification_message')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value"><input ng-model="nStep.notificationMessage" /></div>
+  <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="nStep.notificationMessage"></textarea></div>
 </div>
 
 <div class="bootstrap-iso row">
