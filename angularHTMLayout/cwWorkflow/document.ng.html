@@ -9,7 +9,7 @@
       </del>
     </td>
 
-    <td ng-if="!stepConfiguration.readOnlyDocument">
+    <td ng-if="!ng.currentStep.readOnlyDocument">
       <a ng-if="document.status !== 'deleted'" class="btn page-action no-text" ng-click="deleteDocument($index)"
         ><i class="fa fa-trash" aria-hidden="true"></i
       ></a>
@@ -19,7 +19,7 @@
     </td>
   </tr>
   <tr>
-    <td ng-if="!stepConfiguration.readOnlyDocument">
+    <td ng-if="!ng.currentStep.readOnlyDocument">
       <div class="buttonLarge">
         <label for="document-input"><i class="attach-doc fa fa-paperclip fa-2x" aria-hidden="true"></i>{{$root.i18n('selectDocuments')}} </label>
         <input
