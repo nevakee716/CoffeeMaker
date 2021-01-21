@@ -180,3 +180,4 @@ toManyResult = Too many result to display.... Please Reduce the scope by typing 
 wiCompletedBy = Completed By
 selectDocuments = Select Document(s) to Attach
 otherPeopleAreWorkingOn = Other People Are Working On This
+document_property = Property for document list

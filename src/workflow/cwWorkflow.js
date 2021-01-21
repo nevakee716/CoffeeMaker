@@ -18,24 +18,10 @@
     let configuration;
     this.drawOneMethod = cwApi.cwLayouts.cwLayoutList.drawOne.bind(this);
     this.options = options;
+    var self = this;
 
-    if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
-      configuration = JSON.parse(JSON.stringify(cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow")));
-    } else return;
-
-    this.objectTypeScriptName = this.options.CustomOptions["objecttypescriptname"]
-      ? this.options.CustomOptions["objecttypescriptname"]
-      : "actionrequest";
-    this.scenario = this.options.CustomOptions["scenario"] ? this.options.CustomOptions["scenario"] : "adhoc";
-    if (
-      configuration &&
-      configuration.objectTypes &&
-      configuration.objectTypes[this.objectTypeScriptName] &&
-      configuration.objectTypes[this.objectTypeScriptName].scenarios
-    ) {
-      this.cwWorkFlowItemRoleID = configuration.cwRole;
-      this.configuration = configuration.objectTypes[this.objectTypeScriptName].scenarios[0];
-    }
+    this.objectTypeScriptName = this.options.CustomOptions["objecttypescriptname"];
+    this.scenario = this.options.CustomOptions["scenario"];
   };
 
   cwLayout.prototype.getTemplatePath = function (folder, templateName) {
@@ -84,25 +70,47 @@
     return window.location.origin + "/evolve/CWFileHandling/Sessions/" + uuid + "/" + filename;
   };
 
+  cwLayout.prototype.getDocumentPropertiesHTML = function () {
+    let output = this.documents.map(function (doc) {
+      return '<div><a target="_blank" href="' + doc.url + '">' + doc.name + "</a></div>";
+    });
+    return "<!DOCTYPE html><html><head></head><body><p>" + output.join("") + "</p></body></html>";
+  };
+
   cwLayout.prototype.load = function () {
     var self = this;
+    var configuration;
     try {
+      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+        configuration = JSON.parse(JSON.stringify(cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow")));
+      } else return;
+
       if (!cwApi.isIndexPage()) {
         let o = self.object;
+        self.objectTypeScriptName = o.properties.objecttypescriptname;
+        self.scenario = o.properties.scenario;
+        if (
+          configuration &&
+          configuration.objectTypes &&
+          configuration.objectTypes[this.objectTypeScriptName] &&
+          configuration.objectTypes[this.objectTypeScriptName].scenarios
+        ) {
+          this.cwWorkFlowItemRoleID = configuration.cwRole;
+
+          configuration.objectTypes[this.objectTypeScriptName].scenarios.some(function (s) {
+            if (s.label === self.scenario) {
+              self.configuration = s;
+              return true;
+            }
+          });
+        }
+
         self.step = o.properties.step;
         self.history = JSON.parse(self.cleanJSON(o.properties.history));
         self.documents = JSON.parse(self.cleanJSON(o.properties.documents));
         self.documents.forEach(function (doc) {
           doc.url =
-            window.origin +
-            "/evolve/cwfilehandling/documents/" +
-            cwApi.cwConfigs.ModelFilename +
-            "/" +
-            o.objectTypeScriptName +
-            "/" +
-            o.object_id +
-            "/" +
-            doc.name;
+            "/evolve/cwfilehandling/documents/" + cwApi.cwConfigs.ModelFilename + "/" + o.objectTypeScriptName + "/" + o.object_id + "/" + doc.name;
         });
         if (self.object.associations && self.object.associations[Object.keys(self.object.associations)]) {
           self.task = self.object.associations[Object.keys(self.object.associations)][0];
@@ -111,6 +119,22 @@
         self.stepmapping = JSON.parse(self.cleanJSON(o.properties.stepmapping));
       } else {
         //creation page
+        if (
+          configuration &&
+          configuration.objectTypes &&
+          configuration.objectTypes[this.objectTypeScriptName] &&
+          configuration.objectTypes[this.objectTypeScriptName].scenarios
+        ) {
+          this.cwWorkFlowItemRoleID = configuration.cwRole;
+
+          this.configuration = undefined;
+          configuration.objectTypes[this.objectTypeScriptName].scenarios.some(function (s) {
+            if (s.label === self.scenario) {
+              self.configuration = s;
+              return true;
+            }
+          });
+        }
         self.step = self.configuration.steps[0].name;
         self.history = {
           creator: cwApi.currentUser.FullName,
@@ -225,10 +249,17 @@
           result = result.replace("@currentTimeStamp", $scope.getTimeStamp());
 
           let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
+          // get the value if lookup
           if (prop.type === "Lookup") {
             let found = false;
             found = prop.lookups.some(function (l) {
+              //check the name
               if (l.name === result) {
+                result = l.id.toString();
+                return true;
+              }
+              //check the id
+              if (l.id == result) {
                 result = l.id.toString();
                 return true;
               }

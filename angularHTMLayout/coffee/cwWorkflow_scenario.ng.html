@@ -16,6 +16,16 @@
     <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input ng-change="reOrderScenarios()" type="number" ng-model="sce.order" /></div>
   </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('document_property')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <select ng-model="sce.docScriptname">
+        <option ng-selected="x.scriptName === sce.docScriptname" value="{{x.scriptName}}" ng-repeat="x in getSortPropFromOT(getWIObjectType())">
+          {{x.name}}
+        </option>
+      </select>
+    </div>
+  </div>
   <div ng-click="sce.extNework = !sce.extNework" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
     <i ng-if="sce.extNework === true" class="fa fa-angle-down" aria-hidden="true"></i>
     <i ng-if="!sce.extNework" class="fa fa-angle-right" aria-hidden="true"></i>

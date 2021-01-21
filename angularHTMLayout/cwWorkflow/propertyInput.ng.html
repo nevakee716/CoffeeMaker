@@ -61,6 +61,6 @@
     ng-if="!formInput.inactiveLookups || formInput.inactiveLookups[lookup.id] !== true"
     ng-repeat="lookup in ng.objectType.properties[formInput.scriptname].lookups"
   >
-    {{lookup.name}}
+    {{cwApi.updateUndefinedForLookupIfRequired(lookup.name) }}
   </option>
 </select>

@@ -32,7 +32,13 @@
       request +
       ' xmlns="http://HawkeyeQ.org/">';
     parameters.forEach(function (p) {
-      strRequest += "<" + p.key + ">" + p.value + "</" + p.key + ">";
+      var v = p.value;
+      if (v && v.indexOf) {
+        v = v.replaceAll(/&/, "&amp;");
+        v = v.replaceAll(/</, "&lt;");
+        v = v.replaceAll(/>/, "&gt;");
+      }
+      strRequest += "<" + p.key + ">" + v + "</" + p.key + ">";
     });
 
     strRequest += "</" + request + ">" + "</soap12:Body>" + "</soap12:Envelope>";
@@ -49,9 +55,7 @@
 
     cwAPI.siteLoadingPageStart();
     //clean the SOAP request
-    while (strRequest.indexOf("&") !== -1) {
-      strRequest = strRequest.replace(/&/, "amp;");
-    }
+
     //send the SOAP request
     xmlhttp.send(strRequest);
   };
@@ -69,6 +73,8 @@
           changeset: angular.toJson($scope.ng.changeset),
           name: $scope.ng.changeset.properties.name,
           documents: angular.toJson($scope.ng.documents),
+          scenario: self.scenario,
+          objecttypescriptname: self.objectTypeScriptName,
         },
         associations: {},
       };
@@ -201,6 +207,7 @@
     $scope.createFinalObject = function (step, id) {
       $scope.ng.changeset.associations.anyobjecttoassocwworkflowitemtocwworkflowitem = [{ object_id: id, iProperties: {} }];
 
+      $scope.ng.changeset.properties[$scope.ng.configuration.docScriptname] = self.getDocumentPropertiesHTML();
       self.sendRequest(
         "CwCreateUpdateObject",
         [

@@ -8,7 +8,7 @@
       src="'../../common/html/cwWorkflow/formInput.ng.html'"
       ng-repeat="formInput in ng.currentStep.formInput"
     ></div>
-    <div class="documentAttach" ng-include src="'../../common/html/cwWorkflow/document.ng.html'"></div>
+    <div ng-if="ng.configuration.docScriptname" class="documentAttach" ng-include src="'../../common/html/cwWorkflow/document.ng.html'"></div>
     <div
       class="input stepUser bootstrap-iso"
       ng-include
@@ -27,5 +27,4 @@
     </div>
   </form>
   <div ng-if="!ng.canEdit">{{$root.i18n('cannotEditThisWorkflow')}}</div>
-  <pre>{{ng.changeset|json}}</pre>
 </div>
