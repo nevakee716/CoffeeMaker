@@ -1,7 +1,7 @@
 <div ng-controller="workflow">
   <div ng-include src="'../../common/html/cwWorkflow/header.ng.html'"></div>
 
-  <form ng-if="ng.canEdit" name="workFlowItem">
+  <form ng-if="ng.canEdit || !ng.currentStep.nextStep || ng.currentStep.nextStep.length === 0" name="workFlowItem">
     <div
       ng-include
       ng-if="checkFilter(formInput)"
@@ -26,5 +26,6 @@
       />
     </div>
   </form>
-  <div ng-if="!ng.canEdit">{{$root.i18n('cannotEditThisWorkflow')}}</div>
+  <div ng-if="!ng.canEdit && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">{{$root.i18n('cannotEditThisWorkflow')}}</div>
 </div>
+<pre>{{ng.changeset|json}}</pre>

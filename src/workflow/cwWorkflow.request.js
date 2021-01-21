@@ -208,6 +208,7 @@
       $scope.ng.changeset.associations.anyobjecttoassocwworkflowitemtocwworkflowitem = [{ object_id: id, iProperties: {} }];
 
       $scope.ng.changeset.properties[$scope.ng.configuration.docScriptname] = self.getDocumentPropertiesHTML();
+      $scope.cleanDatePropInChangeSet();
       self.sendRequest(
         "CwCreateUpdateObject",
         [

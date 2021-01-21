@@ -243,12 +243,16 @@
 
             r = result.toString().match(/{(.*?)}/);
           }
-
-          result = result.replace("@currentDate", new Date().toLocaleDateString());
+          let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
+          // get the prop if Date
+          if (prop.type === "Date") {
+            result = result.replace("@currentDate", new Date().toISOString());
+          } else {
+            result = result.replace("@currentDate", new Date().toLocaleDateString());
+          }
           result = result.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
           result = result.replace("@currentTimeStamp", $scope.getTimeStamp());
 
-          let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
           // get the value if lookup
           if (prop.type === "Lookup") {
             let found = false;
@@ -281,7 +285,13 @@
             ("0" + d.getSeconds()).slice(-2)
           );
         };
-
+        $scope.cleanDatePropInChangeSet = function () {
+          Object.keys($scope.ng.changeset.properties).forEach(function (pScriptname) {
+            if ($scope.getPropertyDataType(self.objectTypeScriptname, pScriptname) == "date") {
+              $scope.ng.changeset.properties[pScriptname] = $scope.ng.changeset.properties[pScriptname].split("T")[0];
+            }
+          });
+        };
         $scope.selectObjectInObjectTypeList = function ($index, object, formInput) {
           formInput.selectedIndex = $index;
           formInput.selectedId = object.object_id;
@@ -478,6 +488,8 @@
                 return "lookup";
               case "Memo":
                 return "memo";
+              case "Date":
+                return "date";
               default:
                 return "text";
             }
