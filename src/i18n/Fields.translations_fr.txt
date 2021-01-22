@@ -171,6 +171,7 @@ shareWorkflow_notification_message = Notification Message
 shareWorkflow = Enable Notification
 cwrole = Cw Role
 message = Informative Message
+cwWorkflow = Workflow
 fakeScriptname = Scriptname to use in other property value
 cwWorkflow = Workflow
 readOnlyDocument = Document Section in ReadOnly
