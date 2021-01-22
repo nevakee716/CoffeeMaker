@@ -8,37 +8,35 @@
   <head>
     <meta charset="utf-8">
   <link rel="dns-prefetch" href="https://github.githubassets.com">
-  <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
-  <link rel="dns-prefetch" href="https://avatars1.githubusercontent.com">
-  <link rel="dns-prefetch" href="https://avatars2.githubusercontent.com">
-  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://avatars.githubusercontent.com">
   <link rel="dns-prefetch" href="https://github-cloud.s3.amazonaws.com">
   <link rel="dns-prefetch" href="https://user-images.githubusercontent.com/">
 
 
 
-  <link crossorigin="anonymous" media="all" integrity="sha512-BSy+E+S5PJuDWKcXiIXBoFJ7uJ+88y6hFdIhZpf7nf9MVNVvnJDPUaotaxFUQi8UXCLJOcGv1uifxVMc9o5DYQ==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-052cbe13e4b93c9b8358a7178885c1a0.css" />
-  <link crossorigin="anonymous" media="all" integrity="sha512-Bkl/VfG6dntlhzLreSTyztcDgITy+AtEivIxVQ1Krg/hUqoX+D/SZoStzSh4vioj37s7Bt+lIYVIOiE7aVDTuw==" rel="stylesheet" href="https://github.githubassets.com/assets/site-06497f55f1ba767b658732eb7924f2ce.css" />
-    <link crossorigin="anonymous" media="all" integrity="sha512-8Z+f0e6DBG9ZzxgV2Wf00KIGBotnuoKMOm3Rv8UbrIEoE7GWgF3QfZSZn6Mm4VUdBYSwqlvZLzeuQjojgH6lUA==" rel="stylesheet" href="https://github.githubassets.com/assets/github-f19f9fd1ee83046f59cf1815d967f4d0.css" />
+  <link crossorigin="anonymous" media="all" integrity="sha512-6TNuaya3hIwbvnYerP+efeCJqbDP0CdYdilVnpriG5/ygre48DptZ62Se79XpVTB3OUfz3VgC5+KfLFHkqJVsA==" rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-e9336e6b26b7848c1bbe761eacff9e7d.css" />
+  <link crossorigin="anonymous" media="all" integrity="sha512-s8NH1GC94sz9aCIGoUrHBWp26wTCEicQ2JoLMfOrwgBmTFwLh5XBcRzoUudiO3+LTNVkKQDfEIpqh/eshijeug==" rel="stylesheet" href="https://github.githubassets.com/assets/site-b3c347d460bde2ccfd682206a14ac705.css" />
+    <link crossorigin="anonymous" media="all" integrity="sha512-r50jEvQXoJogbcH5eE8SIzdhr3WmtXdaEttHozqZCYixr2QpiSfNOY4kXSfXP0HdC/7e9dADq8e8KdnJqZXjGA==" rel="stylesheet" href="https://github.githubassets.com/assets/behaviors-af9d2312f417a09a206dc1f9784f1223.css" />
     
     
     
-    
+    <link crossorigin="anonymous" media="all" integrity="sha512-y0E9dKoXoqEYpNeeSxse9GKay1AzGyOyZEE4cTzl5LXjMDmrQZVPEWs2l2fjr/CQwChF1+EqSdAfXU3S/+AEdg==" rel="stylesheet" href="https://github.githubassets.com/assets/github-cb413d74aa17a2a118a4d79e4b1b1ef4.css" />
 
   <script crossorigin="anonymous" defer="defer" integrity="sha512-8K2vvwbW+6H27Nad5ydg8PA2/aMD/LKq+EiK9s0U0hhVZxCI2tWBsYk9beAtisRw2j+Or5k2/F+6dk02nmj/PA==" type="application/javascript" src="https://github.githubassets.com/assets/environment-f0adafbf.js"></script>
-    <script crossorigin="anonymous" defer="defer" integrity="sha512-ola/HtsHBt2fUdix5suZIT34tXgH9cxMq00Q05gFjGpXhPYdY8nc0FmT2eGQVSVpeH3aiw+emWU/ojHfOWgzkQ==" type="application/javascript" src="https://github.githubassets.com/assets/chunk-frameworks-a256bf1e.js"></script>
-    <script crossorigin="anonymous" defer="defer" integrity="sha512-TZfq2T+XE31Mcp17bGlABjjeQ/69IH2f/sBvS31c4Jua0e1O/NE+aVbQtItMM2GFlmeEm13p/zyyWGIx10jVKQ==" type="application/javascript" src="https://github.githubassets.com/assets/chunk-vendor-4d97ead9.js"></script>
+    <script crossorigin="anonymous" defer="defer" integrity="sha512-Of+WG2CISim899I88sYG7d/75B6gHRWbUDvUOJDh52ZKHoHClE8JQ4nZbvOrvIVTGKCUe68JogcDBUMVtQ7F8w==" type="application/javascript" src="https://github.githubassets.com/assets/chunk-frameworks-39ff961b.js"></script>
+    <script crossorigin="anonymous" defer="defer" integrity="sha512-54ftydt/g3gQBzN9ZhIhcC61evoObXIPS3YhDdsTMDk5YntVmb2HtX0vRPStSB1F/KI6S+xwErAOtCyaaaulww==" type="application/javascript" src="https://github.githubassets.com/assets/chunk-vendor-e787edc9.js"></script>
   
-  <script crossorigin="anonymous" defer="defer" integrity="sha512-ok4Y+zCBsPIO17W+9O9aFtWE1sY8ppOi4GXCpjBOhXcWL8OLKepGetEmdxwmLrL2o60s2Ppx71eYYHm9LF5F9g==" type="application/javascript" src="https://github.githubassets.com/assets/behaviors-a24e18fb.js"></script>
+  <script crossorigin="anonymous" defer="defer" integrity="sha512-37vC45agB1jnf4QX+2PqGbP8yePQ0MvTHWnIGeeVhcwaaTv4gsH6ZDCFDcbvrpRlQYEaJIgOCtIGrNQOcguvQw==" type="application/javascript" src="https://github.githubassets.com/assets/behaviors-dfbbc2e3.js"></script>
   
     <script crossorigin="anonymous" defer="defer" integrity="sha512-xDmMfbDOi7C1qDeTcUUIjKfOAG5qhfSNSHRf7wT0crqnTCqtHlO1jBZmRSpjbpn4RyitzX75K0wQ/dpHqO/gAg==" type="application/javascript" data-module-id="./chunk-contributions-spider-graph.js" data-src="https://github.githubassets.com/assets/chunk-contributions-spider-graph-c4398c7d.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-obMR8mPKx8OvqRe34LgnUcxeJ1qujiA4ND3H6UX13ExMlA/WfHLjEzXRmgGRcRvN/8J1nzc+Z+jgz/PLTFy6zg==" type="application/javascript" data-module-id="./chunk-drag-drop.js" data-src="https://github.githubassets.com/assets/chunk-drag-drop-a1b311f2.js"></script>
+    <script crossorigin="anonymous" defer="defer" integrity="sha512-TGnbT/6B5dxVwEk7iOlwSY9mfqhfq8m05ec+KjdlfEwoieq73iBeyidClQUSmFa2snukwzF9peY8c7FJf9FARA==" type="application/javascript" data-module-id="./chunk-emoji-picker-element.js" data-src="https://github.githubassets.com/assets/chunk-emoji-picker-element-4c69db4f.js"></script>
+    <script crossorigin="anonymous" defer="defer" integrity="sha512-NwYkwzxETzKUYRXumHDsBIuggkh86KmJ1WrwWZW5wTvVPf047+wOmOHI5b4D65bfdtd3WbXJ7k+3ZWoxpIaqcA==" type="application/javascript" data-module-id="./chunk-insights-graph.js" data-src="https://github.githubassets.com/assets/chunk-insights-graph-370624c3.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-o7Wgi+lb9ce+9dvjWvB30ar51Bw0wcGhFZfQIzNGZfJ/7GZwYxVCsqgA4Q2o8yRq1QDUL1G1NxR0/3o9FoQ9JQ==" type="application/javascript" data-module-id="./chunk-jump-to.js" data-src="https://github.githubassets.com/assets/chunk-jump-to-a3b5a08b.js"></script>
-    <script crossorigin="anonymous" defer="defer" integrity="sha512-scwzzcbKQ3b2bo4Y1BcFBMHXsT8F3fATHp7T1A/Zl3UAKEkJym7Gn1HSFHAKEEHbLO7j3q9U2S5VfYsHSgWXIw==" type="application/javascript" data-module-id="./chunk-lib.dev.js" data-src="https://github.githubassets.com/assets/chunk-lib.dev-b1cc33cd.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-tcH4xCRuMBAh1PruDaiwGnRIbHlF6bGLhxyCQ16uqok1cV5QFMguVPWJtN9KI0jGQOgN+Pha3+uOUXhXdfK/qw==" type="application/javascript" data-module-id="./chunk-profile-pins-element.js" data-src="https://github.githubassets.com/assets/chunk-profile-pins-element-b5c1f8c4.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-E+H+wAtjiqutBvn2cnXzDIvmasIhYiS7i7JzOfFUwo+Ej8zT54OrJtP//RhwixnypgOpCF4JvqzYy6zOtORDmg==" type="application/javascript" data-module-id="./chunk-runner-groups.js" data-src="https://github.githubassets.com/assets/chunk-runner-groups-13e1fec0.js"></script>
-    <script crossorigin="anonymous" defer="defer" integrity="sha512-P4TJl8vmit2awffHeOfwscoWyj+xMvQBwQfL06P3Gy+5u9J9IYMgUJ4Ui+pbXNbJnAg6xQEZXUN4xk6PEGIrDg==" type="application/javascript" data-module-id="./chunk-sortable-behavior.js" data-src="https://github.githubassets.com/assets/chunk-sortable-behavior-3f84c997.js"></script>
-    <script crossorigin="anonymous" defer="defer" integrity="sha512-ZBICwPA18KYIgHbafqdjnTkxoCSNf/39rTlupkrtdpIWizECoux0ROzjAgyAx20Bf27VfshuBqrYwDqOVftyag==" type="application/javascript" data-module-id="./chunk-tweetsodium.js" data-src="https://github.githubassets.com/assets/chunk-tweetsodium-641202c0.js"></script>
+    <script crossorigin="anonymous" defer="defer" integrity="sha512-U+Pp1bYuA3fRqhike5Go//O/vsExaZLz00lrIby+rZ88yf03nQHz3wLZR9paWkakpD7TH5nS6AUpabCc7OFWpg==" type="application/javascript" data-module-id="./chunk-sortable-behavior.js" data-src="https://github.githubassets.com/assets/chunk-sortable-behavior-53e3e9d5.js"></script>
+    <script crossorigin="anonymous" defer="defer" integrity="sha512-QBwrFY4kzAVN0nZmTYJLeEhi5bQ+42rE8h1g384XeZb7n62BykcUICACtaDQ473aIrRf38RSR7WDfNEIVuSlTA==" type="application/javascript" data-module-id="./chunk-tweetsodium.js" data-src="https://github.githubassets.com/assets/chunk-tweetsodium-401c2b15.js"></script>
     <script crossorigin="anonymous" defer="defer" integrity="sha512-su8FOuJFv0H16y8vmT+N3HiFpDQnHKiLz/UEdGxlCfgwnKBy202gaBmkcBpqXigRg+A8pMDXcSPIWSEW+IIKvQ==" type="application/javascript" data-module-id="./chunk-user-status-submit.js" data-src="https://github.githubassets.com/assets/chunk-user-status-submit-b2ef053a.js"></script>
   
   <script crossorigin="anonymous" defer="defer" integrity="sha512-Ahh1vGV9jX7qzPdC1tA1y6PaLV9AbDPSlt2q8C7SUVVKTgoB5vDsUrKvaGh7Gj2Tv594XRcr0LjJdKA8HmL8iQ==" type="application/javascript" src="https://github.githubassets.com/assets/diffs-021875bc.js"></script>
@@ -86,7 +84,7 @@
   <link rel="assets" href="https://github.githubassets.com/">
   
 
-  <meta name="request-id" content="DF1E:A6A7:D40F10:12AD4B9:5FFEC883" data-pjax-transient="true"/><meta name="html-safe-nonce" content="eed2452801078c0b4b51f63e3e6f3b27938709b8076ec8ed3d7ab39bfb61745c" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJERjFFOkE2QTc6RDQwRjEwOjEyQUQ0Qjk6NUZGRUM4ODMiLCJ2aXNpdG9yX2lkIjoiNDk5MDMzNjQ3MDA2NjU3OTU4NyIsInJlZ2lvbl9lZGdlIjoiZnJhIiwicmVnaW9uX3JlbmRlciI6ImZyYSJ9" data-pjax-transient="true"/><meta name="visitor-hmac" content="3935df613de8b578e62c7d07a6aca4b364dd71787e08db38d1cd2fbe8972065d" data-pjax-transient="true"/>
+  <meta name="request-id" content="D795:B5BA:17256CC:1C538B9:600AAC5E" data-pjax-transient="true"/><meta name="html-safe-nonce" content="2ad664ee4081150cc8c67bb5969e4a490f23208d43fbf5ed50a88e678952c63d" data-pjax-transient="true"/><meta name="visitor-payload" content="eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJENzk1OkI1QkE6MTcyNTZDQzoxQzUzOEI5OjYwMEFBQzVFIiwidmlzaXRvcl9pZCI6IjYxNzE4NDQ4MjE3Mjk4NDg0MTQiLCJyZWdpb25fZWRnZSI6ImZyYSIsInJlZ2lvbl9yZW5kZXIiOiJmcmEifQ==" data-pjax-transient="true"/><meta name="visitor-hmac" content="c3ff5ac004897b5de226cfc7972850ac43ac03640322642c110b67bffccced76" data-pjax-transient="true"/>
 
 
 
@@ -121,12 +119,12 @@
       <meta name="expected-hostname" content="github.com">
 
 
-    <meta name="enabled-features" content="MARKETPLACE_PENDING_INSTALLATIONS">
+    <meta name="enabled-features" content="MARKETPLACE_PENDING_INSTALLATIONS,ACTIONS_SHORT_SHA_WARNING">
 
-  <meta http-equiv="x-pjax-version" content="5d5d421c22ed984c608e9de09f2d8386049259b4501ac17c31c12c88adce69bc">
+  <meta http-equiv="x-pjax-version" content="7753a9543f4fe345adee8b89d0dc1902b946cdaf50cffb1c61e866607d031b0f">
   
 
-      <link crossorigin="anonymous" media="all" integrity="sha512-Bkl/VfG6dntlhzLreSTyztcDgITy+AtEivIxVQ1Krg/hUqoX+D/SZoStzSh4vioj37s7Bt+lIYVIOiE7aVDTuw==" rel="stylesheet" href="https://github.githubassets.com/assets/site-06497f55f1ba767b658732eb7924f2ce.css" />
+      <link crossorigin="anonymous" media="all" integrity="sha512-s8NH1GC94sz9aCIGoUrHBWp26wTCEicQ2JoLMfOrwgBmTFwLh5XBcRzoUudiO3+LTNVkKQDfEIpqh/eshijeug==" rel="stylesheet" href="https://github.githubassets.com/assets/site-b3c347d460bde2ccfd682206a14ac705.css" />
 
 
 
@@ -143,7 +141,6 @@
   <link rel="icon" class="js-site-favicon" type="image/svg+xml" href="https://github.githubassets.com/favicons/favicon.svg">
 
 <meta name="theme-color" content="#1e2327">
-    <meta name="color-scheme" content="light dark">
 
 
   <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials">
@@ -205,22 +202,22 @@
                     </svg>
                   </summary>
                   <div class="dropdown-menu flex-auto rounded-1 bg-white px-0 mt-0 pb-4 p-lg-4 position-relative position-lg-absolute left-0 left-lg-n4">
-                    <a href="/features" class="py-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Features">Features <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a>
+                    <a href="/features" class="py-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Features">Features <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a>
                     <ul class="list-style-none f5 pb-3">
-                      <li class="edge-item-fix"><a href="/features/code-review/" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Code review">Code review</a></li>
-                      <li class="edge-item-fix"><a href="/features/project-management/" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Project management">Project management</a></li>
-                      <li class="edge-item-fix"><a href="/features/integrations" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Integrations">Integrations</a></li>
-                      <li class="edge-item-fix"><a href="/features/actions" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Actions">Actions</a></li>
-                      <li class="edge-item-fix"><a href="/features/packages" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to GitHub Packages">Packages</a></li>
-                      <li class="edge-item-fix"><a href="/features/security" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Security">Security</a></li>
-                      <li class="edge-item-fix"><a href="/features#team-management" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Team management">Team management</a></li>
-                      <li class="edge-item-fix"><a href="/features#hosting" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Code hosting">Hosting</a></li>
-                      <li class="edge-item-fix hide-xl"><a href="/mobile" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Mobile">Mobile</a></li>
+                        <li class="edge-item-fix"><a href="/mobile" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Mobile <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/actions" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Actions <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/codespaces" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Codespaces <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/packages" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Packages <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/security" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Security <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/code-review/" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Code review <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/project-management/" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Project management <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/features/integrations" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">Integrations <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
 
                     <ul class="list-style-none mb-0 border-lg-top pt-lg-3">
-                      <li class="edge-item-fix"><a href="/customer-stories" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Customer stories">Customer stories <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a></li>
-                      <li class="edge-item-fix"><a href="/security" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Security">Security <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="/sponsors" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Sponsors">GitHub Sponsors <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="/customer-stories" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Customer stories">Customer stories <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="/security" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Security">Security <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
                   </div>
                 </details>
@@ -243,24 +240,25 @@
 
                   <div class="dropdown-menu flex-auto rounded-1 bg-white px-0 pt-2 pb-0 mt-0 pb-4 p-lg-4 position-relative position-lg-absolute left-0 left-lg-n4">
                     <ul class="list-style-none mb-3">
-                      <li class="edge-item-fix"><a href="/explore" class="py-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Explore">Explore GitHub <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="/explore" class="py-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Explore">Explore GitHub <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
 
                     <h4 class="text-gray-light text-normal text-mono f5 mb-2 border-lg-top pt-lg-3">Learn &amp; contribute</h4>
                     <ul class="list-style-none mb-3">
-                      <li class="edge-item-fix"><a href="/topics" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Topics">Topics</a></li>
-                        <li class="edge-item-fix"><a href="/collections" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Collections">Collections</a></li>
-                      <li class="edge-item-fix"><a href="/trending" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Trending">Trending</a></li>
-                      <li class="edge-item-fix"><a href="https://lab.github.com/" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Learning lab">Learning Lab</a></li>
-                      <li class="edge-item-fix"><a href="https://opensource.guide" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Open source guides">Open source guides</a></li>
+                      <li class="edge-item-fix"><a href="/topics" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Topics">Topics <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                        <li class="edge-item-fix"><a href="/collections" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Collections">Collections <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="/trending" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Trending">Trending <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://lab.github.com/" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Learning lab">Learning Lab <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://opensource.guide" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Open source guides">Open source guides <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
 
                     <h4 class="text-gray-light text-normal text-mono f5 mb-2 border-lg-top pt-lg-3">Connect with others</h4>
                     <ul class="list-style-none mb-0">
-                      <li class="edge-item-fix"><a href="https://github.com/events" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Events">Events</a></li>
-                      <li class="edge-item-fix"><a href="https://github.community" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Community forum">Community forum</a></li>
-                      <li class="edge-item-fix"><a href="https://education.github.com" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to GitHub Education">GitHub Education</a></li>
-                      <li class="edge-item-fix"><a href="https://stars.github.com" class="py-2 pb-0 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to GitHub Stars Program">GitHub Stars program</a></li>
+                      <li class="edge-item-fix"><a href="https://github.com/readme" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover">The ReadME Project <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://github.com/events" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Events">Events <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://github.community" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Community forum">Community forum <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://education.github.com" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to GitHub Education">GitHub Education <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://stars.github.com" class="py-2 pb-0 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to GitHub Stars Program">GitHub Stars program <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
                   </div>
                 </details>
@@ -283,13 +281,13 @@
                     <a href="/pricing" class="pb-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Pricing">Plans <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a>
 
                     <ul class="list-style-none mb-3">
-                      <li class="edge-item-fix"><a href="/pricing#feature-comparison" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Compare plans">Compare plans</a></li>
-                      <li class="edge-item-fix"><a href="https://enterprise.github.com/contact" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5" data-ga-click="(Logged out) Header, go to Contact Sales">Contact Sales</a></li>
+                      <li class="edge-item-fix"><a href="/pricing#feature-comparison" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Compare plans">Compare plans <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://enterprise.github.com/contact" class="py-2 lh-condensed-ultra d-block link-gray no-underline f5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Contact Sales">Contact Sales <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
 
                     <ul class="list-style-none mb-0 border-lg-top pt-lg-3">
-                      <li class="edge-item-fix"><a href="/nonprofit" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Nonprofits">Nonprofit <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a></li>
-                      <li class="edge-item-fix"><a href="https://education.github.com" class="py-2 pb-0 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover"  data-ga-click="(Logged out) Header, go to Education">Education <span class="Bump-link-symbol float-right text-normal text-gray-light">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="/nonprofit" class="py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover" data-ga-click="(Logged out) Header, go to Nonprofits">Nonprofit <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
+                      <li class="edge-item-fix"><a href="https://education.github.com" class="py-2 pb-0 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover"  data-ga-click="(Logged out) Header, go to Education">Education <span class="Bump-link-symbol float-right text-normal text-gray-light pr-3">&rarr;</span></a></li>
                     </ul>
                   </div>
                 </details>
@@ -325,7 +323,7 @@
           spellcheck="false"
           autocomplete="off"
           >
-          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="o4qVlqO5OSf0fjUasMg0GCxIEFRYqK1zd0ANVabgGcXcGuOJu4Y5wGZ9N7AJ2YC+ajgrui9X/xGDf3RXx/K00A==" />
+          <input type="hidden" data-csrf="true" class="js-data-jump-to-suggestions-path-csrf" value="WGdL/ZqRtEipMi2P3vKrjFQ607nnhlzirlVDcO5o5oE1ABwCFG2w5Jrc1lMjJcE3yrwKzLuPqKii/Ns8LnwzlA==" />
           <input type="hidden" class="js-site-search-type-field" name="type" >
             <img src="https://github.githubassets.com/images/search-key-slash.svg" alt="" class="mr-2 header-search-key-slash">
 
@@ -574,7 +572,7 @@
     </div>
 </form>
     <div class="mt-5 text-gray-light text-center">
-      <a href="https://github.com/contact" class="link-gray">Contact Support</a> &mdash;
+      <a href="https://support.github.com/contact" class="link-gray">Contact Support</a> &mdash;
       <a href="https://githubstatus.com" class="link-gray">GitHub Status</a> &mdash;
       <a href="https://twitter.com/githubstatus" class="link-gray">@githubstatus</a>
     </div>
@@ -613,20 +611,20 @@
         <h2 class="h5 mb-3 text-mono text-gray-light text-normal">Platform</h2>
         <ul class="list-style-none f5">
           <li class="lh-condensed mb-3"><a href="https://docs.github.com" data-ga-click="Footer, go to api, text:api" class="link-gray">Developer API</a></li>
-          <li class="lh-condensed mb-3"><a href="http://partner.github.com/" data-ga-click="Footer, go to partner, text:partner" class="link-gray">Partners</a></li>
+          <li class="lh-condensed mb-3"><a href="https://partner.github.com/" data-ga-click="Footer, go to partner, text:partner" class="link-gray">Partners</a></li>
           <li class="lh-condensed mb-3"><a href="https://atom.io" data-ga-click="Footer, go to atom, text:atom" class="link-gray">Atom</a></li>
-          <li class="lh-condensed mb-3"><a href="http://electronjs.org" data-ga-click="Footer, go to electron, text:electron" class="link-gray">Electron</a></li>
+          <li class="lh-condensed mb-3"><a href="https://www.electronjs.org" data-ga-click="Footer, go to electron, text:electron" class="link-gray">Electron</a></li>
           <li class="lh-condensed mb-3"><a href="https://desktop.github.com/" data-ga-click="Footer, go to desktop, text:desktop" class="link-gray">GitHub Desktop</a></li>
         </ul>
       </div>
       <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-md-0 pl-md-4">
         <h2 class="h5 mb-3 text-mono text-gray-light text-normal">Support</h2>
         <ul class="list-style-none f5">
-          <li class="lh-condensed mb-3"><a data-ga-click="Footer, go to help, text:help" class="link-gray " href="https://docs.github.com">Help</a></li>
+          <li class="lh-condensed mb-3"><a data-ga-click="Footer, go to help, text:Docs" class="link-gray " href="https://docs.github.com">Docs</a></li>
           <li class="lh-condensed mb-3"><a href="https://github.community" data-ga-click="Footer, go to community, text:community" class="link-gray">Community Forum</a></li>
           <li class="lh-condensed mb-3"><a href="https://services.github.com/" data-ga-click="Footer, go to professional services, text:professional services" class="link-gray">Professional Services</a></li>
           <li class="lh-condensed mb-3"><a href="https://lab.github.com/" data-ga-click="Footer, go to learning lab, text:learning lab" class="link-gray">Learning Lab</a></li>
-          <li class="lh-condensed mb-3"><a href="https://githubstatus.com/" data-ga-click="Footer, go to status, text:status" class="link-gray">Status</a></li>
+          <li class="lh-condensed mb-3"><a href="https://www.githubstatus.com/" data-ga-click="Footer, go to status, text:status" class="link-gray">Status</a></li>
           <li class="lh-condensed mb-3"><a data-ga-click="Footer, go to contact, text:contact" class="link-gray " href="https://github.com/contact">Contact GitHub</a></li>
         </ul>
       </div>
@@ -695,7 +693,7 @@
 
 
 
-  <div id="ajax-error-message" class="ajax-error-message flash flash-error">
+  <div id="ajax-error-message" class="ajax-error-message flash flash-error" hidden>
     <svg class="octicon octicon-alert" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
     <button type="button" class="flash-close js-ajax-error-dismiss" aria-label="Dismiss error">
       <svg class="octicon octicon-x" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
