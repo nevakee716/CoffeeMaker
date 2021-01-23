@@ -36,7 +36,11 @@
   <div class="row-cell row-cell-label">{{$root.i18n('scriptname')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
     <select ng-change="input.label = cwApi.mm.getProperty(ng.selectedObjectTypeScriptname,input.scriptname).name" ng-model="input.scriptname">
-      <option ng-selected="x.scriptName === input.scriptname" value="{{x.scriptName}}" ng-repeat="x in getSortPropFromOT(getWIObjectType())">
+      <option
+        ng-selected="x.scriptName === input.scriptname"
+        value="{{x.scriptName}}"
+        ng-repeat="x in getSortPropFromOT(getWIObjectType()) | orderBy:'name'"
+      >
         {{x.name}} ({{x.scriptName}})
       </option>
     </select>
