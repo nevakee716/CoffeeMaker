@@ -12,12 +12,14 @@
     <div
       class="input stepUser bootstrap-iso"
       ng-include
+      ng-if="checkFilter(stepConfiguration)"
       src="'../../common/html/cwWorkflow/stepInput.ng.html'"
       ng-repeat="stepConfiguration in ng.currentStep.stepsSettings"
     ></div>
     <div class="formValid">
       <input
         class="buttonLarge"
+        ng-if="checkFilter(step)"
         ng-repeat="step in ng.currentStep.nextStep"
         ng-disabled="workFlowItem.$invalid"
         type="submit"
