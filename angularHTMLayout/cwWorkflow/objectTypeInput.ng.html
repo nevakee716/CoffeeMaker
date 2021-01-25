@@ -1,39 +1,43 @@
-<div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
-<div class="searchList">
-  <div class="searchText">
-    <input
-      ng-disabled="formInput.objects === undefined || formInput.readOnly || !formInput.objects || !formInput.objects.length === 0"
-      ng-required="formInput.mandatory"
-      ng-model="formInput.searchText"
-      id="{{'objectType_' + $index}}"
-      ng-change="setFormFilter(formInput)"
-    />
-    <div><i ng-if="formInput.objects === undefined" class="fa fa-circle-o-notch fa-spin"></i></div>
-  </div>
-  <div
-    ng-if="formInput.objects && (formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result) || formInput.objectsFiltered.length > 199)"
-    class="workFlowListObjectTypeMessage"
-  >
-    <div class="workFlowListObjectTypeResultSubList">
-      <span ng-if="formInput.objectsFiltered.length > 199">{{$root.i18n('toManyResult')}}</span>
-      <span
-        ng-if="formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result)"
-      >
-        {{$root.i18n('noResult')}}
-      </span>
-    </div>
-  </div>
-  <div
-    ng-if="formInput.objects && formInput.objectsFiltered.length < 199 && formInput.objectsFiltered.length > 0 && (formInput.objectsFiltered.length !== 1 || formInput.objectsFiltered[0].name !== formInput.result )"
-    class="workFlowListObjectTypeResult"
-  >
-    <div id="{{'objectTypeSelect_' + $index}}" class="workFlowListObjectTypeResultSubList">
+<div class="associationContainer">
+  <div ng-mouseenter="formInput.resultExpend = true" ng-mouseleave="formInput.resultExpend = false" class="searchContainer">
+    <div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
+    <div class="searchList" ng-class="{expend : formInput.resultExpend}">
+      <div class="searchText">
+        <input
+          ng-disabled="formInput.objects === undefined || formInput.readOnly || !formInput.objects || !formInput.objects.length === 0"
+          ng-required="formInput.mandatory"
+          ng-model="formInput.searchText"
+          id="{{'objectType_' + $index}}"
+          ng-change="setFormFilter(formInput)"
+        />
+        <div><i ng-if="formInput.objects === undefined" class="fa fa-circle-o-notch fa-spin"></i></div>
+      </div>
       <div
-        ng-class="{selected: formInput.selectedId === object.object_id}"
-        ng-click="selectObjectInObjectTypeList($index,object,formInput)"
-        ng-repeat="object in formInput.objectsFiltered"
+        ng-if="formInput.objects && (formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result) || formInput.objectsFiltered.length > 199)"
+        class="workFlowListObjectTypeMessage"
       >
-        {{object.name}}
+        <div class="workFlowListObjectTypeResultSubList">
+          <span ng-if="formInput.objectsFiltered.length > 199">{{$root.i18n('toManyResult')}}</span>
+          <span
+            ng-if="formInput.objectsFiltered.length === 0 || (formInput.objectsFiltered.length === 1 && formInput.objectsFiltered[0].name == formInput.result)"
+          >
+            {{$root.i18n('noResult')}}
+          </span>
+        </div>
+      </div>
+      <div
+        ng-if="formInput.objects && formInput.objectsFiltered.length < 199 && formInput.objectsFiltered.length > 0 && (formInput.objectsFiltered.length !== 1 || formInput.objectsFiltered[0].name !== formInput.result )"
+        class="workFlowListObjectTypeResult"
+      >
+        <div id="{{'objectTypeSelect_' + $index}}" class="workFlowListObjectTypeResultSubList">
+          <div
+            ng-class="{selected: formInput.selectedId === object.object_id}"
+            ng-click="selectObjectInObjectTypeList($index,object,formInput)"
+            ng-repeat="object in formInput.objectsFiltered"
+          >
+            {{object.name}}
+          </div>
+        </div>
       </div>
     </div>
   </div>

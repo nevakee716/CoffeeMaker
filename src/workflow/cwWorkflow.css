@@ -161,12 +161,15 @@
   border: 0px;
   background-color: white;
 }
+.cwWorkflow .searchList .associationContainerResult {
+  margin-top: 50px;
+}
 .cwWorkflow .searchList .workFlowListObjectTypeResult,
 .cwWorkflow .searchList .workFlowListObjectTypeMessage {
   position: absolute;
   width: 400px;
   height: 39px;
-  z-index: 1;
+  z-index: -1;
 }
 .cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
 .cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
@@ -190,42 +193,27 @@
   background-color: #03a0ce;
   color: #ffffff;
 }
-.cwWorkflow .searchList:hover .searchText,
-.cwWorkflow .searchList:focus .searchText,
-.cwWorkflow .searchList:active .searchText,
-.cwWorkflow .searchList:focus-within .searchText {
+.cwWorkflow .searchList.expend .searchText {
   z-index: 99999;
 }
-.cwWorkflow .searchList:hover .workFlowListObjectTypeMessage,
-.cwWorkflow .searchList:focus .workFlowListObjectTypeMessage,
-.cwWorkflow .searchList:active .workFlowListObjectTypeMessage,
-.cwWorkflow .searchList:focus-within .workFlowListObjectTypeMessage {
+.cwWorkflow .searchList.expend .workFlowListObjectTypeMessage {
   position: absolute;
   z-index: 99990;
 }
-.cwWorkflow .searchList:hover .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList,
-.cwWorkflow .searchList:focus .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList,
-.cwWorkflow .searchList:active .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList,
-.cwWorkflow .searchList:focus-within .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
+.cwWorkflow .searchList.expend .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
   z-index: 99999;
   height: 59px;
 }
-.cwWorkflow .searchList:hover .workFlowListObjectTypeResult,
-.cwWorkflow .searchList:focus .workFlowListObjectTypeResult,
-.cwWorkflow .searchList:active .workFlowListObjectTypeResult,
-.cwWorkflow .searchList:focus-within .workFlowListObjectTypeResult {
+.cwWorkflow .searchList.expend .workFlowListObjectTypeResult {
   position: absolute;
   z-index: 99990;
   max-height: 200px;
 }
-.cwWorkflow .searchList:hover .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
-.cwWorkflow .searchList:focus .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
-.cwWorkflow .searchList:active .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
-.cwWorkflow .searchList:focus-within .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList {
+.cwWorkflow .searchList.expend .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList {
   z-index: 99999;
   height: 200px;
 }
-.progress-indicator {
+.cwWorkflow .progress-indicator {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -233,19 +221,19 @@
   display: flex;
   flex-wrap: wrap;
 }
-.progress-indicator > li {
+.cwWorkflow .progress-indicator > li {
   -ms-flex: 1;
   -webkit-flex: 1;
   -moz-flex: 1;
   flex: 1;
 }
-.progress-indicator {
+.cwWorkflow .progress-indicator {
   margin: 0 0 1em;
   padding: 0;
   font-size: 80%;
   text-transform: uppercase;
 }
-.progress-indicator > li {
+.cwWorkflow .progress-indicator > li {
   list-style: none;
   text-align: center;
   width: auto;
@@ -257,20 +245,20 @@
   display: flex;
   flex-direction: column;
 }
-i.fa.indicator {
+.cwWorkflow i.fa.indicator {
   position: absolute;
   align-self: center;
   margin-top: -20px;
   font-size: 23px;
 }
-.progress-indicator > li:hover {
+.cwWorkflow .progress-indicator > li:hover {
   color: #6f6f6f;
 }
-.progress-indicator > li.completed,
-.progress-indicator > li.completed .bubble {
+.cwWorkflow .progress-indicator > li.completed,
+.cwWorkflow .progress-indicator > li.completed .bubble {
   color: #03a0ce;
 }
-.progress-indicator > li .bubble {
+.cwWorkflow .progress-indicator > li .bubble {
   border-radius: 1000px;
   width: 20px;
   height: 20px;
@@ -279,8 +267,8 @@ i.fa.indicator {
   margin: 0 auto 0.5em;
   border-bottom: 1px solid #888;
 }
-.progress-indicator > li .bubble:after,
-.progress-indicator > li .bubble:before {
+.cwWorkflow .progress-indicator > li .bubble:after,
+.cwWorkflow .progress-indicator > li .bubble:before {
   display: block;
   position: absolute;
   top: 9px;
@@ -289,40 +277,52 @@ i.fa.indicator {
   content: "";
   background-color: #bbb;
 }
-.progress-indicator > li.completed .bubble,
-.progress-indicator > li.completed .bubble:after,
-.progress-indicator > li.completed .bubble:before {
+.cwWorkflow .progress-indicator > li.completed .bubble,
+.cwWorkflow .progress-indicator > li.completed .bubble:after,
+.cwWorkflow .progress-indicator > li.completed .bubble:before {
   background-color: #03a0ce;
   border-color: #03a0ce;
 }
-.progress-indicator > li .bubble:before {
+.cwWorkflow .progress-indicator > li .bubble:before {
   left: 0;
 }
-.progress-indicator > li .bubble:after {
+.cwWorkflow .progress-indicator > li .bubble:after {
   right: 0;
 }
-.progress-indicator > li:first-child .bubble:after,
-.progress-indicator > li:first-child .bubble:before {
+.cwWorkflow .progress-indicator > li:first-child .bubble:after,
+.cwWorkflow .progress-indicator > li:first-child .bubble:before {
   width: 50%;
   margin-left: 50%;
 }
-.progress-indicator > li:last-child .bubble:after,
-.progress-indicator > li:last-child .bubble:before {
+.cwWorkflow .progress-indicator > li:last-child .bubble:after,
+.cwWorkflow .progress-indicator > li:last-child .bubble:before {
   width: 50%;
   margin-right: 50%;
 }
-.progress-indicator > li.active,
-.progress-indicator > li.active .bubble {
+.cwWorkflow .progress-indicator > li.active,
+.cwWorkflow .progress-indicator > li.active .bubble {
   color: #03a0ce;
 }
-.progress-indicator > li.active .bubble,
-.progress-indicator > li.active .bubble:after,
-.progress-indicator > li.active .bubble:before {
+.cwWorkflow .progress-indicator > li.active .bubble,
+.cwWorkflow .progress-indicator > li.active .bubble:after,
+.cwWorkflow .progress-indicator > li.active .bubble:before {
   background-color: #03a0ce;
   border-color: #03a0ce;
 }
 @media handheld, screen and (max-width: 400px) {
-  .progress-indicator {
+  .cwWorkflow .progress-indicator {
     font-size: 60%;
+  }
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
+  .cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
+    margin-top: 0px !important;
+  }
+}
+@supports (-ms-ime-align: auto) {
+  .cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
+  .cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
+    margin-top: 0px !important;
   }
 }
