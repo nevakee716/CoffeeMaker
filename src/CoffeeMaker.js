@@ -93,7 +93,7 @@
       if (this.config.tableComplexeEnhanced === undefined) this.config.tableComplexeEnhanced = {};
       if (this.config.diagram === undefined) this.config.diagram = {};
       if (this.config.property === undefined) this.config.property = {};
-      // if (this.config.cwWorkflow === undefined) this.config.cwWorkflow = {};
+      if (this.config.cwWorkflow === undefined) this.config.cwWorkflow = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };
