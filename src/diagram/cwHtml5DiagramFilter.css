@@ -1,3 +1,4 @@
+/* CUSTOM VARIABLES */
 /* GLOBAL */
 /* LOGIN */
 /* DIAGRAM */
@@ -21,9 +22,9 @@
 /* TASKS & NOTIFICATIONS */
 /* GLOBAL SEARCH */
 /* TOP BAR */
-/* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
 .cw-diagram-filter-container table.cw-grid tr:not(:first-child):hover {
   background-color: inherit;
 }
@@ -150,5 +151,5 @@
   color: #ffffff;
 }
 .btn.btn-diagram-filter.enable i.fa {
-  color: #e9636e;
+  color: #e91527;
 }

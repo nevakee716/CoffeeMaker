@@ -1,3 +1,4 @@
+/* CUSTOM VARIABLES */
 /* GLOBAL */
 /* LOGIN */
 /* DIAGRAM */
@@ -21,9 +22,9 @@
 /* TASKS & NOTIFICATIONS */
 /* GLOBAL SEARCH */
 /* TOP BAR */
-/* GRID */
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
 .homePageFav_newImage {
   position: absolute;
   display: none;
@@ -222,12 +223,12 @@
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox:hover {
   background-color: #03a0ce;
-  color: #ffffff;
+  color: rgba(55, 131, 154, 0.1);
   border: 2px solid #03a0ce;
   box-sizing: border-box;
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox:hover img {
-  background-color: #ffffff;
+  background-color: rgba(55, 131, 154, 0.1);
 }
 .homePage_main .homePage_column .homePage_display .homePage_last_modified_object {
   margin: 5px;

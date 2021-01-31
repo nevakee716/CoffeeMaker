@@ -1,35 +1,56 @@
-@import "./_paths";
-@import "./_common";
+// Theme Version : 2021.0.0
+// Breakpoints
+@breakpoint-large: 1024px;
+@breakpoint-medium: 640px;
+@breakpoint-small: 240px;
+
+@largeLimit: (@breakpoint-large - 1px);
+@mediumLimit: (@breakpoint-medium - 1px);
+
+@cwContentPath: "/Libs-Debug/";
+@cwImagesPath: "/Libs-Debug/images/";
+@cwFontsPath: "/Libs-Debug/fonts/";
+
+// Colours
+@error-color: #e53935;
+@shadow-color: #bdbdbd;
+@add-button-green-color: #76cf76;
+
+// Sizes
+@size-width-popout: 481px;
+@size-page-menu: 200px;
+@size-main-menu: 180px;
+@size-main-menu-collapsed: 40px;
+@size-menu-item-height: 40px;
+@navAndPageTop: 41px;
+@padding-page-top: 50px;
+@padding-page: 20px;
+/* CUSTOM VARIABLES */
+
+@mainColor: #03a0ce;
+@secondColor: #26276d;
+
 @white: #ffffff;
-@black: #000000;
 @whitesmoke: #f5f5f5;
-
-// primary palette
-@nauticalNavy: #26276d;
-@beaconBlue: #03a0ce;
-@duskGray: #5c5d61;
 @mistGray: #dbd9d6;
-// secondary palette
-@oceanBlue: #1c5fab;
-@seaGreen: #00a9a2;
-@reefRed: #e9636e;
-@sunsetOrange: #f79548;
-@lanternYellow: #f6c65b;
-
+@duskGray: #5c5d61;
 @lightGray: rgba(147, 176, 193, 0.15);
+@validateColor: #00a92a;
+@errorColor: #e91527;
+@warningColor: #f79548;
+@cwNotificationColor: @validateColor;
 
 @cwColor1Shade: #546e7a;
-@cwColor1: @beaconBlue;
+@cwColor1: @mainColor;
 @cwColor1Tint: #5c5d61;
 
-@cwColor2Shade: lighten(@beaconBlue, 20%);
-@cwColor2: @beaconBlue;
+@cwColor2Shade: lighten(@mainColor, 20%);
+@cwColor2: @mainColor;
 @cwColor2Tint: #4db6ac;
 
-@cwErrorColor: @reefRed;
-@cwNotificationColor: @seaGreen;
+@cwErrorColor: @errorColor;
 @cwTextColor: @duskGray;
-@cwAccentColor: @reefRed;
+@cwAccentColor: @errorColor;
 
 @cwShadowColor: #bdbdbd; //v4.03
 
@@ -41,12 +62,12 @@
 @cwFontTextSize: 12px;
 @cwFontMenuTextSize: 13px;
 @cwFontTextColor: @cwTextColor;
-@cwGlobalLinkTextColor: @beaconBlue;
+@cwGlobalLinkTextColor: @mainColor;
 @cwPageTitleColor: @cwTextColor;
 @cwPageTitleBackGroundColor: transparent;
 @cwHeaderPadding: 8px;
 @cwBorderRadius: 2px;
-@cwBodyBackgroundColor: @white;
+@cwBodyBackgroundColor: fade(desaturate(@mainColor, 50%), 10%);
 @cwLoadingIconColor: @cwAccentColor; // v4.0
 
 /* LOGIN */
@@ -61,8 +82,8 @@
 @cwLoginSubmitButtonBackgroundColor: @cwLoginLabelColor; //v4.03
 
 /* DIAGRAM */
-@cwDiagramBreadCrumbBackgroundColor: @beaconBlue;
-@cwDiagramBreadCrumbBoxBackgroundColor: lighten(@beaconBlue, 50%);
+@cwDiagramBreadCrumbBackgroundColor: @mainColor;
+@cwDiagramBreadCrumbBoxBackgroundColor: lighten(@mainColor, 50%);
 @cwDiagramBreadCrumbBoxTextColor: @cwTextColor;
 @cwDiagramEditorIconColor: #b7b7b7; //v3.1
 @cwDiagramEditorMenuBackgroundColor: #f1f1f1; //v3.1
@@ -73,7 +94,7 @@
 @cwHomePagePaddingTop: 20px;
 @cwHomePagePaddingLeft: 30px;
 @cwHomePageRoleIconBackgroundColor: #e0f2f1; //v4.01
-@cwHomePageFavoriteIconBackgroundColor: @beaconBlue; //v4.01
+@cwHomePageFavoriteIconBackgroundColor: @mainColor; //v4.01
 @cwHomePageViewTextColor: @cwGlobalLinkTextColor;
 @cwHomePageFavoriteTextColor: @white; //v4.03
 @cwHomePageRoleIconBackgroundColorHover: darken(@cwHomePageRoleIconBackgroundColor, 5%); //v4.03
@@ -82,29 +103,29 @@
 
 /* MAIN MENU */
 @cwMenuLeftMainNavigationBackgroundColor: @white;
-@cwMenuLeftMainNavigationTextColor: @nauticalNavy;
+@cwMenuLeftMainNavigationTextColor: @secondColor;
 @cwMenuLeftMainNavigationBackgroundColorHover: @lightGray;
-@cwMenuLeftMainNavigationTextColorHover: @beaconBlue;
+@cwMenuLeftMainNavigationTextColorHover: @mainColor;
 @cwMenuLeftMainNavigationBackgroundColorActive: @cwMenuLeftMainNavigationBackgroundColorHover;
 @cwMenuLeftMainNavigationTextColorActive: @cwMenuLeftMainNavigationTextColorHover;
 
 /* SUB MENU */
 @cwMenuLeftSubNavigationBackgroundColor: @white;
-@cwMenuLeftSubNavigationTextColor: @nauticalNavy;
+@cwMenuLeftSubNavigationTextColor: @secondColor;
 @cwMenuLeftSubNavigationBackgroundColorHover: @lightGray; //v4.03
 @cwMenuLeftSubNavDefaultIconColor: @cwMenuLeftMainNavigationTextColor; //V4.1
 
 /* PAGE TAB */
 @cwMenuLeftTabBackgroundColor: lighten(@mistGray, 10%);
-@cwMenuLeftTabTitleColor: @nauticalNavy;
+@cwMenuLeftTabTitleColor: @secondColor;
 
-@cwMenuLeftTabSelectedViewTextColor: @beaconBlue; // v4.03
+@cwMenuLeftTabSelectedViewTextColor: @mainColor; // v4.03
 @cwMenuLeftTabSelectedViewBackgroundColor: @white;
 
-@cwMenuLeftTabSelectedViewTabSelectedTextColor: @beaconBlue; //v4.03
+@cwMenuLeftTabSelectedViewTabSelectedTextColor: @mainColor; //v4.03
 @cwMenuLeftTabSelectedViewTabSelectedBackgroundColor: @lightGray; //v4.03
 
-@cwMenuLeftTabSelectedViewTabTextColorHover: @beaconBlue; //v4.03
+@cwMenuLeftTabSelectedViewTabTextColorHover: @mainColor; //v4.03
 @cwMenuLeftTabSelectedViewTabBackgroundColorHover: @cwMenuLeftTabSelectedViewTabSelectedBackgroundColor; //v4.03
 
 @cwMenuLeftBorderColor: @cwMenuLeftMainNavigationBackgroundColor; //v4.03
@@ -122,14 +143,14 @@
 
 /* LIST BOX */
 @cwListBoxPropertyHeaderBackgroundColor: @cwBodyBackgroundColor;
-@cwListBoxPropertyHeaderTextColor: @beaconBlue;
+@cwListBoxPropertyHeaderTextColor: @mainColor;
 @cwListBoxPropertyHeaderTextSize: @cwFontMenuTextSize;
 @cwListBoxPropertyHeaderPadding: @cwHeaderPadding;
 @cwListBoxPropertyValueBorderColor: @cwBodyBackgroundColor;
 
 /* PROPERTIES GROUP */
 @cwPropertiesTableHeaderBackgroundColor: @cwBodyBackgroundColor;
-@cwPropertiesTableHeaderTextColor: @beaconBlue;
+@cwPropertiesTableHeaderTextColor: @mainColor;
 @cwPropertiesTableHeaderTextSize: @cwFontTitleSize;
 @cwPropertiesTableHeaderPadding: @cwHeaderPadding;
 @cwPropertiesTableCellPadding: 5px;
@@ -143,23 +164,23 @@
 @cwButtonSubmitTextColor: @white;
 @cwButtonSubmitBorderColor: darken(@cwButtonSubmitBackgroundColor, 10%);
 @cwButtonTextColor: @cwTextColor;
-@cwButtonBackgroundColor: #eceff1;
-@cwButtonIconColor: @beaconBlue;
+@cwButtonBackgroundColor: @white;
+@cwButtonIconColor: @mainColor;
 @cwButtonBorderColor: @cwTextColor;
 
 @cwButtonSelectedBackgroundColor: darken(@cwButtonBackgroundColor, 5%); //v4.03
 @cwButtonBoxShadowColor: @cwShadowColor; //v4.03
 
 /* PAGE ACTIONS */
-@cwPageActionButtonBackgroundColor: @nauticalNavy;
+@cwPageActionButtonBackgroundColor: @mainColor;
 @cwPageActionButtonIconColor: @white;
 @cwPageActionButtonBorderColor: @cwColor1Shade;
 
 /* ACCORDIONS */
-@cwAccordionHeaderBackgroundColor: @beaconBlue;
+@cwAccordionHeaderBackgroundColor: @mainColor;
 @cwAccordionHeaderTextColor: @white; //v4.03
 @cwAccordionHeaderHoverBackgroundColor: @lightGray;
-@cwAccordionHeaderHoverTextColor: @beaconBlue;
+@cwAccordionHeaderHoverTextColor: @mainColor;
 
 /* DISCUSSIONS */
 @cwDiscussionsBackgroundColor: @mistGray;
@@ -167,11 +188,11 @@
 @cwDiscussionsBackgroundColorHover: @lightGray; //v4.03
 
 /* WORLD MAP */
-@cwJVectorMapCircleBackgroundColor: @beaconBlue;
+@cwJVectorMapCircleBackgroundColor: @mainColor;
 @cwJVectorMapCircleBorderColor: @cwColor1Tint;
 @cwJVectorMapPathDefaultBackgroundColor: @mistGray;
 @cwJVectorMapPathDefaultBorderColor: @cwColor1Tint;
-@cwJVectorMapPathFilledBackgroundColor: @beaconBlue;
+@cwJVectorMapPathFilledBackgroundColor: @mainColor;
 @cwJVectorMapPathFilledBorderColor: @cwColor1;
 @cwJVectorMapLabelTextColor: @cwColor1;
 @cwJVectorMapLabelBackgroundColor: @white;
@@ -179,11 +200,11 @@
 @cwJVectorMapIconLinesColor: @white;
 
 /* USER ZONE */
-@cwProfileTextColor: @white;
+@cwProfileTextColor: @mainColor;
 
 /* POPUP */
 @cwPopupBackgroundColor: @white;
-@cwPopupTitleBackgroundColor: @duskGray;
+@cwPopupTitleBackgroundColor: @mainColor; //@duskGray;
 @cwPopupTitleTextColor: @white;
 
 /* BADGES */
@@ -191,13 +212,13 @@
 @cwBadgeTextColor: @white;
 
 /* TASKS & NOTIFICATIONS */
-@cwWorkflowTaskListTaskActionsColor: lighten(@beaconBlue, 20%); //v3.0
+@cwWorkflowTaskListTaskActionsColor: lighten(@mainColor, 20%); //v3.0
 @cwWorkflowTaskApprovalApproved: #47ae47; //v3.0
 @cwWorkflowTaskApprovalRejected: @cwErrorColor; //v3.0
-@cwWorkflowDelegatedTaskColor: @sunsetOrange; //v3.0
-@cwWorflowTaskBackgroundColor: lighten(@beaconBlue, 35%);
+@cwWorkflowDelegatedTaskColor: @warningColor; //v3.0
+@cwWorflowTaskBackgroundColor: lighten(@mainColor, 35%);
 @cwWorflowTaskTextColor: @cwTextColor;
-@cwWorflowNotificationBackgroundColor: lighten(@beaconBlue, 30%);
+@cwWorflowNotificationBackgroundColor: lighten(@mainColor, 30%);
 @cwWorflowNotificationTextColor: @cwTextColor;
 @cwWorflowDueDateCalendarBackgroundColor: @white;
 @cwWorflowDueDateCalendarOverdueMonthTextColor: #f5f5f5;
@@ -214,22 +235,41 @@
 
 /* TOP BAR */
 @cwTopBarHeight: 40px; //v4.0
-@cwTopBarBackgroundColor: #eceff1; //v4.0
-@cwTopBarProfileLinkColor: @nauticalNavy; //v4.0
-@cwTopBarProfileLinkHoverColor: @beaconBlue; //v4.0
-
-/* GRID */
-@cwGridButtonsColor: @beaconBlue; //v4.03
+@cwTopBarBackgroundColor: @mainColor; //v4.0
+@cwTopBarProfileLinkColor: @white; //v4.0
+@cwTopBarProfileLinkHoverColor: @white; //v4.0
+@cwGridButtonsColor: @mainColor; //v4.03
 @cwGridPaginationBackgroundColor: @cwPropertiesTableHeaderBackgroundColor; //v4.03
 @cwGridColumnHeaderText: @cwPropertiesTableHeaderTextColor; //v4.03
 @cwGridColumnHeaderBackground: @cwPropertiesTableHeaderBackgroundColor; //v4.03
 
 /* DIAGRAM TILE */
-@cwDiagramTileNameBackground: lighten(@beaconBlue, 50%); //v4.03
-@cwDiagramTileNameBackgroundHover: darken(@cwDiagramTileNameBackground, 5%); //v4.03
+
+@cwDiagramTileNameBackground: lighten(@mainColor, 50%); //v4.03
+@cwDiagramTileNameBackgroundHover: lighten(@mainColor, 45%); //v4.03
 @cwDiagramTileNameTextColor: @white; //v4.03
 
 /* MATRIX ADVANCED */
 @cwMatrixBorderColor: #eee;
 @cwMatrixIntersectionBackground: #dde0e0;
 @cwMatrixButtonHoverColor: #07655d;
+
+/* DIAGRAM OVERLAY */
+@cwDiagramOverlayFocusHighlightedFill: @cwAccentColor;
+@cwDiagramOverlayFocusFill: @cwColor2;
+@cwDiagramOverlayFocusSelectedFill: @cwColor2Shade;
+
+@cwDiagramOverlayPortFill: @cwColor1;
+@cwDiagramOverlayPortHoverFill: white;
+
+@cwDiagramOverlayParentFill: #0288d1;
+@cwDiagramOverlayParentHighlightedFill: @cwAccentColor;
+@cwDiagramOverlayParentSelectedFill: @cwAccentColor;
+
+@cwDiagramOverlayChildFill: #0288d1;
+@cwDiagramOverlayChildHighlightedFill: @cwAccentColor;
+@cwDiagramOverlayChildSelectedFill: @cwAccentColor;
+
+@cwDiagramOverlayLinkFill: gray;
+@cwDiagramOverlayLinkStroke: gray;
+@cwDiagramOverlayLinkHighlightedFill: @cwAccentColor;
