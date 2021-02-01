@@ -22,7 +22,7 @@
     <div class="slideButton">
       <a ng-if="display.slideSelected > 0" ng-click="previousSlide(display)" class="emptyLink"> {{$root.i18n('previous')}} </a>
       <a ng-if="(display.slides.length -1) > display.slideSelected" ng-click="nextSlide(display)" class="emptyLink"> {{$root.i18n('next')}} </a>
-      <a ng-click="closeSlides(display)" class="emptyLink">{{$root.i18n('close')}} </a>
+      <a ng-if="false" ng-click="closeSlides(display)" class="emptyLink">{{$root.i18n('close')}} </a>
     </div>
   </div>
 </div>

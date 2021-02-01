@@ -151,7 +151,7 @@
 
         $scope.getStyleForDisplay = function (display) {
           let calcWidth = display.width;
-          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
+          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 1.5rem)";
 
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
@@ -161,7 +161,7 @@
 
         $scope.getStyleForDisplayContent = function (display) {
           let calcWidth = display.width;
-          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 10px)";
+          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 1.5rem)";
 
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
