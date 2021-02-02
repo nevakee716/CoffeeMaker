@@ -222,13 +222,7 @@
   filter: blur(20px) brightness(50%);
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox:hover {
-  background-color: #03a0ce;
-  color: rgba(55, 131, 154, 0.1);
-  border: 2px solid #03a0ce;
-  box-sizing: border-box;
-}
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox:hover img {
-  background-color: rgba(55, 131, 154, 0.1);
+  background-color: rgba(22, 22, 22, 0.1);
 }
 .homePage_main .homePage_column .homePage_display .homePage_last_modified_object {
   margin: 5px;
