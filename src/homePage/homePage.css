@@ -25,12 +25,19 @@
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
 /* DIAGRAM OVERLAY */
+.cw-home-navigation {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
 .homePageFav_newImage {
   position: absolute;
   display: none;
   max-width: 30px;
   bottom: 2px;
   left: 2px;
+}
+#cw-home-navigation-angular {
+  width: 100%;
 }
 .homePage_main {
   display: flex;
