@@ -321,9 +321,3 @@
     margin-top: 0px !important;
   }
 }
-@supports (-ms-ime-align: auto) {
-  .cwWorkflow .searchList .workFlowListObjectTypeResult .workFlowListObjectTypeResultSubList,
-  .cwWorkflow .searchList .workFlowListObjectTypeMessage .workFlowListObjectTypeResultSubList {
-    margin-top: 0px !important;
-  }
-}
