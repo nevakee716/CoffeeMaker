@@ -363,9 +363,11 @@
   };
 
   tableComplexeEnhanced.cwKendoGrid.ClearFilter = function () {
-    var datasource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
-    //Clear filters:
-    datasource.filter([]);
+    try {
+      var datasource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
+      //Clear filters:
+      datasource.filter([]);
+    } catch (e) {}
   };
 
   tableComplexeEnhanced.cwKendoGrid.enableFilter = function (e) {
