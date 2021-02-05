@@ -423,7 +423,7 @@
           if (formInput.objects && formInput.objects.length > 0) {
             formInput.objectsFiltered = formInput.objects.filter(function (o) {
               return (
-                o.name.indexOf(formInput.searchText) !== -1 ||
+                o.name.toLowerCase().indexOf(formInput.searchText.toLowerCase()) !== -1 ||
                 ($scope.ng.changeset.properties[formInput.scriptname] &&
                   $scope.ng.changeset.properties[formInput.scriptname].object_id === o.object_id)
               );
