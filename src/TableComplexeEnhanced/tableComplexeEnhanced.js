@@ -213,7 +213,7 @@
     if (!config || !config.title) {
       var obj = {
         name: "Title",
-        template: '<div style="font-size: 1.5em; text-align: center; width: 70%;">' + this.nodeSchema.NodeName + "</div>",
+        template: '<div style="margin-left: 3rem; font-size: 1.5em; text-align: left; flex-grow:1">' + this.nodeSchema.NodeName + "</div>",
       };
       kendoGridData.toolbar.push(obj);
     }

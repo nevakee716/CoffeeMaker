@@ -53,3 +53,6 @@ div.k-header.k-grid-toolbar {
   display: inline-flex;
   width: 100%;
 }
+.k-grid .k-grid-toolbar .k-button {
+  height: 24px;
+}
