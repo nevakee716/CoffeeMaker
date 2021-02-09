@@ -1,6 +1,7 @@
 <div class="homePage_main">
-  <div ng-repeat="(icol, col) in config.columns | orderBy:'order'" ng-style="getStyleForColumn(col)" class="homePage_column">
+  <div ng-if="checkIfRole(col)" ng-repeat="(icol, col) in config.columns | orderBy:'order'" ng-style="getStyleForColumn(col)" class="homePage_column">
     <div
+      ng-if="checkIfRole(display)"
       ng-repeat="(idisp, display) in col.displays | orderBy:'order'"
       ng-init="display.extended = !display.collapseByDefault"
       ng-style="getStyleForDisplay(display)"

@@ -15,6 +15,18 @@
   <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input ng-model="col.width" /></div>
 </div>
+<div class="bootstrap-iso row">
+  <div class="row-cell row-cell-label">{{$root.i18n('applyontotheserole')}} :</div>
+</div>
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-value row-cell-max-width">
+    <div class="cell-content-wrapper filter-wrapper propertieslist">
+      <div class="choiceBox" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById" ng-init="col.roles = col.roles ? col.roles : {}">
+        <a class="btn-add-filter btn page-action" ng-class="col.roles.hasOwnProperty(k) ? ['selected'] : []" ng-click="toggle(col.roles,k)">{{v}}</a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="tabs">
   <div
     ng-repeat="(idisp, display) in col.displays | orderBy:'order'"
@@ -50,6 +62,20 @@
   </div>
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.description"></textarea></div>
+  </div>
+  <div class="bootstrap-iso row">
+    <div class="row-cell row-cell-label">{{$root.i18n('applyontotheserole')}} :</div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-max-width">
+      <div class="cell-content-wrapper filter-wrapper propertieslist">
+        <div class="choiceBox" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById" ng-init="display.roles = display.roles ? display.roles : {}">
+          <a class="btn-add-filter btn page-action" ng-class="display.roles.hasOwnProperty(k) ? ['selected'] : []" ng-click="toggle(display.roles,k)"
+            >{{v}}</a
+          >
+        </div>
+      </div>
+    </div>
   </div>
   <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('order')}} :&nbsp;</div>

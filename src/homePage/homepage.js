@@ -101,16 +101,29 @@
       loader.loadControllerWithTemplate("homePage", $("#cw-home-navigation-angular"), templatePath, function ($scope, $sce) {
         $scope.metamodel = cwAPI.mm.getMetaModel();
 
+        $scope.checkIfRole = function (display) {
+          if (display.roles && Object.keys(display.roles).length > 0) {
+            var currentUser = cwApi.currentUser;
+            for (var i = 0; i < currentUser.RolesId.length; i++) {
+              if (display.roles.hasOwnProperty(currentUser.RolesId[i])) return true;
+            }
+            return false;
+          }
+          return true;
+        };
+
         // duplicate config to not spoil it
         $scope.config = JSON.parse(JSON.stringify(config));
         let acc = 0,
           viewLoaded = 0;
         config.columns.forEach(function (c) {
-          c.displays.forEach(function (d) {
-            if (d.type === "evolve_view") {
-              acc += 1;
-            }
-          });
+          if ($scope.checkIfRole(c)) {
+            c.displays.forEach(function (d) {
+              if (d.type === "evolve_view" && $scope.checkIfRole(d)) {
+                acc += 1;
+              }
+            });
+          }
         });
         $scope.keys = function (o) {
           return o ? Object.keys(o) : null;
@@ -222,7 +235,7 @@
             let object = { associations: o };
             cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
             display.html = $sce.trustAsHtml(output.join(""));
-            $scope.$apply();
+            if (!sync) $scope.$apply();
           }
 
           viewLoaded += 1;
@@ -273,7 +286,7 @@
 
           let i = props.indexOf(display.selectedSortProperty);
           display.selectedSortProperty = i > props.length - 2 ? props[0] : props[i + 1];
-          let view = cwAPI.getViewsSchemas()["home_fav_documents_types"];
+          let view = cwAPI.getViewsSchemas()[display.view];
           display.selectedSortPropertyObj = cwAPI.mm.getProperty(
             view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName,
             display.selectedSortProperty

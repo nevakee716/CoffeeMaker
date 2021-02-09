@@ -183,3 +183,4 @@ selectDocuments = Select Document(s) to Attach
 otherPeopleAreWorkingOn = Other People Are Working On This
 document_property = Property for document list
 associationType = Association Type
+applyontotheserole = If you select at least one role, it will be visible only for this role
