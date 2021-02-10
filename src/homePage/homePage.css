@@ -135,6 +135,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider .selected {
   color: #03a0ce;
