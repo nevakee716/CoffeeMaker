@@ -187,7 +187,6 @@
   display: flex;
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc {
-  margin: 5px;
   background: transparent;
   display: flex;
   flex-wrap: wrap;
@@ -199,7 +198,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox .link {
   padding: 0.2rem;

@@ -111,7 +111,7 @@
           }
           return true;
         };
-
+        $scope.nextGenTheme = window.getComputedStyle(document.body).backgroundColor != "rgb(255, 255, 255)";
         // duplicate config to not spoil it
         $scope.config = JSON.parse(JSON.stringify(config));
         let acc = 0,
