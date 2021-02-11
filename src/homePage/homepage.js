@@ -132,6 +132,18 @@
         $scope.cwApi = cwApi;
         manageFavAndBookmark(homeContainer, $scope);
 
+        $scope.checkFilter = function (item, display) {
+          if (display.hasOwnProperty("filters") && display.filters.length && display.filters.length > 0) {
+            let cwFilter = new cwApi.customLibs.utils.cwFilter();
+            display.filters.forEach(function (filter) {
+              filter.Asset = filter.scriptname;
+            });
+            cwFilter.init(display.filters);
+            return cwFilter.isMatching(item);
+          }
+          return true;
+        };
+
         $scope.initFav = function () {
           let fav = angular.element(document.querySelector("#homePage_favorite"));
           if (fav) fav.append($scope.favHTML);
@@ -215,14 +227,19 @@
           let o = display.objects;
           if (!o) return;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
+          let rootNodeId;
           let containsItems = schema.RootNodesId.some(function (nId) {
             return o[nId] && o[nId].length > 0;
           });
           if (!containsItems && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
             display.html = $scope.getEmptyZoneFromDisplay(display);
           } else {
+            let rootNodeId = schema.RootNodesId && schema.RootNodesId.length > 0 ? schema.RootNodesId[0] : schema.RootNodesId;
+            o[rootNodeId] = o[rootNodeId].filter(function (o) {
+              return $scope.checkFilter(o, display);
+            });
             if (display.selectedSortProperty) {
-              o[schema.RootNodesId].sort(function (a, b) {
+              o[rootNodeId].sort(function (a, b) {
                 if (display.selectedSortPropertyObj.type === "Date")
                   return new Date(b.properties[display.selectedSortProperty]) - new Date(a.properties[display.selectedSortProperty]);
                 if (display.selectedSortPropertyObj.type === "Double" || display.selectedSortPropertyObj.type === "Integer")

@@ -26,29 +26,84 @@
     </div>
   </div>
 </div>
+<div class="bootstrap-iso row">
+  <div class="row-cell row-cell-label">{{$root.i18n('label_filter')}} :</div>
+</div>
+<div class="row">
+  <div class="row-cell row-cell-value row-cell-max-width">
+    <table class="cell-content-wrapper filter-wrapper">
+      <tr class="filter-row filter-header bootstrap-iso">
+        <th class="filter-cell filter-content header-cell header-property">{{$root.i18n('label_pt_filter_column_property')}}</th>
+        <th class="filter-cell filter-operator header-cell header-operator">{{$root.i18n('label_pt_filter_column_operator')}}</th>
+        <th class="filter-cell filter-value header-cell header-value">{{$root.i18n('label_pt_filter_column_value')}}</th>
+      </tr>
+      <tr class="filter-row filter-content filter-cell" ng-repeat="f in display.filters">
+        <td class="filter-property-scriptname filter-cell">
+          <select ng-model="f.scriptname">
+            <option
+              ng-selected="x.scriptName === f.scriptname"
+              value="{{x.scriptName}}"
+              ng-repeat="x in getSortPropFromOT(getRootObjectTypeFromView(display.view))"
+            >
+              {{x.name}}
+            </option>
+          </select>
+        </td>
 
-<div class="rowFlex bootstrap-iso">
-  <div class="row-cell row-cell-label">{{$root.i18n('textIfEmpty')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value">
-    <input type="text" ng-model="display.textIfEmpty" />
+        <td ng-if="f.scriptname" class="filter-operator filter-cell">
+          <select ng-model="f.Operator" ng-options="x for x in FilterOperators"></select>
+        </td>
+        <td ng-if="f.scriptname" class="filter-value filter-cell">
+          <input class="largeCell" ng-model="f.Value" ng-if="getPropertyDataType(getRootObjectTypeFromView(display.view), f.scriptname) ==='text'" />
+          <input
+            ng-model="f.Value"
+            type="checkbox"
+            ng-if="getPropertyDataType(getRootObjectTypeFromView(display.view), f.scriptname) ==='checkbox'"
+          />
+          <input ng-model="f.Value" type="date" ng-if="getPropertyDataType(getRootObjectTypeFromView(display.view), f.scriptname) ==='date'" />
+          <input ng-model="f.Value" type="number" ng-if="getPropertyDataType(getRootObjectTypeFromView(display.view), f.scriptname) ==='number'" />
+          <select
+            ng-model="f.Value"
+            ng-if="getPropertyDataType(getRootObjectTypeFromView(display.view), f.scriptname)==='lookup' && f.Operator != 'In'"
+            ng-options="x.id as x.name for x in getRootObjectTypeFromView(display.view).properties[f.scriptname].lookups"
+          ></select>
+          <select
+            style="height: initial"
+            multiple
+            size="{{getRootObjectTypeFromView(display.view).properties[f.scriptname].lookups.length}}"
+            ng-model="f.Value"
+            ng-if="getPropertyDataType(getRootObjectTypeFromView(display.view), f.scriptname)==='lookup' && f.Operator == 'In'"
+            ng-options="x.id as x.name for x in getWIObjgetRootObjectTypeFromViewectType().properties[f.scriptname].lookups"
+          ></select>
+        </td>
+        <td class="filter-cell">
+          <a class="btn page-action no-text" ng-click="display.filters.splice($index,1)"><i class="fa fa-times" aria-hidden="true"></i></a>
+        </td>
+      </tr>
+      <tr>
+        <td class="add-filter-button bootstrap-iso">
+          <a class="btn-add-filter btn page-action" ng-click="addFilter(display)">{{$root.i18n('label_pt_filter_add_new')}}</a>
+        </td>
+      </tr>
+    </table>
   </div>
-</div>
 
-<div class="rowFlex bootstrap-iso">
-  <div class="row-cell row-cell-label">{{$root.i18n('descriptionIfEmpty')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.descriptionIfEmpty"></textarea></div>
-</div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('descriptionIfEmpty')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value row-cell-value-textarea"><textarea ng-model="display.descriptionIfEmpty"></textarea></div>
+  </div>
 
-<div class="rowFlex bootstrap-iso">
-  <div class="row-cell row-cell-label">{{$root.i18n('linkTextIfEmpty')}} :&nbsp;</div>
-  <input type="text" ng-model="display.linkTextIfEmpty" />
-  <div class="row-cell row-cell-label">{{$root.i18n('linkIfEmpty')}} :&nbsp;</div>
-  <input type="text" ng-model="display.linkIfEmpty" />
-</div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('linkTextIfEmpty')}} :&nbsp;</div>
+    <input type="text" ng-model="display.linkTextIfEmpty" />
+    <div class="row-cell row-cell-label">{{$root.i18n('linkIfEmpty')}} :&nbsp;</div>
+    <input type="text" ng-model="display.linkIfEmpty" />
+  </div>
 
-<div class="rowFlex bootstrap-iso">
-  <div class="row-cell row-cell-label">{{$root.i18n('pictureIfEmpty')}} :&nbsp;</div>
-  <div class="row-cell row-cell-value">
-    <input type="text" ng-model="display.pictureIfEmpty" />
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('pictureIfEmpty')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="text" ng-model="display.pictureIfEmpty" />
+    </div>
   </div>
 </div>

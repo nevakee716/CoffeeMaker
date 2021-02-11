@@ -229,6 +229,13 @@
                 }
               } else return "number";
             };
+
+            $scope.getRootObjectTypeFromView = function (view) {
+              return cwApi.mm.getObjectType(
+                cwApi.getViewsSchemas()[view].NodesByID[cwApi.getViewsSchemas()[view].RootNodesId[0]].ObjectTypeScriptName
+              );
+            };
+
             $scope.addSlide = function (display) {
               if (display.slides === undefined) display.slides = [];
               display.slides.push({ label: "Slide " + display.slides.length });

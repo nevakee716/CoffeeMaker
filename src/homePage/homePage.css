@@ -66,6 +66,8 @@
 }
 .homePage_main .homePage_column .homePage_display {
   margin: 0.75rem;
+  border: solid 1px #03a0ce;
+  box-sizing: border-box;
 }
 .homePage_main .homePage_column .homePage_display .cwPropertiesTableHeader span.homePage_display_title,
 .homePage_main .homePage_column .homePage_display .fa.expendIcon {
@@ -161,6 +163,10 @@
 .homePage_main .homePage_column .homePage_display .homePage_evolveView {
   overflow: auto;
   height: inherit;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView .cw-jvector-map {
   height: 100%;
