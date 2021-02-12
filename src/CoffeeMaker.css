@@ -142,6 +142,7 @@
   border: 1px solid #cccccc;
   padding: 0px 5px;
   height: 30px;
+  background-color: white;
 }
 .CoffeeMaker div.row div.row-cell-value input,
 .CoffeeMaker div.rowFlex div.row-cell-value input {
@@ -151,6 +152,7 @@
   border: 1px solid #cccccc;
   padding: 0px 5px;
   height: 30px;
+  background-color: white;
 }
 .CoffeeMaker div.row div.row-cell-value textarea,
 .CoffeeMaker div.rowFlex div.row-cell-value textarea {
@@ -161,6 +163,7 @@
   padding: 0px 5px;
   min-height: 30px;
   resize: vertical;
+  background-color: white;
 }
 .CoffeeMaker div.row div.row-cell-value.row-cell-max-width,
 .CoffeeMaker div.rowFlex div.row-cell-value.row-cell-max-width {
