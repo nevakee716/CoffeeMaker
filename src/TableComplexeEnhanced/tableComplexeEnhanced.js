@@ -117,7 +117,10 @@
   // Apply ratio to the height
   var calcHeight = function (height, nodeID) {
     let config;
-    height = height - 1 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    if (window.getComputedStyle(document.body).backgroundColor != "rgb(255, 255, 255)") {
+      height = height - 1 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    }
+
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
 
