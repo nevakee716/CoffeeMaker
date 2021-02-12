@@ -221,7 +221,7 @@
                     return "checkbox";
                   case "Integer":
                   case "Double":
-                    return "number";
+                    return "text";
                   case "Lookup":
                     return "lookup";
                   default:
