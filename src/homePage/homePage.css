@@ -68,6 +68,7 @@
   margin: 0.75rem;
   border: solid 1px #03a0ce;
   box-sizing: border-box;
+  flex: 1 0 auto;
 }
 .homePage_main .homePage_column .homePage_display .cwPropertiesTableHeader span.homePage_display_title,
 .homePage_main .homePage_column .homePage_display .fa.expendIcon {
