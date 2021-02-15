@@ -1,0 +1,28 @@
+<div class="countWrapper" ng-controller="cwLayoutcwCount">
+  <div
+    ng-if="cwApi.currentUser.PowerLevel === 1"
+    ng-click="enableExpertMode()"
+    class="button fa fa-2x fa-cog"
+    ng-class="{selected : 'expertMode'}"
+  ></div>
+  <div class="countItemWrapper" ng-repeat="item in items">
+    <div class="countTitle">
+      <a ng-bind-html="displayItemString(item)"></a>
+      <div class="countProp">
+        <span ng-if="item.properties[config.evolutionrate] > 0" class="countUp"
+          >+{{round(item.properties[config.evolutionrate])}} <i class="fa fa-arrow-up" aria-hidden="true"></i
+        ></span>
+        <span ng-if="0 >= item.properties[config.evolutionrate]" class="countDown"
+          >{{round(item.properties[config.evolutionrate])}} <i class="fa fa-arrow-down" aria-hidden="true"></i>
+        </span>
+        <span ng-if="item.properties[config.text]">{{config.text}} </span>
+        <span ng-if="item.properties[config.textProperty]">{{item.properties[config.textProperty]}} </span>
+      </div>
+    </div>
+    <div class="countNumber">
+      <span>{{item.properties[config.numerator]}}</span>
+      <span ng-if="config.denominator">/ {{item.properties[config.denominator]}}</span>
+      <span ng-if="config.unit">{{config.unit}}</span>
+    </div>
+  </div>
+</div>

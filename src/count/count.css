@@ -1,0 +1,130 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
+.homePage_display .cwLayoutcwCountWrapper:last-child .countItemWrapper:last-child {
+  border-right: none;
+}
+.homePage_display .countWrapper .button {
+  display: none;
+}
+.countWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.countWrapper .countItemWrapper {
+  border-right: 1px solid #ddd;
+  flex: 1 0 auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.countWrapper .countItemWrapper .countTitle {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #5e514d;
+  font-size: 24px;
+  font-weight: bold;
+}
+.countWrapper .countItemWrapper .countNumber {
+  font-size: 42px;
+}
+.countWrapper .countItemWrapper .countNumber > span {
+  margin-left: 1rem;
+}
+.countWrapper .countItemWrapper .countProp {
+  font-weight: bolder;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+.countWrapper .countItemWrapper .countProp .countUp {
+  color: green;
+  display: flex;
+  align-items: center;
+}
+.countWrapper .countItemWrapper .countProp .countUp .fa {
+  margin-left: 0.2rem;
+}
+.countWrapper .countItemWrapper .countProp .countDown {
+  margin-left: 0.2rem;
+  color: #7a0000;
+  display: flex;
+  align-items: center;
+}
+.countWrapper .countItemWrapper .countProp .countDown .fa {
+  margin-left: 0.2rem;
+}
+.countWrapper:last-child .count {
+  border-right: none;
+}
+.countExpertModeWrapper .button,
+.countWrapper .button {
+  color: #5e514d;
+  cursor: pointer;
+}
+.countExpertModeWrapper .button.selected,
+.countWrapper .button.selected {
+  color: #03a0ce;
+}
+.countExpertModeWrapper {
+  padding: 1rem;
+}
+.countExpertModeWrapper .row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.countExpertModeWrapper .row span.label {
+  vertical-align: top;
+  font-size: large;
+  font-weight: 700;
+  color: #03a0ce;
+  flex: 1 1 auto;
+  width: 50%;
+}
+.countExpertModeWrapper .row select,
+.countExpertModeWrapper .row input {
+  width: 50%;
+  color: #5c5d61;
+  font-size: 12px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  flex: 1 1 auto;
+  height: 2rem;
+}
+.countExpertModeWrapper .row select {
+  padding: 5px;
+}
+.countExpertModeWrapper .row input {
+  height: 2rem;
+  padding: 0px;
+}

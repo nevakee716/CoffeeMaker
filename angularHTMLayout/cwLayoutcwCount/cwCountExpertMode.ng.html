@@ -1,0 +1,66 @@
+<div ng-controller="cwLayoutcwCountExpertMode" class="countExpertModeWrapper">
+  <div class="row">
+    <span class="label">{{$root.i18n('numerator')}} :&nbsp;</span>
+    <select ng-change="refreshConfig()" ng-model-options="{ debounce: 900 }" ng-model="config.numerator">
+      <option value=""></option>
+      <option
+        value="{{propScriptname.toLowerCase()}}"
+        ng-selected="propScriptname.toLowerCase() == config.numerator"
+        ng-repeat="propScriptname in mmNode.PropertiesSelected"
+      >
+        {{cwApi.mm.getProperty(mmNode.ObjectTypeScriptName,propScriptname).name}}
+      </option>
+    </select>
+  </div>
+  <div class="row">
+    <span class="label">{{$root.i18n('denominator')}} :&nbsp;</span>
+    <select ng-change="refreshConfig()" ng-model-options="{ debounce: 900 }" ng-model="config.denominator">
+      <option value=""></option>
+      <option
+        value="{{propScriptname.toLowerCase()}}"
+        ng-selected="propScriptname.toLowerCase() == config.denominator"
+        ng-repeat="propScriptname in mmNode.PropertiesSelected"
+      >
+        {{cwApi.mm.getProperty(mmNode.ObjectTypeScriptName,propScriptname).name}}
+      </option>
+    </select>
+  </div>
+  <div class="row">
+    <span class="label">{{$root.i18n('unit')}} :&nbsp;</span>
+    <input type="text" ng-change="refreshConfig()" ng-model-options="{ debounce: 900 }" ng-model="config.unit" />
+  </div>
+  <div class="row">
+    <span class="label">{{$root.i18n('evolutionrate')}} :&nbsp;</span>
+    <select ng-change="refreshConfig()" ng-model-options="{ debounce: 900 }" ng-model="config.evolutionrate">
+      <option value=""></option>
+      <option
+        value="{{propScriptname.toLowerCase()}}"
+        ng-selected="propScriptname.toLowerCase() == config.evolutionrate"
+        ng-repeat="propScriptname in mmNode.PropertiesSelected"
+      >
+        {{cwApi.mm.getProperty(mmNode.ObjectTypeScriptName,propScriptname).name}}
+      </option>
+    </select>
+  </div>
+  <div class="row">
+    <span class="label">{{$root.i18n('text')}} :&nbsp;</span>
+    <input type="text" ng-change="refreshConfig()" ng-model-options="{ debounce: 900 }" ng-model="config.text" />
+  </div>
+  <div class="row">
+    <span class="label">{{$root.i18n('textproperty')}} :&nbsp;</span>
+    <select ng-change="refreshConfig()" ng-model-options="{ debounce: 900 }" ng-model="config.textProperty">
+      <option value=""></option>
+      <option
+        value="{{propScriptname.toLowerCase()}}"
+        ng-selected="propScriptname == config.textProperty"
+        ng-repeat="propScriptname in mmNode.PropertiesSelected"
+      >
+        {{cwApi.mm.getProperty(mmNode.ObjectTypeScriptName,propScriptname).name}}
+      </option>
+    </select>
+  </div>
+  <div class="row">
+    <div ng-click="saveConfig()" class="button fa fa-2x fa-floppy-o selected"></div>
+  </div>
+  <pre>{{config|json}}</pre>
+</div>

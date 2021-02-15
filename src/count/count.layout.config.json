@@ -1,0 +1,14 @@
+{
+  "Name": "cw-count",
+  "DisplayName": "Count Layout",
+  "Description": "Allow to display a counter depending on property",
+  "JavaScriptClassName": "cwCount",
+  "Options": [
+    {
+      "Id": "configuration",
+      "DisplayName": "Configuration",
+      "Description": "Configuration",
+      "Type": 0
+    }
+  ]
+}

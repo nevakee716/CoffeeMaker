@@ -1,0 +1,115 @@
+@import "../../_mixins";
+@import "../../_variables";
+
+.homePage_display {
+  .cwLayoutcwCountWrapper:last-child .countItemWrapper:last-child {
+    border-right: none;
+  }
+  .countWrapper .button {
+    display: none;
+  }
+}
+.countWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .countItemWrapper {
+    border-right: 1px solid #ddd;
+    flex: 1 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+    .countTitle {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      color: #5e514d;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .countNumber {
+      font-size: 42px;
+      & > span {
+        margin-left: 1rem;
+      }
+    }
+
+    .countProp {
+      font-weight: bolder;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+
+      .countUp {
+        color: green;
+        display: flex;
+        align-items: center;
+        .fa {
+          margin-left: 0.2rem;
+        }
+      }
+      .countDown {
+        margin-left: 0.2rem;
+        color: rgb(122, 0, 0);
+        display: flex;
+        align-items: center;
+        .fa {
+          margin-left: 0.2rem;
+        }
+      }
+    }
+  }
+  &:last-child .count {
+    border-right: none;
+  }
+}
+
+.countExpertModeWrapper,
+.countWrapper {
+  .button {
+    color: #5e514d;
+    cursor: pointer;
+    &.selected {
+      color: @cwColor1;
+    }
+  }
+}
+.countExpertModeWrapper {
+  padding: 1rem;
+  .row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    span.label {
+      vertical-align: top;
+      font-size: large;
+      font-weight: 700;
+      color: @cwColor1;
+      flex: 1 1 auto;
+      width: 50%;
+    }
+
+    select,
+    input {
+      width: 50%;
+      color: #5c5d61;
+      font-size: 12px;
+      -moz-border-radius: 6px;
+      -webkit-border-radius: 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      outline: none;
+      flex: 1 1 auto;
+      height: 2rem;
+    }
+    select {
+      padding: 5px;
+    }
+    input {
+      height: 2rem;
+      padding: 0px;
+    }
+  }
+}
