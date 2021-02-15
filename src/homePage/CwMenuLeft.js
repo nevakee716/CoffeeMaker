@@ -460,19 +460,19 @@
       o.push('<ul id="main_menu" class="main-level collapsed">');
 
       if (cwApi.isModelSelectionPage() === false) {
-      if (cwApi.isLive()) {
-        if (cwApi.cwConfigs.EnabledVersion.indexOf("v2020.") !== -1) {
-          outputListNotifications(o);
-          if (cwApi.isWorkflowEnabled()) outputListTasks(o);
-        } else if (cwApi.isWorkflowEnabled()) {
-          outputListNotifications(o);
-          outputListTasks(o);
-        }
+        if (cwApi.isLive()) {
+          if (cwApi.cwConfigs.EnabledVersion.indexOf("v2020.") !== -1) {
+            outputListNotifications(o);
+            if (cwApi.isWorkflowEnabled()) outputListTasks(o);
+          } else if (cwApi.isWorkflowEnabled()) {
+            outputListNotifications(o);
+            outputListTasks(o);
+          }
 
-        if (cwApi.cwConfigs.SocialSiteDefinition.FavouritesEnabled) {
-          outputListFavourites(o);
+          if (cwApi.cwConfigs.SocialSiteDefinition.FavouritesEnabled) {
+            outputListFavourites(o);
+          }
         }
-      }
       }
       cwApi.pluginManager.execute("CwMenuLeft.outputMenuBeforeItems", o);
       for (i = 0; i < links.length; i += 1) {
