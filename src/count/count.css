@@ -31,10 +31,15 @@
 .homePage_display .countWrapper .button {
   display: none;
 }
+.cwLayoutcwCountWrapper {
+  display: flex;
+  width: 100%;
+}
 .countWrapper {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  width: 100%;
 }
 .countWrapper .countItemWrapper {
   border-right: 1px solid #ddd;

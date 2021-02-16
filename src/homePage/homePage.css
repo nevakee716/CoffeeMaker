@@ -164,6 +164,7 @@
 .homePage_main .homePage_column .homePage_display .homePage_evolveView {
   overflow: auto;
   height: inherit;
+  display: flex;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list {
   padding-left: 0.5rem;
