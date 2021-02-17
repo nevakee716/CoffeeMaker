@@ -1,13 +1,12 @@
-<div class="label">{{stepConfiguration.label}} : &nbsp;</div>
+<div class="label"><span ng-if="stepConfiguration.mandatory">*</span>{{stepConfiguration.label}} : &nbsp;</div>
 <select
   ng-if="!stepConfiguration.creator"
   ng-disabled="stepConfiguration.readOnly"
   ng-required="stepConfiguration.mandatory"
   ng-model="ng.stepmapping[stepConfiguration.stepName]"
-  data-width="150px"
-  data-live-search="true"
+  class="value selectDropDownList"
+  ng-class="{readonly : stepConfiguration.readOnly}"
   id="{{'cwuser_' + $index}}"
-  ng-init="initValueOfStepmapping(stepConfiguration,$index)"
 >
   <option value=""></option>
   <option value="{{k}}" ng-selected="k == stepConfiguration.cwRole" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById">{{v}}</option>

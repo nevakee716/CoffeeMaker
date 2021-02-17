@@ -1,15 +1,11 @@
-<div class="label">{{getPropertyName(formInput.scriptname)}} :&nbsp;</div>
-
-<span class="value" ng-if="formInput.value && formInput.readOnly && getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup' ">
-  {{cwApi.updateUndefinedForLookupIfRequired(getLookupLabel(ng.objectType.properties[formInput.scriptname],ng.changeset.properties[formInput.scriptname]))
-  }}
-</span>
+<div class="label"><span ng-if="formInput.mandatory">*</span>{{getPropertyName(formInput.scriptname)}} :&nbsp;</div>
 
 <input
   class="value"
   ng-readonly="formInput.readOnly"
   ng-required="formInput.mandatory"
   class="largeCell"
+  ng-class="{readonly : formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   ng-if="getPropertyDataType(ng.objectType, formInput.scriptname)==='text'"
 />
@@ -17,6 +13,7 @@
   class="value"
   ng-readonly="formInput.readOnly"
   ng-required="formInput.mandatory"
+  ng-class="{readonly : formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   type="checkbox"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='checkbox'"
@@ -25,6 +22,7 @@
   class="value"
   ng-readonly="formInput.readOnly"
   ng-required="formInput.mandatory"
+  ng-class="{readonly : formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='memo'"
 ></textarea>
@@ -32,6 +30,7 @@
 <input
   ng-readonly="formInput.readOnly"
   ng-required="formInput.mandatory"
+  ng-class="{readonly : formInput.readOnly}"
   class="value"
   type="date"
   ng-model="ng.changeset.properties[formInput.scriptname]"
@@ -41,6 +40,7 @@
 <input
   ng-readonly="formInput.readOnly"
   ng-required="formInput.mandatory"
+  ng-class="{readonly : formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   type="number"
   class="value"
@@ -50,10 +50,11 @@
 <select
   ng-disabled="formInput.readOnly"
   ng-required="formInput.mandatory"
+  ng-class="{readonly : formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   class="value selectDropDownList"
   id="{{'lookupFilter_' + $index}}"
-  ng-if="(!formInput.value || !formInput.readOnly) && getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
+  ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
 >
   <option value=""></option>
   <option
