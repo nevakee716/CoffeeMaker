@@ -118,7 +118,7 @@
   var calcHeight = function (height, nodeID) {
     let config;
     if (window.getComputedStyle(document.body).backgroundColor != "rgb(255, 255, 255)") {
-      height = height - 1 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      //height = height - 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
 
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
@@ -360,6 +360,10 @@
         gridObject.ClearFilter();
       }
     }
+    window.setTimeout(function () {
+      var grid = $("." + properties.NodeID + ".k-grid").data("kendoGrid");
+      grid.refresh();
+    }, 1000);
   };
 
   tableComplexeEnhanced.cwKendoGrid.enableClearFilter = function (container) {
