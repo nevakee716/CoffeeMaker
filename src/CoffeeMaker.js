@@ -107,6 +107,12 @@
       output.push('<div id="CoffeeMaker_' + this.nodeID + '" class="CoffeeMaker">');
       output.push('<div id="CoffeeMakerTabContainer_' + this.nodeID + '" class="CoffeeMakerTabs">');
 
+      if (object.associations[this.nodeID] && object.associations[this.nodeID].length > 0) {
+        this.mainObject = object.associations[this.nodeID][0];
+
+        this.objectConfigurationId = "ccustomlayoutconfiguration" === this.mainObject.objectTypeScriptName ? this.mainObject.object_id : null;
+      }
+
       Object.keys(this.config).forEach(function (e) {
         output.push('<div data-id="' + e + '" id="CoffeeMakerTab_' + e + "_" + self.nodeID + '" class="CoffeeMakerTab">' + $.i18n.prop(e) + "</div>");
       });
@@ -117,7 +123,7 @@
           '" class="CoffeeMakerTab"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>'
       );
       output.push(
-        '<div data-id="refresh"  id="CoffeeMakerTab_localstorage_"' +
+        '<div data-id="refresh" id="CoffeeMakerTab_localstorage_' +
           self.nodeID +
           '" class="CoffeeMakerTab"><i class="fa fa-refresh" aria-hidden="true"></i></div>'
       );
@@ -148,6 +154,45 @@
     }
   };
 
+  cwCoffeeMaker.prototype.saveConfiguration = function (configuration) {
+    var changeset, sourceItem, targetItem;
+    sourceItem = {
+      associations: {},
+      displayNames: {
+        description: "Description",
+      },
+      properties: {
+        description: "",
+      },
+    };
+    targetItem = {
+      associations: {},
+      displayNames: {
+        description: "Description",
+      },
+      properties: {
+        description: configuration,
+      },
+    };
+    cwApi.pendingChanges.clear();
+    changeset = new cwApi.CwPendingChangeset(this.mainObject.objectTypeScriptName, this.mainObject.object_id, this.mainObject.name, true, 1);
+    changeset.compareAndAddChanges(sourceItem, targetItem);
+    cwApi.pendingChanges.addChangeset(changeset);
+    cwApi.pendingChanges.sendAsChangeRequest(
+      undefined,
+      function (response) {
+        if (cwApi.statusIsKo(response)) {
+          cwApi.notificationManager.addNotification($.i18n.prop("editmode_someOfTheChangesWereNotUpdated"), "error");
+        } else {
+          cwApi.notificationManager.addNotification($.i18n.prop("editmode_yourChangeHaveBeenSaved"));
+        }
+      },
+      function (error) {
+        cwApi.notificationManager.addNotification(error.status + " - " + error.responseText, "error");
+      }
+    );
+  };
+
   cwCoffeeMaker.prototype.loadAngularTemplate = function () {
     var self = this;
     var $container = $("#CoffeeMakerViewContainer_" + this.nodeID);
@@ -161,11 +206,20 @@
         t.addEventListener("click", function (event) {
           loader.setup();
 
+          if (t.dataset.id === "saveconfiguration" && self.objectConfigurationId) {
+            self.saveConfiguration(angular.toJson(self.config));
+            return;
+          }
           if (t.dataset.id === "saveconfiguration") {
             cwAPI.customLibs.utils.copyToClipboard(angular.toJson(self.config));
           }
           if (t.dataset.id === "refresh") {
+            $("#CoffeeMakerTab_localstorage_" + self.nodeID + " .fa").addClass("fa-spin");
             localStorage.setItem(cwApi.getSiteId() + "_" + cwApi.getDeployNumber() + "_coffeeMakerConfiguration", angular.toJson(self.config));
+            window.setTimeout(function () {
+              $("#CoffeeMakerTab_localstorage_" + self.nodeID + " .fa").removeClass("fa-spin");
+            }, 1000);
+
             return;
           }
           let templatePath = cwAPI.getCommonContentPath() + "/html/coffee/" + t.dataset.id + ".ng.html" + "?" + Math.random();
