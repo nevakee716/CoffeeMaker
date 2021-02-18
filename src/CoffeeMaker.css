@@ -25,6 +25,9 @@
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
 /* DIAGRAM OVERLAY */
+.CoffeeMaker {
+  width: 100%;
+}
 .CoffeeMaker .fullWidth {
   width: 100% !important;
 }
