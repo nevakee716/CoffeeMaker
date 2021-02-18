@@ -67,6 +67,7 @@
   /* Opera 7 */
   word-wrap: break-word;
   /* IE */
+  text-align: justify;
 }
 .cwWorkflow .input .value {
   font-size: large;
