@@ -1,6 +1,6 @@
 <div class="associationContainer">
   <div ng-mouseenter="formInput.resultExpend = true" ng-mouseleave="formInput.resultExpend = false" class="searchContainer">
-    <div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
+    <div ng-init="formInput.index = $index" class="label"><span ng-if="formInput.mandatory">*</span>{{formInput.label}} :&nbsp;</div>
     <div class="searchList" ng-class="{expend : formInput.resultExpend}">
       <div class="searchText">
         <input
