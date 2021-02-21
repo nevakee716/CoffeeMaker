@@ -57,7 +57,11 @@
       <tr class="filter-row filter-content filter-cell" ng-repeat="f in nStep.filters">
         <td class="filter-property-scriptname filter-cell">
           <select ng-model="f.scriptname">
-            <option ng-selected="x.scriptName === f.scriptname" value="{{x.scriptName}}" ng-repeat="x in getWIObjectType().properties">
+            <option
+              ng-selected="x.scriptName === f.scriptname"
+              value="{{x.scriptName}}"
+              ng-repeat="x in getSortPropFromOT(getWIObjectType()) | orderBy:'name'"
+            >
               {{x.name}}
             </option>
           </select>
