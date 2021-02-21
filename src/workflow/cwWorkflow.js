@@ -176,6 +176,7 @@
         $scope.ng.scenario = self.scenario;
         $scope.ng.deletedDocument = [];
         $scope.ng.otherUsers = "";
+
         if (self.task && self.task.associations) {
           let ou;
           ou = self.task.associations[Object.keys(self.task.associations)[0]].filter(function (u) {
@@ -501,26 +502,35 @@
 
   cwLayout.prototype.applyJavaScript = function () {
     let self = this;
+
     if (!cwAPI.isWebSocketConnected) cwApi.customLibs.utils.setupWebSocketForSocial(this.loadLibs().bind(this));
     else this.loadLibs();
   };
 
   cwLayout.prototype.loadLibs = function () {
     let self = this;
+    let query = {
+      ObjectTypeScriptName: "CW_USER",
+      PropertiesToLoad: ["NAME", "EMAIL"],
+      Where: [],
+    };
 
-    if (cwAPI.isDebugMode() === true) {
-      self.load();
-    } else {
-      var libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
-      // AsyncLoad
-      cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
-        if (error === null) {
-          self.load();
-        } else {
-          cwAPI.Log.Error(error);
-        }
-      });
-    }
+    cwApi.CwDataServicesApi.send("flatQuery", query, function (err, res) {
+      self.cwUsers = res;
+      if (cwAPI.isDebugMode() === true) {
+        self.load();
+      } else {
+        var libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
+        // AsyncLoad
+        cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
+          if (error === null) {
+            self.load();
+          } else {
+            cwAPI.Log.Error(error);
+          }
+        });
+      }
+    });
   };
 
   cwApi.cwLayouts.cwWorkflow = cwLayout;

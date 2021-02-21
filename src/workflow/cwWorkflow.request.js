@@ -111,6 +111,9 @@
             $scope.ng.stepmapping[stepSetting.stepName] = $scope.ng.stepmapping.creator;
           }
         }
+        if (stepSetting.cwUser === true) {
+          $scope.ng.stepmapping[stepSetting.stepName] = $scope.ng.stepmapping.cwUserObject.object_id;
+        }
       });
 
       $scope.ng.jsonObjects.properties.stepmapping = angular.toJson($scope.ng.stepmapping);
