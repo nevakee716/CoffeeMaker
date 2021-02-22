@@ -21,7 +21,7 @@
         class="buttonLarge"
         ng-if="checkFilter(step)"
         ng-repeat="step in ng.currentStep.nextStep"
-        ng-disabled="workFlowItem.$invalid && !ng.ignoreMandatory"
+        ng-disabled="workFlowItem.$invalid && !step.ignoreMandatory"
         type="submit"
         ng-click="manageStepClick(step,ng.currentStep)"
         value="{{step.label}}"
