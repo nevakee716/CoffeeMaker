@@ -50,7 +50,7 @@
         <div id="{{'objectTypeSelect_' + $index}}" class="workFlowListObjectTypeResultSubList">
           <div
             ng-class="{selected: stepConfiguration.selectedId === object.object_id}"
-            ng-click="stepConfiguration.cwUserObject = object"
+            ng-click="stepConfiguration.cwUserObject = object; stepConfiguration.searchText = object.name + '(' + object.email + ')';"
             ng-repeat="object in stepConfiguration.objectsFiltered"
           >
             {{object.name}} ({{object.email}})

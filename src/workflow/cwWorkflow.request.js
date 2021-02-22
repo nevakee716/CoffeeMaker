@@ -112,7 +112,7 @@
           }
         }
         if (stepSetting.cwUser === true) {
-          $scope.ng.stepmapping[stepSetting.stepName] = $scope.ng.stepmapping.cwUserObject.object_id;
+          $scope.ng.stepmapping[stepSetting.stepName] = stepSetting.cwUserObject.object_id;
         }
       });
 
@@ -154,7 +154,7 @@
             let id = $scope.parseObjectID(response);
             if (step.shareWorkflow) {
               let t = $scope.ng.currentStep.stepsSettings.some(function (stepSetting) {
-                if (stepSetting.creator === true && stepSetting.stepName === step.stepName) {
+                if ((stepSetting.cwUser === true || stepSetting.creator === true) && stepSetting.stepName === step.stepName) {
                   $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
                     $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
                   });
