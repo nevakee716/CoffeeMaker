@@ -516,7 +516,10 @@
     };
 
     cwApi.CwDataServicesApi.send("flatQuery", query, function (err, res) {
-      self.cwUsers = res;
+      self.cwUsers = res.map(function (u) {
+        u.name = u.name + "(" + u.properties.email + ")";
+        return u;
+      });
       if (cwAPI.isDebugMode() === true) {
         self.load();
       } else {
