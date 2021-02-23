@@ -4,6 +4,7 @@
   ng-disabled="!ng.canEdit || stepConfiguration.readOnly"
   ng-required="stepConfiguration.mandatory"
   ng-model="ng.stepmapping[stepConfiguration.stepName]"
+  ng-init="initStepMapping(stepConfiguration)"
   class="value selectDropDownList"
   ng-class="{readonly : !ng.canEdit || stepConfiguration.readOnly}"
   id="{{'cwuser_' + $index}}"

@@ -117,6 +117,7 @@
         }
         self.changeset = JSON.parse(self.cleanJSON(o.properties.changeset));
         self.stepmapping = JSON.parse(self.cleanJSON(o.properties.stepmapping));
+        if (!self.stepmapping.cwUserMapping) self.stepmapping.cwUserMapping = {};
       } else {
         //creation page
         if (
@@ -161,7 +162,8 @@
       loader.loadControllerWithTemplate("cwWorkflow", $container, templatePath, function ($scope, $sce) {
         self.angularScope = $scope;
         $scope.ng = {};
-
+        $scope.cwApi = cwApi;
+        $scope.ng.otherUsers = "";
         $scope.ng.configuration = self.configuration;
         $scope.ng.step = self.step;
         $scope.ng.history = self.history;
@@ -198,6 +200,7 @@
             });
           }
         }
+        $scope.ng.canEdit = $scope.ng.canEdit || cwApi.currentUser.PowerLevel === 1;
 
         $scope.ng.canRead =
           $scope.ng.canEdit ||
@@ -235,6 +238,10 @@
             }
           });
           return r;
+        };
+
+        $scope.initStepMapping = function (stepConfiguration) {
+          $scope.ng.stepmapping[stepConfiguration.stepName] = stepConfiguration.cwRole;
         };
 
         $scope.initValue = function (formInput) {

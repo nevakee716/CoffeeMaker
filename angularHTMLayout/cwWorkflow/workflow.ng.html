@@ -1,6 +1,12 @@
 <div ng-controller="workflow">
   <div ng-include src="'../../common/html/cwWorkflow/header.ng.html'"></div>
-
+  <div ng-if="!ng.canEdit && !ng.canRead && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">
+    {{$root.i18n('cannotEditOrReadThisWorkflow')}}
+  </div>
+  <div ng-if="!ng.canEdit && ng.canRead && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">
+    {{$root.i18n('cannotEditThisWorkflow')}}
+  </div>
+  <div ng-if="cwApi.currentUser.PowerLevel === 1">{{$root.i18n('adminMode')}}</div>
   <form ng-if="ng.canEdit || ng.canRead || !ng.currentStep.nextStep || ng.currentStep.nextStep.length === 0" name="workFlowItem">
     <div
       ng-include
@@ -28,7 +34,4 @@
       />
     </div>
   </form>
-  <div ng-if="!ng.canEdit && !ng.canRead && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">
-    {{$root.i18n('cannotEditThisWorkflow')}}
-  </div>
 </div>

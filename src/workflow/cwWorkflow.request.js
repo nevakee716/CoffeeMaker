@@ -156,11 +156,19 @@
             let id = $scope.parseObjectID(response);
             if (step.shareWorkflow) {
               let t = $scope.ng.currentStep.stepsSettings.some(function (stepSetting) {
-                if ((stepSetting.cwUser === true || stepSetting.creator === true) && stepSetting.stepName === step.stepName) {
-                  $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
-                    $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
-                  });
-                  return true;
+                if (stepSetting.stepName === step.stepName) {
+                  if (stepSetting.creator === true) {
+                    $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
+                      $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
+                    });
+                    return true;
+                  }
+                  if (stepSetting.cwUser === true) {
+                    $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
+                      $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
+                    });
+                    return true;
+                  }
                 }
               });
               if (!t) $scope.triggerShareWorkflow(id, step);
