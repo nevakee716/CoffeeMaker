@@ -80,6 +80,7 @@ adding the support and clickable associated region*/
           if (config) {
             if (userHasRightToDrillDown(config)) {
               if (config.deactivateDiagramDrillDown) {
+                cwAPI.CwPopout.hide();
                 location.href = cwAPI.createLinkForSingleView(
                   this.currentContext.selectedObject.objectTypeScriptName,
                   this.currentContext.selectedObject
@@ -147,6 +148,40 @@ adding the support and clickable associated region*/
         this.createDialogForExplodedDiagram(diagrams);
       }
     }
+  };
+
+  cwApi.Diagrams.CwDiagramViewer.prototype.registerEvents = function () {
+    var that = this;
+    // Catch actions on Canvas
+    this.$canvas.mousemove(that.mouseMove.bind(that));
+
+    this.$canvas.on("mousewheel", function (e) {
+      that.camera.updateMousePositions(e);
+      that.mouseMove(e);
+    });
+
+    var pendingClick;
+    if (!this.isDraftDiagram) {
+      this.$canvas.click(function (e) {
+        if (pendingClick) {
+          clearTimeout(pendingClick);
+          pendingClick = null;
+          //dbclick
+          cwAPI.CwPopout.hide();
+          that.goToSelectedObjectLink(e);
+        } else {
+          //sclick
+          pendingClick = setTimeout(function () {
+            that.clickOnCanvas(e);
+            pendingClick = null;
+          }, 500); // should match OS multi-click speed
+        }
+      });
+    }
+
+    $("body").on("keydown." + this.id, this.keyDown.bind(this));
+    $("body").on("keyup." + this.id, this.keyUp.bind(this));
+    $(window).on("resize." + this.id, this.windowResize.bind(this));
   };
 
   cwApi.Diagrams.CwDiagramViewer.prototype.getImageFromCanvas = function (title, sizeScale, e, isDiagramOverview, callback) {
