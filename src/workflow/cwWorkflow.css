@@ -164,6 +164,12 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
+.cwWorkflow .searchList .searchText.readonly {
+  background-color: #dedede;
+}
+.cwWorkflow .searchList .searchText.readonly input {
+  background-color: #dedede;
+}
 .cwWorkflow .searchList .searchText input {
   margin: 3px 0 2px 0;
   padding: 5px;

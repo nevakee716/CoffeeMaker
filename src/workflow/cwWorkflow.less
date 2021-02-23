@@ -2,11 +2,13 @@
 @import "../../_mixins";
 @import "../../_common";
 
+@readonlyColor: rgb(222, 222, 222);
+
 .cwWorkflow {
   display: flex;
   flex-wrap: wrap;
   .readonly {
-    background-color: rgb(222, 222, 222);
+    background-color: @readonlyColor;
   }
   .selectDropDownList {
     padding: 5px;
@@ -135,6 +137,12 @@
       width: 100%;
       border: 1px solid rgba(0, 0, 0, 0.2);
       z-index: 2;
+      &.readonly {
+        background-color: @readonlyColor;
+        input {
+          background-color: @readonlyColor;
+        }
+      }
       input {
         margin: 3px 0 2px 0;
         padding: 5px;
