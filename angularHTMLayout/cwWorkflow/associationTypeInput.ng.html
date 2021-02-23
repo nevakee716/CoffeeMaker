@@ -2,9 +2,13 @@
   <div class="searchContainer" ng-mouseleave="formInput.resultExpend = false">
     <div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
     <div class="searchList" ng-class="{expend : formInput.resultExpend}">
-      <div ng-mouseenter="formInput.resultExpend = true" class="searchText">
+      <div
+        ng-class="{readonly : formInput.objects === undefined || !ng.canEdit || formInput.readOnly  || !formInput.objects || !formInput.objects.length === 0}"
+        ng-mouseenter="formInput.resultExpend = true"
+        class="searchText"
+      >
         <input
-          ng-disabled="formInput.objects === undefined || formInput.readOnly || !formInput.objects || !formInput.objects.length === 0"
+          ng-disabled="formInput.objects === undefined || !ng.canEdit || formInput.readOnly || !formInput.objects || !formInput.objects.length === 0"
           ng-required="formInput.mandatory"
           ng-model="formInput.searchText"
           id="{{'objectType_' + $index}}"

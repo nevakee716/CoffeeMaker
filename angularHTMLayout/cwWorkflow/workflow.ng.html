@@ -1,7 +1,7 @@
 <div ng-controller="workflow">
   <div ng-include src="'../../common/html/cwWorkflow/header.ng.html'"></div>
 
-  <form ng-if="ng.canEdit || !ng.currentStep.nextStep || ng.currentStep.nextStep.length === 0" name="workFlowItem">
+  <form ng-if="ng.canEdit || ng.canRead || !ng.currentStep.nextStep || ng.currentStep.nextStep.length === 0" name="workFlowItem">
     <div
       ng-include
       ng-if="checkFilter(formInput)"
@@ -19,7 +19,7 @@
     <div class="formValid">
       <input
         class="buttonLarge"
-        ng-if="checkFilter(step)"
+        ng-if="ng.canEdit && checkFilter(step)"
         ng-repeat="step in ng.currentStep.nextStep"
         ng-disabled="workFlowItem.$invalid && !step.ignoreMandatory"
         type="submit"
@@ -28,5 +28,7 @@
       />
     </div>
   </form>
-  <div ng-if="!ng.canEdit && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">{{$root.i18n('cannotEditThisWorkflow')}}</div>
+  <div ng-if="!ng.canEdit && !ng.canRead && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">
+    {{$root.i18n('cannotEditThisWorkflow')}}
+  </div>
 </div>

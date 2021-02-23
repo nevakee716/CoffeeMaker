@@ -1,11 +1,11 @@
 <div class="label"><span ng-if="stepConfiguration.mandatory">*</span>{{stepConfiguration.label}} : &nbsp;</div>
 <select
   ng-if="!stepConfiguration.cwUser && !stepConfiguration.creator"
-  ng-disabled="stepConfiguration.readOnly"
+  ng-disabled="!ng.canEdit || stepConfiguration.readOnly"
   ng-required="stepConfiguration.mandatory"
   ng-model="ng.stepmapping[stepConfiguration.stepName]"
   class="value selectDropDownList"
-  ng-class="{readonly : stepConfiguration.readOnly}"
+  ng-class="{readonly : !ng.canEdit || stepConfiguration.readOnly}"
   id="{{'cwuser_' + $index}}"
 >
   <option value=""></option>
@@ -19,7 +19,12 @@
   ng-if="!stepConfiguration.creator  && stepConfiguration.cwUser === true"
   class="associationContainer"
 >
-  <div ng-mouseenter="stepConfiguration.resultExpend = true" ng-mouseleave="stepConfiguration.resultExpend = false" class="searchContainer">
+  <div
+    ng-init="stepConfiguration.searchText = getcwUserName(stepConfiguration)"
+    ng-mouseenter="stepConfiguration.resultExpend = true"
+    ng-mouseleave="stepConfiguration.resultExpend = false"
+    class="searchContainer"
+  >
     <div class="searchList" ng-class="{expend : stepConfiguration.resultExpend}">
       <div class="searchText">
         <input
@@ -50,7 +55,7 @@
         <div id="{{'objectTypeSelect_' + $index}}" class="workFlowListObjectTypeResultSubList">
           <div
             ng-class="{selected: stepConfiguration.selectedId === object.object_id}"
-            ng-click="stepConfiguration.cwUserObject = object; stepConfiguration.searchText = object.name + '(' + object.email + ')';"
+            ng-click="stepConfiguration.cwUserObject = object; stepConfiguration.searchText = object.name ;"
             ng-repeat="object in stepConfiguration.objectsFiltered"
           >
             {{object.name}}

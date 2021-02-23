@@ -140,7 +140,7 @@
           creator: cwApi.currentUser.FullName,
         };
         self.documents = [];
-        self.stepmapping = {};
+        self.stepmapping = { cwUserMapping: {} };
         self.changeset = { objectTypeScriptname: self.objectTypeScriptName, iProperties: {}, properties: {}, associations: {} };
         self.creation = true;
       }
@@ -199,6 +199,18 @@
           }
         }
 
+        $scope.ng.canRead =
+          $scope.ng.canEdit ||
+          Object.keys($scope.ng.stepmapping).some(function (k) {
+            if (($scope.ng.stepmapping[k] ^ 0) === $scope.ng.stepmapping[k]) {
+              return $scope.ng.stepmapping[k] == cwAPI.cwUser.getCurrentUserItem().object_id;
+            } else {
+              return cwApi.currentUser.RolesId.some(function (r) {
+                return $scope.ng.stepmapping[$scope.ng.currentStep.label] == r;
+              });
+            }
+          });
+
         $scope.getPropertyName = function (propertyScriptname) {
           return cwApi.mm.getProperty(self.objectTypeScriptName, propertyScriptname).name;
         };
@@ -252,6 +264,7 @@
             result = result.replace("@currentDate", new Date().toLocaleDateString());
           }
           result = result.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
+          result = result.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
           result = result.replace("@currentTimeStamp", $scope.getTimeStamp());
 
           // get the value if lookup
@@ -275,6 +288,9 @@
           return result;
         };
 
+        $scope.getcwUserName = function (stepConfiguration) {
+          return $scope.ng.stepmapping.cwUserMapping && $scope.ng.stepmapping.cwUserMapping[$scope.ng.stepmapping[stepConfiguration.stepName]];
+        };
         $scope.getTimeStamp = function () {
           let d = new Date();
           return (

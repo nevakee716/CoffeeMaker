@@ -2,35 +2,35 @@
 
 <input
   class="value"
-  ng-readonly="formInput.readOnly"
+  ng-readonly="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
   class="largeCell"
-  ng-class="{readonly : formInput.readOnly}"
+  ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   ng-if="getPropertyDataType(ng.objectType, formInput.scriptname)==='text'"
 />
 <input
   class="value"
-  ng-readonly="formInput.readOnly"
+  ng-readonly="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
-  ng-class="{readonly : formInput.readOnly}"
+  ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   type="checkbox"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='checkbox'"
 />
 <textarea
   class="value"
-  ng-readonly="formInput.readOnly"
+  ng-readonly="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
-  ng-class="{readonly : formInput.readOnly}"
+  ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='memo'"
 ></textarea>
 
 <input
-  ng-readonly="formInput.readOnly"
+  ng-readonly="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
-  ng-class="{readonly : formInput.readOnly}"
+  ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   class="value"
   type="date"
   ng-model="ng.changeset.properties[formInput.scriptname]"
@@ -38,9 +38,9 @@
   ng-if="getPropertyDataType(ng.objectType, formInput.scriptname)==='date'"
 />
 <input
-  ng-readonly="formInput.readOnly"
+  ng-readonly="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
-  ng-class="{readonly : formInput.readOnly}"
+  ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   type="number"
   class="value"
@@ -48,9 +48,9 @@
 />
 
 <select
-  ng-disabled="formInput.readOnly"
+  ng-disabled="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
-  ng-class="{readonly : formInput.readOnly}"
+  ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
   class="value selectDropDownList"
   id="{{'lookupFilter_' + $index}}"

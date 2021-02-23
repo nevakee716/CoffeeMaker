@@ -1,7 +1,7 @@
 <div ng-init="formInput.index = $index" class="label">{{formInput.label}} :&nbsp;</div>
 
 <select
-  ng-disabled="formInput.readOnly"
+  ng-disabled="!ng.canEdit || formInput.readOnly"
   ng-required="formInput.mandatory"
   ng-model="formInput.selectedId"
   data-width="400px"
