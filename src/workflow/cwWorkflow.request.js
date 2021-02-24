@@ -99,6 +99,7 @@
         }
       });
 
+      // adding creator to the step mapping
       $scope.ng.currentStep.stepsSettings.forEach(function (stepSetting) {
         if (stepSetting.creator === true) {
           if (!$scope.ng.stepmapping.creator) {
@@ -108,11 +109,14 @@
             ];
             $scope.ng.stepmapping.creator = cwApi.currentUser.ID;
           }
+          // map the creator to the step
           $scope.ng.stepmapping[stepSetting.stepName] = $scope.ng.stepmapping.creator;
         }
+        // map the
         if (stepSetting.cwUser === true && stepSetting.cwUserObject) {
           $scope.ng.stepmapping[stepSetting.stepName] = stepSetting.cwUserObject.object_id;
           if (!$scope.ng.stepmapping.cwUserMapping) $scope.ng.stepmapping.cwUserMapping = {};
+          // store the name, for next steps
           $scope.ng.stepmapping.cwUserMapping[stepSetting.cwUserObject.object_id] = stepSetting.cwUserObject.name;
         }
       });
@@ -123,13 +127,12 @@
       $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role = [];
       Object.keys($scope.ng.stepmapping).forEach(function (k) {
         if (($scope.ng.stepmapping[k] ^ 0) !== $scope.ng.stepmapping[k] && k !== "cwUserMapping") {
-          if (!$scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role)
-            $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role.push({
-              object_id: $scope.ng.stepmapping[k],
-              iProperties: {
-                step: k,
-              },
-            });
+          $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role.push({
+            object_id: $scope.ng.stepmapping[k],
+            iProperties: {
+              step: k,
+            },
+          });
         }
       });
 
@@ -155,23 +158,13 @@
           $scope.deleteRequest(function () {
             let id = $scope.parseObjectID(response);
             if (step.shareWorkflow) {
-              let t = $scope.ng.currentStep.stepsSettings.some(function (stepSetting) {
-                if (stepSetting.stepName === step.stepName) {
-                  if (stepSetting.creator === true) {
-                    $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
-                      $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
-                    });
-                    return true;
-                  }
-                  if (stepSetting.cwUser === true) {
-                    $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
-                      $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
-                    });
-                    return true;
-                  }
-                }
-              });
-              if (!t) $scope.triggerShareWorkflow(id, step);
+              if (($scope.ng.stepmapping[step.stepName] ^ 0) === $scope.ng.stepmapping[step.stepName]) {
+                $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
+                  $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
+                });
+              } else {
+                $scope.triggerShareWorkflow(id, step);
+              }
             }
 
             if (step.createObject) {
