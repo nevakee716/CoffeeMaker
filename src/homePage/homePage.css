@@ -169,6 +169,7 @@
 .homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  width: 100%;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView .cw-jvector-map {
   height: 100%;
