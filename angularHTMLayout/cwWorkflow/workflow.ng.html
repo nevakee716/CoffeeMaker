@@ -6,7 +6,8 @@
   <div ng-if="!ng.canEdit && ng.canRead && ng.currentStep.nextStep && ng.currentStep.nextStep.length > 0">
     {{$root.i18n('cannotEditThisWorkflow')}}
   </div>
-  <div ng-if="cwApi.currentUser.PowerLevel === 1">{{$root.i18n('adminMode')}}</div>
+  <div ng-if="cwApi.currentUser.PowerLevel === 1 && !ng.canReadIfNotAdmin && !ng.canEditIfNotAdmin">{{$root.i18n('adminModeRead')}}</div>
+  <div ng-if="cwApi.currentUser.PowerLevel === 1 && !ng.canEditIfNotAdmin && ng.canReadIfNotAdmin ">{{$root.i18n('adminModeWrite')}}</div>
   <form ng-if="ng.canEdit || ng.canRead || !ng.currentStep.nextStep || ng.currentStep.nextStep.length === 0" name="workFlowItem">
     <div
       ng-include
