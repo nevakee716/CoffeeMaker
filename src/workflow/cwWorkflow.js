@@ -200,7 +200,6 @@
             });
           }
         }
-        $scope.ng.canEdit = $scope.ng.canEdit || cwApi.currentUser.PowerLevel === 1;
 
         $scope.ng.canRead =
           $scope.ng.canEdit ||
@@ -213,7 +212,10 @@
               });
             }
           });
-
+        $scope.ng.canEditIfNotAdmin = $scope.ng.canEdit;
+        $scope.ng.canReadIfNotAdmin = $scope.ng.canRead;
+        $scope.ng.canEdit = $scope.ng.canEdit || cwApi.currentUser.PowerLevel === 1;
+        $scope.ng.canRead = $scope.ng.canRead || cwApi.currentUser.PowerLevel === 1;
         $scope.getPropertyName = function (propertyScriptname) {
           return cwApi.mm.getProperty(self.objectTypeScriptName, propertyScriptname).name;
         };
@@ -241,7 +243,8 @@
         };
 
         $scope.initStepMapping = function (stepConfiguration) {
-          $scope.ng.stepmapping[stepConfiguration.stepName] = stepConfiguration.cwRole;
+          if (!$scope.ng.stepmapping[stepConfiguration.stepName] || stepConfiguration.readOnly === true)
+            $scope.ng.stepmapping[stepConfiguration.stepName] = stepConfiguration.cwRole;
         };
 
         $scope.initValue = function (formInput) {
@@ -291,7 +294,9 @@
             });
             if (!found) result = 0;
           }
-          $scope.ng.changeset.properties[formInput.scriptname] = result;
+          if ($scope.ng.changeset.properties[formInput.scriptname] === undefined || formInput.readOnly)
+            $scope.ng.changeset.properties[formInput.scriptname] = result;
+
           return result;
         };
 
