@@ -10,7 +10,7 @@
   id="{{'cwuser_' + $index}}"
 >
   <option value=""></option>
-  <option value="{{k}}" ng-selected="k == stepConfiguration.cwRole" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById">{{v}}</option>
+  <option value="{{k}}" ng-selected="k == ng.stepmapping[stepConfiguration.stepName]" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById">{{v}}</option>
 </select>
 <span class="value" ng-if="stepConfiguration.creator === true && !ng.stepmapping.creator"> {{cwApi.cwUser.GetCurrentUserFullName()}} </span>
 <span class="value" ng-if="stepConfiguration.creator === true && ng.stepmapping.creator"> {{ng.history.creator}} </span>
