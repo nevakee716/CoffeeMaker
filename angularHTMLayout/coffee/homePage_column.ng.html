@@ -108,6 +108,7 @@
         <option value="favorite">{{$root.i18n('favorite')}}</option>
         <option value="quicklink">{{$root.i18n('quicklink')}}</option>
         <option value="evolve_view">{{$root.i18n('evolve_view')}}</option>
+        <option value="cw_user_view">{{$root.i18n('cw_user_view')}}</option>
         <option value="object_description">{{$root.i18n('object_description')}}</option>
         <option value="last_modified_object">{{$root.i18n('last_modified_object')}}</option>
         <option value="carrousel">Carrousel</option>
@@ -116,6 +117,7 @@
     </div>
   </div>
   <div ng-if="display.type === 'evolve_view'" ng-include src="'../../common/html/coffee/homePage_evolve_view.ng.html'"></div>
+  <div ng-if="display.type === 'cw_user_view'" ng-include src="'../../common/html/coffee/homePage_cw_user_view.ng.html'"></div>
   <div ng-if="display.type === 'object_description'" ng-include src="'../../common/html/coffee/homePage_object_description.ng.html'"></div>
   <div ng-if="display.type === 'last_modified_object'" ng-include src="'../../common/html/coffee/homePage_last_modified_object.ng.html'"></div>
   <div ng-if="display.type === 'links_in_bloc'" ng-include src="'../../common/html/coffee/homePage_link_in_box.ng.html'"></div>

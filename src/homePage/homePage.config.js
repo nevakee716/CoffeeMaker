@@ -15,6 +15,7 @@
 
   cwCoffeeMaker.prototype.controller_homePage = function ($container, templatePath, $scope) {
     $scope.objectpages = [];
+    $scope.cwUser_pages = [];
     $scope.indexpages = [];
     let config = $scope.ng.config;
     if (config.columns === undefined) config.columns = [];
@@ -30,6 +31,8 @@
       if ($scope.views.hasOwnProperty(v)) {
         if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B")) $scope.objectpages.push($scope.views[v]);
         if ($scope.views[v].type === "Index" && $scope.views[v].name.indexOf("|>B")) $scope.indexpages.push($scope.views[v]);
+        if ($scope.views[v].type === "Single" && $scope.views[v].name.indexOf("|>B") && $scope.views[v].rootObjectType === "cw_user")
+          $scope.cwUser_pages.push($scope.views[v]);
       }
     }
 
@@ -131,14 +134,24 @@
         f.type = "property";
         delete f.nodeID;
         f.scriptname = s[1];
-      } else {
-        s = f.id.split("asso_");
-        delete f.scriptname;
-        f.type = "association";
-        f.nodeID = s[1];
+      } else s = f.id.split("asso_");
+      delete f.scriptname;
+      f.type = "association";
+      f.nodeID = s[1];
+    };
+
+    $scope.getNodeFromCwUserView = function (view) {
+      let v = cwAPI.getViewsSchemas()[view];
+      let c = v.NodesByID[v.RootNodesId].SortedChildren;
+      if (c && c.length > 0) {
+        return v.NodesByID[c[0].NodeId];
       }
     };
 
+    $scope.getRootObjectTypeFromCwUserView = function (view) {
+      let node = $scope.getNodeFromCwUserView(view);
+      return cwApi.mm.getObjectType(node.ObjectTypeScriptName);
+    };
     return;
   };
   cwApi.cwLayouts.cwCoffeeMaker = cwCoffeeMaker;
