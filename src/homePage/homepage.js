@@ -223,7 +223,7 @@
           return output;
         };
 
-        $scope.createHTMLFromJSON = function (display, sync) {
+        $scope.createHTMLFromJSON = function (display, sync, rootNodeIDUD, objectpage) {
           let o = display.objects;
           if (!o) return;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
@@ -234,7 +234,8 @@
           if (!containsItems && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
             display.html = $scope.getEmptyZoneFromDisplay(display);
           } else {
-            let rootNodeId = schema.RootNodesId && schema.RootNodesId.length > 0 ? schema.RootNodesId[0] : schema.RootNodesId;
+            let rootNodeId = rootNodeIDUD;
+            if (!rootNodeId) rootNodeId = schema.RootNodesId && schema.RootNodesId.length > 0 ? schema.RootNodesId[0] : schema.RootNodesId;
             o[rootNodeId] = o[rootNodeId].filter(function (o) {
               return $scope.checkFilter(o, display);
             });
@@ -250,7 +251,7 @@
 
             let output = [];
             let object = { associations: o };
-            cwApi.cwDisplayManager.appendZoneAndTabsInOutput(output, display.view, object);
+            cwApi.cwDisplayManager.outputNode(output, cwApi.ViewSchemaManager.getPageSchema(display.view), rootNodeId, object);
             display.html = $sce.trustAsHtml(output.join(""));
             if (!sync) $scope.$apply();
           }
@@ -274,6 +275,25 @@
               if (cwApi.checkJsonCallback(o)) {
                 display.objects = o;
                 $scope.createHTMLFromJSON(display);
+              }
+            },
+            cwApi.errorOnLoadPage
+          );
+        };
+
+        $scope.getHTMLViewForCwUserView = function (display) {
+          let jsonFile = cwApi.getObjectPageJsonUrl(display.view, cwApi.currentUser.ID);
+          display.loading = true;
+          cwApi.getJSONFile(
+            jsonFile,
+            function (o) {
+              if (cwApi.checkJsonCallback(o)) {
+                let v = cwAPI.getViewsSchemas()[display.view];
+                let c = v.NodesByID[v.RootNodesId].SortedChildren;
+                display.objects = o.object.associations;
+                if (c && c.length > 0) {
+                  $scope.createHTMLFromJSON(display, undefined, c[0].NodeId, true);
+                }
               }
             },
             cwApi.errorOnLoadPage
