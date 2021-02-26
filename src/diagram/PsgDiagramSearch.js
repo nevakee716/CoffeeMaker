@@ -203,7 +203,7 @@
       filterObject.setAttribute("data-size", "10");
       filterObject.setAttribute("data-live-search", "true");
       filterObject.setAttribute("data-selected-text-format", "static");
-      filterObject.setAttribute("data-width", "200px");
+      filterObject.setAttribute("data-width", "300px");
       filterObject.setAttribute("data-dropdown-align-right", false);
 
       filterObject.className = "cw-diagram-searchBox";
