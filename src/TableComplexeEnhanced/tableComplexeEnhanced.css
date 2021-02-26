@@ -27,6 +27,7 @@
 /* DIAGRAM OVERLAY */
 .k-grid .k-grid-header .k-header .k-link {
   height: auto;
+  margin-left: 6px;
 }
 .k-grid .k-grid-header .k-header {
   white-space: normal;
@@ -55,4 +56,10 @@ div.k-header.k-grid-toolbar {
 }
 .k-grid .k-grid-toolbar .k-button {
   height: 24px;
+}
+.k-header > .k-grid-filter {
+  float: initial;
+}
+.k-grid-header th.k-header > .k-link {
+  display: initial;
 }
