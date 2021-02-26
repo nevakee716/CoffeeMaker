@@ -83,6 +83,21 @@
 }
 .homePage_main .homePage_column .homePage_display .extendableTitle .display_sortProperty {
   width: 250px;
+  display: flex;
+  align-items: center;
+}
+.homePage_main .homePage_column .homePage_display .extendableTitle .display_sortProperty span {
+  margin-right: 5px;
+}
+.homePage_main .homePage_column .homePage_display .extendableTitle .display_sortProperty select {
+  padding: 5px;
+  font-size: 12px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: solid 1px #e4e4e7;
+  outline: none;
+  margin-right: 50px;
 }
 .homePage_main .homePage_column .homePage_display .extendableTitle .rightExpandButton {
   width: 65px;
@@ -165,6 +180,7 @@
   overflow: auto;
   height: inherit;
   display: flex;
+  flex-wrap: wrap;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list {
   padding-left: 0.5rem;
@@ -174,7 +190,7 @@
 .homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list.empty {
   display: none;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView cw-list .cw-jvector-map {
+.homePage_main .homePage_column .homePage_display .homePage_evolveView .cw-jvector-map {
   height: 100%;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView .tableForPopoutWrapper {

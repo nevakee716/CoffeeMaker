@@ -64,6 +64,21 @@
         }
         .display_sortProperty {
           width: 250px;
+          display: flex;
+          align-items: center;
+          span {
+            margin-right: 5px;
+          }
+          select {
+            padding: 5px;
+            font-size: 12px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            border: solid 1px #e4e4e7;
+            outline: none;
+            margin-right: 50px;
+          }
         }
         .rightExpandButton {
           width: 65px;
@@ -153,6 +168,7 @@
         overflow: auto;
         height: inherit;
         display: flex;
+        flex-wrap: wrap;
         & > .cw-list {
           padding-left: 0.5rem;
           padding-right: 0.5rem;

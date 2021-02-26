@@ -234,24 +234,29 @@
           if (!containsItems && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
             display.html = $scope.getEmptyZoneFromDisplay(display);
           } else {
-            let rootNodeId = rootNodeIDUD;
-            if (!rootNodeId) rootNodeId = schema.RootNodesId && schema.RootNodesId.length > 0 ? schema.RootNodesId[0] : schema.RootNodesId;
-            o[rootNodeId] = o[rootNodeId].filter(function (o) {
-              return $scope.checkFilter(o, display);
-            });
-            if (display.selectedSortProperty) {
-              o[rootNodeId].sort(function (a, b) {
-                if (display.selectedSortPropertyObj.type === "Date")
-                  return new Date(b.properties[display.selectedSortProperty]) - new Date(a.properties[display.selectedSortProperty]);
-                if (display.selectedSortPropertyObj.type === "Double" || display.selectedSortPropertyObj.type === "Integer")
-                  return a.properties[display.selectedSortProperty] - b.properties[display.selectedSortProperty];
-                return a.properties[display.selectedSortProperty].toString().localeCompare(b.properties[display.selectedSortProperty].toString());
-              });
-            }
+            let rootNodeId = rootNodeIDUD ? rootNodeIDUD : schema.RootNodesId;
 
+            if (rootNodeId.length && rootNodeId.length === 1) {
+              o[rootNodeId[0]] = o[rootNodeId[0]].filter(function (o) {
+                return $scope.checkFilter(o, display);
+              });
+
+              if (display.selectedSortProperty) {
+                o[rootNodeId[0]].sort(function (a, b) {
+                  if (display.selectedSortPropertyObj.type === "Date")
+                    return new Date(b.properties[display.selectedSortProperty]) - new Date(a.properties[display.selectedSortProperty]);
+                  if (display.selectedSortPropertyObj.type === "Double" || display.selectedSortPropertyObj.type === "Integer")
+                    return a.properties[display.selectedSortProperty] - b.properties[display.selectedSortProperty];
+                  return a.properties[display.selectedSortProperty].toString().localeCompare(b.properties[display.selectedSortProperty].toString());
+                });
+              }
+            }
             let output = [];
             let object = { associations: o };
-            cwApi.cwDisplayManager.outputNode(output, cwApi.ViewSchemaManager.getPageSchema(display.view), rootNodeId, object);
+            rootNodeId.forEach(function (r) {
+              cwApi.cwDisplayManager.outputNode(output, cwApi.ViewSchemaManager.getPageSchema(display.view), r, object);
+            });
+
             display.html = $sce.trustAsHtml(output.join(""));
             if (!sync) $scope.$apply();
           }
@@ -292,7 +297,14 @@
                 let c = v.NodesByID[v.RootNodesId].SortedChildren;
                 display.objects = o.object.associations;
                 if (c && c.length > 0) {
-                  $scope.createHTMLFromJSON(display, undefined, c[0].NodeId, true);
+                  $scope.createHTMLFromJSON(
+                    display,
+                    undefined,
+                    c.map(function (n) {
+                      return n.NodeId;
+                    }),
+                    true
+                  );
                 }
               }
             },
@@ -317,12 +329,15 @@
           });
         };
 
-        $scope.selectNextSortProperty = function (display) {
+        $scope.getSelectSortProperty = function (display) {
           let props = Object.keys(display.sortProperties);
-          if (!display.selectedSortProperty) display.selectedSortProperty = props[0];
+          let view = cwAPI.getViewsSchemas()[display.view];
+          return props.map(function (ps) {
+            return cwAPI.mm.getProperty(view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName, ps);
+          });
+        };
 
-          let i = props.indexOf(display.selectedSortProperty);
-          display.selectedSortProperty = i > props.length - 2 ? props[0] : props[i + 1];
+        $scope.selectNextSortProperty = function (display) {
           let view = cwAPI.getViewsSchemas()[display.view];
           display.selectedSortPropertyObj = cwAPI.mm.getProperty(
             view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName,

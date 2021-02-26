@@ -14,14 +14,11 @@
           <i ng-if="display.extended === true" class="fa fa-angle-down"></i>
         </span>
         <span ng-click="display.extended = !display.extended" class="homePage_display_title"> {{display.label}} </span>
-        <span
-          ng-init="selectNextSortProperty(display)"
-          ng-if="keys(display.sortProperties).length > 0"
-          ng-click="selectNextSortProperty(display)"
-          class="display_sortProperty"
-        >
-          <span> {{$root.i18n('sortby')}} {{display.sortPropertyLabel}} </span>
-          <i class="fa fa-caret-down" aria-hidden="true"></i>
+        <span ng-if="keys(display.sortProperties).length > 0" class="display_sortProperty">
+          <span>{{$root.i18n('sortBy')}}</span>
+          <select ng-model="display.selectedSortProperty" ng-change="selectNextSortProperty(display)">
+            <option value="{{p.scriptName}}" ng-repeat="p in getSelectSortProperty(display)">{{p.name}}</option>
+          </select>
         </span>
         <span ng-click="display.extended = !display.extended" ng-if="display.rightExpandButton" class="rightExpandButton">
           <span ng-if="display.extended === true">{{$root.i18n('close')}}</span>
