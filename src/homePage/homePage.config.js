@@ -148,6 +148,12 @@
       }
     };
 
+    $scope.getNodeNumerFromCwUserView = function (view) {
+      let v = cwAPI.getViewsSchemas()[view];
+      let c = v.NodesByID[v.RootNodesId].SortedChildren;
+      return c ? c.length : 0;
+    };
+
     $scope.getRootObjectTypeFromCwUserView = function (view) {
       let node = $scope.getNodeFromCwUserView(view);
       return cwApi.mm.getObjectType(node.ObjectTypeScriptName);

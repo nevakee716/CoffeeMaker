@@ -119,7 +119,7 @@
         config.columns.forEach(function (c) {
           if ($scope.checkIfRole(c)) {
             c.displays.forEach(function (d) {
-              if (d.type === "evolve_view" && $scope.checkIfRole(d)) {
+              if ((d.type === "evolve_view" || d.type === "cw_user_view") && $scope.checkIfRole(d)) {
                 acc += 1;
               }
             });
@@ -332,23 +332,44 @@
         $scope.getSelectSortProperty = function (display) {
           let props = Object.keys(display.sortProperties);
           let view = cwAPI.getViewsSchemas()[display.view];
-          return props.map(function (ps) {
-            return cwAPI.mm.getProperty(view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName, ps);
-          });
+          if (display.type === "cw_user_view") {
+            let c = view.NodesByID[view.RootNodesId].SortedChildren;
+            if (c && c.length > 0) {
+              return props.map(function (ps) {
+                return cwAPI.mm.getProperty(view.NodesByID[c[0].NodeId].ObjectTypeScriptName, ps);
+              });
+            }
+          } else {
+            return props.map(function (ps) {
+              return cwAPI.mm.getProperty(view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName, ps);
+            });
+          }
         };
 
         $scope.selectNextSortProperty = function (display) {
           let view = cwAPI.getViewsSchemas()[display.view];
-          display.selectedSortPropertyObj = cwAPI.mm.getProperty(
-            view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName,
-            display.selectedSortProperty
-          );
+          let childrenNodes;
+          if (display.type === "cw_user_view") {
+            childrenNodes = view.NodesByID[view.RootNodesId].SortedChildren;
+            if (childrenNodes && childrenNodes.length > 0) {
+              display.selectedSortPropertyObj = cwAPI.mm.getProperty(
+                view.NodesByID[childrenNodes[0].NodeId].ObjectTypeScriptName,
+                display.selectedSortProperty
+              );
+            }
+          } else {
+            display.selectedSortPropertyObj = cwAPI.mm.getProperty(
+              view.NodesByID[view.RootNodesId[0]].ObjectTypeScriptName,
+              display.selectedSortProperty
+            );
+          }
+
           display.sortPropertyLabel = display.selectedSortPropertyObj.name;
 
           if ($scope.viewToLoad == viewLoaded) {
             $scope.config.columns.forEach(function (c) {
               c.displays.forEach(function (d) {
-                if (d.type === "evolve_view") {
+                if (d.type === "evolve_view" || d.type === "cw_user_view") {
                   d.html = null;
                 }
               });
@@ -358,6 +379,16 @@
               c.displays.forEach(function (d) {
                 if (d.type === "evolve_view") {
                   $scope.createHTMLFromJSON(d, true);
+                }
+                if (d.type === "cw_user_view") {
+                  $scope.createHTMLFromJSON(
+                    d,
+                    true,
+                    childrenNodes.map(function (n) {
+                      return n.NodeId;
+                    }),
+                    true
+                  );
                 }
               });
             });

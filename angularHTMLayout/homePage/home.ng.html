@@ -16,9 +16,11 @@
         <span ng-click="display.extended = !display.extended" class="homePage_display_title"> {{display.label}} </span>
         <span ng-if="keys(display.sortProperties).length > 0" class="display_sortProperty">
           <span>{{$root.i18n('sortBy')}}</span>
-          <select ng-model="display.selectedSortProperty" ng-change="selectNextSortProperty(display)">
-            <option value="{{p.scriptName}}" ng-repeat="p in getSelectSortProperty(display)">{{p.name}}</option>
-          </select>
+          <select
+            ng-model="display.selectedSortProperty"
+            ng-change="selectNextSortProperty(display)"
+            ng-options="p.scriptName as p.name for p in getSelectSortProperty(display) track by p.scriptName"
+          ></select>
         </span>
         <span ng-click="display.extended = !display.extended" ng-if="display.rightExpandButton" class="rightExpandButton">
           <span ng-if="display.extended === true">{{$root.i18n('close')}}</span>
