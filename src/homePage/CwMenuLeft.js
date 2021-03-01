@@ -184,7 +184,7 @@
         let s = viewName.split("§");
         if (s[0]) {
           let i = parseInt(s[2]);
-          if (i !== i) o.push('<a class="cw-menu-link" href="#/cwtype=single&cwview=', s[1], "&cwuuid=", s[2], '">');
+          if (i !== s[2]) o.push('<a class="cw-menu-link" href="#/cwtype=single&cwview=', s[1], "&cwuuid=", s[2], '">');
           else o.push('<a class="cw-menu-link" href="#/cwtype=single&cwview=', s[1], "&cwid=", s[2], '">');
         }
       } else if (viewName === "homepage") {
