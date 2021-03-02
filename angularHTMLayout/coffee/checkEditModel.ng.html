@@ -1,4 +1,4 @@
-<div>
+<div class="checkEditModel">
   <div ng-if="showDescription" class="rowFlex bootstrap-iso">
     <div class="row-cell row-cell-value row-cell-max-width">
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/checkEditModel_description.ng.html'"></div>
@@ -24,9 +24,7 @@
     </div>
   </div>
   <div class="cwPropertiesTableContainer bootstrap-iso">
-    <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-      {{$root.i18n('properties')}}
-    </div>
+    <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">{{$root.i18n('properties')}}</div>
     <table class="cwPropertiesTable">
       <tbody>
         <tr>
@@ -55,9 +53,7 @@
     </table>
   </div>
   <div class="cwPropertiesTableContainer">
-    <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-      {{$root.i18n('association')}}
-    </div>
+    <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">{{$root.i18n('association')}}</div>
     <table class="cwPropertiesTable">
       <tbody>
         <tr>
