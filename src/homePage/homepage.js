@@ -381,6 +381,8 @@
                   $scope.createHTMLFromJSON(d, true);
                 }
                 if (d.type === "cw_user_view") {
+                  let cuview = cwAPI.getViewsSchemas()[d.view];
+                  childrenNodes = cuview.NodesByID[cuview.RootNodesId].SortedChildren;
                   $scope.createHTMLFromJSON(
                     d,
                     true,
