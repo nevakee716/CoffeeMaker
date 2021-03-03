@@ -1,23 +1,17 @@
 <div class="row bootstrap-iso">
-  <div class="rowFlex bootstrap-iso">
-    <div class="row-cell row-cell-label">{{$root.i18n('openLinkObjectInMemoWithPopout')}} :&nbsp;</div>
-    <div class="row-cell row-cell-value">
-      <input ng-model="ng.config.openLinkObjectInMemoWithPopout" type="checkbox" />
-    </div>
-  </div>
   <div class="row-cell row-cell-value row-cell-max-width">
-    <table class="cell-content-wrapper filter-wrapper">
+    <table class="coffeeMakerTable">
       <tbody>
-        <tr class="filter-row filter-header bootstrap-iso">
+        <tr class="">
           <th class="largeMediumCell">{{$root.i18n('objectype')}}</th>
           <th class="largeMediumCell">{{$root.i18n('objectTypeUsedForMemoDefinitionMapping')}}</th>
         </tr>
-        <tr class="filter-row filter-header bootstrap-iso" ng-repeat="o in OTs">
-          <td class="filter-property-scriptname">{{(o.name + ' (' + o.scriptName + ')')}}</td>
-          <td class="filter-property-scriptname">
+        <tr class="" ng-repeat="o in OTs">
+          <td class="">{{(o.name + ' (' + o.scriptName + ')')}}</td>
+          <td class="">
             <select
+              ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexPages | orderBy:'name'"
               ng-model="ng.config.objectTypeUsedForMemoDefinitionMapping[o.scriptName]"
-              ng-options="t.scriptName as (t.name + ' (' + t.scriptName + ')')  for t in OTs | orderBy:'name'"
             >
               <option value=""></option>
             </select>

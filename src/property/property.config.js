@@ -17,6 +17,14 @@
     console.log("property controller");
     $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
 
+    $scope.indexPages = [];
+
+    for (let v in $scope.views) {
+      if ($scope.views.hasOwnProperty(v)) {
+        if ($scope.views[v].type === "Index" && $scope.views[v].name.indexOf("|>B")) $scope.indexPages.push($scope.views[v]);
+      }
+    }
+
     $scope.focused = -1;
     if (!$scope.ng.config.hardcoded) $scope.ng.config.hardcoded = [];
 

@@ -1,14 +1,18 @@
-<div ng-click="ng.config.extended = !ng.config.extended" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-  <i ng-if="ng.config.extended === true" class="fa fa-angle-up" aria-hidden="true"></i>
-  <i ng-if="!ng.config.extended" class="fa fa-angle-down" aria-hidden="true"></i>
-  <span class="homePage_display_title">
-    {{$root.i18n('displayjsonconfig')}}
+<div ng-click="ng.config.extended = !ng.config.extended" class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+  <span ng-click="ng.config.extended = !ng.config.extended" class="homePage_display_title">{{$root.i18n('displayjsonconfig')}} </span>
+  <span ng-click="ng.config.extended = !ng.config.extended" class="rightExpandButton">
+    <span ng-if="ng.config.extended === true">{{$root.i18n('close')}}</span>
+    <span ng-if="ng.config.extended !== true">{{$root.i18n('open')}}</span>
+    <i ng-if="ng.config.extended !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+    <i ng-if="ng.config.extended === true" class="fa fa-caret-square-o-down expendIcon"></i>
   </span>
 </div>
-<textarea
-  json-text
-  style="width: 100%; height: 400px;"
-  ng-model="ng.config"
-  ng-model-options="{ debounce: 1000 }"
-  ng-if="ng.config.extended === true"
-></textarea>
+<div class="homePage_display_content">
+  <textarea
+    json-text
+    style="width: 100%; height: 400px"
+    ng-model="ng.config"
+    ng-model-options="{ debounce: 1000 }"
+    ng-if="ng.config.extended === true"
+  ></textarea>
+</div>

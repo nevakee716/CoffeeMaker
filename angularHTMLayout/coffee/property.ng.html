@@ -1,47 +1,71 @@
 <div>
   <div ng-include src="'../../common/html/coffee/property_description.ng.html'"></div>
 
-  <div ng-click="ext.lookup = !ext.lookup" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    <i ng-if="ext.lookup === true" class="fa fa-angle-up" aria-hidden="true"></i>
-    <i ng-if="!ext.lookup" class="fa fa-angle-down" aria-hidden="true"></i>
-    <span class="homePage_display_title"> {{$root.i18n('property_lookup')}} </span>
+  <div class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+    <span ng-click="ext.lookup = !ext.lookup" class="homePage_display_title">{{$root.i18n('property_lookup')} </span>
+    <span ng-click="ext.lookup = !ext.lookup" class="rightExpandButton">
+      <span ng-if="ext.lookup === true">{{$root.i18n('close')}}</span>
+      <span ng-if="ext.lookup !== true">{{$root.i18n('open')}}</span>
+      <i ng-if="ext.lookup !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+      <i ng-if="ext.lookup === true" class="fa fa-caret-square-o-down expendIcon"></i>
+    </span>
   </div>
-  <div ng-if="ext.lookup === true" ng-include src="'../../common/html/coffee/property_lookup.ng.html'"></div>
+  <div ng-if="ext.lookup === true" class="homePage_display_content" ng-include src="'../../common/html/coffee/property_lookup.ng.html'"></div>
 
-  <div ng-click="ext.url = !ext.url" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    <i ng-if="ext.url === true" class="fa fa-angle-up" aria-hidden="true"></i>
-    <i ng-if="!ext.url" class="fa fa-angle-down" aria-hidden="true"></i>
-    <span class="homePage_display_title"> {{$root.i18n('property_url')}} </span>
+  <div class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+    <span ng-click="ext.url = !ext.url" class="homePage_display_title">{{$root.i18n('property_url')} </span>
+    <span ng-click="ext.url = !ext.url" class="rightExpandButton">
+      <span ng-if="ext.url === true">{{$root.i18n('close')}}</span>
+      <span ng-if="ext.url !== true">{{$root.i18n('open')}}</span>
+      <i ng-if="ext.url !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+      <i ng-if="ext.url === true" class="fa fa-caret-square-o-down expendIcon"></i>
+    </span>
   </div>
-  <div ng-if="ext.url === true" ng-include src="'../../common/html/coffee/property_url.ng.html'"></div>
+  <div ng-if="ext.url === true" class="homePage_display_content" ng-include src="'../../common/html/coffee/property_url.ng.html'"></div>
 
-  <div ng-click="ext.boolean = !ext.boolean" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    <i ng-if="ext.boolean === true" class="fa fa-angle-up" aria-hidden="true"></i>
-    <i ng-if="!ext.boolean" class="fa fa-angle-down" aria-hidden="true"></i>
-    <span class="homePage_display_title"> {{$root.i18n('property_boolean')}} </span>
+  <div class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+    <span ng-click="ext.boolean = !ext.boolean" class="homePage_display_title">{{$root.i18n('property_boolean')} </span>
+    <span ng-click="ext.boolean = !ext.boolean" class="rightExpandButton">
+      <span ng-if="ext.boolean === true">{{$root.i18n('close')}}</span>
+      <span ng-if="ext.boolean !== true">{{$root.i18n('open')}}</span>
+      <i ng-if="ext.boolean !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+      <i ng-if="ext.boolean === true" class="fa fa-caret-square-o-down expendIcon"></i>
+    </span>
   </div>
-  <div ng-if="ext.boolean === true" ng-include src="'../../common/html/coffee/property_boolean.ng.html'"></div>
+  <div ng-if="ext.boolean === true" class="homePage_display_content" ng-include src="'../../common/html/coffee/property_boolean.ng.html'"></div>
 
-  <div ng-click="ext.numeric = !ext.numeric" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    <i ng-if="ext.numeric === true" class="fa fa-angle-up" aria-hidden="true"></i>
-    <i ng-if="!ext.numeric" class="fa fa-angle-down" aria-hidden="true"></i>
-    <span class="homePage_display_title"> {{$root.i18n('property_numeric')}} </span>
+  <div class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+    <span ng-click="ext.numeric = !ext.numeric" class="homePage_display_title">{{$root.i18n('property_numeric')} </span>
+    <span ng-click="ext.numeric = !ext.numeric" class="rightExpandButton">
+      <span ng-if="ext.numeric === true">{{$root.i18n('close')}}</span>
+      <span ng-if="ext.numeric !== true">{{$root.i18n('open')}}</span>
+      <i ng-if="ext.numeric !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+      <i ng-if="ext.numeric === true" class="fa fa-caret-square-o-down expendIcon"></i>
+    </span>
   </div>
-  <div ng-if="ext.numeric === true" ng-include src="'../../common/html/coffee/property_numeric.ng.html'"></div>
+  <div ng-if="ext.numeric === true" class="homePage_display_content" ng-include src="'../../common/html/coffee/property_numeric.ng.html'"></div>
 
-  <div ng-click="ext.memo = !ext.memo" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    <i ng-if="ext.memo === true" class="fa fa-angle-up" aria-hidden="true"></i>
-    <i ng-if="!ext.memo" class="fa fa-angle-down" aria-hidden="true"></i>
-    <span class="homePage_display_title"> {{$root.i18n('property_memo')}} </span>
+  <div class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+    <span ng-click="ext.memo = !ext.memo" class="homePage_display_title">{{$root.i18n('property_memo')} </span>
+    <span ng-click="ext.memo = !ext.memo" class="rightExpandButton">
+      <span ng-if="ext.memo === true">{{$root.i18n('close')}}</span>
+      <span ng-if="ext.memo !== true">{{$root.i18n('open')}}</span>
+      <i ng-if="ext.memo !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+      <i ng-if="ext.memo === true" class="fa fa-caret-square-o-down expendIcon"></i>
+    </span>
   </div>
-  <div ng-if="ext.memo === true" ng-include src="'../../common/html/coffee/property_memo.ng.html'"></div>
+  <div ng-if="ext.memo === true" class="homePage_display_content" ng-include src="'../../common/html/coffee/property_memo.ng.html'"></div>
 
-  <div ng-click="ext.hardcoded = !ext.hardcoded" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
-    <i ng-if="ext.hardcoded === true" class="fa fa-angle-up" aria-hidden="true"></i>
-    <i ng-if="!ext.hardcoded" class="fa fa-angle-down" aria-hidden="true"></i>
-    <span class="homePage_display_title"> {{$root.i18n('property_hardcoded')}} </span>
+  <div class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
+    <span ng-click="ext.hardcoded = !ext.hardcoded" class="homePage_display_title">{{$root.i18n('property_hardcoded')} </span>
+    <span ng-click="ext.hardcoded = !ext.hardcoded" class="rightExpandButton">
+      <span ng-if="ext.hardcoded === true">{{$root.i18n('close')}}</span>
+      <span ng-if="ext.hardcoded !== true">{{$root.i18n('open')}}</span>
+      <i ng-if="ext.hardcoded !== true" class="fa fa-caret-square-o-left expendIcon"></i>
+      <i ng-if="ext.hardcoded === true" class="fa fa-caret-square-o-down expendIcon"></i>
+    </span>
   </div>
-  <div ng-if="ext.hardcoded === true" ng-include src="'../../common/html/coffee/property_hardcoded.ng.html'"></div>
+  <div ng-if="ext.hardcoded === true" class="homePage_display_content" ng-include src="'../../common/html/coffee/property_hardcoded.ng.html'"></div>
 
   <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
 </div>

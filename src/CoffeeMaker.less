@@ -311,4 +311,41 @@
   .workFlowNetwork {
     height: 500px;
   }
+
+  table.coffeeMakerTable {
+    border: none;
+    background-color: white;
+
+    box-shadow: 0 8px 32px rgb(47 60 74 / 1%), 0 8px 16px rgb(47 60 74 / 2%);
+    border: solid 1px #e4e4e7;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+
+    tr:last-child {
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+    tr:first-child,
+    thead {
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+    tr {
+      th {
+        text-align: center;
+        border: none;
+        color: @cwColor1;
+        background: white;
+        border-bottom: 1px solid @cwColor1;
+        padding: 5px;
+      }
+      td {
+        padding: 5px;
+        border-bottom: 1px solid @cwColor1;
+        border-left: none;
+
+        border-color: rgba(3, 160, 206, 0.4);
+      }
+    }
+  }
 }
