@@ -48,7 +48,9 @@
       iprop = [];
     }
     let columns = [];
-    let assoColumn = viewSchema.NodesByID[behaviour.NodeID].SortedChildren.map(function (c) {
+    let assoColumn = viewSchema.NodesByID[behaviour.NodeID].SortedChildren.filter(function (c) {
+      return viewSchema.NodesByID[c.NodeId] !== undefined;
+    }).map(function (c) {
       return {
         name: viewSchema.NodesByID[c.NodeId].NodeName,
         size: 200,
