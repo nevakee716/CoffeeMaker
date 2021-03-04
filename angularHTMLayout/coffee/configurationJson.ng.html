@@ -1,6 +1,6 @@
 <div ng-click="ng.config.extended = !ng.config.extended" class="nextGenCard cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
-  <span ng-click="ng.config.extended = !ng.config.extended" class="homePage_display_title">{{$root.i18n('displayjsonconfig')}} </span>
-  <span ng-click="ng.config.extended = !ng.config.extended" class="rightExpandButton">
+  <span class="homePage_display_title">{{$root.i18n('displayjsonconfig')}} </span>
+  <span class="rightExpandButton">
     <span ng-if="ng.config.extended === true">{{$root.i18n('close')}}</span>
     <span ng-if="ng.config.extended !== true">{{$root.i18n('open')}}</span>
     <i ng-if="ng.config.extended !== true" class="fa fa-caret-square-o-left expendIcon"></i>
