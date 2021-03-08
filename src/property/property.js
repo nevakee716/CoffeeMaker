@@ -220,7 +220,12 @@
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
     }
-    if (config && objectTypeScriptName && config.objectTypeUsedForMemoDefinitionMapping[objectTypeScriptName]) {
+    if (
+      config &&
+      objectTypeScriptName &&
+      config.objectTypeUsedForMemoDefinitionMapping &&
+      config.objectTypeUsedForMemoDefinitionMapping[objectTypeScriptName]
+    ) {
       let view = config.objectTypeUsedForMemoDefinitionMapping[objectTypeScriptName];
       if (!cwApi.queryObject.isEditMode()) {
         try {
