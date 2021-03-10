@@ -650,7 +650,7 @@
         e.item.objectTypeScriptName +
         "'," +
         e.item.object_id +
-        ",null,this" +
+        ",null,this.firstElementChild" +
         ')"><i class="fa fa-heart"></i>' +
         "</a>";
     } else {

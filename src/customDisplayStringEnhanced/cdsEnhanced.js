@@ -5,6 +5,27 @@
 
   var popOutEnableByDefault = true;
   var cdsEnhanced = {};
+  cdsEnhanced.generateFavoriteString = function (item) {
+    let output;
+    if (cwAPI.customLibs.utils.isObjectFavorite(item.objectTypeScriptName, item.object_id)) {
+      output =
+        '<span onclick="cwAPI.customLibs.utils.manageObjectFavoriteStatus(' +
+        "'" +
+        item.objectTypeScriptName +
+        "'," +
+        item.object_id +
+        ',this.firstElementChild,event)"><i class="fa fa-heart"></i></span>';
+    } else {
+      output =
+        '<span onclick="cwAPI.customLibs.utils.manageObjectFavoriteStatus(' +
+        "'" +
+        item.objectTypeScriptName +
+        "'," +
+        item.object_id +
+        ',this.firstElementChild,event)"><i class="fa fa-heart-o"></i></span>';
+    }
+    return output;
+  };
 
   cdsEnhanced.generatePopoutString = function (id, popOutName, popOutText) {
     return (
@@ -109,6 +130,7 @@
         }
       } else {
         let n = 0;
+
         while (itemDisplayName.indexOf("<#") !== -1 && itemDisplayName.indexOf("#>") !== -1 && n < 100) {
           n++;
           popOutInfo = itemDisplayName.split("<#")[1].split("#>")[0];
@@ -177,6 +199,7 @@
     itemDisplayName = cdsEnhanced.checkFontAwesomeIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
+    itemDisplayName = itemDisplayName.replace("<&>", cdsEnhanced.generateFavoriteString(item));
     itemDisplayName = cdsEnhanced.getPopoutCds(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutAssociation(config, itemDisplayName, item);
     return itemDisplayName;
