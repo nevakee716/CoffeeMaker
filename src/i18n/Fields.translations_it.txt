@@ -187,3 +187,6 @@ associationType = Association Type
 applyontotheserole = If you select at least one role, it will be visible only for this role
 ignoreMandatory = Ignore Mandatory Fields
 cw_user_view = CwUser View
+sort=Sort
+transparent=Transparente
+fixWidth=Largeur Fixe

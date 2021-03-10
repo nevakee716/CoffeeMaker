@@ -52,6 +52,17 @@
       box-sizing: border-box;
       flex: 1 0 auto;
 
+      &.displayTransparent {
+        background-color: transparent;
+        box-shadow: none;
+        .homePage_display_content {
+          background-color: transparent;
+        }
+      }
+      &.fixWidth {
+        flex: 0 0 auto;
+      }
+
       .cwPropertiesTableHeader span.homePage_display_title,
       .fa.expendIcon {
         font-size: 24px;

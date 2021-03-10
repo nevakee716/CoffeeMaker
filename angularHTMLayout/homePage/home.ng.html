@@ -6,7 +6,7 @@
       ng-init="display.extended = !display.collapseByDefault"
       ng-style="getStyleForDisplay(display)"
       class="homePage_display {{display.label}}"
-      ng-class="{nextGenCard: nextGenTheme}"
+      ng-class="{nextGenCard: nextGenTheme, displayTransparent: display.transparent ,fixWidth:display.fixWidth}"
     >
       <div ng-if="display.extendable" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
         <span ng-click="display.extended = !display.extended" ng-if="!display.rightExpandButton">

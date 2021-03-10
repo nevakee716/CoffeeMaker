@@ -82,6 +82,14 @@
     <div class="row-cell row-cell-value"><input type="number" ng-model="display.order" ng-change="reOrderDisplays(col)" /></div>
   </div>
   <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('transparent')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.transparent" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
+    <div class="row-cell row-cell-label">{{$root.i18n('fixWidth')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value"><input type="checkbox" ng-model="display.fixWidth" /></div>
+  </div>
+  <div class="bootstrap-iso rowFlex">
     <div class="row-cell row-cell-label">{{$root.i18n('width')}} :&nbsp;</div>
     <div class="row-cell row-cell-value"><input ng-model="display.width" /></div>
   </div>

@@ -70,6 +70,16 @@
   box-sizing: border-box;
   flex: 1 0 auto;
 }
+.homePage_main .homePage_column .homePage_display.displayTransparent {
+  background-color: transparent;
+  box-shadow: none;
+}
+.homePage_main .homePage_column .homePage_display.displayTransparent .homePage_display_content {
+  background-color: transparent;
+}
+.homePage_main .homePage_column .homePage_display.fixWidth {
+  flex: 0 0 auto;
+}
 .homePage_main .homePage_column .homePage_display .cwPropertiesTableHeader span.homePage_display_title,
 .homePage_main .homePage_column .homePage_display .fa.expendIcon {
   font-size: 24px;
