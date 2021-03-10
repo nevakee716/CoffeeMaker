@@ -99,6 +99,11 @@
       if (columns[columns.length - 1].title == "Options") columns[columns.length - 1].width += 35;
     }
 
+    if (config.favorite) {
+      if (columns[0].title == "Options") columns[0].width += 35;
+      if (columns[columns.length - 1].title == "Options") columns[columns.length - 1].width += 35;
+    }
+
     if (config.nodes && config.nodes[nodeID] && config.nodes[nodeID].columns) {
       let configColumn = config.nodes[nodeID].columns;
       clearColumnResult = clearColumn(columns, config.nodes[nodeID].columns);
@@ -570,6 +575,10 @@
         }
       }
 
+      if (config && config.favorite) {
+        output.push(tableComplexeEnhanced.getFavButton(e));
+      }
+
       output.push(cwApi.cwKendoGridButtons.getCloseDiv());
       return output.join("");
     }
@@ -629,6 +638,33 @@
       "'" +
       ')"><i class="fa fa-external-link"></i>' +
       "</a>";
+    return output;
+  };
+
+  tableComplexeEnhanced.getFavButton = function (e) {
+    var output = "";
+    if (cwAPI.customLibs.utils.isObjectFavorite(e.item.objectTypeScriptName, e.item.object_id)) {
+      output =
+        '<a class="k-button k-button-icontext k-grid-popoutitem" onclick="cwAPI.customLibs.utils.manageObjectFavoriteStatus(' +
+        "'" +
+        e.item.objectTypeScriptName +
+        "'," +
+        e.item.object_id +
+        ",null,this" +
+        ')"><i class="fa fa-heart"></i>' +
+        "</a>";
+    } else {
+      output =
+        '<a class="k-button k-button-icontext k-grid-popoutitem" onclick="cwAPI.customLibs.utils.manageObjectFavoriteStatus(' +
+        "'" +
+        e.item.objectTypeScriptName +
+        "'," +
+        e.item.object_id +
+        ",this.firstElementChild" +
+        ')"><i class="fa fa-heart-o"></i>' +
+        "</a>";
+    }
+
     return output;
   };
 
