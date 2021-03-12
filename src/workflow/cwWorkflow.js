@@ -294,8 +294,16 @@
             });
             if (!found) result = 0;
           }
-          if ($scope.ng.changeset.properties[formInput.scriptname] === undefined || formInput.readOnly)
+          if (
+            prop.type === "Boolean" ||
+            prop.type === "Double" ||
+            prop.type === "Integer" ||
+            $scope.ng.changeset.properties[formInput.scriptname] === "" ||
+            $scope.ng.changeset.properties[formInput.scriptname] === undefined ||
+            formInput.readOnly
+          ) {
             $scope.ng.changeset.properties[formInput.scriptname] = result;
+          }
 
           return result;
         };
