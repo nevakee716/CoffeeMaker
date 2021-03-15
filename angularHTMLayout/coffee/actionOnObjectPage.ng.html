@@ -131,7 +131,7 @@
           <input ng-if="op.actionType === 'highlight'" type="color" ng-model="op.highlightColor" />
         </div>
       </div>
-      <div ng-if="op.actionType !== 'displaymsg' && op.carrousel !== 'displaymsg'">
+      <div ng-if="op.actionType !== 'displaymsg' && op.actionType !== 'carrousel'  && op.actionType !== 'wordTemplate'">
         <div class="rowFlex bootstrap-iso">
           <div class="row-cell row-cell-label">{{$root.i18n('hideElement_type')}} :&nbsp;</div>
           <div class="row-cell row-cell-value">
@@ -199,6 +199,10 @@
           </div>
         </div>
       </div>
+      <div class="bootstrap-iso rowFlex" ng-if="op.actionType === 'wordTemplate'">
+        <div class="row-cell row-cell-label">{{$root.i18n('template_url')}} :&nbsp;</div>
+        <div class="row-cell row-cell-value"><input ng-model="op.wordTemplateUrl" ng-change="reOrderCurrentConfig()" /></div>
+      </div>
       <div ng-if="op.actionType === 'displaymsg'">
         <div ng-if="currentSchema.Tab.Tabs.length > 0" class="row-cell row-cell-value row-cell-max-width">
           <div class="cell-content-wrapper filter-wrapper propertieslist bootstrap-iso">
@@ -251,8 +255,9 @@
           </div>
         </div>
       </div>
+
       <div ng-include src="'../../common/html/coffee/actionOnObjectPage_carrousel.ng.html'" ng-if="op.actionType === 'carrousel'"></div>
     </div>
-    <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
   </div>
+  <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
 </div>

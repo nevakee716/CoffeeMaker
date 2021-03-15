@@ -140,6 +140,11 @@
       return;
     }
 
+    if (config.actionType === "wordTemplate") {
+      this.displayWordTemplate(config, mainObject);
+      return;
+    }
+
     if (config.tabs) {
       config.tabs.forEach(function (t) {
         self.actionOnId(config.style, config.styleValue, self.viewName + "-tab-" + t);
@@ -259,6 +264,102 @@
       return d;
     }
     return document.createElement("div");
+  };
+
+  var blobToBase64 = function (blob, callback) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var dataUrl = reader.result;
+      var base64 = dataUrl.split(",")[1];
+      callback(base64);
+    };
+    reader.readAsDataURL(blob);
+  };
+
+  actionOnObjectPage.displayWordTemplate = function (config, mainObject) {
+    var wordButton = document.createElement("div");
+    wordButton.innerHTML = '<a class=" page-action btn no-text" title="Word"><span class="btn-text"></span><i class="fa fa-file-word-o"></i></a>';
+    var buttonContainer = document.querySelector(".right-buttons");
+    buttonContainer.appendChild(wordButton);
+
+    wordButton.addEventListener("click", function () {
+      cwDocxTemplate.exportWord(mainObject, config.wordTemplateUrl + "?" + cwAPI.getRandomNumber(), null, {
+        property: function (item, propertyScriptName) {
+          return cwApi.cwPropertiesGroups.getDisplayValue(
+            item.objectTypeScriptName,
+            propertyScriptName,
+            item.properties[propertyScriptName],
+            item,
+            "properties",
+            false,
+            true
+          );
+        },
+        getLink: function (item) {
+          return { url: cwAPI.getSingleViewHash(cwAPI.replaceSpecialCharacters(item.objectTypeScriptName), item.name), label: item.name };
+        },
+        customDisplayString: function (item, cds) {
+          let r = cwAPI.customLibs.utils.getCustomDisplayString(cds + "<##>", item, "", false, true);
+          return '<meta charset="UTF-8"><body>' + r.replace('<a class="obj" >', "").replace("</a></a>", "</a>") + "</body>";
+        },
+        getAutomaticDiagram: function (lID, item, width) {
+          return new Promise(function (resolve, reject) {
+            var diagramViewer = cwAPI.customLibs.diagramViewerByNodeIDAndID[lID + "_" + item.object_id];
+            diagramViewer.getImageFromCanvas(null, 5, null, true, function (diagramImage) {
+              setTimeout(function () {
+                diagramImage.canvas.toBlob(function (blob) {
+                  diagramImage.remove();
+                  blobToBase64(blob, function (base64) {
+                    resolve({
+                      width: width,
+                      height: (width * diagramViewer.camera.diagramSize.h) / diagramViewer.camera.diagramSize.w,
+                      data: base64,
+                      extension: ".png",
+                    });
+                  });
+                }, "image/png");
+              }, 500);
+            });
+          });
+        },
+        getNetwork: function (nodeID, width) {
+          let canva = document.querySelector("#cwLayoutNetwork" + nodeID + " canvas");
+          let trimmedCanva = cwAPI.customLibs.utils.trimCanvas(canva);
+          return new Promise(function (resolve, reject) {
+            cwApi.customLibs.utils.getBlobFromCanva(trimmedCanva, function (blob) {
+              blobToBase64(blob, function (base64) {
+                resolve({
+                  width: width,
+                  height: (width * trimmedCanva.height) / trimmedCanva.width,
+                  data: base64,
+                  extension: ".png",
+                });
+              });
+            });
+          });
+        },
+        getDiagram: function (diagram, width) {
+          return new Promise(function (resolve, reject) {
+            var diagramViewer = cwAPI.customLibs.diagramViewerByNodeIDAndID[diagram.nodeID + "_" + diagram.object_id];
+            diagramViewer.getImageFromCanvas(null, 5, null, true, function (diagramImage) {
+              setTimeout(function () {
+                diagramImage.canvas.toBlob(function (blob) {
+                  diagramImage.remove();
+                  blobToBase64(blob, function (base64) {
+                    resolve({
+                      width: width,
+                      height: (width * diagramViewer.camera.diagramSize.h) / diagramViewer.camera.diagramSize.w,
+                      data: base64,
+                      extension: ".png",
+                    });
+                  });
+                }, "image/png");
+              }, 500);
+            });
+          });
+        },
+      });
+    });
   };
 
   actionOnObjectPage.displayCarrousel = function (config, mainObject) {

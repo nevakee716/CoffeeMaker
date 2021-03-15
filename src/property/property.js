@@ -4,12 +4,12 @@
   "use strict";
 
   let cwPropertiesGroups = cwApi.cwPropertiesGroups;
-  cwPropertiesGroups.types.booleanValue = function (value) {
+  cwPropertiesGroups.types.booleanValue = function (value, noIcon) {
     let config;
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("property");
     }
-    if (!config || !config.booleanIcon) {
+    if (!config || !config.booleanIcon || noIcon) {
       return value !== false ? $.i18n.prop("global_true") : $.i18n.prop("global_false");
     } else if (value !== false) {
       value = '<i style="color:green" class="fa fa-check"><span class="hidden">' + jQuery.i18n.prop("global_true") + "</span></i>";
@@ -49,7 +49,15 @@
     return "<a " + targetBlank + "href='" + value + "'>" + value + "</a>";
   };
 
-  cwPropertiesGroups.getDisplayValue = function (objectTypeScriptName, propertyScriptName, currentValue, object, propertiesContainer, noValue) {
+  cwPropertiesGroups.getDisplayValue = function (
+    objectTypeScriptName,
+    propertyScriptName,
+    currentValue,
+    object,
+    propertiesContainer,
+    noValue,
+    noIcon
+  ) {
     var timePeriodValue, probabilityFunctionValue, growthRateValue, property, value;
     property = cwApi.mm.getProperty(objectTypeScriptName, propertyScriptName);
     value = currentValue;
@@ -86,14 +94,14 @@
           value = cwPropertiesGroups.types.imageValue(object, property.scriptName);
           break;
         case "Boolean":
-          value = cwPropertiesGroups.types.booleanValue(value);
+          value = cwPropertiesGroups.types.booleanValue(value, noIcon);
           break;
         case "URL":
           value = cwPropertiesGroups.types.URLValue(value);
           break;
         case "Lookup":
           property.valueID = object[propertiesContainer][property.scriptName + "_id"];
-          value = cwPropertiesGroups.types.lookupValue(value, property.valueID, config, noValue);
+          value = cwPropertiesGroups.types.lookupValue(value, property.valueID, config, noValue, noIcon);
           break;
         case "Memo":
           value = cwPropertiesGroups.formatMemoProperty(value, objectTypeScriptName);
@@ -136,20 +144,20 @@
         case "Double":
           if (property.scriptName !== "id") {
             value = cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value);
-            value = cwPropertiesGroups.types.numericValue(value, config, noValue);
+            value = cwPropertiesGroups.types.numericValue(value, config, noValue, noIcon);
           }
       }
     }
     return value;
   };
 
-  cwPropertiesGroups.types.lookupValue = function (value, lookupID, config, noValue) {
+  cwPropertiesGroups.types.lookupValue = function (value, lookupID, config, noValue, noIcon) {
     let result = value;
     if (value === cwApi.getLookupUndefinedValue()) {
       value = $.i18n.prop("global_undefined");
       result = value;
     }
-    if (config) {
+    if (config && !noIcon) {
       if (config[lookupID]) {
         result = this.getResultForStyling(value, config[lookupID], noValue);
       }
@@ -161,9 +169,9 @@
     return result;
   };
 
-  cwPropertiesGroups.types.numericValue = function (value, config, noValue) {
+  cwPropertiesGroups.types.numericValue = function (value, config, noValue, noIcon) {
     let selectedStep;
-    if (!config || (!config.steps && !config.value)) return value;
+    if (!config || (!config.steps && !config.value) || noIcon) return value;
     if (!config.steps && config.value) return this.getResultForStyling(value, config, noValue);
     config.steps.forEach(function (step) {
       if (
