@@ -190,3 +190,4 @@ cw_user_view = CwUser View
 sortBy=Sort By
 transparent=Transparent
 fixWidth=Fixed Width
+dupe_anyway = Force duplication
