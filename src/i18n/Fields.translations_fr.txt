@@ -89,6 +89,7 @@ order = Ordre
 description = Description
 title = Titre
 specificPopout = Popout à utiliser
+removeOptionColumn = Supprimer la colonne option
 grid_drop_column = Glisser ici une en-tête de colonne, pour réaliser un regroupement
 clearFilterAtStart = Enlever les filtres au démarrage
 freezeFirstOption = Geler la première colone

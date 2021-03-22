@@ -84,6 +84,7 @@ flex-start = Start
 flex-end = End
 replaceAccentUpperCase = Non sensibile a caso e accento
 tableComplexeEnhanced = Complexe Table
+removeOptionColumn = Remove Option Column
 columnSize = Width of Column (px)
 tableHeight = Height of the Table (%)
 order = Order

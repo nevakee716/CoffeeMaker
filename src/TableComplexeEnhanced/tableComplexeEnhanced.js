@@ -104,19 +104,25 @@
       if (columns[columns.length - 1].title == "Options") columns[columns.length - 1].width += 35;
     }
 
+    result = columns;
     if (config.nodes && config.nodes[nodeID] && config.nodes[nodeID].columns) {
       let configColumn = config.nodes[nodeID].columns;
       clearColumnResult = clearColumn(columns, config.nodes[nodeID].columns);
       columnsObj = reOrderColumn(clearColumnResult.columnCleared, config, configColumn);
       result = reBuildColumn(columnsObj, clearColumnResult, columns);
       if (result === null) {
-        return columns;
+        result = columns;
       } else {
-        return result;
+        result = result;
       }
     }
 
-    return columns;
+    if (config.nodes && config.nodes[nodeID] && config.nodes[nodeID].removeOptionColumn) {
+      if (result[0].title == "Options") result.shift();
+      if (result[result.length - 1].title == "Options") result.pop();
+    }
+
+    return result;
   };
 
   // Apply ratio to the height

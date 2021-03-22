@@ -53,6 +53,10 @@
       <div class="row-cell row-cell-value"><input ng-model="ng.config.nodes[behaviour.node.NodeID].popOutName" /></div>
     </div>
     <div class="bootstrap-iso rowFlex">
+      <div class="row-cell row-cell-label">{{$root.i18n('removeOptionColumn')}} :&nbsp;</div>
+      <div class="row-cell row-cell-value"><input type="checkbox" ng-model="ng.config.nodes[behaviour.node.NodeID].removeOptionColumn" /></div>
+    </div>
+    <div class="bootstrap-iso rowFlex">
       <div class="row-cell row-cell-label">{{$root.i18n('tableHeight')}} :&nbsp;</div>
       <div class="row-cell row-cell-value"><input ng-model="ng.config.nodes[behaviour.node.NodeID].heightPercent" /></div>
     </div>
