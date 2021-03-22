@@ -282,6 +282,16 @@
     var buttonContainer = document.querySelector(".right-buttons");
     buttonContainer.appendChild(wordButton);
 
+    if (cwAPI.isDebugMode() === false) {
+      let libToLoad = ["modules/docxTemplater/docxTemplater.min.js"];
+      // AsyncLoad
+      cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
+        if (error) {
+          cwAPI.Log.Error(error);
+        }
+      });
+    }
+
     wordButton.addEventListener("click", function () {
       cwDocxTemplate.exportWord(mainObject, config.wordTemplateUrl + "?" + cwAPI.getRandomNumber(), null, {
         property: function (item, propertyScriptName) {
