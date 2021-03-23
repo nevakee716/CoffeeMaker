@@ -281,4 +281,123 @@ adding the support and clickable associated region*/
     diagramViewer.tick();
     diagramViewer.tick();
   };
+
+  var requestAnimFrame,
+    cwDiagramViewerId = 0,
+    cwDiagramViewer,
+    oldAnimFrameId;
+  requestAnimFrame = (function () {
+    return (
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function (callback) {
+        var animFrameId = window.setTimeout(callback, 1000 / 15);
+        return animFrameId;
+      }
+    );
+  })();
+
+  // TICK
+  cwApi.Diagrams.CwDiagramViewer.prototype.tick = function () {
+    var r, rKey, canvas, ratio;
+
+    if (!this.removed) {
+      if (!window.cancelAnimationFrame) {
+        window.cancelAnimationFrame = function (oldAnimFrameId) {
+          clearTimeout(oldAnimFrameId);
+        };
+      }
+      oldAnimFrameId = requestAnimFrame(this.tick.bind(this));
+    }
+    this.loop += 1;
+    if (this.loop % 6 !== 0) {
+      return null;
+    }
+    if (this.camera === undefined) {
+      return null;
+    }
+    if (this.errorOutOfMemory) {
+      return null;
+    }
+
+    this.handleMoveTo();
+
+    this.camera.update();
+    // this.camera.debug();
+    this.ctx.save();
+    this.camera.clearContext(this.ctx);
+
+    // Draw Image
+    if (this.isImageDiagram()) {
+      this.ctx.save();
+      this.camera.transform(this.ctx, false);
+      ratio = 1 / this.camera.scale;
+      if (this.errorOnDownScaleCache === true || ratio >= 1) {
+        try {
+          this.ctx.drawImage(this.image, 0, 0, this.image.naturalWidth * ratio, this.image.naturalHeight * ratio);
+        } catch (err) {
+          cwApi.Log.Error(err);
+          cwApi.notificationManager.addNotification($.i18n.prop("cmdiagram_run_out_of_memory"), "error");
+          clearTimeout(oldAnimFrameId);
+          this.errorOutOfMemory = true;
+        }
+      } else {
+        r = parseInt(Math.floor(ratio / this.ratioDownScaleConst), 10);
+        r += 1;
+        rKey = r * this.ratioDownScaleConst;
+        rKey = parseFloat(rKey.toFixed(2), 10);
+
+        canvas = this.downScaleCache[rKey];
+        if (!cwApi.isUndefinedOrNull(canvas)) {
+          this.ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, this.image.naturalWidth * ratio, this.image.naturalHeight * ratio);
+        }
+      }
+      this.ctx.restore();
+    }
+
+    this.camera.transform(this.ctx);
+    this.ctx.lineWidth = 1;
+
+    if (this.useImage) {
+      // Stroke images and navigation/explosion regions
+      this.setStrokeShapeWhenMouseHover(this.ctx);
+    } else {
+      // Draw Diagram on canvas
+      this.drawElements();
+      if (cwApi.CwPrintManager.isPrintMode() === false) {
+        this.setStrokeShapeWhenMouseHover(this.ctx); // Stroke navigation areas
+        this.setStrokeJoinerWhenMouseHover(this.ctx); // Stroke navigation areas
+      }
+    }
+    this.ctx.restore();
+
+    if (this.loop === 0) {
+      // if there is no image after first draw, diagram is ready for save
+      if (this.regionsImageCount === 0) {
+        return this.onReadyToSaveAsImage();
+      }
+    }
+    // asap all the image and ready & draw at least once (as here is the end of draw) the diagrma viewer is ready
+    if (this.regionsImageAreAllLoaded === true) {
+      delete this.regionsImageAreAllLoaded;
+      return this.onReadyToSaveAsImage();
+    }
+    if (this.oldHeight && this.oldWidth && (this.oldHeight != this.$diagramContainer.height() || this.oldWidth != this.$diagramContainer.width())) {
+      this.redraw();
+    }
+    this.oldHeight = this.$diagramContainer.height();
+    this.oldWidth = this.$diagramContainer.width();
+    return null;
+  };
+
+  cwApi.Diagrams.CwDiagramViewer.prototype.setToFullscreenHeight = function () {
+    var h = cwApi.setToFullScreenAndGetNewHeight(this.$diagramContainer, 0);
+    if (h < cwApi.CwDiagramDefinitions.MinimumDiagramHeight) {
+      h = (this.$diagramContainer.width() * this.json.diagram.size.Height) / this.json.diagram.size.Width;
+    }
+    this.setDiagramContainerMinHeight(h);
+  };
 })(cwAPI, jQuery);
