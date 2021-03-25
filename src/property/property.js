@@ -293,11 +293,13 @@
         cwApi.cwTinymceManager.initalizeTinymce("cw-edit-attr-" + this.id, function (ed) {
           //this tinymce initialize + after loaded set the initial values
           var propertyId = String(ed.id).replace("cw-edit-attr-", "");
-          for (var i = 0; i < cwApi.editPropertiesManager.properties.length; i++) {
-            if (String(cwApi.editPropertiesManager.properties[i].id) === propertyId) {
-              var scriptName = cwApi.editPropertiesManager.properties[i].scriptName;
-              if (!cwAPI.isUndefined(cwApi.editPropertiesManager.initialValues))
-                cwApi.editPropertiesManager.initialValues.properties[scriptName] = cwApi.cwTinymceManager.getFormattedHtml(ed.id);
+          if (cwApi.editPropertiesManager) {
+            for (var i = 0; i < cwApi.editPropertiesManager.properties.length; i++) {
+              if (String(cwApi.editPropertiesManager.properties[i].id) === propertyId) {
+                var scriptName = cwApi.editPropertiesManager.properties[i].scriptName;
+                if (!cwAPI.isUndefined(cwApi.editPropertiesManager.initialValues))
+                  cwApi.editPropertiesManager.initialValues.properties[scriptName] = cwApi.cwTinymceManager.getFormattedHtml(ed.id);
+              }
             }
           }
         });
