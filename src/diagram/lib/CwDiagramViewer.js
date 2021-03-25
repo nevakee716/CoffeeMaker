@@ -386,7 +386,11 @@ adding the support and clickable associated region*/
       return this.onReadyToSaveAsImage();
     }
     if (this.oldHeight && this.oldWidth && (this.oldHeight != this.$diagramContainer.height() || this.oldWidth != this.$diagramContainer.width())) {
-      this.redraw();
+      if (this.BehaviourProperties.NodeID && this.BehaviourProperties.NodeID.indexOf("autoResize") !== -1) {
+        this.reload();
+      } else {
+        this.redraw();
+      }
     }
     this.oldHeight = this.$diagramContainer.height();
     this.oldWidth = this.$diagramContainer.width();
