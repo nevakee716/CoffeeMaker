@@ -54,7 +54,7 @@
       if (canDupe || config.dupeAnyway) {
         var duplicationButton = document.createElement("div");
         duplicationButton.innerHTML =
-          '<a class="cw-edit-mode-button-edit cw-edit-mode-button page-action edit btn btn-edit no-text" title="Dupliquer"><span class="btn-text"></span><i class="fa fa-copy"></i></a>';
+          '<a class="cw-edit-mode-button-edit cw-edit-mode-button page-action edit btn btn-edit no-text" title="Duplicate"><span class="btn-text"></span><i class="fa fa-copy"></i></a>';
 
         var buttonContainer = document.querySelector(".cw-edit-buttons");
         buttonContainer.appendChild(duplicationButton);
