@@ -347,6 +347,7 @@
         };
 
         $scope.selectNextSortProperty = function (display) {
+          cwAPI.CwPopout.hide();
           let view = cwAPI.getViewsSchemas()[display.view];
           let childrenNodes;
           if (display.type === "cw_user_view") {
