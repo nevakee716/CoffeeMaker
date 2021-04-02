@@ -332,18 +332,43 @@
             });
           });
         },
-        getNetwork: function (nodeID, width) {
+        getNetwork: function (nodeID, width, height) {
           let canva = document.querySelector("#cwLayoutNetwork" + nodeID + " canvas");
-          let trimmedCanva = cwAPI.customLibs.utils.trimCanvas(canva);
+          var networkUI;
+          cwAPI.appliedLayouts.some(function (l) {
+            if (l.nodeID === nodeID) {
+              networkUI = l.networkUI;
+              return true;
+            }
+          });
+
+          networkUI.fit();
+          var container = document.getElementById("cwLayoutNetworkCanva" + nodeID);
+          var oldheight = container.offsetHeight;
+          var scale = networkUI.getScale(); // change size of the canva to have element in good resolution
+
+          let newWidth = container.offsetWidth / scale;
+          let newHeight = (container.offsetWidth * height) / (scale * width);
+
+          container.style.width = newWidth.toString() + "px";
+          container.style.height = newHeight.toString() + "px";
+          networkUI.background = true;
+          networkUI.redraw();
+
           return new Promise(function (resolve, reject) {
             cwApi.customLibs.utils.getBlobFromCanva(trimmedCanva, function (blob) {
               blobToBase64(blob, function (base64) {
                 resolve({
                   width: width,
-                  height: (width * trimmedCanva.height) / trimmedCanva.width,
+                  height: height,
                   data: base64,
                   extension: ".png",
                 });
+                container.style.height = oldheight + "px";
+                container.style.width = "";
+                networkUI.background = false;
+                networkUI.redraw();
+                networkUI.fit();
               });
             });
           });
