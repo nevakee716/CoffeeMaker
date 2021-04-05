@@ -356,7 +356,7 @@
           networkUI.redraw();
 
           return new Promise(function (resolve, reject) {
-            cwApi.customLibs.utils.getBlobFromCanva(trimmedCanva, function (blob) {
+            cwApi.customLibs.utils.getBlobFromCanva(canva, function (blob) {
               blobToBase64(blob, function (base64) {
                 resolve({
                   width: width,
