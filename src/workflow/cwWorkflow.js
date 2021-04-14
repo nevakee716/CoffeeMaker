@@ -499,6 +499,9 @@
         $scope.parseObjectID = function (text) {
           return text.match(/<ObjectId>(.*)<\/ObjectId>/)[1];
         };
+        $scope.parseError = function (text) {
+          return text.match(/<Message>(.*)<\/Message>/)[1];
+        };
 
         $scope.bootstrapFilter = function (id, value) {
           window.setTimeout(function (params) {

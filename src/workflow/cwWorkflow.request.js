@@ -157,6 +157,12 @@
         function (response) {
           $scope.deleteRequest(function () {
             let id = $scope.parseObjectID(response);
+            if (id == "0") {
+              cwAPI.notificationManager.addError(
+                "An error occur during the submittion Please contact your administrator : \n" + $scope.parseError(response)
+              );
+              return;
+            }
             if (step.shareWorkflow) {
               if (($scope.ng.stepmapping[step.stepName] ^ 0) === $scope.ng.stepmapping[step.stepName]) {
                 $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
@@ -226,7 +232,12 @@
         ],
         function (response) {
           let id = $scope.parseObjectID(response);
-
+          if (id == "0") {
+            cwAPI.notificationManager.addError(
+              "An error occur during the creation of the final object Please contact your administrator : \n" + $scope.parseError(response)
+            );
+            return;
+          }
           $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
             cwApi.customLibs.utils.shareWorkflow(
               $scope.ng.changeset.properties.name,
