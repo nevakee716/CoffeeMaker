@@ -261,6 +261,11 @@
                 if (value) $("#" + id).selectpicker("val", value);
               }, 1000);
             };
+            $scope.objectToArray = function (objs) {
+              return Object.keys(objs).map(function (k) {
+                return objs[k];
+              });
+            };
             $scope.getPropertyDataType = function (ot, scriptname) {
               if (cwApi.isUndefined(ot)) {
                 return "";
