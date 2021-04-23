@@ -56,7 +56,7 @@
   id="{{'lookupFilter_' + $index}}"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
 >
-  <option value=""></option>
+  <option value="0"></option>
   <option
     value="{{lookup.id.toString()}}"
     ng-selected="lookup.id.toString() == ng.changeset.properties[formInput.scriptname].toString() "
