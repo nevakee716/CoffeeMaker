@@ -198,3 +198,5 @@ decimalseparator = Decimal Splitter
 thousandseparator = Thousand Splitter
 objectype = Object Type
 objectTypeUsedForMemoDefinitionMapping = Index Page to use for Mapping MemoText
+property_memo = MemoText
+template_url = Url Template

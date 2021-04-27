@@ -143,7 +143,6 @@
         case "Integer":
         case "Double":
           if (property.scriptName !== "id") {
-            value = cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value);
             value = cwPropertiesGroups.types.numericValue(value, config, noValue, noIcon);
           }
       }
@@ -171,8 +170,9 @@
 
   cwPropertiesGroups.types.numericValue = function (value, config, noValue, noIcon) {
     let selectedStep;
-    if (!config || (!config.steps && !config.value) || noIcon) return value;
-    if (!config.steps && config.value) return this.getResultForStyling(value, config, noValue);
+    if (!config || (!config.steps && !config.value) || noIcon) return cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value);
+    if (!config.steps && config.value)
+      return this.getResultForStyling(cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value), config, noValue);
     config.steps.forEach(function (step) {
       if (
         (step.min && step.max === null && step.min < value) ||
@@ -207,9 +207,13 @@
       }
       let unit = selectedStep.unit ? selectedStep.unit : "";
 
-      value = number_format(value, undefined, selectedStep.decimalseparator, selectedStep.thousandseparator);
+      if (selectedStep.decimalseparator || selectedStep.thousandseparator)
+        value = number_format(value, undefined, selectedStep.decimalseparator, selectedStep.thousandseparator);
+      else value = cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value);
 
       value = selectedStep.infront && unit ? unit + " " + value : value + " " + unit;
+    } else {
+      value = cwApi.CwNumberSeparator.formatAndGetNumberWithSeperator(value);
     }
     return this.getResultForStyling(value, selectedStep, noValue);
   };
