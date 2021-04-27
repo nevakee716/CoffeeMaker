@@ -3,8 +3,7 @@
     <select
       ng-model="ng.selectedObjectTypeScriptname"
       ng-options="o.scriptName as (o.name + ' (' + o.scriptName + ')')  for o in OTs | orderBy:'name'"
-    >
-    </select>
+    ></select>
   </div>
 
   <table ng-if="ng.selectedObjectTypeScriptname" class="cwPropertiesTable">
@@ -14,6 +13,10 @@
         <th class="largeMediumCell noWhiteSpace">{{$root.i18n('property')}}</th>
         <th class="smallCell">{{$root.i18n('min')}}</th>
         <th class="smallCell">{{$root.i18n('max')}}</th>
+        <th class="verySmallCell">{{$root.i18n('unit')}}</th>
+        <th class="verySmallCell">{{$root.i18n('infront')}}</th>
+        <th class="verySmallCell">{{$root.i18n('decimalseparator')}}</th>
+        <th class="verySmallCell">{{$root.i18n('thousandseparator')}}</th>
         <th class="largeMediumCell">{{$root.i18n('imageUrl')}}</th>
         <th class="largeMediumCell">{{$root.i18n('Icon')}}</th>
         <th class="tableCheckbox">{{$root.i18n('colorIcon')}}</th>
@@ -27,9 +30,11 @@
             <i ng-if="p.extended" class="fa fa-chevron-up" aria-hidden="true"></i>
           </span>
         </th>
-        <th class="cw-edit-property-value">
-          {{p.name}}
-        </th>
+        <th class="cw-edit-property-value">{{p.name}}</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -61,10 +66,22 @@
           <input ng-model="step.max" type="number" />
         </td>
         <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.unit" type="text" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.infront" type="checkbox" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.decimalseparator" type="text" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
+          <input ng-model="step.thousandseparator" type="text" />
+        </td>
+        <td class="cw-edit-property-value bootstrap-iso tableTextInput">
           <input ng-model="step.imageUrl" type="text" />
         </td>
-        <td class="cw-edit-property-value" style="overflow: visible;">
-          <div class="bootstrap-iso" style="display: flex; overflow: visible;">
+        <td class="cw-edit-property-value" style="overflow: visible">
+          <div class="bootstrap-iso" style="display: flex; overflow: visible">
             <select
               ng-include
               src="'../../common/html/coffee/fa.ng.html'"

@@ -192,3 +192,7 @@ sortBy=Sort
 transparent=Transparente
 fixWidth=Largeur Fixe
 dupe_anyway = Force duplication
+unit = Unit
+infront = In Front ?
+decimalseparator = Decimal Splitter
+thousandseparator = Thousand Splitter
