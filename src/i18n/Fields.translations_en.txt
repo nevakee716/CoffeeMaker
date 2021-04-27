@@ -196,3 +196,5 @@ unit = Unit
 infront = In Front ?
 decimalseparator = Decimal Splitter
 thousandseparator = Thousand Splitter
+objectype = Object Type
+objectTypeUsedForMemoDefinitionMapping = Index Page to use for Mapping MemoText

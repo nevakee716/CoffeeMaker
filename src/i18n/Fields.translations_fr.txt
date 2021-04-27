@@ -194,3 +194,5 @@ sortBy=Trier par
 transparent=Transparente
 fixWidth=Largeur Fixe
 dupe_anyway = Forcer la Duplication même s'il y a un approuver
+objectype = Objet Type
+objectTypeUsedForMemoDefinitionMapping = Index Page à utiliser pour le mapping dans les memotextes
