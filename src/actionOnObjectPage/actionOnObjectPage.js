@@ -283,13 +283,13 @@
     buttonContainer.appendChild(wordButton);
 
     if (cwAPI.isDebugMode() === false) {
-      let libToLoad = ["modules/docxTemplater/docxTemplater.min.js"];
-      // AsyncLoad
-      cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
-        if (error) {
-          cwAPI.Log.Error(error);
-        }
-      });
+      function loadjscssfile(filename) {
+        var fileref = document.createElement("script");
+        fileref.setAttribute("type", "text/javascript");
+        fileref.setAttribute("src", filename);
+        if (typeof fileref != "undefined") document.getElementsByTagName("head")[0].appendChild(fileref);
+      }
+      loadjscssfile("/evolve/Common/modules/docxTemplater/docxTemplater.concat.js?" + cwApi.getDeployNumber());
     }
 
     wordButton.addEventListener("click", function () {
