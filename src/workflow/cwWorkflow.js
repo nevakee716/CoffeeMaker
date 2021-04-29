@@ -148,6 +148,7 @@
       this.currentStep = this.getStep(this.step);
     } catch (e) {
       console.log(e);
+      cwAPI.notificationManager.addError("Workflow Item seems corrupted. Please contact your administrator : \n" + $scope.parseError(response));
       cwAPI.siteLoadingPageFinish();
       return;
     }
