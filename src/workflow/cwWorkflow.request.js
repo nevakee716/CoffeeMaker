@@ -70,7 +70,7 @@
         iProperties: {},
         properties: {
           step: step.stepName,
-          changeset: angular.toJson($scope.ng.changeset),
+          changeset: angular.toJson($scope.ng.changeset).replaceAll("“", "'").replaceAll("”", "'"),
           name: $scope.ng.changeset.properties.name,
           documents: angular.toJson($scope.ng.documents),
           scenario: self.scenario,
@@ -171,6 +171,9 @@
               } else {
                 $scope.triggerShareWorkflow(id, step);
               }
+            } else {
+              // reload the page
+              if (!cwApi.isDebugMode() || true) window.location = cwApi.getSingleViewHash($scope.ng.jsonObjects.objectTypeScriptname, id);
             }
 
             if (step.createObject) {
@@ -228,7 +231,7 @@
           { key: "Username", value: userCST },
           { key: "Password", value: passwordCST },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
-          { key: "ObjectJsonStr", value: angular.toJson($scope.ng.changeset) },
+          { key: "ObjectJsonStr", value: angular.toJson($scope.ng.changeset.replaceAll("“", "'").replaceAll("”", "'")) },
         ],
         function (response) {
           let id = $scope.parseObjectID(response);
@@ -238,6 +241,7 @@
             );
             return;
           }
+
           $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
             cwApi.customLibs.utils.shareWorkflow(
               $scope.ng.changeset.properties.name,
