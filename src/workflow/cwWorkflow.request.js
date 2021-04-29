@@ -173,7 +173,7 @@
               }
             } else {
               // reload the page
-              if (!cwApi.isDebugMode() || true) window.location = cwApi.getSingleViewHash($scope.ng.jsonObjects.objectTypeScriptname, id);
+              if (!cwApi.isDebugMode()) window.location = cwApi.getSingleViewHash($scope.ng.jsonObjects.objectTypeScriptname, id);
             }
 
             if (step.createObject) {
