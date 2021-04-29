@@ -482,6 +482,11 @@
           $scope.ng.stepmapping[stepConfiguration.stepName] = stepConfiguration.cwRole;
         };
 
+        $scope.initLookup = function (formInput) {
+          if (!formInput.mandatory && ng.changeset.properties[formInput.scriptname] === undefined) {
+            ng.changeset.properties[formInput.scriptname] = 0;
+          }
+        };
         $scope.manageDocumentsBeforeSavingWI = function () {
           $scope.ng.documents.forEach(function (doc) {
             if (doc.status === "new") {

@@ -55,8 +55,9 @@
   class="value selectDropDownList"
   id="{{'lookupFilter_' + $index}}"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
+  ng-init="initLookup(formInput)"
 >
-  <option value="0"></option>
+  <option ng-if="!formInput.mandatory" value="0">Undefined</option>
   <option
     value="{{lookup.id.toString()}}"
     ng-selected="lookup.id.toString() == ng.changeset.properties[formInput.scriptname].toString() "
