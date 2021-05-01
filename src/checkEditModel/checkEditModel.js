@@ -22,9 +22,11 @@
 
   cwApi.CwMandatoryValueChange.prototype.modifyAutomaticProperty = function (config) {
     var propertyScriptName;
-    for (let s in this.sourceObject.properties) {
-      if (this.sourceObject.properties.hasOwnProperty(s) && config[s] && config[s].automaticValue) {
-        this.pendingObject.properties[s] = this.getDisplayString(config[s].automaticValue);
+    if (this.sourceObject && this.sourceObject.properties) {
+      for (let s in this.sourceObject.properties) {
+        if (this.sourceObject.properties.hasOwnProperty(s) && config[s] && config[s].automaticValue) {
+          this.pendingObject.properties[s] = this.getDisplayString(config[s].automaticValue);
+        }
       }
     }
   };
