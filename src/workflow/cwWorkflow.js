@@ -548,7 +548,7 @@
   cwLayout.prototype.applyJavaScript = function () {
     let self = this;
 
-    if (!cwAPI.isWebSocketConnected) cwApi.customLibs.utils.setupWebSocketForSocial(this.loadLibs().bind(this));
+    if (!cwAPI.isWebSocketConnected) cwApi.customLibs.utils.setupWebSocketForSocial(this.loadLibs.bind(this));
     else this.loadLibs();
   };
 
