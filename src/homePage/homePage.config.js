@@ -140,7 +140,7 @@
       f.nodeID = s[1];
     };
 
-    $scope.getNodeFromCwUserView = function (view) {
+    $scope.getNodeFromObjectView = function (view) {
       let v = cwAPI.getViewsSchemas()[view];
       let c = v.NodesByID[v.RootNodesId].SortedChildren;
       if (c && c.length > 0) {
@@ -148,14 +148,14 @@
       }
     };
 
-    $scope.getNodeNumerFromCwUserView = function (view) {
+    $scope.getNodeNumerFromObjectView = function (view) {
       let v = cwAPI.getViewsSchemas()[view];
       let c = v.NodesByID[v.RootNodesId].SortedChildren;
       return c ? c.length : 0;
     };
 
-    $scope.getRootObjectTypeFromCwUserView = function (view) {
-      let node = $scope.getNodeFromCwUserView(view);
+    $scope.getRootObjectTypeFromObjectView = function (view) {
+      let node = $scope.getNodeFromObjectView(view);
       return cwApi.mm.getObjectType(node.ObjectTypeScriptName);
     };
     return;

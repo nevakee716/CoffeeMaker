@@ -83,6 +83,7 @@
         $scope.views = cwApi.cwConfigs.Pages;
         $scope.ng.config = self.config;
         $scope.cwApi = cwApi;
+        $scope.isGridLayout = true;
         $scope.lang = cwApi.getSelectedLanguage();
         $scope.toggle = function (c, e) {
           if (c.hasOwnProperty(e)) delete c[e];
