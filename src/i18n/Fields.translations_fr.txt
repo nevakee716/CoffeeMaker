@@ -200,3 +200,5 @@ decimalseparator = Séparateur Décimal
 thousandseparator = Sépatateur Milliers
 property_memo = MemoText
 template_url = Url du template Word
+indexPage=Index Page
+objectPage=Object Page

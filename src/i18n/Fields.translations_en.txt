@@ -200,3 +200,5 @@ objectype = Object Type
 objectTypeUsedForMemoDefinitionMapping = Index Page to use for Mapping MemoText
 property_memo = MemoText
 template_url = Url Template
+indexPage=Index Page
+objectPage=Object Page
