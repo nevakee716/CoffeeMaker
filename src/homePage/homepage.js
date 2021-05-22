@@ -253,6 +253,11 @@
             }
             let output = [];
             let object = { associations: o };
+            if(display.object) {
+              object = display.object;
+              object.associations = o;
+            }
+
             rootNodeId.forEach(function (r) {
               cwApi.cwDisplayManager.outputNode(output, cwApi.ViewSchemaManager.getPageSchema(display.view), r, object);
             });
@@ -296,6 +301,7 @@
                 let v = cwAPI.getViewsSchemas()[display.view];
                 let c = v.NodesByID[v.RootNodesId].SortedChildren;
                 display.objects = o.object.associations;
+                display.object = o.object;
                 if (c && c.length > 0) {
                   $scope.createHTMLFromJSON(
                     display,
