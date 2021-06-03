@@ -205,6 +205,12 @@
     return itemDisplayName;
   };
 
+  cdsEnhanced.getEnhancedDisplayItemWithoutHTML = function (config, itemDisplayName, item) {
+    itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
+    itemDisplayName = cdsEnhanced.getPopoutAssociation(config, itemDisplayName, item);
+    return itemDisplayName;
+  };
+
   cdsEnhanced.getDisplayItem = function (item, nameOnly) {
     var itemDisplayName, titleOnMouseOver, link, itemLabel, markedForDeletion, linkTag, linkEndTag;
 

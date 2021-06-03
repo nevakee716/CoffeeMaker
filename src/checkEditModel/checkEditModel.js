@@ -25,54 +25,12 @@
     if (this.sourceObject && this.sourceObject.properties) {
       for (let s in this.sourceObject.properties) {
         if (this.sourceObject.properties.hasOwnProperty(s) && config[s] && config[s].automaticValue) {
-          this.pendingObject.properties[s] = this.getDisplayString(config[s].automaticValue);
+          this.pendingObject.properties[s] =  cwAPI.customLibs.utils.getCustomDisplayStringWithOutHTML(config[s].automaticValue, this.pendingObject)
         }
       }
     }
   };
 
-  cwApi.CwMandatoryValueChange.prototype.getDisplayString = function (cds) {
-    var assoCDSPart,
-      pages = {},
-      cdsP,
-      name,
-      prop,
-      assoNodeID,
-      splitPart,
-      splitPart2,
-      targetObjPropScriptname;
-    while (cds.indexOf("<§") !== -1 && cds.indexOf("§>") !== -1) {
-      cdsP = false;
-      assoCDSPart = cds.split("<§")[1].split("§>")[0];
-      if (assoCDSPart.indexOf(".") !== -1) {
-        var propertyToGet, url;
-        propertyToGet = assoCDSPart.split(".")[1];
-        url = propertyToGet.split("(")[1];
-        url = url.replace(")", "");
-        propertyToGet = propertyToGet.split("(")[0];
-
-        assoNodeID = assoCDSPart.split(".")[0];
-      } else assoNodeID = assoCDSPart;
-      if (this.pendingObject.associations[assoNodeID] && this.pendingObject.associations[assoNodeID].items.length > 0) {
-        if (propertyToGet) {
-          name = this.getPropertyFromObjectPage(propertyToGet, url, pages, this.pendingObject.associations[assoNodeID].items[0].targetObjectID);
-        } else {
-          name = this.pendingObject.associations[assoNodeID].items[0].name;
-        }
-        cds = cds.replace("<§" + assoCDSPart + "§>", name);
-      } else break;
-    }
-
-    while (cds.indexOf("{") !== -1 && cds.indexOf("}") !== -1) {
-      prop = cds.split("{")[1].split("}")[0];
-
-      if (this.pendingObject.properties[prop]) {
-        cds = cds.replace("{" + prop + "}", this.pendingObject.properties[prop]);
-      } else break;
-    }
-
-    return cds;
-  };
 
   cwApi.CwMandatoryValueChange.prototype.addEmptyMandatoryPropertiesToList = function (propertyValue, propertyType) {
     if (this.isPropertyEmpty(propertyValue, propertyType.type)) {
