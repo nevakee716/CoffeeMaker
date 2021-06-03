@@ -25,12 +25,12 @@
     if (this.sourceObject && this.sourceObject.properties) {
       for (let s in this.sourceObject.properties) {
         if (this.sourceObject.properties.hasOwnProperty(s) && config[s] && config[s].automaticValue) {
-          this.pendingObject.properties[s] =  cwAPI.customLibs.utils.getCustomDisplayStringWithOutHTML(config[s].automaticValue, this.pendingObject)
+          this.pendingObject.objectTypeScriptName = this.objectTypeScriptName.toLowerCase();
+          this.pendingObject.properties[s] = cwAPI.customLibs.utils.getCustomDisplayStringWithOutHTML(config[s].automaticValue, this.pendingObject);
         }
       }
     }
   };
-
 
   cwApi.CwMandatoryValueChange.prototype.addEmptyMandatoryPropertiesToList = function (propertyValue, propertyType) {
     if (this.isPropertyEmpty(propertyValue, propertyType.type)) {

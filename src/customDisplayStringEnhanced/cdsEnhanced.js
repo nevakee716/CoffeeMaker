@@ -320,4 +320,5 @@
 
   cwApi.cwLayouts.CwLayout.prototype.getDisplayItem = cdsEnhanced.getDisplayItem;
   cwApi.cwLayouts.CwLayout.prototype.getEnhancedDisplayItem = cdsEnhanced.getEnhancedDisplayItem;
+  cwApi.cwLayouts.CwLayout.prototype.getEnhancedDisplayItemWithoutHTML = cdsEnhanced.getEnhancedDisplayItemWithoutHTML;
 })(cwAPI, jQuery);
