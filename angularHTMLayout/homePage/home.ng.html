@@ -32,7 +32,7 @@
       <div
         ng-style="getStyleForDisplayContent(display)"
         class="homePage_display_content"
-        ng-class="{'rightExpandButtonContent':display.rightExpandButtonStyle, 'nextGenCard': !nextGenTheme}"
+        ng-class="{rightExpandButtonContent:display.rightExpandButtonStyle, nextGenCard: !nextGenTheme,noPadding: display.noPadding }"
       >
         <div class="homePage_evolveView" ng-if='display.type==="evolve_view"' ng-init="getHTMLView(display)" ng-bind-html="display.html"></div>
         <div
@@ -42,11 +42,11 @@
           ng-bind-html="display.html"
         ></div>
         <div
-        class="homePage_evolveView"
-        ng-if='display.type==="cw_user_view"'
-        ng-init="getHTMLViewForCwUserView(display)"
-        ng-bind-html="display.html"
-      ></div>
+          class="homePage_evolveView"
+          ng-if='display.type==="cw_user_view"'
+          ng-init="getHTMLViewForCwUserView(display)"
+          ng-bind-html="display.html"
+        ></div>
         <div
           class="homePage_description"
           ng-if='display.type==="object_description"'

@@ -202,3 +202,4 @@ property_memo = MemoText
 template_url = Url Template
 indexPage=Index Page
 objectPage=Object Page
+noPadding=No Padding

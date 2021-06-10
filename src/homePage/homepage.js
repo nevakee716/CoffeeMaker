@@ -178,16 +178,10 @@
           let calcWidth = display.width;
           if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 1.5rem)";
 
-          let calcHeight = display.height;
-          if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
-
           return { width: calcWidth };
         };
 
         $scope.getStyleForDisplayContent = function (display) {
-          let calcWidth = display.width;
-          if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 1.5rem)";
-
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 70px)";
           if (display.extendable === true) {
@@ -253,7 +247,7 @@
             }
             let output = [];
             let object = { associations: o };
-            if(display.object) {
+            if (display.object) {
               object = display.object;
               object.associations = o;
             }

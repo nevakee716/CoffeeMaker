@@ -77,6 +77,9 @@
 .homePage_main .homePage_column .homePage_display.displayTransparent .homePage_display_content {
   background-color: transparent;
 }
+.homePage_main .homePage_column .homePage_display.noPadding {
+  padding: 0rem;
+}
 .homePage_main .homePage_column .homePage_display.fixWidth {
   flex: 0 0 auto;
 }
