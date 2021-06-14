@@ -203,3 +203,5 @@ template_url = Url du template Word
 indexPage=Index Page
 objectPage=Object Page
 noPadding=No Padding
+homepage_image_fontsize=Taille de la Police
+homepage_image_roundshape=Forme arrondie

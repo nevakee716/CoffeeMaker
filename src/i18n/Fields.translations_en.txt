@@ -203,3 +203,5 @@ template_url = Url Template
 indexPage=Index Page
 objectPage=Object Page
 noPadding=No Padding
+homepage_image_fontsize=FontSize
+homepage_image_roundshape=Round Shape

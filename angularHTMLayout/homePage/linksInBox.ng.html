@@ -3,8 +3,8 @@
     <div ng-if="false && !cwApi.isIE()" class="backgroundBlur">
       <img src="{{link.imgUrl}}"></img>
     </div>
-    <img src="{{link.imgUrl}}"></img>
-    <span ng-if="link.Label && link.Label.length > 0" class="link" >{{link.Label}}</span>
+    <img ng-class="{roundShape:display.roundShape}" src="{{link.imgUrl}}"></img>
+    <span ng-if="link.Label && link.Label.length > 0" class="link" ng-style="{'font-size':display.homepage_image_fontsize}">{{link.Label}}</span>
   </div>
 </a>
 
