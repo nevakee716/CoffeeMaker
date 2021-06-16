@@ -204,7 +204,9 @@
   display: none;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView .cw-jvector-map {
+  width: 100%;
   height: 100%;
+  border: none;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView .tableForPopoutWrapper {
   overflow: unset;
