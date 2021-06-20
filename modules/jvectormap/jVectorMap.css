@@ -1,0 +1,92 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
+.jvectormap-label {
+  position: absolute;
+  display: none;
+  border: solid 1px #03a0ce;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #ffffff;
+  color: #03a0ce;
+  font-size: smaller;
+  padding: 5px;
+  text-align: center;
+  z-index: 900;
+}
+.cw-jvectormap-from-list > *,
+.cw-jvectormap-from-list-box > * {
+  vertical-align: top;
+}
+.cw-jvectormap-from-list > ul,
+.cw-jvectormap-from-list-box > ul {
+  display: inline-block;
+  width: calc(15% - 20px);
+}
+.cw-jvectormap-from-list > div,
+.cw-jvectormap-from-list-box > div {
+  display: inline-block;
+  width: calc(85% - 20px);
+}
+.jvectormap-zoomin,
+.jvectormap-zoomout {
+  position: absolute;
+  left: 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #03a0ce;
+  padding: 3px;
+  color: #ffffff;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  line-height: 10px;
+  text-align: center;
+}
+.jvectormap-zoomin {
+  top: 10px;
+}
+.jvectormap-zoomout {
+  top: 30px;
+}
+.jvectormap-label ul.applications {
+  margin: 0px;
+  padding: 0px;
+}
+.cw-apm-tooltip-chart {
+  width: 1000px;
+}
+@media screen and (min-width: 240px) and (max-width: 1023px) {
+  .cw-jvectormap-from-list > ul,
+  .cw-jvectormap-from-list-box > ul,
+  .cw-jvectormap-from-list > div,
+  .cw-jvectormap-from-list-box > div {
+    width: 100%;
+  }
+}

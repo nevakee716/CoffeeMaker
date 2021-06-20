@@ -1,0 +1,79 @@
+@import "../../_variables";
+@import "../../_common";
+
+.jvectormap-label {
+  position: absolute;
+  display: none;
+  border: solid 1px @cwJVectorMapLabelTextColor;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: @cwJVectorMapLabelBackgroundColor;
+  color: @cwJVectorMapLabelTextColor;
+  font-size: smaller;
+  padding: 5px;
+  text-align: center;
+  z-index: 900;
+}
+
+.cw-jvectormap-from-list,
+.cw-jvectormap-from-list-box {
+  > * {
+    vertical-align: top;
+  }
+
+  > ul {
+    display: inline-block;
+    width: calc(~"15% - @{padding-page}");
+  }
+
+  > div {
+    display: inline-block;
+    width: calc(~"85% - @{padding-page}");
+  }
+}
+
+.jvectormap-zoomin,
+.jvectormap-zoomout {
+  position: absolute;
+  left: 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: @cwJVectorMapIconBackgroundColor;
+  padding: 3px;
+  color: @cwJVectorMapIconLinesColor;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  line-height: 10px;
+  text-align: center;
+}
+
+.jvectormap-zoomin {
+  top: 10px;
+}
+
+.jvectormap-zoomout {
+  top: 30px;
+}
+
+.jvectormap-label ul.applications {
+  margin: 0px;
+  padding: 0px;
+}
+
+.cw-apm-tooltip-chart {
+  width: 1000px;
+}
+
+//  small & medium
+@media screen and (min-width: @breakpoint-small) and (max-width: @largeLimit) {
+  .cw-jvectormap-from-list,
+  .cw-jvectormap-from-list-box {
+    > ul,
+    > div {
+      width: 100%;
+    }
+  }
+}

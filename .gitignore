@@ -1,2 +1,16 @@
 
 docxTemplater/node_modules
+modules/jvectormap/maps/jquery-jvectormap-belgium-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-canada-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-europe-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-france-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-india-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-italy-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-netherlands-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-philippines_regions-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-southafrica-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-switzerland-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-unitedkingdom-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-us-merc-en.js
+modules/jvectormap/maps/jquery-jvectormap-world-merc-en.js
+modules/jvectormap/jquery-jvectormap-1.1.1.init.min.js

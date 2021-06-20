@@ -25,6 +25,9 @@
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
 /* DIAGRAM OVERLAY */
+body {
+  color: #03a0ce;
+}
 .CoffeeMaker {
   width: 100%;
 }

@@ -1,0 +1,20 @@
+{
+  "Name": "enhanced-map",
+  "DisplayName": "Enhanced Map",
+  "Description": "Allow you to use property color mapping",
+  "JavaScriptClassName": "cwLayoutEmpty",
+  "Options": [
+    {
+      "Id": "property-mapping",
+      "DisplayName": "Property to mapped",
+      "Description": "Scriptname of the property to mapped",
+      "Type": 0
+    },
+    {
+      "Id": "hover",
+      "DisplayName": "Hover Custom Display String",
+      "Description": "When hover on a country, it will display this custom display string",
+      "Type": 0
+    }
+  ]
+}
