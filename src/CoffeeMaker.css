@@ -25,9 +25,6 @@
 /* DIAGRAM TILE */
 /* MATRIX ADVANCED */
 /* DIAGRAM OVERLAY */
-body {
-  color: #03a0ce;
-}
 .CoffeeMaker {
   width: 100%;
 }
@@ -360,4 +357,16 @@ body {
   border-bottom: 1px solid #03a0ce;
   border-left: none;
   border-color: rgba(3, 160, 206, 0.4);
+}
+.jvectorBackgroundRegionDefault {
+  color: #dbd9d6;
+}
+.jvectorBackgroundRegionDefaultStroke {
+  color: #5c5d61;
+}
+.jvectorBackgroundRegion {
+  color: #03a0ce;
+}
+.jvectorBackgroundMarker {
+  color: #03a0ce;
 }

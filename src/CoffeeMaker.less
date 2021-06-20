@@ -1,9 +1,6 @@
 @import "../../_mixins";
 @import "../../_variables";
 
-body {
-  color: @cwJVectorMapPathFilledBackgroundColor;
-}
 .CoffeeMaker {
   .fullWidth {
     width: 100% !important;
@@ -351,4 +348,21 @@ body {
       }
     }
   }
+}
+
+// jvectorMap
+
+.jvectorBackgroundRegionDefault {
+  color: @cwJVectorMapPathDefaultBackgroundColor;
+}
+.jvectorBackgroundRegionDefaultStroke {
+  color: @cwJVectorMapPathDefaultBorderColor;
+}
+
+.jvectorBackgroundRegion {
+  color: @cwJVectorMapPathFilledBackgroundColor;
+}
+
+.jvectorBackgroundMarker {
+  color: @cwJVectorMapCircleBackgroundColor;
 }

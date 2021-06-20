@@ -26,7 +26,7 @@
       output.push("<h1> Please Install Utils 2.4 or Higher");
     } else {
       var self = this;
-      output.push('<div id="Grid_' + this.nodeID + '" class="Grid">');
+      output.push('<div id="Grid_' + this.nodeID + '" class="Grid cw-visible">');
       if (cwAPI.currentUser.PowerLevel === 1) {
         output.push(
           '<div><a id="GridConfigButton_' + this.nodeID + '" class="btn page-action no-text" title="Configurer"><i class="fa fa-cogs"></i></a>'

@@ -146,7 +146,7 @@
           ) {
             items[isocode] = cwAPI.customLibs.utils.getColorFromItemValue(item, properties.LayoutOptions.CustomOptions["property-mapping"]);
           } else {
-            items[isocode] = window.getComputedStyle(document.body).color;
+            items[isocode] = cwAPI.customLibs.utils.getCssStyle(".jvectorBackgroundRegion", "color");
           }
 
           itemsMapping[isocode] = item;
@@ -172,7 +172,7 @@
           ) {
             c = cwAPI.customLibs.utils.getColorFromItemValue(item, properties.LayoutOptions.CustomOptions["property-mapping"]);
           } else {
-            c = window.getComputedStyle(document.body).color;
+            c = cwAPI.customLibs.utils.getCssStyle(".jvectorBackgroundMarker", "color");
           }
           markersValues.push(c);
         }
@@ -207,8 +207,8 @@
         zoomMax: 60,
         regionStyle: {
           initial: {
-            fill: "#dbd9d6",
-            stroke: "#5c5d61",
+            fill: cwAPI.customLibs.utils.getCssStyle(".jvectorBackgroundRegionDefault", "color"),
+            stroke: cwAPI.customLibs.utils.getCssStyle(".jvectorBackgroundRegionDefaultStroke", "color"),
           },
         },
         markers: data.markers,
@@ -235,8 +235,11 @@
         },
         onMarkerClick: function (e, code) {
           var item = data.markersMapping[code];
-          cwAPI.customLibs.utils.getCustomDisplayString;
-          goToPage(item);
+          if (!item) return;
+          let popOutName = cwApi.replaceSpecialCharacters(item.objectTypeScriptName) + "_diagram_popout";
+          if (cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
+            if (cwAPI.customLibs.utils.openDiagramPopoutWithID) cwAPI.customLibs.utils.openDiagramPopoutWithID(item.object_id, popOutName, e);
+          } else goToPage(item);
           return e;
         },
         //markers: data.markers,
@@ -247,8 +250,8 @@
           label.html(cwAPI.customLibs.utils.getCustomDisplayString(cds, item));
           return e;
         },
-        onMarkerLabelShow: function (e, label, code) {
-          var item = data.regionsMapping[code];
+        onMarkerLabelShow: function (e, label, i) {
+          var item = data.markersMapping[i];
           if (!item) return;
           var cds = properties.LayoutOptions.CustomOptions["hover"] ? properties.LayoutOptions.CustomOptions["hover"] : "{name}";
           label.html(cwAPI.customLibs.utils.getCustomDisplayString(cds, item));
