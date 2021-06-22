@@ -59,7 +59,7 @@
   cwLayout.prototype.applyJavaScript = function () {
     if (this.init === false) {
       this.init = true;
-      if (cwAPI.currentUser.PowerLevel === 1) {
+      if (cwAPI.currentUser && cwAPI.currentUser.PowerLevel === 1) {
         document.getElementById("GridConfigButton_" + this.nodeID).addEventListener("click", this.enableConfigurationLayout.bind(this));
         document.getElementById("GridSaveButton_" + this.nodeID).addEventListener("click", this.saveConfiguration.bind(this));
         this.loadConfigurationLayout();
