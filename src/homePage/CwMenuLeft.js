@@ -187,7 +187,7 @@
           if (i !== s[2]) o.push('<a class="cw-menu-link" href="#/cwtype=single&cwview=', s[1], "&cwuuid=", s[2], '">');
           else o.push('<a class="cw-menu-link" href="#/cwtype=single&cwview=', s[1], "&cwid=", s[2], '">');
         }
-      } else if (viewName === "homepage") {
+      } else if ((viewName === "homepage" || viewName === "home") && cwApi.isLive()) {
         o.push('<a class="cw-menu-link" href="#/homepage=true">');
       } else if (viewName === "separator") {
         o.push('<a class="separatorMenu" href="#/homepage=true">');
