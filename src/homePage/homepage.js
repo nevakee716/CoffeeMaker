@@ -225,6 +225,11 @@
           let containsItems = schema.RootNodesId.some(function (nId) {
             return o[nId] && o[nId].length > 0;
           });
+          if (objectpage) {
+            containsItems = Object.keys(o).some(function(assId){
+              return o[assId] && o[assId].length > 0;
+            });
+          }
           if (!containsItems && (display.textIfEmpty || display.descriptionIfEmpty || display.pictureIfEmpty)) {
             display.html = $scope.getEmptyZoneFromDisplay(display);
           } else {

@@ -28,7 +28,7 @@
     if (rootNode) {
       var objPropertyValue;
 
-      if (config.notRole) {
+      if (cwAPI.isLive() && config.notRole) {
         var currentUser = cwApi.currentUser;
         for (var i = 0; i < currentUser.RolesId.length; i++) {
           if (config.notRole.hasOwnProperty(currentUser.RolesId[i])) return false;
