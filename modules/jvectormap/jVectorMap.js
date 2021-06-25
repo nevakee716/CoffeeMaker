@@ -142,7 +142,7 @@
             properties &&
             properties.LayoutOptions &&
             properties.LayoutOptions.CustomOptions &&
-            item.properties[properties.LayoutOptions.CustomOptions["property-mapping"]]
+            item.properties[properties.LayoutOptions.CustomOptions["property-mapping"]] !== undefined
           ) {
             items[isocode] = cwAPI.customLibs.utils.getColorFromItemValue(item, properties.LayoutOptions.CustomOptions["property-mapping"]);
           } else {
