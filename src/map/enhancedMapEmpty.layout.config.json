@@ -6,8 +6,14 @@
   "Options": [
     {
       "Id": "property-mapping",
-      "DisplayName": "Property to mapped",
+      "DisplayName": "Property to mapped for color",
       "Description": "Scriptname of the property to mapped",
+      "Type": 0
+    },
+    {
+      "Id": "property-map",
+      "DisplayName": "Property to use for map",
+      "Description": "Scriptname of the property to use for the map",
       "Type": 0
     },
     {

@@ -228,7 +228,7 @@
           var item = data.regionsMapping[code];
           if (!item) return;
           let popOutName = cwApi.replaceSpecialCharacters(item.objectTypeScriptName) + "_diagram_popout";
-          if (cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
+          if (properties.LayoutOptions.CustomOptions.hasOwnProperty("property-mapping") && cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
             if (cwAPI.customLibs.utils.openDiagramPopoutWithID) cwAPI.customLibs.utils.openDiagramPopoutWithID(item.object_id, popOutName, e);
           } else goToPage(item);
           return e;
@@ -237,7 +237,7 @@
           var item = data.markersMapping[code];
           if (!item) return;
           let popOutName = cwApi.replaceSpecialCharacters(item.objectTypeScriptName) + "_diagram_popout";
-          if (cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
+          if (properties.LayoutOptions.CustomOptions.hasOwnProperty("property-mapping") && cwAPI.ViewSchemaManager.pageExists(popOutName) === true) {
             if (cwAPI.customLibs.utils.openDiagramPopoutWithID) cwAPI.customLibs.utils.openDiagramPopoutWithID(item.object_id, popOutName, e);
           } else goToPage(item);
           return e;
@@ -322,6 +322,11 @@
       }
 
       initialMap = properties.Behaviour.Options["zoom-on-map"];
+      let pm = properties.LayoutOptions.CustomOptions["property-map"];
+      if (pm !== undefined && pm != "" && allItems.properties[pm] !== undefined) {
+        initialMap = allItems.properties[pm] + "_merc_en";
+      }
+
       that.mainObjectTypeScriptName = properties.ObjectTypeScriptName;
       that.LatLngProperty = properties.Behaviour.Options["latlng-pt"].toLowerCase();
       that.IsoCodeProperty = properties.Behaviour.Options["isocode-pt"].toLowerCase();
