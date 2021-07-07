@@ -155,7 +155,7 @@
           loaded = true;
           cwAPI.customLibs.loadHomePage(self.config, "GridDisplays_" + self.nodeID);
         }
-      }, 1000);
+      }, 200);
     }
   };
 
