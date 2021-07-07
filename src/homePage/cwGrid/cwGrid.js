@@ -138,7 +138,25 @@
 
   cwLayout.prototype.loadDisplayLayout = function () {
     let self = this;
-    cwAPI.customLibs.loadHomePage(this.config, "GridDisplays_" + this.nodeID);
+    let container = $("#GridDisplays_" + this.nodeID);
+    var parentTable = container.parents("div.tab-content");
+    var loaded = false;
+
+    if (parentTable && parentTable.length === 0) {
+      cwAPI.customLibs.loadHomePage(this.config, "GridDisplays_" + this.nodeID);
+    } else {
+      var tabHidden;
+      setInterval(function () {
+        tabHidden = parentTable.css("visibility") == "hidden";
+        if (tabHidden && loaded) {
+          container.empty();
+          loaded = false;
+        } else if (!tabHidden && loaded === false) {
+          loaded = true;
+          cwAPI.customLibs.loadHomePage(self.config, "GridDisplays_" + self.nodeID);
+        }
+      }, 1000);
+    }
   };
 
   cwApi.cwLayouts.cwGrid = cwLayout;
