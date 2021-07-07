@@ -649,7 +649,8 @@
 
   tableComplexeEnhanced.getFavButton = function (e) {
     var output = "";
-    if (e && e.item && cwAPI.customLibs.utils.isObjectFavorite(e.item.objectTypeScriptName, e.item.object_id)) {
+    if (!e || !e.item) return;
+    if (cwAPI.customLibs.utils.isObjectFavorite(e.item.objectTypeScriptName, e.item.object_id)) {
       output =
         '<a class="k-button k-button-icontext k-grid-popoutitem" onclick="cwAPI.customLibs.utils.manageObjectFavoriteStatus(' +
         "'" +
