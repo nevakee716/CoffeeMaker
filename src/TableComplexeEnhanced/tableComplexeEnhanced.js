@@ -371,10 +371,21 @@
         gridObject.ClearFilter();
       }
     }
-    window.setTimeout(function () {
-      var grid = $("." + properties.NodeID + ".k-grid").data("kendoGrid");
-      grid.refresh();
+
+    var tabHidden;
+    let gridContainer = $("." + properties.NodeID + ".k-grid");
+    var parentTable = gridContainer.parents("div.tab-content");
+
+    var i = setInterval(function () {
+      tabHidden = parentTable.css("visibility") == "hidden";
+      if (!tabHidden) {
+        clearInterval(i);
+        var grid = gridContainer.data("kendoGrid");
+        grid.refresh();
+      }
     }, 1000);
+
+    window.setTimeout(function () {}, 1000);
   };
 
   tableComplexeEnhanced.cwKendoGrid.enableClearFilter = function (container) {
