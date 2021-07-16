@@ -381,7 +381,7 @@
       if (!tabHidden) {
         clearInterval(i);
         var grid = gridContainer.data("kendoGrid");
-        grid.refresh();
+        if (grid && grid.refresh) grid.refresh();
       }
     }, 1000);
 
