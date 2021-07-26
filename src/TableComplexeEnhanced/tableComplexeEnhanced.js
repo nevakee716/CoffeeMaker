@@ -375,17 +375,21 @@
     var tabHidden;
     let gridContainer = $("." + properties.NodeID + ".k-grid");
     var parentTable = gridContainer.parents("div.tab-content");
-
-    var i = setInterval(function () {
-      tabHidden = parentTable.css("visibility") == "hidden";
-      if (!tabHidden) {
-        clearInterval(i);
+    if (parentTable.length !== 0) {
+      var i = setInterval(function () {
+        tabHidden = parentTable.css("visibility") == "hidden";
+        if (!tabHidden) {
+          clearInterval(i);
+          var grid = gridContainer.data("kendoGrid");
+          if (grid && grid.refresh) grid.refresh();
+        }
+      }, 1000);
+    } else {
+      window.setTimeout(function () {
         var grid = gridContainer.data("kendoGrid");
         if (grid && grid.refresh) grid.refresh();
-      }
-    }, 1000);
-
-    window.setTimeout(function () {}, 1000);
+      }, 1000);
+    }
   };
 
   tableComplexeEnhanced.cwKendoGrid.enableClearFilter = function (container) {
