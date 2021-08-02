@@ -53,7 +53,11 @@
 
   cwLayout.prototype.saveConfiguration = function () {
     this.loadDisplayLayout();
-    cwApi.customLibs.utils.copyToClipboard(JSON.stringify(this.config));
+    try {
+      cwApi.customLibs.utils.copyToClipboard(angular.toJson(this.config));
+    } catch (e) {
+      cwApi.customLibs.utils.copyToClipboard(JSON.stringify(this.config));
+    }
   };
 
   cwLayout.prototype.applyJavaScript = function () {
