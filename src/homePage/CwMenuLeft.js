@@ -231,7 +231,7 @@
           o.push('<span class="badge numericFont">', badgeNum, badgeNumMaxExceeded === true ? "+" : "", "</span>");
         }
       } else {
-        if (!cwApi.isUndefined(badgeNum)) {
+        if (!cwApi.isUndefined(badgeNum) && !Number.isNaN(badgeNum)) {
           if (badgeNum <= 0) {
             o.push('<span style="display:none;" class="badge numericFont">', badgeNum, badgeNumMaxExceeded === true ? "+" : "", "</span>");
           } else {
