@@ -86,6 +86,10 @@
   };
 
   var loadHomePage = function (config, containerId, callback) {
+    console.log("cwApi.appliedLayouts " + cwApi.appliedLayouts.length);
+    if (!cwApi.appliedLayoutsOriginal) cwApi.appliedLayoutsOriginal = $.extend(true, {}, { appliedLayouts: cwApi.appliedLayouts });
+    else cwApi.appliedLayouts = $.extend(true, {}, cwApi.appliedLayoutsOriginal).appliedLayouts;
+    console.log("cwApi.appliedLayouts " + cwApi.appliedLayouts.length);
     containerId = !containerId ? "cw-home-navigation" : containerId;
     cwApi.CwAsyncLoader.load("angular", function () {
       var loader = cwApi.CwAngularLoader;
@@ -226,7 +230,7 @@
             return o[nId] && o[nId].length > 0;
           });
           if (objectpage) {
-            containsItems = Object.keys(o).some(function(assId){
+            containsItems = Object.keys(o).some(function (assId) {
               return o[assId] && o[assId].length > 0;
             });
           }

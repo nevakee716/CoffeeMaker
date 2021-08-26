@@ -9,6 +9,7 @@
     cwApi.registerLayoutForJSActions(this);
     this.configMode = false;
     this.init = false;
+    cwApi.appliedLayoutsOriginal = undefined;
     try {
       this.config = JSON.parse(this.options.CustomOptions["configuration"]);
     } catch (e) {
