@@ -182,6 +182,16 @@
           if (display === "count") {
             // display number of associations
             result = item.associations[nodeID] ? item.associations[nodeID].length : "";
+          } else if (display === "id") {
+            // simple node ID
+            nodeID = info;
+            if (item.associations[nodeID] && item.associations[nodeID].length > 0) {
+              result = item.associations[nodeID]
+                .map(function (a) {
+                  return a.object_id;
+                })
+                .join(", ");
+            }
           } else {
             // display info if more than 1 associations
             result = item.associations[nodeID] && item.associations[nodeID].length > 0 ? display : "";
