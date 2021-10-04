@@ -184,7 +184,6 @@
             result = item.associations[nodeID] ? item.associations[nodeID].length : "";
           } else if (display === "id") {
             // simple node ID
-            nodeID = info;
             if (item.associations[nodeID] && item.associations[nodeID].length > 0) {
               result = item.associations[nodeID]
                 .map(function (a) {
