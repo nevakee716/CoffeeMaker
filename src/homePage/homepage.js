@@ -42,6 +42,9 @@
     });
   };
 
+
+
+
   var removeMyMenuHomepage = function (config, callback) {
     cwCustomerSiteActions.removeMonMenu();
     let menus = document.querySelectorAll(".cw-home-title");
@@ -705,6 +708,8 @@
     cwAPI.customLibs.doActionForAll = {};
   }
   cwAPI.customLibs.loadHomePage = loadHomePage;
+
+  cwAPI.customLibs.doActionForAll.closePopout = cwAPI.CwPopout.hide;
   cwAPI.customLibs.doActionForAll.activateLinks = cwCustomerSiteActions.activateLinks;
   cwAPI.customLibs.doActionForAll.removeMonMenu = cwCustomerSiteActions.removeMonMenu;
 })(cwAPI, jQuery, cwCustomerSiteActions);
