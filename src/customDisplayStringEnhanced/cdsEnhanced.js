@@ -211,6 +211,7 @@
     itemDisplayName = itemDisplayName.replace("<&>", cdsEnhanced.generateFavoriteString(item));
     itemDisplayName = cdsEnhanced.getPopoutCds(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutAssociation(config, itemDisplayName, item);
+    if (itemDisplayName.indexOf("ngDirective") !== -1) itemDisplayName = item.name;
     return itemDisplayName;
   };
 
