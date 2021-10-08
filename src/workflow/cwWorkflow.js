@@ -483,8 +483,8 @@
         };
 
         $scope.initLookup = function (formInput) {
-          if (!formInput.mandatory && ng.changeset.properties[formInput.scriptname] === undefined) {
-            ng.changeset.properties[formInput.scriptname] = 0;
+          if (!formInput.mandatory && $scope.ng.changeset.properties[formInput.scriptname] === undefined) {
+            $scope.ng.changeset.properties[formInput.scriptname] = 0;
           }
         };
         $scope.manageDocumentsBeforeSavingWI = function () {
@@ -556,7 +556,7 @@
     let self = this;
     let query = {
       ObjectTypeScriptName: "CW_USER",
-      PropertiesToLoad: ["NAME", "EMAIL"],
+      PropertiesToLoad: ["NAME"], //, "EMAIL"],
       Where: [],
     };
 

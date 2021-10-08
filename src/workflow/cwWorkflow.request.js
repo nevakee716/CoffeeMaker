@@ -3,8 +3,8 @@
 /*global cwAPI, jQuery */
 (function (cwApi, $) {
   "use strict";
-  var userCST = "ADMIN";
-  var passwordCST = "";
+  var userCST = "WORKFLOW";
+  var passwordCST = "WORKFLOW";
   if (cwApi && cwApi.cwLayouts && cwApi.cwLayouts.cwWorkflow) {
     var cwLayout = cwApi.cwLayouts.cwWorkflow;
   } else {
@@ -231,7 +231,7 @@
           { key: "Username", value: userCST },
           { key: "Password", value: passwordCST },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
-          { key: "ObjectJsonStr", value: angular.toJson($scope.ng.changeset.replaceAll("“", "'").replaceAll("”", "'")) },
+          { key: "ObjectJsonStr", value: angular.toJson($scope.ng.changeset).replaceAll("“", "'").replaceAll("”", "'") },
         ],
         function (response) {
           let id = $scope.parseObjectID(response);
