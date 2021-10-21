@@ -134,10 +134,12 @@
         f.type = "property";
         delete f.nodeID;
         f.scriptname = s[1];
-      } else s = f.id.split("asso_");
-      delete f.scriptname;
-      f.type = "association";
-      f.nodeID = s[1];
+      } else {
+        s = f.id.split("asso_");
+        delete f.scriptname;
+        f.type = "association";
+        f.nodeID = s[1];
+      }
     };
 
     $scope.getNodeFromObjectView = function (view) {
