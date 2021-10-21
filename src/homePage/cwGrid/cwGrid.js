@@ -28,7 +28,7 @@
     } else {
       var self = this;
       output.push('<div id="Grid_' + this.nodeID + '" class="Grid cw-visible">');
-      if (cwAPI.currentUser && cwAPI.currentUser.PowerLevel === 1) {
+      if (this.isUserAbleToSeeConfigurator()) {
         output.push(
           '<div><a id="GridConfigButton_' + this.nodeID + '" class="btn page-action no-text" title="Configurer"><i class="fa fa-cogs"></i></a>'
         );
@@ -64,7 +64,7 @@
   cwLayout.prototype.applyJavaScript = function () {
     if (this.init === false) {
       this.init = true;
-      if (cwAPI.currentUser && cwAPI.currentUser.PowerLevel === 1) {
+      if (this.isUserAbleToSeeConfigurator()) {
         document.getElementById("GridConfigButton_" + this.nodeID).addEventListener("click", this.enableConfigurationLayout.bind(this));
         document.getElementById("GridSaveButton_" + this.nodeID).addEventListener("click", this.saveConfiguration.bind(this));
         this.loadConfigurationLayout();
@@ -163,6 +163,18 @@
       }, 200);
     }
   };
+
+  cwLayout.prototype.isUserAbleToSeeConfigurator = function () {
+    return (cwApi.isLive() && cwAPI.currentUser && cwAPI.currentUser.PowerLevel === 1) || (!cwApi.isLive() && isConsoleOpen());
+  };
+
+  function isConsoleOpen() {
+    var startTime = new Date();
+    debugger;
+    var endTime = new Date();
+
+    return endTime - startTime > 100;
+  }
 
   cwApi.cwLayouts.cwGrid = cwLayout;
 })(cwAPI, jQuery);
