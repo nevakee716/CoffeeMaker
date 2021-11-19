@@ -147,12 +147,16 @@
     self.associationsColumnList = [];
     this.columns.forEach(function (c) {
       if (c.isAssociationColumn) {
-        let items = [];
+        let items = ["caramel"];
         self.associationsColumnList.push(c.field);
         self.items.forEach(function (item) {
           item.associations[c.field].forEach(function (a) {
+            console.log(a.label);
             if (items.indexOf(a.label) === -1) items.push(a.label);
           });
+        });
+        self.gridItems.forEach(function (gi) {
+          if (gi[c.field] == "") gi[c.field] = "caramel";
         });
         c.filterable.dataSource = items.map(function (i) {
           let r = {};
@@ -708,7 +712,18 @@
       columnManager.setValues(propertyObject, objecttypeScriptName, isCategoryColumn);
       columnManager.setEditor(propertyObject);
       columnManager.setVisibility(isCategoryColumn);
-
+      columnManager.filterable = {
+        operators: {
+          string: {
+            contains: $.i18n.prop("grid_filter_contains"),
+            contains: $.i18n.prop("grid_filter_contains"),
+            doesnotcontain: $.i18n.prop("grid_filter_donotcontains"),
+            startswith: $.i18n.prop("grid_filter_startwith"),
+            eq: $.i18n.prop("grid_filter_eq"),
+            isempty: $.i18n.prop("grid_filter_empty"),
+          },
+        },
+      };
       if (propertyObject.property.type === "Integer") {
         columnManager.setFormat("{0:n0}");
       } else if (propertyObject.property.type === "Date") {
@@ -718,18 +733,34 @@
       }
     }
     if (isAssociationColumn) {
+      var commonCheckboxTemplate = function (e) {
+        //value='#=(data.${e.field}? data.${e.field}:all)#'><span>#=
+
+        return `<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'caramel' ?data.${e.field}: 'No Value') # </span></label></div>`;
+      };
       columnManager.filterable = {
         multi: true,
+        itemTemplate: commonCheckboxTemplate,
         search: true,
         operators: {
           string: {
-            contains: "Contains",
+            contains: $.i18n.prop("grid_filter_contains"),
           },
         },
       };
     }
     if (propertyObject.field === "name") {
-      columnManager.setFilter();
+      columnManager.filterable = {
+        extra: false,
+        operators: {
+          string: {
+            contains: $.i18n.prop("grid_filter_contains"),
+            doesnotcontain: $.i18n.prop("grid_filter_donotcontains"),
+            startswith: $.i18n.prop("grid_filter_startwith"),
+            eq: $.i18n.prop("grid_filter_eq"),
+          },
+        },
+      };
     }
 
     return columnManager;
