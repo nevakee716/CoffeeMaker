@@ -295,7 +295,7 @@
     wordButton.addEventListener("click", function () {
       cwDocxTemplate.exportWord(mainObject, config.wordTemplateUrl + "?" + cwAPI.getRandomNumber(), null, {
         property: function (item, propertyScriptName) {
-          return cwApi.cwPropertiesGroups.getDisplayValue(
+          let value = cwApi.cwPropertiesGroups.getDisplayValue(
             item.objectTypeScriptName,
             propertyScriptName,
             item.properties[propertyScriptName],
@@ -304,6 +304,8 @@
             false,
             true
           );
+          value = cwPropertiesGroups.getSpecialPropertyValue(property.scriptName, value);
+          return value;
         },
         getLink: function (item) {
           return { url: cwAPI.getSingleViewHash(cwAPI.replaceSpecialCharacters(item.objectTypeScriptName), item.name), label: item.name };
