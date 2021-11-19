@@ -736,7 +736,13 @@
       var commonCheckboxTemplate = function (e) {
         //value='#=(data.${e.field}? data.${e.field}:all)#'><span>#=
 
-        return `<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'caramel' ?data.${e.field}: 'No Value') # </span></label></div>`;
+        return '<div><label><input type="checkbox" name="#= data.'
+          .concat(e.field, '#" value="#= data.all || (data.')
+          .concat(e.field, "?data.")
+          .concat(e.field, ": '')#\"><span>#= data.all || (data.")
+          .concat(e.field, " != 'caramel' ?data.")
+          .concat(e.field, ": 'No Value') # </span></label></div>");
+        //`<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'caramel' ?data.${e.field}: 'No Value') # </span></label></div>`;
       };
       columnManager.filterable = {
         multi: true,
