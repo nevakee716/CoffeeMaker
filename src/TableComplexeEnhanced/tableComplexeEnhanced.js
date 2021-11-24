@@ -151,7 +151,6 @@
         self.associationsColumnList.push(c.field);
         self.items.forEach(function (item) {
           item.associations[c.field].forEach(function (a) {
-            console.log(a.label);
             if (items.indexOf(a.label) === -1) items.push(a.label);
           });
         });
