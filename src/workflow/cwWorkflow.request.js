@@ -3,8 +3,7 @@
 /*global cwAPI, jQuery */
 (function (cwApi, $) {
   "use strict";
-  var userCST = "WORKFLOW";
-  var passwordCST = "WORKFLOW";
+
   if (cwApi && cwApi.cwLayouts && cwApi.cwLayouts.cwWorkflow) {
     var cwLayout = cwApi.cwLayouts.cwWorkflow;
   } else {
@@ -137,11 +136,11 @@
       });
 
       self.sendRequest(
-        "CwCreateUpdateObjectWithDocs",
+        "CwCreateUpdateObjectWithDocsConnId",
         [
           { key: "Connection", value: "" },
-          { key: "Username", value: userCST },
-          { key: "Password", value: passwordCST },
+          { key: "Username", value: cwAPI.cwUser.getCurrentUserItem().name },
+          { key: "ConnectionId", value: $.connection.cwEvolveDiagramEditorHub.connection.id },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
           { key: "ObjectJsonStr", value: angular.toJson($scope.ng.jsonObjects) },
           { key: "SessionId", value: $scope.ng.sessionUuid },
@@ -187,11 +186,11 @@
     $scope.deleteRequest = function (callback) {
       if (self.task) {
         self.sendRequest(
-          "CwDeleteObject",
+          "CwDeleteObjectConnId",
           [
             { key: "Connection", value: "" },
-            { key: "Username", value: userCST },
-            { key: "Password", value: passwordCST },
+            { key: "Username", value: cwAPI.cwUser.getCurrentUserItem().name },
+            { key: "ConnectionId", value: $.connection.cwEvolveDiagramEditorHub.connection.id },
             { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
             { key: "ObjectTypeScriptName", value: "CW_TASK" },
             { key: "ObjectId", value: self.task.object_id },
@@ -225,11 +224,11 @@
       $scope.ng.changeset.properties[$scope.ng.configuration.docScriptname] = self.getDocumentPropertiesHTML();
       $scope.cleanDatePropInChangeSet();
       self.sendRequest(
-        "CwCreateUpdateObject",
+        "CwCreateUpdateObjectConnId",
         [
           { key: "Connection", value: "" },
-          { key: "Username", value: userCST },
-          { key: "Password", value: passwordCST },
+          { key: "Username", value: cwAPI.cwUser.getCurrentUserItem().name },
+          { key: "ConnectionId", value: $.connection.cwEvolveDiagramEditorHub.connection.id },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
           { key: "ObjectJsonStr", value: angular.toJson($scope.ng.changeset).replaceAll("“", "'").replaceAll("”", "'") },
         ],
@@ -277,11 +276,11 @@
         },
       };
       self.sendRequest(
-        "CwCreateUpdateObject",
+        "CwCreateUpdateObjectConnId",
         [
           { key: "Connection", value: "" },
-          { key: "Username", value: userCST },
-          { key: "Password", value: passwordCST },
+          { key: "Username", value: cwAPI.cwUser.getCurrentUserItem().name },
+          { key: "ConnectionId", value: $.connection.cwEvolveDiagramEditorHub.connection.id },
           { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
           { key: "ObjectJsonStr", value: angular.toJson(jsonObject) },
         ],
