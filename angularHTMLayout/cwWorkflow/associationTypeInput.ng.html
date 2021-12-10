@@ -50,7 +50,7 @@
       ng-if="ng.changeset.associations && ng.changeset.associations[formInput.association.toLowerCase()]"
       ng-repeat="(id,o) in ng.changeset.associations[formInput.association.toLowerCase()]"
     >
-      <i ng-click="removeAssociation(formInput,o)" class="fa fa-times" aria-hidden="true"></i>
+      <i ng-if="ng.canEdit && !formInput.readOnly" ng-click="removeAssociation(formInput,o)" class="fa fa-times" aria-hidden="true"></i>
       <a target="_blank" href="{{cwApi.getSingleViewHash(cwApi.replaceSpecialCharacters(o.objectTypeScriptName),o.object_id)}}">{{o.name}}</a>
     </div>
   </div>

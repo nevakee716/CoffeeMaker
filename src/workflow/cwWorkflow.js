@@ -142,7 +142,13 @@
         };
         self.documents = [];
         self.stepmapping = { cwUserMapping: {} };
-        self.changeset = { objectTypeScriptname: self.objectTypeScriptName, iProperties: {}, properties: {}, associations: {} };
+        self.changeset = {
+          objectTypeScriptName: self.objectTypeScriptName,
+          objectTypeScriptname: self.objectTypeScriptName,
+          iProperties: {},
+          properties: {},
+          associations: {},
+        };
         self.creation = true;
       }
       this.currentStep = this.getStep(this.step);
