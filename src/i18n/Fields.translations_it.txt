@@ -205,3 +205,7 @@ objectPage=Object Page
 noPadding=No Padding
 homepage_image_fontsize=FontSize
 homepage_image_roundshape=Round Shape
+grid_filter_donotcontains=Don't Contain
+grid_filter_startwith=Begin With
+grid_filter_eq=Equal To
+grid_filter_empty=Is Empty
