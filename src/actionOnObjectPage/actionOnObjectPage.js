@@ -266,16 +266,6 @@
     return document.createElement("div");
   };
 
-  var blobToBase64 = function (blob, callback) {
-    var reader = new FileReader();
-    reader.onload = function () {
-      var dataUrl = reader.result;
-      var base64 = dataUrl.split(",")[1];
-      callback(base64);
-    };
-    reader.readAsDataURL(blob);
-  };
-
   actionOnObjectPage.displayWordTemplate = function (config, mainObject) {
     var wordButton = document.createElement("div");
     wordButton.innerHTML = '<a class=" page-action btn no-text" title="Word"><span class="btn-text"></span><i class="fa fa-file-word-o"></i></a>';
