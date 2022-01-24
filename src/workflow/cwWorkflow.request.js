@@ -162,7 +162,11 @@
               );
               return;
             }
-            if (step.shareWorkflow) {
+            if (step.createObject && step.shareWorkflow) {
+              $scope.createFinalObject(step, id, $scope.ng.stepmapping[step.stepName]);
+            } else if (step.createObject) {
+              $scope.createFinalObject(step, id);
+            } else if (step.shareWorkflow) {
               if (($scope.ng.stepmapping[step.stepName] ^ 0) === $scope.ng.stepmapping[step.stepName]) {
                 $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
                   $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
@@ -173,10 +177,6 @@
             } else {
               // reload the page
               if (!cwApi.isDebugMode()) window.location = cwApi.getSingleViewHash($scope.ng.jsonObjects.objectTypeScriptname, id);
-            }
-
-            if (step.createObject) {
-              $scope.createFinalObject(step, id);
             }
           });
         }
@@ -218,7 +218,8 @@
       );
     };
 
-    $scope.createFinalObject = function (step, id) {
+    $scope.createFinalObject = function (step, id, mapping) {
+      if (mapping === undefined) mapping = $scope.ng.stepmapping.creator;
       $scope.ng.changeset.associations.anyobjecttoassocwworkflowitemtocwworkflowitem = [{ object_id: id, iProperties: {} }];
 
       $scope.ng.changeset.properties[$scope.ng.configuration.docScriptname] = self.getDocumentPropertiesHTML();
@@ -241,20 +242,36 @@
             return;
           }
 
-          $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping.creator, function () {
+          //mapping is cwUser
+          if (mapping && (mapping ^ 0) !== mapping) {
             cwApi.customLibs.utils.shareWorkflow(
               $scope.ng.changeset.properties.name,
               id,
               $scope.ng.changeset.objectTypeScriptName,
               step.notificationMessage,
-              [self.cwWorkFlowItemRoleID],
+              [mapping],
               step.notificationLabel,
               window.location.origin + window.location.pathname + cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id),
               function () {
                 if (!cwApi.isDebugMode()) window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
               }
             );
-          });
+          } else {
+            $scope.associateUserToCwWorkflowRole(mapping, function () {
+              cwApi.customLibs.utils.shareWorkflow(
+                $scope.ng.changeset.properties.name,
+                id,
+                $scope.ng.changeset.objectTypeScriptName,
+                step.notificationMessage,
+                [self.cwWorkFlowItemRoleID],
+                step.notificationLabel,
+                window.location.origin + window.location.pathname + cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id),
+                function () {
+                  if (!cwApi.isDebugMode()) window.location = cwApi.getSingleViewHash($scope.ng.changeset.objectTypeScriptName, id);
+                }
+              );
+            });
+          }
         }
       );
     };
