@@ -205,7 +205,7 @@
   };
 
   cdsEnhanced.getEnhancedDisplayItem = function (config, itemDisplayName, item) {
-    getTimeStamp = function () {
+    var getTimeStamp = function () {
       let d = new Date();
       return (
         d.getFullYear() +
