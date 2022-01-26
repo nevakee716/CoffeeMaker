@@ -204,19 +204,19 @@
     return itemDisplayName;
   };
 
-  cdsEnhanced.getEnhancedDisplayItem = function (config, itemDisplayName, item) {
-    var getTimeStamp = function () {
-      let d = new Date();
-      return (
-        d.getFullYear() +
-        ("0" + (d.getMonth() + 1)).slice(-2) +
-        ("0" + d.getDate()).slice(-2) +
-        ("0" + d.getHours()).slice(-2) +
-        ("0" + d.getMinutes()).slice(-2) +
-        ("0" + d.getSeconds()).slice(-2)
-      );
-    };
+  cdsEnhanced.getTimeStamp = function () {
+    let d = new Date();
+    return (
+      d.getFullYear() +
+      ("0" + (d.getMonth() + 1)).slice(-2) +
+      ("0" + d.getDate()).slice(-2) +
+      ("0" + d.getHours()).slice(-2) +
+      ("0" + d.getMinutes()).slice(-2) +
+      ("0" + d.getSeconds()).slice(-2)
+    );
+  };
 
+  cdsEnhanced.getEnhancedDisplayItem = function (config, itemDisplayName, item) {
     itemDisplayName = cdsEnhanced.checkFontAwesomeIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkIcon(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
@@ -228,7 +228,7 @@
     itemDisplayName = itemDisplayName.replace("@currentDate", new Date().toLocaleDateString());
     itemDisplayName = itemDisplayName.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
     itemDisplayName = itemDisplayName.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
-    itemDisplayName = itemDisplayName.replace("@currentTimeStamp", getTimeStamp());
+    itemDisplayName = itemDisplayName.replace("@currentTimeStamp", cdsEnhanced.getTimeStamp());
 
     if (itemDisplayName.indexOf("ngDirective") !== -1) itemDisplayName = item.name;
     return itemDisplayName;
@@ -237,6 +237,12 @@
   cdsEnhanced.getEnhancedDisplayItemWithoutHTML = function (config, itemDisplayName, item) {
     itemDisplayName = cdsEnhanced.checkFilters(config, itemDisplayName, item);
     itemDisplayName = cdsEnhanced.getPopoutAssociation(config, itemDisplayName, item);
+
+    itemDisplayName = itemDisplayName.replace("@currentIsoDate", new Date().toISOString());
+    itemDisplayName = itemDisplayName.replace("@currentDate", new Date().toLocaleDateString());
+    itemDisplayName = itemDisplayName.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
+    itemDisplayName = itemDisplayName.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
+    itemDisplayName = itemDisplayName.replace("@currentTimeStamp", cdsEnhanced.getTimeStamp());
     return itemDisplayName;
   };
 
