@@ -15,50 +15,6 @@
     };
   }
 
-  cwLayout.prototype.sendRequest = function (request, parameters, callback) {
-    var xmlhttp = new XMLHttpRequest();
-    var self = this;
-    //replace second argument with the path to your Secret Server webservices
-    xmlhttp.open("POST", window.location.origin + "/evolve/CWFileHandling/CwFileHandling.asmx", true);
-
-    //create the SOAP request
-    //replace username, password (and org + domain, if necessary) with the appropriate info
-    var strRequest =
-      '<?xml version="1.0" encoding="utf-8"?>' +
-      '<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">' +
-      "<soap12:Body>" +
-      "<" +
-      request +
-      ' xmlns="http://HawkeyeQ.org/">';
-    parameters.forEach(function (p) {
-      var v = p.value;
-      if (v && v.indexOf) {
-        v = v.replaceAll(/&/, "&amp;");
-        v = v.replaceAll(/</, "&lt;");
-        v = v.replaceAll(/>/, "&gt;");
-      }
-      strRequest += "<" + p.key + ">" + v + "</" + p.key + ">";
-    });
-
-    strRequest += "</" + request + ">" + "</soap12:Body>" + "</soap12:Envelope>";
-
-    //specify request headers
-    xmlhttp.setRequestHeader("Content-Type", "application/soap+xml; charset=utf-8");
-
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4) {
-        cwAPI.siteLoadingPageFinish();
-        callback(xmlhttp.responseText);
-      }
-    };
-
-    cwAPI.siteLoadingPageStart();
-    //clean the SOAP request
-
-    //send the SOAP request
-    xmlhttp.send(strRequest);
-  };
-
   cwLayout.prototype.loadScopeRequestFunction = function ($scope) {
     var self = this;
     $scope.manageStepClick = function (step) {
@@ -135,7 +91,7 @@
         }
       });
 
-      self.sendRequest(
+      cwAPI.customLibs.utils.sendRequestToCwFileHandling(
         "CwCreateUpdateObjectWithDocsConnId",
         [
           { key: "Connection", value: "" },
@@ -168,7 +124,7 @@
               $scope.createFinalObject(step, id);
             } else if (step.shareWorkflow) {
               if (($scope.ng.stepmapping[step.stepName] ^ 0) === $scope.ng.stepmapping[step.stepName]) {
-                $scope.associateUserToCwWorkflowRole($scope.ng.stepmapping[step.stepName], function () {
+                cwAPI.customLibs.utils.associateUserToCwWorkflowRole([$scope.ng.stepmapping[step.stepName]], self.cwWorkFlowItemRoleID, function () {
                   $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
                 });
               } else {
@@ -185,7 +141,7 @@
 
     $scope.deleteRequest = function (callback) {
       if (self.task) {
-        self.sendRequest(
+        cwAPI.customLibs.utils.sendRequestToCwFileHandling(
           "CwDeleteObjectConnId",
           [
             { key: "Connection", value: "" },
@@ -224,7 +180,7 @@
 
       $scope.ng.changeset.properties[$scope.ng.configuration.docScriptname] = self.getDocumentPropertiesHTML();
       $scope.cleanDatePropInChangeSet();
-      self.sendRequest(
+      cwAPI.customLibs.utils.sendRequestToCwFileHandling(
         "CwCreateUpdateObjectConnId",
         [
           { key: "Connection", value: "" },
@@ -257,7 +213,7 @@
               }
             );
           } else {
-            $scope.associateUserToCwWorkflowRole(mapping, function () {
+            cwAPI.customLibs.utils.associateUserToCwWorkflowRole([mapping], self.cwWorkFlowItemRoleID, function () {
               cwApi.customLibs.utils.shareWorkflow(
                 $scope.ng.changeset.properties.name,
                 id,
@@ -272,37 +228,6 @@
               );
             });
           }
-        }
-      );
-    };
-
-    $scope.associateUserToCwWorkflowRole = function (cwUserID, callback) {
-      let jsonObject = {
-        objectTypeScriptname: "cw_role",
-        object_id: self.cwWorkFlowItemRoleID,
-        iProperties: {},
-        properties: {
-          name: "WorkFlow Role",
-        },
-        associations: {
-          cw_roletocw_role_to_cw_usertocw_user: [
-            {
-              object_id: cwUserID,
-            },
-          ],
-        },
-      };
-      self.sendRequest(
-        "CwCreateUpdateObjectConnId",
-        [
-          { key: "Connection", value: "" },
-          { key: "Username", value: cwAPI.cwUser.getCurrentUserItem().name },
-          { key: "ConnectionId", value: $.connection.cwEvolveDiagramEditorHub.connection.id },
-          { key: "ModelScriptName", value: cwApi.cwConfigs.ModelFilename },
-          { key: "ObjectJsonStr", value: angular.toJson(jsonObject) },
-        ],
-        function (response) {
-          callback();
         }
       );
     };
@@ -349,7 +274,7 @@
     $scope.deleteDocument = function (index, callback) {
       let document = $scope.ng.documents[index];
       if (document.status === "new") {
-        self.sendRequest(
+        cwAPI.customLibs.utils.sendRequestToCwFileHandling(
           "CwDeleteFile",
           [
             { key: "SessionId", value: $scope.ng.sessionUuid },
@@ -373,7 +298,7 @@
     };
 
     $scope.uploadDocument = function (document, callback) {
-      self.sendRequest(
+      cwAPI.customLibs.utils.sendRequestToCwFileHandling(
         "CwUploadFile",
         [
           { key: "SessionId", value: $scope.ng.sessionUuid ? $scope.ng.sessionUuid : "" },

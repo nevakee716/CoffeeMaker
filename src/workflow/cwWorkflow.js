@@ -85,7 +85,7 @@
         configuration = JSON.parse(JSON.stringify(cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow")));
       } else return;
 
-      if (!cwApi.isIndexPage()) {
+      if (!cwApi.isIndexPage() && self.objectTypeScriptName === "cwworkflowitem") {
         let o = self.object;
         self.objectTypeScriptName = o.properties.objecttypescriptname;
         self.scenario = o.properties.scenario;
@@ -150,6 +150,33 @@
           associations: {},
         };
         self.creation = true;
+
+        if (!cwApi.isIndexPage()) {
+          self.changeset.object_id = self.object.object_id;
+          self.viewSchema.NodesByID[this.viewSchema.RootNodesId[0]].PropertiesSelected.forEach(function (propertyScriptname) {
+            let property = cwAPI.mm.getProperty(self.objectTypeScriptName, propertyScriptname);
+            if (property.type === "Lookup") {
+              self.changeset.properties[propertyScriptname.toLowerCase()] =
+                self.object.properties[propertyScriptname.toLowerCase() + "_id"].toString();
+            } else {
+              self.changeset.properties[propertyScriptname.toLowerCase()] = self.object.properties[propertyScriptname.toLowerCase()];
+            }
+          });
+
+          Object.keys(self.object.associations).forEach(function (assoScriptName) {
+            if (!self.changeset.associations[assoScriptName.toLowerCase()]) {
+              self.changeset.associations[assoScriptName.toLowerCase()] = [];
+            }
+            self.object.associations[assoScriptName].forEach(function (assoObject) {
+              self.changeset.associations[assoScriptName.toLowerCase()].push({
+                object_id: assoObject.object_id,
+                name: assoObject.name,
+                objectTypeScriptName: assoObject.objectTypeScriptName,
+                iProperties: {},
+              });
+            });
+          });
+        }
       }
       this.currentStep = this.getStep(this.step);
     } catch (e) {
