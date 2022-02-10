@@ -22,6 +22,8 @@
 
     this.objectTypeScriptName = this.options.CustomOptions["objecttypescriptname"];
     this.scenario = this.options.CustomOptions["scenario"];
+
+    self.currentEditRequest = [];
   };
 
   cwLayout.prototype.getTemplatePath = function (folder, templateName) {
@@ -79,6 +81,7 @@
 
   cwLayout.prototype.load = function () {
     var self = this;
+
     var configuration;
     try {
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
@@ -215,7 +218,8 @@
         $scope.ng.scenario = self.scenario;
         $scope.ng.deletedDocument = [];
         $scope.ng.otherUsers = "";
-
+        $scope.ng.currentEditRequest = self.currentEditRequest;
+        // check if other users are working on the task
         if (self.task && self.task.associations) {
           let ou;
           ou = self.task.associations[Object.keys(self.task.associations)[0]].filter(function (u) {
@@ -589,26 +593,6 @@
     else this.loadLibs();
   };
 
-  cwLayout.prototype.getUserWorkflowItemsForEdit = function (callback) {
-    let self = this;
-    let editItemquery = {
-      ObjectTypeScriptName: "CWWORKFLOWITEM",
-      PropertiesToLoad: ["NAME", "CHANGESET", "HISTORY"],
-      Where: [
-        { PropertyScriptName: "VALIDATED", Value: false },
-        { PropertyScriptName: "SCENARIO", Value: this.scenario },
-        { PropertyScriptName: "OBJECTTYPESCRIPTNAME", Value: this.objecttypescriptname },
-      ],
-    };
-
-    cwApi.CwDataServicesApi.send("flatQuery", editItemquery, function (err, res) {
-      self.currentEditRequest = res.map(function (wf) {
-        debugger;
-        callback();
-      });
-    });
-  };
-
   cwLayout.prototype.loadLibs = function () {
     let self = this;
     let query = {
@@ -623,26 +607,56 @@
         return u;
       });
       if (cwAPI.isDebugMode() === true) {
-        self.load();
+        self.checkAlreadyExistingRequest();
       } else {
         var libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
         // AsyncLoad
         cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
           if (error === null) {
-            if (
-              !cwApi.isIndexPage() &&
-              cwAPI.getCurrentView().rootObjectType !== "cwworkflowitem" &&
-              cwAPI.getCurrentView().rootObjectType === this.objectTypeScriptName
-            ) {
-              self.getUserWorkflowItemsForEdit(function () {
-                self.load();
-              });
-            } else self.load();
+            self.checkAlreadyExistingRequest();
           } else {
             cwAPI.Log.Error(error);
           }
         });
       }
+    });
+  };
+
+  cwLayout.prototype.checkAlreadyExistingRequest = function () {
+    if (
+      !cwApi.isIndexPage() &&
+      cwAPI.getCurrentView().rootObjectType !== "cwworkflowitem" &&
+      cwAPI.getCurrentView().rootObjectType === this.objectTypeScriptName
+    ) {
+      this.getUserWorkflowItemsForEdit(this.load.bind(this));
+    } else this.load();
+  };
+
+  cwLayout.prototype.getUserWorkflowItemsForEdit = function (callback) {
+    let self = this;
+    let editItemquery = {
+      ObjectTypeScriptName: "CWWORKFLOWITEM",
+      PropertiesToLoad: ["NAME", "CHANGESET", "HISTORY", "STEP"],
+      Where: [
+        { PropertyScriptName: "VALIDATED", Value: false },
+        { PropertyScriptName: "SCENARIO", Value: this.scenario },
+        { PropertyScriptName: "OBJECTTYPESCRIPTNAME", Value: this.objectTypeScriptName },
+      ],
+    };
+
+    cwApi.CwDataServicesApi.send("flatQuery", editItemquery, function (err, res) {
+      self.currentEditRequest = [];
+      res.forEach(function (wf) {
+        self.currentEditRequest.push({
+          name: wf.properties.name,
+          step: wf.properties.step,
+          object_id: wf.object_id,
+          user: JSON.parse(self.cleanJSON(wf.properties.history)).creator,
+          url: cwAPI.getSingleViewHash("cwworkflowitem", wf.object_id),
+        });
+      });
+
+      callback();
     });
   };
 

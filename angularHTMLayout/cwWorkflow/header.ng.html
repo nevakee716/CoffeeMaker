@@ -10,3 +10,13 @@
 <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
   {{ng.scenario}} : {{ng.currentStep.label}} {{ng.otherUsers}}</span>
 </div>
+
+<div ng-if="ng.currentEditRequest && ng.currentEditRequest.length > 0" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+  <div>{{$root.i18n('OtherWorkflowOnTheSameItem')}} : </div>
+
+  <div ng-repeat="wf in ng.currentEditRequest">
+    <a target="_blank" href="{{wf.url}}">{{wf.name}} - {{wf.step}} ({{wf.user}})</a>
+  </div>
+
+</div>
+
