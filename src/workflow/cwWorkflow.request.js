@@ -18,6 +18,10 @@
   cwLayout.prototype.loadScopeRequestFunction = function ($scope) {
     var self = this;
     $scope.manageStepClick = function (step) {
+      let requestName =
+        $scope.ng.changeset.properties.requestname && $scope.ng.changeset.properties.requestname != ""
+          ? $scope.ng.changeset.properties.requestname
+          : $scope.ng.changeset.properties.name;
       $scope.manageDocumentsBeforeSavingWI();
       $scope.ng.jsonObjects = {
         objectTypeScriptname: "cwworkflowitem",
@@ -26,7 +30,7 @@
         properties: {
           step: step.stepName,
           changeset: angular.toJson($scope.ng.changeset).replaceAll("“", "'").replaceAll("”", "'"),
-          name: $scope.ng.changeset.properties.name,
+          name: requestName,
           documents: angular.toJson($scope.ng.documents),
           scenario: self.scenario,
           objecttypescriptname: self.objectTypeScriptName,
@@ -77,6 +81,11 @@
       });
 
       $scope.ng.jsonObjects.properties.stepmapping = angular.toJson($scope.ng.stepmapping);
+
+      // if we create the final object, validate the workflow item
+      if (step.createObject) {
+        $scope.ng.jsonObjects.properties.validated = true;
+      }
 
       // mapping the role to the wi
       $scope.ng.jsonObjects.associations.cwworkflowitemtoassocwworkflowitemtocwroletocw_role = [];

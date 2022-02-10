@@ -85,7 +85,7 @@
         configuration = JSON.parse(JSON.stringify(cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow")));
       } else return;
 
-      if (!cwApi.isIndexPage() && self.objectTypeScriptName === "cwworkflowitem") {
+      if (!cwApi.isIndexPage() && cwAPI.getCurrentView().rootObjectType === "cwworkflowitem") {
         let o = self.object;
         self.objectTypeScriptName = o.properties.objecttypescriptname;
         self.scenario = o.properties.scenario;
@@ -119,7 +119,7 @@
         self.stepmapping = JSON.parse(self.cleanJSON(o.properties.stepmapping));
         if (!self.stepmapping.cwUserMapping) self.stepmapping.cwUserMapping = {};
       } else {
-        //creation page
+        //new cwWorkflowItem page
         if (
           configuration &&
           configuration.objectTypes &&
@@ -153,6 +153,8 @@
 
         if (!cwApi.isIndexPage()) {
           self.changeset.object_id = self.object.object_id;
+
+          //get properties of the existing object
           self.viewSchema.NodesByID[this.viewSchema.RootNodesId[0]].PropertiesSelected.forEach(function (propertyScriptname) {
             let property = cwAPI.mm.getProperty(self.objectTypeScriptName, propertyScriptname);
             if (property.type === "Lookup") {
@@ -163,6 +165,7 @@
             }
           });
 
+          //get association of the existing object
           Object.keys(self.object.associations).forEach(function (assoScriptName) {
             if (!self.changeset.associations[assoScriptName.toLowerCase()]) {
               self.changeset.associations[assoScriptName.toLowerCase()] = [];
@@ -302,7 +305,7 @@
           }
           let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
           // get the prop if Date
-          if (prop.type === "Date") {
+          if (prop && prop.type === "Date") {
             result = result.replace("@currentDate", new Date().toISOString());
           } else {
             result = result.replace("@currentDate", new Date().toLocaleDateString());
@@ -312,7 +315,7 @@
           result = result.replace("@currentTimeStamp", $scope.getTimeStamp());
 
           // get the value if lookup
-          if (prop.type === "Lookup") {
+          if (prop && prop.type === "Lookup") {
             let found = false;
             found = prop.lookups.some(function (l) {
               //check the name
@@ -329,6 +332,7 @@
             if (!found) result = 0;
           }
           if (
+            !prop ||
             prop.type === "Boolean" ||
             prop.type === "Double" ||
             prop.type === "Integer" ||
@@ -555,7 +559,7 @@
           if (scriptname) {
             var p = cwApi.mm.getProperty(ot.scriptName, scriptname);
             if (cwApi.isUndefined(p)) {
-              return "";
+              return "text";
             }
             switch (p.type) {
               case "Boolean":
@@ -585,6 +589,26 @@
     else this.loadLibs();
   };
 
+  cwLayout.prototype.getUserWorkflowItemsForEdit = function (callback) {
+    let self = this;
+    let editItemquery = {
+      ObjectTypeScriptName: "CWWORKFLOWITEM",
+      PropertiesToLoad: ["NAME", "CHANGESET", "HISTORY"],
+      Where: [
+        { PropertyScriptName: "VALIDATED", Value: false },
+        { PropertyScriptName: "SCENARIO", Value: this.scenario },
+        { PropertyScriptName: "OBJECTTYPESCRIPTNAME", Value: this.objecttypescriptname },
+      ],
+    };
+
+    cwApi.CwDataServicesApi.send("flatQuery", editItemquery, function (err, res) {
+      self.currentEditRequest = res.map(function (wf) {
+        debugger;
+        callback();
+      });
+    });
+  };
+
   cwLayout.prototype.loadLibs = function () {
     let self = this;
     let query = {
@@ -605,7 +629,15 @@
         // AsyncLoad
         cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
           if (error === null) {
-            self.load();
+            if (
+              !cwApi.isIndexPage() &&
+              cwAPI.getCurrentView().rootObjectType !== "cwworkflowitem" &&
+              cwAPI.getCurrentView().rootObjectType === this.objectTypeScriptName
+            ) {
+              self.getUserWorkflowItemsForEdit(function () {
+                self.load();
+              });
+            } else self.load();
           } else {
             cwAPI.Log.Error(error);
           }

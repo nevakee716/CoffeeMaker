@@ -2,7 +2,7 @@
   ng-init="initValue(formInput)"
   class="input bootstrap-iso"
   ng-include
-  ng-if="formInput.type  == 'property'"
+  ng-if="formInput.type  == 'property' || formInput.type  == 'request-name'"
   ng-class="{memoInput :getPropertyDataType(ng.objectType, formInput.scriptname)==='memo'}"
   src="'../../common/html/cwWorkflow/propertyInput.ng.html'"
 ></div>

@@ -100,7 +100,10 @@
     <select ng-model="input.viewName" ng-options="v.cwView as (v.name + ' (' + v.cwView + ')')  for v in indexpages | orderBy:'name'"></select>
   </div>
 </div>
-
+<div ng-if="input.type === 'request-name'" class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('fakeScriptname')}} :&nbsp;</div>
+  <div ng-init="input.scriptname = 'requestname'" class="row-cell row-cell-value"><span>{{input.scriptname}}</span></div>
+</div>
 <div ng-if="input.type === 'evolveViewItemList' || input.type === 'objectType'" class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('fakeScriptname')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input ng-model="input.scriptname" /></div>
