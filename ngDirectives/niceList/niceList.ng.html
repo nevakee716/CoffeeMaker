@@ -1,0 +1,33 @@
+<div class="cwNiceList">
+  <span class="nameContainerAndTags">
+    <span class="name">
+      <a ng-if="!urlPropertiesScriptname" href="{{cwApi.getSingleViewHash(item.objectTypeScriptName,item.object_id)}}"> {{item.name}} </a>
+      <a ng-if="urlPropertiesScriptname != ''" target="_blank" href="{{url}}"> {{item.name}} </a>
+
+      <span ng-repeat="asso in associationsIcon" ng-if="asso.length > 0" class="icon" aria-hidden="true" ng-bind-html="getCDS(asso[0])"></span>
+    </span>
+    <div class="tags">
+      <div ng-repeat="processValue in tagProperties" ng-init="sectionIndex = $index">
+        <div ng-if="splitProp && splitProp!=''" ng-style="{'background-color':color[sectionIndex]['background-color'],'color':color[sectionIndex]['color']}" class="tag" ng-repeat="splitProp in processValue.split('|')">
+          {{splitProp}}
+        </div>
+      </div>
+      <div ng-repeat="asso in associations" ng-init="sectionIndex = $index">
+        <div ng-style="{'background-color':color[sectionIndex]['background-color'],'color':color[sectionIndex]['color']}" class="tag" ng-repeat="item in asso">
+          {{item.name}}
+        </div>
+      </div>
+
+    </div>
+  </span>
+  <span class="date" ng-if="'30 d�cembre 1899' != lDate || '30 december 1899' != lDate">{{lDate}}</span>
+  <span class="action">
+    <i ng-if="popout" ng-click="openPopout(popout.name,popout.id)" class="{{popout.class}}" aria-hidden="true"></i>
+    <a ng-if="!cwApi.cwUser.isUserSocial()" href="{{cwApi.getSingleViewHash(item.objectTypeScriptName,item.object_id)}}">
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+    </a>
+    <i ng-if=" item.setAsFav" class="fa fa-heart" aria-hidden="true" ng-click="removeAsFavourite()"></i>
+    <i ng-if=" !item.setAsFav" class="fa fa-heart-o" aria-hidden="true" ng-click="addAsFavourite()"></i>
+    <a ng-if="urlPropertiesScriptname" target="_blank" href="{{url}}"><i class="fa fa-download" aria-hidden="true"></i></a>
+  </span>
+</div>

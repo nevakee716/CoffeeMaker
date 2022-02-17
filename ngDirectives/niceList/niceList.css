@@ -1,0 +1,77 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
+.cwDocumentHome {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.cwDocumentHome .nameContainerAndTags {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  color: #03a0ce;
+  margin-right: 10px;
+}
+.cwDocumentHome .nameContainerAndTags > div {
+  line-height: 13px;
+}
+.cwDocumentHome .nameContainerAndTags .tags {
+  margin-top: 1px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.cwDocumentHome .nameContainerAndTags .tags .tag {
+  border-radius: 2px;
+  padding: 2px 4px 2px 4px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+.cwDocumentHome .nameContainerAndTags .tags .tag.function {
+  color: #0094dc;
+  background-color: #e1f5ff;
+}
+.cwDocumentHome .nameContainerAndTags .tags .tag.processarea {
+  color: #13d613;
+  background-color: #ddffdd;
+}
+.cwDocumentHome .nameContainerAndTags .tags .tag.type {
+  color: #fd6c00;
+  background-color: #fef0e5;
+}
+.cwDocumentHome .date {
+  width: 150px;
+}
+.cwDocumentHome .action {
+  width: 52px;
+}
+.cwDocumentHome .action .fa.fa-heart {
+  color: #03a0ce;
+}
+.cwDocumentHome .action .fa.fa-heart-o {
+  color: #03a0ce;
+}

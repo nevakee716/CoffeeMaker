@@ -1,0 +1,59 @@
+@import "../../_mixins";
+@import "../../_variables";
+
+.cwNiceList {
+  display: flex;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  .nameContainerAndTags {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    color: @cwColor2;
+    margin-right: 10px;
+
+    > div {
+      line-height: 13px;
+    }
+    .tags {
+      margin-top: 1px;
+      display: flex;
+      flex-wrap: wrap;
+      .tag {
+        border-radius: 2px;
+        padding: 2px 4px 2px 4px;
+        margin-right: 2px;
+        margin-bottom: 2px;
+
+      }
+    }
+
+    .name {
+      display: flex;
+      align-items: center;
+    }
+    .icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 3px;
+      img {
+        height: 14px;
+      }
+     
+    }
+  }
+ 
+  .date {
+    width: 150px;
+  }
+  .action {
+    width: 52px;
+    .fa.fa-heart {
+      color: @cwColor2;
+    }
+    .fa.fa-heart-o {
+      color: @cwColor1;
+    }
+  }
+}
