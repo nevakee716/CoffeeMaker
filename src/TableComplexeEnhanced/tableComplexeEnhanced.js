@@ -131,11 +131,12 @@
     if (window.getComputedStyle(document.body).backgroundColor != "rgb(255, 255, 255)") {
       //height = height - 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
-
+    var isInDisplay = document.querySelector(".homePage_evolveView") ? true : false;
     if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
       config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("tableComplexeEnhanced");
-
-      if (config && config.nodes && config.nodes[nodeID] && config.nodes[nodeID].heightPercent) {
+      if (isInDisplay) {
+        height = document.querySelector(".empty.cw-list." + nodeID).parentElement.offsetHeight;
+      } else if (config && config.nodes && config.nodes[nodeID] && config.nodes[nodeID].heightPercent) {
         return (height * config.nodes[nodeID].heightPercent) / 100;
       }
     }
