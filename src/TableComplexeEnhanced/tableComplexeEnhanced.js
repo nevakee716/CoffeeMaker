@@ -143,6 +143,14 @@
     return height;
   };
 
+  var sendIndexContext = function (nodeID, contextIds) {
+    var isInDisplay = document.querySelector(".homePage_evolveView") ? true : false;
+    if (isInDisplay) {
+      let displayId = document.querySelector(".empty.cw-list." + nodeID).parentElement.parentElement.parentElement.parentElement.id;
+      cwApi.customLibs.utils.sendIndexContext(displayId, contextIds);
+    }
+  };
+
   tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter = function () {
     var self = this;
     self.associationsColumnList = [];
@@ -410,6 +418,21 @@
 
   tableComplexeEnhanced.cwKendoGrid.enableFilter = function (e) {
     let self = this;
+
+    setTimeout(function () {
+      var dataSource = $("." + self.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
+      var filters = dataSource.filter();
+      var allData = dataSource.data();
+      var query = new kendo.data.Query(allData);
+      var data = query.filter(filters).data;
+      sendIndexContext(
+        self.nodeSchema.NodeID,
+        data.map(function (d) {
+          return d.id;
+        })
+      );
+    }, 1000);
+
     if (this.associationsColumnList.indexOf(e.field) !== -1 && e.filter) {
       e.filter.filters.forEach(function (f) {
         f.operator = "contains";
@@ -442,7 +465,7 @@
     let self = this;
     if (e.sender.dataSource.filter()) {
       e.sender.dataSource.filter().filters.forEach(function (f) {
-        let value = f.value.replace("'", "\\'").replace('"', '\\"');
+        let value = f.value.replace ? f.value.replace("'", "\\'").replace('"', '\\"') : f.value;
         if (self.associationsColumnList.indexOf(e.field) !== -1) {
           var checkbox = e.container.find("input[value='" + value + "']");
           if (checkbox[0] && !checkbox[0].checked) {
