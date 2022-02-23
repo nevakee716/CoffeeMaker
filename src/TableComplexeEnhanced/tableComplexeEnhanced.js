@@ -413,6 +413,20 @@
       var datasource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
       //Clear filters:
       datasource.filter([]);
+      var self = this;
+      setTimeout(function () {
+        var dataSource = $("." + self.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
+        var filters = dataSource.filter();
+        var allData = dataSource.data();
+        var query = new kendo.data.Query(allData);
+        var data = query.filter(filters).data;
+        sendIndexContext(
+          self.nodeSchema.NodeID,
+          data.map(function (d) {
+            return d.id;
+          })
+        );
+      }, 1000);
     } catch (e) {}
   };
 
