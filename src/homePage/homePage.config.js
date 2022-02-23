@@ -35,7 +35,9 @@
           $scope.cwUser_pages.push($scope.views[v]);
       }
     }
-
+    $scope.initDisplay = function (display) {
+      if (display.uuid === undefined) display.uuid = new Date().getTime();
+    };
     $scope.objDescription = {};
     $scope.op = {};
     $scope.toggleHM = function (display, e) {
