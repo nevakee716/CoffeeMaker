@@ -628,7 +628,7 @@
       cwAPI.getCurrentView().rootObjectType !== "cwworkflowitem" &&
       cwAPI.getCurrentView().rootObjectType === this.objectTypeScriptName
     ) {
-      $(".cw-edit-mode-button-edit").addClass("cw-hidden");
+      // $(".cw-edit-mode-button-edit").addClass("cw-hidden");
       this.getUserWorkflowItemsForEdit(this.load.bind(this));
     } else this.load();
   };
