@@ -30,7 +30,9 @@
       output.push('<div id="Grid_' + this.nodeID + '" class="Grid cw-visible">');
       if (this.isUserAbleToSeeConfigurator()) {
         output.push(
-          '<div><a id="GridConfigButton_' + this.nodeID + '" class="btn page-action no-text" title="Configurer"><i class="fa fa-cogs"></i></a>'
+          '<div class="gridToolbar" ><a id="GridConfigButton_' +
+            this.nodeID +
+            '" class="btn page-action no-text" title="Configurer"><i class="fa fa-cogs"></i></a>'
         );
         output.push('<a id="GridSaveButton_' + this.nodeID + '" class="btn page-action no-text" title="Save"><i class="fa fa-save"></i></a></div>');
       }

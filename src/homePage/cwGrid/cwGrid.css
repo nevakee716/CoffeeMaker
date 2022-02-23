@@ -1,3 +1,7 @@
 .Grid {
-    width:100%
+  width: 100%;
+}
+.gridToolbar {
+  position: absolute;
+  top: -42px;
 }
