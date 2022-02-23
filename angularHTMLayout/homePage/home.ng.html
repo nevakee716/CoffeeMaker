@@ -6,6 +6,7 @@
       ng-init="display.extended = !display.collapseByDefault"
       ng-style="getStyleForDisplay(display)"
       class="homePage_display {{display.label}}"
+      id="{{display.uuid}}"
       ng-class="{nextGenCard: nextGenTheme, displayTransparent: display.transparent ,fixWidth:display.fixWidth}"
     >
       <div ng-if="display.extendable" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader extendableTitle">
