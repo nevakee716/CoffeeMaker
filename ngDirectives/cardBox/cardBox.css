@@ -1,0 +1,78 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
+ul.cardbox {
+  display: flex;
+  flex-wrap: wrap;
+}
+ul.cardbox li:nth-child(2) {
+  margin-top: 1.25rem;
+}
+ul.cardbox li[cardbox] {
+  width: 25rem;
+  flex-grow: 1;
+}
+ul.cardbox li[cardbox] .cardBox {
+  margin: 1.25rem;
+  margin-top: 0rem;
+  border: solid 1px #dddddd;
+  border-radius: 2px;
+  padding: 1.25rem;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxTitle {
+  color: #5e514d;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxDate {
+  display: flex;
+  align-items: center;
+  color: #dedbdb;
+  font-size: 12px;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxDate .cardBoxNew {
+  background-color: #03a0ce;
+  color: white;
+  border-radius: 5px;
+  margin-right: 2px;
+  display: flex;
+  align-items: center;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxDate .cardBoxNew img {
+  width: 20px;
+  margin-left: 2px;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxDate .cardBoxNew span {
+  padding: 2px 5px 1px 5px;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxDescription {
+  color: #333333;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxProp .cardBoxPropHeader {
+  font-weight: bold;
+}

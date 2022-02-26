@@ -1,0 +1,17 @@
+<div class="cardBox" title="{{item.properties.name}}" id="{{item.objectTypeScriptName}}-{{item.object_id}}">
+  <div class="cardBoxTitle">
+    <a href="{{$root.cwApi.getSingleViewHash($root.cwApi.replaceSpecialCharacters(item.objectTypeScriptName),item.object_id)}}">{{item.name}}</a>
+  </div>
+  <div class="cardBoxDate">
+    <span class="cardBoxNew" ng-if="new">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+      <span>New</span>
+    </span>
+    <span>{{date.toLocaleString()}}</span>
+  </div>
+  <div class="cardBoxDescription" ng-bind-html="html"></div>
+  <div class="cardBoxProp" ng-repeat="p in selectedProperties">
+    <span class="cardBoxPropHeader">{{$root.cwApi.mm.getProperty(item.objectTypeScriptName,p).name}} : </span>
+    <span class="cardBoxPropValue">{{$root.cwAPI.customLibs.utils.getCustomDisplayString(item,"{" + properties[p] + "}"}}</span>
+  </div>
+</div>

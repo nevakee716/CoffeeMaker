@@ -1,0 +1,60 @@
+@import "../../_mixins";
+@import "../../_variables";
+
+ul.cardbox {
+  display: flex;
+  flex-wrap: wrap;
+
+  li:nth-child(2) {
+    margin-top: 1.25rem;
+  }
+  li[cardbox] {
+    width: 25rem;
+    flex-grow: 1;
+    .cardBox {
+      margin: 1.25rem;
+      margin-top: 0rem;
+      border: solid 1px #dddddd;
+      border-radius: 2px;
+      padding: 1.25rem;
+
+      .cardBoxTitle {
+        color: #5e514d;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      .cardBoxDate {
+        display: flex;
+        align-items: center;
+        color: #dedbdb;
+        font-size: 12px;
+
+        .cardBoxNew {
+          background-color: @cwColor1;
+          color: white;
+          border-radius: 5px;
+          margin-right: 2px;
+          display: flex;
+          align-items: center;
+          img {
+            width: 20px;
+            margin-left: 2px;
+          }
+          span {
+            padding: 2px 5px 1px 5px;
+          }
+        }
+      }
+      .cardBoxDescription {
+        color: #333333;
+      }
+
+      .cardBoxProp {
+        .cardBoxPropHeader {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

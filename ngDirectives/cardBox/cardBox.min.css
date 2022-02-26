@@ -1,0 +1,67 @@
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* GRID */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+*[cwoperationbox] {
+  width: 275px;
+  list-style: none;
+}
+*[cwoperationbox] i.result-icon.fa-circle-o-notch {
+  color: #e9636e;
+}
+*[cwoperationbox] i.result-icon.fa-check-circle-o {
+  color: #4db6ac;
+}
+*[cwoperationbox] i.result-icon.fa-times-circle-o {
+  color: #e9636e;
+}
+*[cwoperationbox] div.operation-container {
+  border-radius: 5px;
+  background-color: #eff1f3;
+  margin: 5px;
+  height: 70px;
+  padding: 4px 4px 4px 32px;
+  position: relative;
+}
+*[cwoperationbox] div.operation-container .absolute {
+  position: absolute;
+}
+*[cwoperationbox] div.operation-container .left {
+  left: 10px;
+}
+*[cwoperationbox] div.operation-container .bottom {
+  bottom: 15px;
+}
+*[cwoperationbox] div.operation-container .right {
+  right: 0;
+  margin-right: 10px;
+}
+*[cwoperationbox] div.operation-container div.operation-name {
+  margin: 1px 18px 1px 1px;
+  overflow: hidden;
+}
+*[cwoperationbox] div.operation-container .result-icon {
+  font-size: 2em;
+}
