@@ -5,6 +5,36 @@
   </div>
 </div>
 
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('giveIndexContext')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input ng-model="display.giveIndexContext" type="checkbox" />
+  </div>
+</div>
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('giveSingleContext')}} :&nbsp;</div>
+
+  <div class="row-cell row-cell-value">
+    <div class="row-cell row-cell-value">
+      <input ng-model="display.giveSingleContext" type="checkbox" />
+    </div>
+  </div>
+</div>
+
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('getContextFrom')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <select ng-model="display.getContextFrom" class="tabContent">
+      <option ng-selected="!display.getContextFrom" value="0">{{$root.i18n('No Context')}}</option>
+      <optgroup label="{{col.label}}" ng-repeat="(icol, col) in ng.config.columns">
+        <option ng-selected="display.getContextFrom === d.uuid.toString()" value="{{d.uuid}}" ng-repeat="(id, d) in col.displays | orderBy:'order'">
+          {{d.label}}
+        </option>
+      </optgroup>
+    </select>
+  </div>
+</div>
+
 <div ng-if="display.view && getNodeNumerFromObjectView(display.view) == 1">
   <div class="row bootstrap-iso">
     <div class="row-cell row-cell-label labelTitle">{{$root.i18n('sort_by')}} :</div>

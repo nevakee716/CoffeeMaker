@@ -36,12 +36,7 @@
         ng-class="{rightExpandButtonContent:display.rightExpandButtonStyle, nextGenCard: !nextGenTheme,noPadding: display.noPadding }"
       >
         <div class="homePage_evolveView" ng-if='display.type==="evolve_view"' ng-init="getHTMLView(display)" ng-bind-html="display.html"></div>
-        <div
-          class="homePage_evolveView"
-          ng-if='display.type==="object_view"'
-          ng-init="getHTMLViewForObjectView(display)"
-          ng-bind-html="display.html"
-        ></div>
+        <div class="homePage_evolveView" ng-if='display.type==="object_view"' ng-init="initSingleView(display)" ng-bind-html="display.html"></div>
         <div
           class="homePage_evolveView"
           ng-if='display.type==="cw_user_view"'

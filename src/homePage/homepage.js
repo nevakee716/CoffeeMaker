@@ -181,15 +181,17 @@
 
         $scope.getStyleForDisplay = function (display) {
           let calcWidth = display.width;
+          let r = {};
           if (calcWidth.indexOf("%") !== -1) calcWidth = "calc(" + calcWidth + " - 1.5rem)";
-
-          return { width: calcWidth };
+          r.width = calcWidth;
+          if (display.dontDisplay) r.display = "none";
+          return r;
         };
 
         $scope.getStyleForDisplayContent = function (display) {
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 90px)";
-          if (calcHeight && calcHeight.indexOf("%") !== -1) {
+          if (calcHeight && calcHeight.indexOf("%") !== -1 && document.querySelector(".homePage_main")) {
             calcHeight =
               (parseFloat(calcHeight.split("%")[0]) * (window.innerHeight - document.querySelector(".homePage_main").getBoundingClientRect().y)) /
                 100 -
@@ -232,15 +234,24 @@
         };
 
         $scope.loadView = function (display, sync, rootNodeIDUD, objectpage) {
+          console.log("Load View : " + display.view);
           let o = $scope.createHTMLFromJSON(display, sync, rootNodeIDUD, objectpage);
           viewLoaded += 1;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
+
+          for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
+            let layout = cwApi.appliedLayouts[i];
+            if (!cwApi.isUndefined(layout.applyBuiltInJavaScript) && layout.viewSchema.ViewName === display.view) {
+              layout.applyBuiltInJavaScript(null);
+            }
+          }
+
           if ($scope.viewToLoad === viewLoaded) {
             setTimeout(function () {
-              cwApi.cwSiteActions.doLayoutsSpecialActions(true);
               cwCustomerSiteActions.doActionsForAll_Custom({});
             }, 6);
           }
+
           cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
         };
 
@@ -315,8 +326,21 @@
           );
         };
 
+        $scope.initSingleView = function (display) {
+          if (!display.init) $scope.initContextEvent(display);
+          $scope.getHTMLViewForObjectView(display);
+        };
+
         $scope.getHTMLViewForObjectView = function (display) {
-          let jsonFile = cwApi.getObjectPageJsonUrl(display.view, cwAPI.getQueryStringObject().cwid);
+          let id, jsonFile;
+          try {
+            id = display.objectId ? display.objectId : cwAPI.getQueryStringObject().cwid;
+            jsonFile = cwApi.getObjectPageJsonUrl(display.view, id);
+          } catch {
+            display.dontDisplay = true;
+            return;
+          }
+          display.dontDisplay = false;
           display.loading = true;
           cwApi.getJSONFile(
             jsonFile,
@@ -402,48 +426,23 @@
           }
         };
 
-        $scope.reloadView = function (display) {
-          cwAPI.CwPopout.hide();
-
-          display.html = null;
-          let o;
-          if (display.type === "evolve_view") {
-            o = $scope.createHTMLFromJSON(display);
-          } else if (display.type === "cw_user_view") {
-            let cuview = cwAPI.getViewsSchemas()[display.view];
-            childrenNodes = cuview.NodesByID[cuview.RootNodesId].SortedChildren;
-            o = $scope.createHTMLFromJSON(
-              display,
-              null,
-              childrenNodes.map(function (n) {
-                return n.NodeId;
-              }),
-              true
-            );
-          }
-          for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
-            let layout = cwApi.appliedLayouts[i];
-            if (!cwApi.isUndefined(layout.applyBuiltInJavaScript) && layout.viewSchema.ViewName === display.view) {
-              layout.applyBuiltInJavaScript(null);
-            }
-          }
-
-          viewLoaded += 1;
-          let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
-          if ($scope.viewToLoad === viewLoaded) {
-            setTimeout(function () {
-              cwApi.cwSiteActions.doLayoutsSpecialActions(true);
-              cwCustomerSiteActions.doActionsForAll_Custom({});
-            }, 6);
-          }
-          cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
-        };
-
         $scope.initContextEvent = function (display) {
+          display.init = true;
           if (display.getContextFrom) {
             document.querySelector(".homePage_main").addEventListener("indexContext from " + display.getContextFrom, function (event) {
               display.xData = event.data;
-              $scope.reloadView(display);
+              cwAPI.CwPopout.hide();
+              display.html = null;
+              $scope.loadView(display);
+            });
+            document.querySelector(".homePage_main").addEventListener("singleContext from " + display.getContextFrom, function (event) {
+              if (cwAPI.getView(display.view).rootObjectType === event.scriptname) {
+                display.html = null;
+                display.objectId = event.id;
+                $scope.getHTMLViewForObjectView(display);
+              } else {
+                display.dontDisplay = true;
+              }
             });
           }
         };

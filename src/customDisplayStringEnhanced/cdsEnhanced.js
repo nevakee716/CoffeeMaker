@@ -196,7 +196,6 @@
             result = item.associations[nodeID] && item.associations[nodeID].length > 0 ? display : "";
           }
         }
-
         itemDisplayName = itemDisplayName.replace("<§" + info + "§>", result);
       }
     }
@@ -261,19 +260,35 @@
           : item.properties.description
         : "";
 
+    let isInDisplay = document.querySelector(".homePage_evolveView") ? true : false;
     markedForDeletion = cwApi.isObjectMarkedForDeletion(item) ? " markedForDeletion" : "";
-    if (this.options.HasLink === false) {
-      if (itemLabel.indexOf("<@") !== -1 && itemLabel.indexOf("\\<@") === -1) {
-        itemLabel = itemLabel.replace(/<@/g, "").replace(/@>/g, "");
-      }
-      itemDisplayName = "<span class='" + this.nodeID + markedForDeletion + "' title=\"" + titleOnMouseOver + '">' + itemLabel + "</span>";
-    } else {
-      linkTag = "<a class='" + this.nodeID + markedForDeletion + "' href='" + link + "'>";
+    if (isInDisplay) {
+      linkTag =
+        '<a class="' +
+        this.nodeID +
+        markedForDeletion +
+        '" onclick="cwAPI.customLibs.utils.clickSingleContext(event' +
+        ",'" +
+        item.objectTypeScriptName +
+        "'," +
+        item.object_id +
+        ')" >';
       linkEndTag = "</a>";
-      if (itemLabel.indexOf("<@") !== -1 && itemLabel.indexOf("\\<@") === -1) {
-        itemDisplayName = itemLabel.replace(/<@/g, linkTag).replace(/@>/g, linkEndTag);
+      itemDisplayName = linkTag + itemLabel + linkEndTag;
+    } else {
+      if (this.options.HasLink === false) {
+        if (itemLabel.indexOf("<@") !== -1 && itemLabel.indexOf("\\<@") === -1) {
+          itemLabel = itemLabel.replace(/<@/g, "").replace(/@>/g, "");
+        }
+        itemDisplayName = "<span class='" + this.nodeID + markedForDeletion + "' title=\"" + titleOnMouseOver + '">' + itemLabel + "</span>";
       } else {
-        itemDisplayName = linkTag + itemLabel + linkEndTag;
+        linkTag = "<a class='" + this.nodeID + markedForDeletion + "' href='" + link + "'>";
+        linkEndTag = "</a>";
+        if (itemLabel.indexOf("<@") !== -1 && itemLabel.indexOf("\\<@") === -1) {
+          itemDisplayName = itemLabel.replace(/<@/g, linkTag).replace(/@>/g, linkEndTag);
+        } else {
+          itemDisplayName = linkTag + itemLabel + linkEndTag;
+        }
       }
     }
 
