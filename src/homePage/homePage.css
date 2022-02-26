@@ -217,6 +217,13 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main .homePage_column .homePage_display .homePage_evolveView li.cw-accordion-container {
   margin: 5px;
 }
+.homePage_main .homePage_column .homePage_display .homePage_evolveView.simplified .cwDiagramCamera,
+.homePage_main .homePage_column .homePage_display .homePage_evolveView.simplified .cwDiagramBreadcrumb {
+  display: none;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView.simplified #cw-dv-fullscreen {
+  display: flex;
+}
 .homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone {
   width: 100%;
   height: 100%;
@@ -225,12 +232,15 @@ body:not(.cw_print) .page-content-wrap .page-top {
   margin: 0;
   border: 0px solid;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramCamera,
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumb {
-  display: none;
-}
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone #cw-dv-fullscreen {
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone {
   display: flex;
+  justify-content: space-between;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone .cwDiagramBreadcrumbZoneLeft {
+  width: unset;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone .cwDiagramBreadcrumbZoneRight {
+  width: unset;
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc {
   background: transparent;

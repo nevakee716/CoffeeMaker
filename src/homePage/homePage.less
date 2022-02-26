@@ -206,6 +206,16 @@ body:not(.cw_print) .page-content-wrap .page-top {
         li.cw-accordion-container {
           margin: 5px;
         }
+
+        &.simplified {
+          .cwDiagramCamera,
+          .cwDiagramBreadcrumb {
+            display: none;
+          }
+          #cw-dv-fullscreen {
+            display: flex;
+          }
+        }
         ul.cw-diagram-zone {
           width: 100%;
           height: 100%;
@@ -213,12 +223,15 @@ body:not(.cw_print) .page-content-wrap .page-top {
             margin: 0;
             border: 0px solid;
           }
-          .cwDiagramCamera,
-          .cwDiagramBreadcrumb {
-            display: none;
-          }
-          #cw-dv-fullscreen {
+          .cwDiagramBreadcrumbZone {
             display: flex;
+            justify-content: space-between;
+            .cwDiagramBreadcrumbZoneLeft {
+              width: unset;
+            }
+            .cwDiagramBreadcrumbZoneRight {
+              width: unset;
+            }
           }
         }
       }
