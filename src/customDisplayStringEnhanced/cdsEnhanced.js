@@ -264,7 +264,7 @@
     markedForDeletion = cwApi.isObjectMarkedForDeletion(item) ? " markedForDeletion" : "";
     if (isInDisplay) {
       linkTag =
-        '<a class="' +
+        '<a class="contextClick ' +
         this.nodeID +
         markedForDeletion +
         '" onclick="cwAPI.customLibs.utils.clickSingleContext(event' +
@@ -272,6 +272,9 @@
         item.objectTypeScriptName +
         "'," +
         item.object_id +
+        ",'" +
+        itemLabel.replace('"', '\\"').replace("'", "\\'") +
+        "'" +
         ')" >';
       linkEndTag = "</a>";
       itemDisplayName = linkTag + itemLabel + linkEndTag;

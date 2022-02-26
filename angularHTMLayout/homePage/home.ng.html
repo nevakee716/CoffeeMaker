@@ -14,7 +14,10 @@
           <i ng-if="display.extended === false" class="fa fa-angle-right"></i>
           <i ng-if="display.extended === true" class="fa fa-angle-down"></i>
         </span>
-        <span ng-click="display.extended = !display.extended" class="homePage_display_title"> {{display.label}} </span>
+        <span ng-click="display.extended = !display.extended" class="homePage_display_title">
+          <span ng-if="!display.objectLabel">{{display.label}}</span>
+          <span ng-if="display.objectLabel">{{display.label}} : {{display.objectLabel}}</span>
+        </span>
         <span ng-if="keys(display.sortProperties).length > 0" class="display_sortProperty">
           <span>{{$root.i18n('sortBy')}}</span>
           <select

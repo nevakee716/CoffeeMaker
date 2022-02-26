@@ -35,3 +35,6 @@ li.ot-cw_user {
 div.page-title > div {
   vertical-align: top;
 }
+.contextClick {
+  cursor: pointer;
+}

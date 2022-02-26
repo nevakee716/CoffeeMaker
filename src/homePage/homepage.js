@@ -230,11 +230,10 @@
           }
           if (display.textIfEmpty || display.descriptionIfEmpty || (display.linkIfEmpty && display.linkTextIfEmpty)) output += "</div></div>";
           output += "</div></div>";
-          return output;
+          return $sce.trustAsHtml(output);
         };
 
         $scope.loadView = function (display, sync, rootNodeIDUD, objectpage) {
-          console.log("Load View : " + display.view);
           let o = $scope.createHTMLFromJSON(display, sync, rootNodeIDUD, objectpage);
           viewLoaded += 1;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
@@ -303,11 +302,11 @@
             rootNodeId.forEach(function (r) {
               cwApi.cwDisplayManager.outputNode(output, schema, r, object);
             });
-
             display.html = $sce.trustAsHtml(output.join(""));
-            if (!sync) $scope.$apply();
-            return o;
           }
+
+          if (!sync) $scope.$apply();
+          return o;
         };
 
         $scope.getHTMLView = function (display) {
@@ -438,10 +437,12 @@
             document.querySelector(".homePage_main").addEventListener("singleContext from " + display.getContextFrom, function (event) {
               if (cwAPI.getView(display.view).rootObjectType === event.scriptname) {
                 display.html = null;
+                display.objectLabel = event.label;
                 display.objectId = event.id;
                 $scope.getHTMLViewForObjectView(display);
               } else {
                 display.dontDisplay = true;
+                display.objectLabel = undefined;
               }
             });
           }
