@@ -209,3 +209,6 @@ grid_filter_donotcontains=Ne Contient Pas
 grid_filter_startwith=Commmence Par
 grid_filter_eq=Egal à
 grid_filter_empty=Est Vide
+giveIndexContext=Transmettre le contexte index
+giveSingleContext=Transmettre le contexte single
+getContextFrom=Récuperer le contexte de

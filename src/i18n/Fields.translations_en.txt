@@ -209,3 +209,6 @@ grid_filter_donotcontains=Don't Contain
 grid_filter_startwith=Begin With
 grid_filter_eq=Equal To
 grid_filter_empty=Is Empty
+giveIndexContext=Give Index Context
+giveSingleContext=Give Single Context
+getContextFrom=Get Context From
