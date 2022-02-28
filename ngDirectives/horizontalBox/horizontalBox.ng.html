@@ -1,0 +1,20 @@
+<div class="horizontalBox" title="{{item.properties.name}}" ng-class="{{item.objectTypeScriptName}}-{{item.object_id}}">
+  <div class="picto">
+    <a href="{{$root.cwApi.getSingleViewHash(item.objectTypeScriptName, item.object_id)}}">
+      <img ng-src="{{picture}}" />
+    </a>
+  </div>
+  <div class="name_description" style="width: calc(100% - 42px)">
+    <div ng-if="!viewSchema" class="name">
+      <a href="{{$root.cwApi.getSingleViewHash(item.objectTypeScriptName, item.object_id)}}">{{item.name}}</a>
+    </div>
+    <div ng-if="viewSchema" ng-bind-html="cds" class="name"></div>
+    <div class="description">
+      <span ng-bind-html="html"></span>
+    </div>
+  </div>
+  <div class="fav" ng-switch="item.setAsFav">
+    <i ng-click="removeAsFavourite()" class="fa fa-heart" ng-switch-when="true" aria-hidden="true"></i>
+    <i ng-click="addAsFavourite()" class="fa fa-heart-o" ng-switch-default="false" aria-hidden="true"></i>
+  </div>
+</div>
