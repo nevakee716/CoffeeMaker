@@ -1,0 +1,59 @@
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* GRID */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+.cwIcon {
+  width: 100px;
+  height: 100px;
+  border: none;
+  background-image: url('/Libs-Debug/images/views/sprite.png');
+  margin: 0px auto;
+}
+.cwIconSmall {
+  background-image: url('/Libs-Debug/images/views/sprite.22x22.png');
+}
+.cwIconEmpty {
+  width: 100px;
+  height: 100px;
+  border: none;
+  background: none;
+}
+.cwIconMini {
+  width: 22px;
+  height: 22px;
+}
+.cwIconMini:not(.cwIconEmpty) {
+  background-image: url('/Libs-Debug/images/views/sprite.22x22.png');
+}
+@media screen and (min-width: 240px) and (max-width: 1023px) {
+  div.cwIcon:not(.cwIconMini),
+  div.cwIconEmpty:not(.cwIconMini) {
+    width: 50px;
+    height: 50px;
+  }
+  div.cwIcon {
+    background-image: url('/Libs-Debug/images/views/sprite.50x50.png');
+  }
+}
