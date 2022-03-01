@@ -72,7 +72,15 @@ ul.cardbox li[cardbox] .cardBox .cardBoxDate .cardBoxNew span {
 }
 ul.cardbox li[cardbox] .cardBox .cardBoxDescription {
   color: #333333;
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+ul.cardbox li[cardbox] .cardBox .cardBoxProp {
+  display: flex;
 }
 ul.cardbox li[cardbox] .cardBox .cardBoxProp .cardBoxPropHeader {
   font-weight: bold;
+  margin-right: 2px;
 }

@@ -1,7 +1,9 @@
 <div class="cardBox" title="{{item.properties.name}}" id="{{item.objectTypeScriptName}}-{{item.object_id}}">
-  <div class="cardBoxTitle">
+  <div ng-if="!viewSchema" class="cardBoxTitle">
     <a href="{{$root.cwApi.getSingleViewHash($root.cwApi.replaceSpecialCharacters(item.objectTypeScriptName),item.object_id)}}">{{item.name}}</a>
   </div>
+  <div ng-if="viewSchema" ng-bind-html="cds" class="cardBoxTitle"></div>
+
   <div class="cardBoxDate">
     <span class="cardBoxNew" ng-if="new">
       <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
@@ -11,7 +13,7 @@
   </div>
   <div class="cardBoxDescription" ng-bind-html="html"></div>
   <div class="cardBoxProp" ng-repeat="p in selectedProperties">
-    <span class="cardBoxPropHeader">{{$root.cwApi.mm.getProperty(item.objectTypeScriptName,p).name}} : </span>
-    <span class="cardBoxPropValue">{{$root.cwAPI.customLibs.utils.getCustomDisplayString(item,"{" + properties[p] + "}"}}</span>
+    <span class="cardBoxPropHeader">{{p.name}} : </span>
+    <span class="cardBoxPropValue" ng-bind-html="p.html"></span>
   </div>
 </div>

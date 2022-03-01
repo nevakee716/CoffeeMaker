@@ -48,11 +48,18 @@ ul.cardbox {
       }
       .cardBoxDescription {
         color: #333333;
+        word-break: break-word;
+        word-wrap: break-word;
+        overflow: hidden;
+        white-space: pre-wrap;
       }
 
       .cardBoxProp {
+        display: flex;
+
         .cardBoxPropHeader {
           font-weight: bold;
+          margin-right: 2px;
         }
       }
     }
