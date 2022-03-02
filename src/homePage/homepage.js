@@ -349,7 +349,12 @@
                 let c = v.NodesByID[v.RootNodesId].SortedChildren;
                 display.objects = o.object.associations;
                 display.object = o.object;
-                if (c && c.length > 0) {
+                if (
+                  v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage" &&
+                  Object.keys(v.NodesByID[v.RootNodesId].PropertiesGroups).length == 0 &&
+                  c &&
+                  c.length > 0
+                ) {
                   $scope.loadView(
                     display,
                     undefined,
@@ -358,6 +363,15 @@
                     }),
                     true
                   );
+                } else {
+                  let output = [];
+                  let object = o.object;
+                  let rootID = cwApi.replaceSpecialCharacters(o.object.objectTypeScriptName);
+                  object.associations[rootID] = [o.object];
+                  cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
+                  display.html = $sce.trustAsHtml(output.join(""));
+                  $scope.$apply();
+                  cwApi.cwDisplayManager.enableBehaviours(v, object, false);
                 }
               }
             },
