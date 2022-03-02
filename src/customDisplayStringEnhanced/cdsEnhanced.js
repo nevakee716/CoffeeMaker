@@ -273,7 +273,7 @@
         "'," +
         item.object_id +
         ",'" +
-        itemLabel.replace('"', '\\"').replace("'", "\\'") +
+        itemLabel.replace('"', " ").replace("'", " ") +
         "'" +
         ')" >';
       linkEndTag = "</a>";
