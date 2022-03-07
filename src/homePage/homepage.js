@@ -250,8 +250,9 @@
               cwCustomerSiteActions.doActionsForAll_Custom({});
             }, 6);
           }
-
-          cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
+          if (objectpage) {
+            cwApi.cwDisplayManager.enableBehaviours(schema, { associations: o }, false);
+          } else cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
         };
 
         $scope.createHTMLFromJSON = function (display, sync, rootNodeIDUD, objectpage) {
@@ -291,6 +292,16 @@
                   return a.properties[display.selectedSortProperty].toString().localeCompare(b.properties[display.selectedSortProperty].toString());
                 });
               }
+
+              if (display.giveSingleContext && o[rootNodeId[0]].length >= 1) {
+                let context_object = o[rootNodeId[0]][0];
+                cwAPI.customLibs.utils.sendSingleContext(
+                  display.uuid.toString(),
+                  context_object.objectTypeScriptName,
+                  context_object.object_id,
+                  context_object.name
+                );
+              }
             }
             let output = [];
             let object = { associations: o };
@@ -327,7 +338,7 @@
 
         $scope.initSingleView = function (display) {
           if (!display.init) $scope.initContextEvent(display);
-          $scope.getHTMLViewForObjectView(display);
+          if (!display.getContextFrom) $scope.getHTMLViewForObjectView(display);
         };
 
         $scope.getHTMLViewForObjectView = function (display) {
@@ -449,7 +460,9 @@
               $scope.loadView(display);
             });
             document.querySelector(".homePage_main").addEventListener("singleContext from " + display.getContextFrom, function (event) {
-              if (cwAPI.getView(display.view).rootObjectType === event.scriptname) {
+              let schema = cwAPI.getViewsSchemas()[display.view];
+
+              if (schema.NodesByID[schema.RootNodesId[0]].ObjectTypeScriptName.toLowerCase() === event.scriptname) {
                 display.html = null;
                 display.objectLabel = event.label;
                 display.objectId = event.id;
