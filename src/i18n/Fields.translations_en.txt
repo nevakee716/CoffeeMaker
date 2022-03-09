@@ -212,3 +212,4 @@ grid_filter_empty=Is Empty
 giveIndexContext=Give Index Context
 giveSingleContext=Give Single Context
 getContextFrom=Get Context From
+hidden=Hidden

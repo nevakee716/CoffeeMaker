@@ -12,6 +12,7 @@
     <div
       ng-include
       ng-if="checkFilter(formInput)"
+      ng-style="formInput.hidden && {'margin-top' : '0px','height' : '0px','visibility': 'hidden'}"
       src="'../../common/html/cwWorkflow/formInput.ng.html'"
       ng-repeat="formInput in ng.currentStep.formInput"
     ></div>
@@ -19,10 +20,12 @@
     <div
       class="input stepUser bootstrap-iso"
       ng-include
+      ng-style="stepConfiguration.hidden && {'margin-top' : '0px','height' : '0px','visibility': 'hidden'}"
       ng-if="checkFilter(stepConfiguration)"
       src="'../../common/html/cwWorkflow/stepInput.ng.html'"
       ng-repeat="stepConfiguration in ng.currentStep.stepsSettings"
     ></div>
+
     <div class="formValid">
       <input
         class="buttonLarge"

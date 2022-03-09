@@ -212,3 +212,4 @@ grid_filter_empty=Est Vide
 giveIndexContext=Transmettre le contexte index
 giveSingleContext=Transmettre le contexte single
 getContextFrom=Récuperer le contexte de
+hidden=Invisible

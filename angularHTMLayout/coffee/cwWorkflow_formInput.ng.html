@@ -32,6 +32,10 @@
   <div class="row-cell row-cell-label">{{$root.i18n('mandatory')}} :&nbsp;</div>
   <div class="row-cell row-cell-value"><input type="checkbox" ng-model="input.mandatory" /></div>
 </div>
+<div ng-if="input.type != 'message'" class="bootstrap-iso rowFlex">
+  <div class="row-cell row-cell-label">{{$root.i18n('hidden')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value"><input type="checkbox" ng-model="input.hidden" /></div>
+</div>
 <div ng-if="input.type === 'property'" class="bootstrap-iso rowFlex">
   <div class="row-cell row-cell-label">{{$root.i18n('scriptname')}} :&nbsp;</div>
   <div class="row-cell row-cell-value">
