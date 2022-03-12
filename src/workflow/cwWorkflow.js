@@ -454,14 +454,6 @@
         };
 
         $scope.getAssociationList = function (formInput) {
-          /*
-          cwApi.CwRest.Diagram.getExistingObjects(
-            objName, //searchingString
-            currentSearchPage, //PageNumber
-            assoToLoad.targetObjectTypeScriptName, //objectType
-            null, //categoryId
-            function (isSuccess, results) {
-              if (isSuccess) {*/
           let associationtype;
           cwApi.mm.getObjectType(self.objectTypeScriptName).AssociationTypes.some(function (a) {
             if (a.ScriptName === formInput.association) {
@@ -481,14 +473,6 @@
         };
 
         $scope.getObjectTypeList = function (formInput) {
-          /*
-          cwApi.CwRest.Diagram.getExistingObjects(
-            objName, //searchingString
-            currentSearchPage, //PageNumber
-            assoToLoad.targetObjectTypeScriptName, //objectType
-            null, //categoryId
-            function (isSuccess, results) {
-              if (isSuccess) {*/
           var url = cwApi.getLiveServerURL() + "page/" + formInput.objectType + "AllNames?" + cwAPI.getRandomNumber();
           $.getJSON(url, function (json) {
             if (json[formInput.objectType]) {
