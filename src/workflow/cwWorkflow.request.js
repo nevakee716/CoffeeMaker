@@ -127,11 +127,24 @@
               );
               return;
             }
-            if (step.createObject && step.shareWorkflow) {
+            if (step.createObject && self.objectTypeScriptName === "cw_diagram_editor_session") {
+              /// if diagram draft go to webmodeler to publish
+              cwAPI.customLibs.utils.associateUserToCwWorkflowRole([$scope.ng.stepmapping.creator], self.cwWorkFlowItemRoleID, function () {
+                $scope.triggerShareWorkflow(
+                  id,
+                  step,
+                  self.cwWorkFlowItemRoleID,
+                  cwApi.getDiagrammerUrl() + "#/diagram/" + $scope.ng.diagram.properties.description.diagram.id
+                );
+              });
+            } else if (step.createObject && step.shareWorkflow) {
+              // create an object and notify a roles
               $scope.createFinalObject(step, id, $scope.ng.stepmapping[step.stepName]);
             } else if (step.createObject) {
+              // create an object and notify creator (default)
               $scope.createFinalObject(step, id);
             } else if (step.shareWorkflow) {
+              // notify
               if (($scope.ng.stepmapping[step.stepName] ^ 0) === $scope.ng.stepmapping[step.stepName]) {
                 cwAPI.customLibs.utils.associateUserToCwWorkflowRole([$scope.ng.stepmapping[step.stepName]], self.cwWorkFlowItemRoleID, function () {
                   $scope.triggerShareWorkflow(id, step, self.cwWorkFlowItemRoleID);
@@ -167,7 +180,7 @@
       } else callback();
     };
 
-    $scope.triggerShareWorkflow = function (id, step, cw_role) {
+    $scope.triggerShareWorkflow = function (id, step, cw_role, url) {
       cw_role = cw_role ? cw_role : $scope.ng.stepmapping[step.stepName];
       cwApi.customLibs.utils.shareWorkflow(
         $scope.ng.changeset.properties.name,
@@ -176,7 +189,7 @@
         step.notificationMessage,
         [cw_role],
         step.notificationLabel,
-        window.location.origin + window.location.pathname + cwApi.getSingleViewHash("cwworkflowitem", id),
+        url ? url : window.location.origin + window.location.pathname + cwApi.getSingleViewHash("cwworkflowitem", id),
         function () {
           if (!cwApi.isDebugMode()) window.location = window.location.origin + window.location.pathname;
         }

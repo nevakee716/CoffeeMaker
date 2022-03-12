@@ -8,6 +8,13 @@
   </div>
   <div ng-if="cwApi.currentUser.PowerLevel === 1 && !ng.canReadIfNotAdmin && !ng.canEditIfNotAdmin">{{$root.i18n('adminModeRead')}}</div>
   <div ng-if="cwApi.currentUser.PowerLevel === 1 && !ng.canEditIfNotAdmin && ng.canReadIfNotAdmin ">{{$root.i18n('adminModeWrite')}}</div>
+  <div ng-if="ng.diagram" class="diagram_draft_viewer">
+    <img ng-src="{{ng.diagram.properties.description.diagram.image}}" alt="Description" />
+
+    <a target="_blank" href="{{cwApi.getDiagrammerUrl() + '#/diagram/' + ng.diagram.properties.description.diagram.id}}"
+      >{{$root.i18n('checkInWebmodeler')}}</a
+    >
+  </div>
   <form ng-if="ng.canEdit || ng.canRead || !ng.currentStep.nextStep || ng.currentStep.nextStep.length === 0" name="workFlowItem">
     <div
       ng-include

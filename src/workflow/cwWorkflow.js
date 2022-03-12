@@ -218,6 +218,7 @@
         $scope.ng.scenario = self.scenario;
         $scope.ng.deletedDocument = [];
         $scope.ng.otherUsers = "";
+        $scope.ng.diagram = self.diagram;
         $scope.ng.currentEditRequest = self.currentEditRequest;
         // check if other users are working on the task
         if (self.task && self.task.associations) {
@@ -630,7 +631,30 @@
     ) {
       // $(".cw-edit-mode-button-edit").addClass("cw-hidden");
       this.getUserWorkflowItemsForEdit(this.load.bind(this));
+    } else if (this.objectTypeScriptName !== "cw_diagram_editor_session") {
+      this.getDiagramDraftDescription(this.load.bind(this));
     } else this.load();
+  };
+
+  cwLayout.prototype.getDiagramDraftDescription = function (callback) {
+    let self = this;
+
+    let editItemquery = {
+      ObjectTypeScriptName: "CW_DIAGRAM_EDITOR_SESSION",
+      PropertiesToLoad: ["NAME", "DESCRIPTION"],
+      Where: [{ PropertyScriptName: "NAME", Value: self.object.name }],
+    };
+
+    cwApi.CwDataServicesApi.send("flatQuery", editItemquery, function (err, res) {
+      self.currentEditRequest = [];
+      res.forEach(function (diag) {
+        self.diagram = diag;
+        self.diagram.properties.description = JSON.parse(self.cleanJSON(self.diagram.properties.description));
+        debugger;
+      });
+
+      callback();
+    });
   };
 
   cwLayout.prototype.getUserWorkflowItemsForEdit = function (callback) {
@@ -659,6 +683,11 @@
 
       callback();
     });
+  };
+  cwLayout.prototype.diagramConverter = function (callback) {
+    var d = self.diagram.properties.description;
+    r = {};
+    r.diagramId = d.diagram.id;
   };
 
   cwApi.cwLayouts.cwWorkflow = cwLayout;

@@ -32,6 +32,20 @@
 .cwWorkflow .readonly {
   background-color: #dedede;
 }
+.cwWorkflow .diagram_draft_viewer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cwWorkflow .diagram_draft_viewer img {
+  max-width: 100%;
+}
+.cwWorkflow .diagram_draft_viewer a {
+  text-align: center;
+  font-size: large;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
 .cwWorkflow .selectDropDownList {
   padding: 5px;
   font-size: 12px;
