@@ -11,7 +11,10 @@
   <div ng-if="ng.diagram" class="diagram_draft_viewer">
     <img ng-src="{{ng.diagram.properties.description.diagram.image}}" alt="Description" />
 
-    <a target="_blank" href="{{cwApi.getDiagrammerUrl() + '#/diagram/' + ng.diagram.properties.description.diagram.id}}"
+    <a
+      ng-if="cwApi.currentUser.UserType == 2"
+      target="_blank"
+      href="{{cwApi.getDiagrammerUrl() + '#/diagram/' + ng.diagram.properties.description.diagram.id}}"
       >{{$root.i18n('checkInWebmodeler')}}</a
     >
   </div>
