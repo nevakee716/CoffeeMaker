@@ -66,7 +66,7 @@
   align-items: center;
 }
 .cwWorkflow .input .label {
-  max-width: 400px;
+  width: 400px;
   vertical-align: top;
   font-size: large;
   font-weight: 700;
@@ -106,7 +106,7 @@
   margin-left: 0.6em;
 }
 .cwWorkflow .documentAttach .label {
-  max-width: 400px;
+  width: 400px;
   vertical-align: top;
   font-size: large;
   font-weight: 700;
@@ -157,7 +157,7 @@
   align-items: flex-end;
 }
 .cwWorkflow .associationContainerResult > div {
-  width: 400px;
+  width: 800px;
 }
 .cwWorkflow .associationContainerResult > div .fa {
   color: red;
@@ -165,7 +165,7 @@
   cursor: pointer;
 }
 .cwWorkflow .searchList {
-  width: 400px;
+  width: 800px;
   height: 39px;
   display: flex;
   overflow-y: hidden;
@@ -192,7 +192,7 @@
   height: 29px;
   box-sizing: border-box;
   font-size: 100%;
-  width: 380px;
+  width: 780px;
   border: 0px;
   background-color: white;
 }
@@ -202,7 +202,7 @@
 .cwWorkflow .searchList .workFlowListObjectTypeResult,
 .cwWorkflow .searchList .workFlowListObjectTypeMessage {
   position: absolute;
-  width: 400px;
+  width: 800px;
   height: 39px;
   z-index: -1;
 }
