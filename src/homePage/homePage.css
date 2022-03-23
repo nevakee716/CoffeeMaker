@@ -258,6 +258,7 @@ body:not(.cw_print) .page-content-wrap .page-top {
   padding-right: 1rem;
   padding-top: 0rem;
   padding-bottom: 0rem;
+  margin: auto;
 }
 .homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox .link {
   padding: 0.2rem;
