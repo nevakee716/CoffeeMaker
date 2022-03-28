@@ -1,0 +1,93 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
+.cwLayoutBackup {
+  width: 100%;
+}
+.cwLayoutBackup .red {
+  color: red;
+}
+.cwLayoutBackup .green {
+  color: green;
+}
+.cwLayoutBackup table.cw-grid {
+  table-layout: fixed;
+  min-width: 99%;
+}
+.cwLayoutBackup table.cw-grid thead.compareTable-header th,
+.cwLayoutBackup table.cw-grid thead.compareTable-header span,
+.cwLayoutBackup table.cw-grid thead.compareTable-header a {
+  background-color: #ffffff;
+  color: #03a0ce;
+  font-size: 17px;
+}
+.cwLayoutBackup table.cw-grid thead.compareTable-header th {
+  min-width: 300px;
+}
+.cwLayoutBackup table.cw-grid .textcentered {
+  text-align: center;
+}
+.cwLayoutBackup table.cw-grid tbody tr th {
+  background-color: #ffffff;
+  color: #03a0ce;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: solid 1px;
+  border-top: 0px;
+}
+.cwLayoutBackup table.cw-grid tbody tr th.propertyGroup {
+  background-color: #03a0ce;
+  color: #ffffff;
+  border: solid 1px;
+  border-color: #03a0ce;
+  border-top: 0px;
+}
+.cwLayoutBackup table.cw-grid tbody tr th.assoPropertyGroup {
+  width: 100%;
+  background-color: #03a0ce;
+  color: #ffffff;
+  border: solid 1px;
+  border-color: #03a0ce;
+  border-top: 0px;
+}
+.cwLayoutBackup table.cw-grid tbody tr img {
+  width: 100%;
+}
+.cwLayoutBackup table.cw-grid tbody tr img.compare {
+  width: 100%;
+  margin-left: 00%;
+}
+.cwLayoutBackup table.cw-grid tbody tr td.compare {
+  overflow: hidden;
+}
+.cwLayoutBackup table.cw-grid th.different,
+.cwLayoutBackup table.cw-grid td.different {
+  background-color: #ecadad4a !important;
+}
+.cwLayoutBackup .associationIcon {
+  color: #03a0ce;
+}

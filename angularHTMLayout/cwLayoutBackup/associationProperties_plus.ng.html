@@ -1,0 +1,23 @@
+<div class="cw-state-default cw-accordion-header">
+  <span
+    ng-click="ao.extended = !ao.extended"
+    ng-class="ao.extended ? ' fa fa-minus' : ' fa fa-plus'"
+    class="cw-accordion cw-accordion-icon-color"
+  ></span>
+  <span ng-bind-html="getCDSForAssociatedObjects(ng.current,ao)"></span>
+  <i class="fa fa-plus" aria-hidden="true"></i>
+</div>
+<div ng-if="ao.extended" class="cw-children cw-accordion-content" style="display: block">
+  <table class="cw-grid">
+    <thead class="compareTable-header"></thead>
+    <tbody>
+      <tr>
+        <th class="assoPropertyGroup" colspan="2">Properties</th>
+      </tr>
+      <tr ng-repeat="(pLabel,property) in ao.Properties">
+        <th>{{pLabel}}</th>
+        <td class="different"><span ng-bind-html="getAssociationPropertyValue(ao,pLabel,property)"> </span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

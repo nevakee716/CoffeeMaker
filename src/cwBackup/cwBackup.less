@@ -1,0 +1,82 @@
+@import "../../_variables";
+@import "../../_mixins";
+@import "../../_common";
+
+.cwLayoutBackup {
+  width: 100%;
+
+  .red {
+    color: red;
+  }
+  .green {
+    color: green;
+  }
+  table.cw-grid {
+    table-layout: fixed;
+    min-width: 99%;
+    thead.compareTable-header {
+      th,
+      span,
+      a {
+        background-color: #ffffff;
+        color: @cwDiagramBreadCrumbBackgroundColor;
+        font-size: 17px;
+      }
+      th {
+        min-width: 300px;
+      }
+    }
+
+    .textcentered {
+      text-align: center;
+    }
+    tbody {
+      tr {
+        th {
+          background-color: #ffffff;
+          color: @cwDiagramBreadCrumbBackgroundColor;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          border: solid 1px;
+          border-top: 0px;
+        }
+
+        th.propertyGroup {
+          background-color: @cwDiagramBreadCrumbBackgroundColor;
+          color: #ffffff;
+          border: solid 1px;
+          border-color: @cwDiagramBreadCrumbBackgroundColor;
+          border-top: 0px;
+        }
+        th.assoPropertyGroup {
+          width: 100%;
+          background-color: @cwDiagramBreadCrumbBackgroundColor;
+          color: #ffffff;
+          border: solid 1px;
+          border-color: @cwDiagramBreadCrumbBackgroundColor;
+          border-top: 0px;
+        }
+        img {
+          width: 100%;
+        }
+        img.compare {
+          width: 100%;
+          margin-left: 00%;
+        }
+        td.compare {
+          overflow: hidden;
+        }
+      }
+    }
+    td.same {
+    }
+    th.different,
+    td.different {
+      background-color: #ecadad4a !important;
+    }
+  }
+
+  .associationIcon {
+    color: @cwColor1;
+  }
+}

@@ -1,0 +1,57 @@
+<div ng-controller="cwLayoutBackup">
+  <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
+    {{ng.backupInfo.name}}
+    <a target="_blank" download="{{ng.backupInfo.name}}.xml" href="{{ng.backupInfo['Backup File']}}"><span>(Click to download the XML file)</span></a>
+  </div>
+  <ul class="cw-list list cwLayoutList cw-visible cw-accordion-header">
+    <li ng-repeat="(OT,v) in ng.objectTypes" class="cw-item cw-accordion-container">
+      <div ng-init="analyzeOT(OT)" class="ot-macroprocessus cw-state-default cw-accordion-header">
+        <span
+          ng-click="v.extended = !v.extended"
+          ng-class="v.extended ? ' fa fa-minus' : ' fa fa-plus'"
+          class="cw-accordion cw-accordion-icon-color"
+        ></span>
+        <span>{{OT}}</span>
+
+        <i ng-if="v.addingObjects" class="fa fa-plus" aria-hidden="true"></i>
+        <i ng-if="v.missingObjects" class="fa fa-times" aria-hidden="true"></i>
+        <i ng-if="ng.backup[OT]  && ng.current[OT] && checkOTDiff(ng.backup[OT],ng.current[OT])" class="fa fa-pencil" aria-hidden="true"></i>
+      </div>
+      <div ng-if="v.extended" class="cw-children cw-accordion-content" style="display: block">
+        <ul class="cw-list list cwLayoutList cw-visible cw-accordion-header">
+          <li ng-repeat="vv in v.objects " class="cw-item cw-accordion-container">
+            <div class="ot-macroprocessus cw-state-default cw-accordion-header">
+              <span
+                ng-click="vv.extended = !vv.extended"
+                ng-class="vv.extended ? ' fa fa-minus' : ' fa fa-plus'"
+                class="cw-accordion cw-accordion-icon-color"
+              ></span>
+              <span ng-if="ng.current[OT] && ng.current[OT][vv.id]">
+                <span ng-bind-html="getCDSForOTAndID(ng.current,OT,vv.id)"></span>
+                <i ng-if="!ng.backup[OT] || !ng.backup[OT][vv.id]" class="fa fa-plus" aria-hidden="true"></i>
+              </span>
+
+              <span ng-if="ng.backup[OT] && ng.backup[OT][vv.id] && (!ng.current[OT] || !ng.current[OT][vv.id])">
+                <span ng-bind-html="getCDSForOTAndID(ng.backup,OT,vv.id)"></span>
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </span>
+
+              <i
+                ng-if="ng.backup[OT] && ng.backup[OT][vv.id] && ng.current[OT] && ng.current[OT][vv.id] && checkJSONDiff(ng.backup[OT][vv.id],ng.current[OT][vv.id])"
+                class="fa fa-pencil"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <div
+              ng-if="vv.extended"
+              class="cw-children cw-accordion-content"
+              style="display: block"
+              ng-include
+              src="'../../common/html/cwLayoutBackup/compareTable.ng.html'"
+            ></div>
+          </li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

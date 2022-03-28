@@ -1,0 +1,131 @@
+<table class="cw-grid">
+  <thead class="compareTable-header">
+    <tr>
+      <th style="width: 150px"></th>
+      <th ng-bind-html="getCenteredName(ng.backup,OT,vv.id)"></th>
+      <th ng-class="checkNames(OT,vv.id) ? 'same' : 'different'" ng-bind-html="getCenteredName(ng.current,OT,vv.id)"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="propertyGroup" colspan="3">Properties</th>
+    </tr>
+
+    <tr ng-switch="ng.displayAll || getPropertyValue(ng.current,OT,vv.id,'TYPE',true) != getPropertyValue(ng.backup,OT,vv.id,'TYPE',true)">
+      <th>{{getCategoryLabel(vv.object["Object Type Script-Name"])}}</th>
+
+      <td class="same"><span ng-bind-html="getPropertyValue(ng.backup,OT,vv.id,'TYPE')"> </span></td>
+      <td
+        ng-switch-when="true"
+        ng-class="getPropertyValue(ng.current,OT,vv.id,'TYPE') != getPropertyValue(ng.backup,OT,vv.id,'TYPE') ? 'different' : 'same'"
+      >
+        <span ng-bind-html="getPropertyValue(ng.backup,OT,vv.id,'TYPE')"> </span>
+      </td>
+      <td ng-switch-default></td>
+    </tr>
+
+    <tr
+      ng-switch="ng.displayAll || getPropertyValue(ng.current,OT,vv.id,pLabel,true) != getPropertyValue(ng.backup,OT,vv.id,pLabel,true)"
+      ng-repeat="(pLabel,property) in vv.object.Properties"
+    >
+      <th>{{pLabel}}</th>
+
+      <td class="same"><span ng-bind-html="getPropertyValue(ng.backup,OT,vv.id,pLabel)"> </span></td>
+      <td
+        ng-switch-when="true"
+        ng-class="pLabel !== 'Screenshot' && getPropertyValue(ng.backup,OT,vv.id,pLabel,true) != getPropertyValue(ng.current,OT,vv.id,pLabel,true) ? 'different' : 'same'"
+      >
+        <span ng-bind-html="getPropertyValue(ng.current,OT,vv.id,pLabel)"> </span>
+      </td>
+      <td ng-switch-default></td>
+    </tr>
+
+    <tr ng-if="keyLength(v.associations) > 0">
+      <th class="propertyGroup" colspan="3">Associations</th>
+    </tr>
+    <tr
+      ng-if="keyLength(getAssociatedObjects(ng.current,OT,vv.id,assoName)) + keyLength(getAssociatedObjects(ng.backup,OT,vv.id,assoName)) !==0 && checkAssociationExistance(aaa)"
+      ng-repeat="(assoName,aaa) in v.associations"
+    >
+      <th>{{getAssoName(aaa)}}</th>
+
+      <td class="same">
+        <div ng-repeat="ao in getAssociatedObjects(ng.backup,OT,vv.id,assoName)">
+          <li
+            class="cw-item cw-accordion-container"
+            ng-if="hasKeys(ao.Properties) || hasAssociationProperty(ng.current,OT,vv.id,assoName,ao['Associated Object ID'])"
+            ng-include
+            src="'../../common/html/cwLayoutBackup/associationProperties_backup.ng.html'"
+          ></li>
+          <span
+            ng-if="!hasKeys(ao.Properties) && !hasAssociationProperty(ng.current,OT,vv.id,assoName,ao['Associated Object ID'])"
+            ng-bind-html="getCDSForAssociatedObjects(ng.backup,ao)"
+          ></span>
+        </div>
+      </td>
+
+      <td
+        ng-class="!ng.backup[OT] || !ng.current[OT] || !ng.current[OT][vv.id] || !ng.backup[OT][vv.id] || !ng.current[OT][vv.id].Associations[assoName] || !ng.backup[OT][vv.id].Associations[assoName] || keys(ng.backup[OT][vv.id].Associations[assoName]).join('#') !== keys(ng.current[OT][vv.id].Associations[assoName]).join('#') ? 'different' : 'same'"
+      >
+        <div
+          ng-if="ng.backup[OT] && ng.backup[OT][vv.id] && ng.backup[OT][vv.id].Associations[assoName] && ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']] && 
+          ng.current[OT] && ng.current[OT][vv.id] && ng.current[OT][vv.id].Associations[assoName] && ng.current[OT][vv.id].Associations[assoName][ao['Associated Object ID']]"
+          ng-repeat="ao in getAssociatedObjects(ng.current,OT,vv.id,assoName)"
+        >
+          <li
+            class="cw-item cw-accordion-container"
+            ng-if="hasKeys(ao.Properties) || hasKeys(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties)"
+            ng-include
+            src="'../../common/html/cwLayoutBackup/associationProperties.ng.html'"
+          ></li>
+          <span
+            ng-if="!hasKeys(ao.Properties) && !hasKeys(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties)"
+            ng-bind-html="getCDSForAssociatedObjects(ng.current,ao)"
+          ></span>
+        </div>
+        <div
+          ng-if="!ng.backup[OT] || !ng.backup[OT][vv.id] || !ng.backup[OT][vv.id].Associations[assoName] || !ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']]"
+          ng-repeat="ao in getAssociatedObjects(ng.current,OT,vv.id,assoName)"
+        >
+          <li
+            class="cw-item cw-accordion-container"
+            ng-if="hasKeys(ao.Properties)"
+            ng-include
+            src="'../../common/html/cwLayoutBackup/associationProperties_plus.ng.html'"
+          ></li>
+
+          <i ng-if="!hasKeys(!ao.Properties)" class="fa fa-plus associationIcon" aria-hidden="true"></i>
+          <span ng-if="!hasKeys(!ao.Properties)" ng-bind-html="getCDSForAssociatedObjects(ng.current,ao)"></span>
+        </div>
+
+        <div
+          ng-if="!ng.current[OT] || !ng.current[OT][vv.id] || !ng.current[OT][vv.id].Associations[assoName] || !ng.current[OT][vv.id].Associations[assoName][ao['Associated Object ID']] "
+          ng-repeat="ao in getAssociatedObjects(ng.backup,OT,vv.id,assoName)"
+        >
+          <i class="fa fa-minus associationIcon" aria-hidden="true"></i> <span ng-bind-html="getCDSForAssociatedObjects(ng.backup,ao)"></span>
+        </div>
+      </td>
+    </tr>
+
+    <tr ng-if="keyLength(vv.diagrams) > 0">
+      <th class="propertyGroup" colspan="3">Diagrams</th>
+    </tr>
+
+    <tr ng-repeat="(did,ddd) in vv.diagrams">
+      <th>{{ddd.Name}}</th>
+
+      <td class="same">
+        <p>{{getDiagramName(ng.backup,OT,vv.id,did)}}</p>
+        <img ng-src="{{getDiagramImg(ng.backup,OT,vv.id,did)}}" />
+      </td>
+      <td
+        ng-init="compareDiagram(OT,vv.id,did)"
+        class="compare"
+        ng-class="true || ng.current[OT][vv.id].Diagrams[did].matched ? 'same' : 'different'"
+      >
+        <p>{{getDiagramName(ng.current,OT,vv.id,did)}}</p>
+        <img ng-src="{{getDiagramImg(ng.current,OT,vv.id,did)}}" />
+      </td>
+    </tr>
+  </tbody>
+</table>

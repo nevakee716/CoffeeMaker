@@ -1,0 +1,20 @@
+{
+  "Name": "cw-layout-backup",
+  "DisplayName": "Backup",
+  "Description": "Allow Compare a backup with the current state of the model, and restore it",
+  "JavaScriptClassName": "cwBackup",
+  "Options": [
+    {
+      "Id": "login",
+      "DisplayName": "Login",
+      "Description": "Login",
+      "Type": 0
+    },
+    {
+      "Id": "password",
+      "DisplayName": "Password",
+      "Description": "Password",
+      "Type": 0
+    }
+  ]
+}
