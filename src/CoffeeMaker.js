@@ -94,6 +94,7 @@
       if (this.config.diagram === undefined) this.config.diagram = {};
       if (this.config.property === undefined) this.config.property = {};
       if (this.config.cwWorkflow === undefined) this.config.cwWorkflow = {};
+      if (this.config.cwBackup === undefined) this.config.cwBackup = {};
       cwApi.customLibs.utils.customLayoutConfiguration = this.config;
     }
   };
