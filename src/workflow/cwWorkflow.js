@@ -241,7 +241,7 @@
               return $scope.ng.stepmapping[$scope.ng.currentStep.label] == r;
             });
           }
-        }
+        } else $scope.ng.canEdit = $scope.ng.stepmapping.creator === cwApi.currentUser.ID ? true : false;
 
         $scope.ng.canRead =
           $scope.ng.canEdit ||
