@@ -14,13 +14,14 @@
   }
 
   cwCoffeeMaker.prototype.controller_cwBackup = function ($container, templatePath, $scope) {
-    $scope.currentOT = $scope.OTs[0];
+    $scope.otSelected = $scope.OTs[0].scriptName;
+
     if (!$scope.ng.config.ots) $scope.ng.config.ots = {};
 
     $scope.updateConfig = function (c, view) {
       if ($scope.ng.config.ots.hasOwnProperty(view) === true || !$scope.ng.config.ots.hasOwnProperty(view)) {
         $scope.ng.config[view] = {
-          associationScriptNameToExclude: ["anyobjectexplodedasdiagram", "anyobjectshownasshapeindiagram"],
+          associationScriptNameToExclude: [],
           propertyScriptNameToExclude: [
             "cwtotalcomment",
             "cwaveragerating",
@@ -39,6 +40,18 @@
       $scope.toggle(c, view);
     };
 
+    $scope.getAssociationTargetObjectType = function (otSelected) {
+      var assoTypes = $scope.metamodel.objectTypes[otSelected].AssociationTypes;
+      if (!assoTypes) return [];
+      const r = {};
+      assoTypes.forEach((ass) => {
+        let s = ass.TargetObjectTypeScriptName.toLowerCase();
+        r[s] = { name: cwAPI.mm.getObjectType(s).name, scriptname: s };
+      });
+      $scope.associationTargetOT = Object.keys(r).map((k) => r[k]);
+    };
+
+    $scope.getAssociationTargetObjectType($scope.otSelected);
     return;
   };
 

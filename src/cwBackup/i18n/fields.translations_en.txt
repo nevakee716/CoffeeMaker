@@ -1,0 +1,5 @@
+cwbackup_objecttypetodisplay = ObjectType to display in cwbackup 
+cwbackup_configureobjectype = ObjectType to Configure
+cwbackup_propertytoexclude = Property to Exclude
+cwbackup_associationtoexclude = Association Target ObjectType to Exclude
+cwBackup = cwBackup

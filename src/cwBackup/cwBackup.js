@@ -16,7 +16,7 @@
   };
 
   cwLayout.prototype.drawAssociations = function (output, associationTitleText, object) {
-    output.push('<div class="cw-visible cwLayoutBackup" id="cwLayoutBackup' + this.nodeID + '"></div>');
+    output.push('<div class="cw-visible cwLayoutBackup CoffeeMaker" id="cwLayoutBackup' + this.nodeID + '"></div>');
     this.object = object;
   };
 
@@ -183,6 +183,7 @@
       loader.loadControllerWithTemplate("cwLayoutBackup", $container, templatePath, function ($scope, $sce) {
         cwAPI.siteLoadingPageFinish();
         self.angularScope = $scope;
+        $scope.cwApi = cwApi;
         $scope.ng = {};
         $scope.hasKeys = function (o) {
           return Object.keys(o).length > 0;
@@ -191,6 +192,13 @@
         $scope.ng.backupInfo.name = self.object.name;
         let b = backupCWProp[1].Objects;
         let c = JSON.parse(self.cleanJSON(self.object.properties.currentjson))[1].Objects;
+
+        try {
+          $scope.ng.config = JSON.parse(self.cleanJSON(self.object.properties.configuration));
+        } catch (e) {
+          $scope.ng.config = cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
+        }
+
         $scope.ng.objectTypes = {};
         $scope.ng.backup = self.sortByKey(b, "Object Type", $scope.ng);
         $scope.ng.current = self.sortByKey(c, "Object Type", $scope.ng);
@@ -244,7 +252,7 @@
             let item = { objectTypeScriptname: objectType.scriptName, properties: {} };
             if (propertyName == "TYPE") {
               property = objectType.properties.type;
-              value = ng[ot][id][property.name];
+              value = ng[ot][id][property.name.toUpperCase()];
             } else {
               value = ng[ot][id].Properties[property.name];
             }
@@ -417,6 +425,9 @@
 
             if (!$scope.ng.objectTypes[ot].associations[asso["Association Type"]]) {
               $scope.ng.objectTypes[ot].associations[asso["Association Type"]] = asso;
+              asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
+                return cwApi.mm.getMetaModel().objectTypes[o].Id.toString() === asso["Associated Object Type ID"];
+              });
             }
           });
           return r;
@@ -498,7 +509,20 @@
             $scope.ng.objectTypes[objectType].addingObjectType = true;
             $scope.ng.objectTypes[objectType].addingObjects = true;
           } else {
-            Object.keys($scope.ng.backup[objectType]).forEach(function (id) {
+            Object.keys($scope.ng.backup[objectType]).forEach(function (id, iter) {
+              $scope.ng.objectTypes[objectType].scriptname = $scope.ng.backup[objectType][id]["Object Type Script-Name"].toLowerCase();
+              //check properties
+              if (!$scope.ng.objectTypes[objectType].properties) $scope.ng.objectTypes[objectType].properties = {};
+              Object.keys($scope.ng.backup[objectType][id]["Properties"]).forEach((pLabel) => {
+                const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
+                $scope.ng.objectTypes[objectType].properties[pLabel] =
+                  ot.properties[
+                    Object.keys(ot.properties).find((p) => {
+                      return ot.properties[p].name === pLabel;
+                    })
+                  ];
+              });
+
               if (objects[id] === undefined) {
                 objects[id] = {};
                 objects[id].object = $.extend(true, {}, $scope.ng.backup[objectType][id]);
@@ -525,8 +549,23 @@
             $scope.ng.objectTypes[objectType].missingObjectType = true;
             $scope.ng.objectTypes[objectType].missingObjects = true;
           } else {
-            Object.keys($scope.ng.current[objectType]).forEach(function (id) {
+            Object.keys($scope.ng.current[objectType]).forEach(function (id, iter) {
+              if (!$scope.ng.objectTypes[objectType].properties) $scope.ng.objectTypes[objectType].properties = {};
+
+              //check properties
+              Object.keys($scope.ng.backup[objectType][id]["Properties"]).forEach((pLabel) => {
+                const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
+                $scope.ng.objectTypes[objectType].properties[pLabel] =
+                  ot.properties[
+                    Object.keys(ot.properties).find((p) => {
+                      return ot.properties[p].name === pLabel;
+                    })
+                  ];
+              });
+
               if (objects[id] === undefined) objects[id] = { object: $scope.ng.current[objectType][id] };
+              $scope.ng.objectTypes[objectType].scriptname = $scope.ng.current[objectType][id]["Object Type Script-Name"].toLowerCase();
+
               $.extend(true, objects[id].object.Properties, $scope.ng.current[objectType][id].Properties);
 
               if (
@@ -563,8 +602,140 @@
 
   cwLayout.prototype.applyJavaScript = function () {
     let self = this;
+    if (this.object.properties.archive) this.getRefreshDataFromWebService();
+    else this.loadConfigurator();
+  };
 
-    this.getRefreshDataFromWebService();
+  cwLayout.prototype.loadConfigurator = function () {
+    var self = this;
+
+    cwApi.CwAsyncLoader.load("angular", function () {
+      let loader = cwApi.CwAngularLoader,
+        templatePath,
+        $container = $("#cwLayoutBackup" + self.nodeID);
+      loader.setup();
+      templatePath = self.getTemplatePath("coffee", "cwBackup");
+
+      loader.loadControllerWithTemplate("cwBackup", $container, templatePath, function ($scope, $sce) {
+        self.angularScope = $scope;
+        $scope.metamodel = cwAPI.mm.getMetaModel();
+        $scope.OTs = [];
+        $scope.objectTypes = cwAPI.mm.getMetaModel().objectTypes;
+        for (let o in $scope.objectTypes) {
+          if ($scope.objectTypes.hasOwnProperty(o) && !$scope.objectTypes[o].properties.hasOwnProperty("allowautomaticdeletion")) {
+            $scope.OTs.push($scope.objectTypes[o]);
+          }
+        }
+        $scope.saveButton = true;
+        $scope.toggleArray = function (c, e) {
+          var i = c.indexOf(e);
+          if (i === -1) c.push(e);
+          else c.splice(i, 1);
+        };
+
+        $scope.toggle = function (c, e) {
+          if (c.hasOwnProperty(e)) delete c[e];
+          else c[e] = true;
+        };
+        $scope.ng = {};
+        try {
+          $scope.ng.config = JSON.parse(self.cleanJSON(self.object.properties.configuration));
+        } catch (e) {
+          $scope.ng.config = cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
+        }
+        $scope.hasKeys = function (o) {
+          return Object.keys(o).length > 0;
+        };
+        $scope.objectToArray = function (objs) {
+          if (!objs) return [];
+          return Object.keys(objs).map(function (k) {
+            return objs[k];
+          });
+        };
+
+        $scope.otSelected = $scope.OTs[0].scriptName;
+
+        if (!$scope.ng.config.ots) $scope.ng.config.ots = {};
+
+        $scope.updateConfig = function (c, view) {
+          if ($scope.ng.config.ots.hasOwnProperty(view) === true || !$scope.ng.config.ots.hasOwnProperty(view)) {
+            $scope.ng.config[view] = {
+              associationScriptNameToExclude: [],
+              propertyScriptNameToExclude: [
+                "cwtotalcomment",
+                "cwaveragerating",
+                "whoowns",
+                "whoupdated",
+                "whocreated",
+                "whencreated",
+                "whenupdated",
+                "exportflag",
+                "id",
+                "uniqueidentifier",
+                "template",
+              ],
+            };
+          }
+          $scope.toggle(c, view);
+        };
+
+        $scope.getAssociationTargetObjectType = function (otSelected) {
+          var assoTypes = $scope.metamodel.objectTypes[otSelected].AssociationTypes;
+          if (!assoTypes) return [];
+          const r = {};
+          assoTypes.forEach((ass) => {
+            let s = ass.TargetObjectTypeScriptName.toLowerCase();
+            r[s] = { name: cwAPI.mm.getObjectType(s).name, scriptname: s };
+          });
+          $scope.associationTargetOT = Object.keys(r).map((k) => r[k]);
+        };
+
+        $scope.getAssociationTargetObjectType($scope.otSelected);
+
+        $scope.save = function () {
+          self.saveConfiguration($scope);
+        };
+      });
+    });
+  };
+
+  cwLayout.prototype.saveConfiguration = function ($scope) {
+    var changeset, sourceItem, targetItem;
+    sourceItem = {
+      associations: {},
+      displayNames: {
+        configuration: "Configuration",
+      },
+      properties: {
+        configuration: this.object.properties.configuration,
+      },
+    };
+    targetItem = {
+      associations: {},
+      displayNames: {
+        configuration: "Configuration",
+      },
+      properties: {
+        configuration: angular.toJson($scope.ng.config),
+      },
+    };
+    cwApi.pendingChanges.clear();
+    changeset = new cwApi.CwPendingChangeset(this.object.objectTypeScriptName, this.object.object_id, this.object.name, true, 1);
+    changeset.compareAndAddChanges(sourceItem, targetItem);
+    cwApi.pendingChanges.addChangeset(changeset);
+    cwApi.pendingChanges.sendAsChangeRequest(
+      undefined,
+      function (response) {
+        if (cwApi.statusIsKo(response)) {
+          cwApi.notificationManager.addNotification($.i18n.prop("editmode_someOfTheChangesWereNotUpdated"), "error");
+        } else {
+          cwApi.notificationManager.addNotification($.i18n.prop("editmode_yourChangeHaveBeenSaved"));
+        }
+      },
+      function (error) {
+        cwApi.notificationManager.addNotification(error.status + " - " + error.responseText, "error");
+      }
+    );
   };
 
   cwApi.cwLayouts.cwBackup = cwLayout;

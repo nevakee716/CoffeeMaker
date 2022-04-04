@@ -11,7 +11,10 @@
       <th class="propertyGroup" colspan="3">Properties</th>
     </tr>
 
-    <tr ng-switch="ng.displayAll || getPropertyValue(ng.current,OT,vv.id,'TYPE',true) != getPropertyValue(ng.backup,OT,vv.id,'TYPE',true)">
+    <tr
+      ng-if="!(ng.config[ng.objectTypes[OT].scriptname] && ng.config[ng.objectTypes[OT].scriptname].propertyScriptNameToExclude.includes('type'))"
+      ng-switch="ng.displayAll || getPropertyValue(ng.current,OT,vv.id,'TYPE',true) != getPropertyValue(ng.backup,OT,vv.id,'TYPE',true)"
+    >
       <th>{{getCategoryLabel(vv.object["Object Type Script-Name"])}}</th>
 
       <td class="same"><span ng-bind-html="getPropertyValue(ng.backup,OT,vv.id,'TYPE')"> </span></td>
@@ -27,6 +30,7 @@
     <tr
       ng-switch="ng.displayAll || getPropertyValue(ng.current,OT,vv.id,pLabel,true) != getPropertyValue(ng.backup,OT,vv.id,pLabel,true)"
       ng-repeat="(pLabel,property) in vv.object.Properties"
+      ng-if="!ng.config[ng.objectTypes[OT].scriptname] || !ng.config[ng.objectTypes[OT].scriptname].propertyScriptNameToExclude.includes(ng.objectTypes[OT].properties[pLabel].scriptName)"
     >
       <th>{{pLabel}}</th>
 
@@ -44,7 +48,7 @@
       <th class="propertyGroup" colspan="3">Associations</th>
     </tr>
     <tr
-      ng-if="keyLength(getAssociatedObjects(ng.current,OT,vv.id,assoName)) + keyLength(getAssociatedObjects(ng.backup,OT,vv.id,assoName)) !==0 && checkAssociationExistance(aaa)"
+      ng-if="!ng.config[ng.objectTypes[OT].scriptname].associationScriptNameToExclude.includes(aaa.targetScriptname) && keyLength(getAssociatedObjects(ng.current,OT,vv.id,assoName)) + keyLength(getAssociatedObjects(ng.backup,OT,vv.id,assoName)) !==0 && checkAssociationExistance(aaa)"
       ng-repeat="(assoName,aaa) in v.associations"
     >
       <th>{{getAssoName(aaa)}}</th>

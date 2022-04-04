@@ -263,6 +263,7 @@
               }, 1000);
             };
             $scope.objectToArray = function (objs) {
+              if (!objs) return [];
               return Object.keys(objs).map(function (k) {
                 return objs[k];
               });
