@@ -6,7 +6,7 @@
   <ul class="cw-list list cwLayoutList cw-visible cw-accordion-header">
     <li ng-repeat="(OT,v) in ng.objectTypes " class="cw-item cw-accordion-container">
       <div ng-init="analyzeOT(OT)">
-        <div ng-if="ng.config.ots.hasKeys() || ng.config.ots[ng.objectTypes[OT].scriptname]">
+        <div ng-if="!ng.config.ots || ng.config.ots.hasKeys() || ng.config.ots[ng.objectTypes[OT].scriptname]">
           <div class="ot-macroprocessus cw-state-default cw-accordion-header">
             <span
               ng-click="v.extended = !v.extended"
