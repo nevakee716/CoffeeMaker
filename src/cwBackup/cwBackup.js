@@ -343,7 +343,19 @@
         };
 
         $scope.getAssociatedObjects = function (ng, ot, id, assoName) {
-          return ng[ot] && ng[ot][id] && ng[ot][id].Associations[assoName] ? ng[ot][id].Associations[assoName] : {};
+          let ot = cwAPI.mm.getObjectTypeById(ao["Associated Object Type ID"]);
+          let id = ao["Associated Object ID"];
+
+          if (ng[ot] && ng[ot][id] && ng[ot][id].Associations[assoName]) {
+            return Object.values(ng[ot][id].Associations[assoName])
+              .map((r) => {
+                let ot = cwAPI.mm.getObjectTypeById(r["Associated Object Type ID"]);
+                let id = r["Associated Object ID"];
+                r.name = ng[ot.name][id]["Object Name"];
+                return r;
+              })
+              .sort((a, b) => a.name.localeCompare(b.name));
+          } else return {};
         };
 
         $scope.keys = function (obj) {
@@ -539,7 +551,6 @@
 
               // Format Associations
               $scope.ng.backup[objectType][id].Associations = $scope.reFormatAssociations($scope.ng.backup[objectType][id].Associations, objectType);
-
               // Format Diagrams
               $scope.ng.backup[objectType][id].Diagrams = $scope.reFormatDiagrams($scope.ng.backup[objectType][id].Diagrams, objects[id]);
             });
