@@ -423,11 +423,12 @@
             if (!r[asso["Association Type"]]) r[asso["Association Type"]] = {};
             r[asso["Association Type"]][asso["Associated Object ID"]] = asso;
 
+            asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
+              return cwApi.mm.getMetaModel().objectTypes[o].Id.toString() === asso["Associated Object Type ID"];
+            });
+
             if (!$scope.ng.objectTypes[ot].associations[asso["Association Type"]]) {
               $scope.ng.objectTypes[ot].associations[asso["Association Type"]] = asso;
-              asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
-                return cwApi.mm.getMetaModel().objectTypes[o].Id.toString() === asso["Associated Object Type ID"];
-              });
             }
           });
           return r;
