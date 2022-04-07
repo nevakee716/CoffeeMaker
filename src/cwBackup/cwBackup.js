@@ -514,7 +514,7 @@
               $scope.ng.objectTypes[objectType].scriptname = $scope.ng.backup[objectType][id]["Object Type Script-Name"].toLowerCase();
               //check properties
               if (!$scope.ng.objectTypes[objectType].properties) $scope.ng.objectTypes[objectType].properties = {};
-              Object.keys($scope.ng.backup[objectType][id]["Properties"]).forEach((pLabel) => {
+              Object.keys($scope.ng.backup[objectType]?.[id]?.["Properties"] ?? []).forEach((pLabel) => {
                 const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
                 $scope.ng.objectTypes[objectType].properties[pLabel] =
                   ot.properties[
@@ -554,7 +554,7 @@
               if (!$scope.ng.objectTypes[objectType].properties) $scope.ng.objectTypes[objectType].properties = {};
 
               //check properties
-              Object.keys($scope.ng.backup[objectType][id]["Properties"]).forEach((pLabel) => {
+              Object.keys($scope.ng.backup[objectType]?.[id]?.["Properties"] ?? []).forEach((pLabel) => {
                 const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
                 $scope.ng.objectTypes[objectType].properties[pLabel] =
                   ot.properties[
