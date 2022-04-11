@@ -343,9 +343,6 @@
         };
 
         $scope.getAssociatedObjects = function (ng, ot, id, assoName) {
-          let ot = cwAPI.mm.getObjectTypeById(ao["Associated Object Type ID"]);
-          let id = ao["Associated Object ID"];
-
           if (ng[ot] && ng[ot][id] && ng[ot][id].Associations[assoName]) {
             return Object.values(ng[ot][id].Associations[assoName])
               .map((r) => {
