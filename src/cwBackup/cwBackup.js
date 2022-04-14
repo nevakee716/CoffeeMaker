@@ -86,7 +86,7 @@
     //send the SOAP request
     xmlhttp.send(strRequest);
 
-    // self.load();
+    //self.load();
   };
 
   function translateText(text) {
@@ -344,7 +344,8 @@
 
         $scope.getAssociatedObjects = function (ng, ot, id, assoName) {
           if (ng[ot] && ng[ot][id] && ng[ot][id].Associations[assoName]) {
-            return Object.values(ng[ot][id].Associations[assoName])
+            let n = ng[ot][id].Associations[assoName];
+            return Object.values(n)
               .map((r) => {
                 let ot = cwAPI.mm.getObjectTypeById(r["Associated Object Type ID"]);
                 let id = r["Associated Object ID"];
@@ -381,7 +382,10 @@
         };
 
         $scope.checkJSONDiff = function (json1, json2) {
-          return !deepEqual(JSON.parse(JSON.stringify(json1).replaceAll("/BAK_Diagram_", "/CUR_Diagram_")), json2);
+          return !deepEqual(
+            angular.fromJson(angular.toJson(json1).replaceAll("/BAK_Diagram_", "/CUR_Diagram_")),
+            angular.fromJson(angular.toJson(json2))
+          );
         };
         $scope.getCategoryLabel = function (ot) {
           let r = cwApi.mm.getProperty(ot, "type");
@@ -426,7 +430,7 @@
           return $scope.hasKeys(ng?.[OT]?.[vvid]?.Associations?.[assoName]?.[aoid]?.Properties);
         };
 
-        $scope.reFormatAssociations = function (associations, ot, id) {
+        $scope.reFormatAssociations = function (associations, ot, ng) {
           let r = {};
           associations.forEach(function (asso) {
             if (!r[asso["Association Type"]]) r[asso["Association Type"]] = {};
@@ -435,7 +439,10 @@
             asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
               return cwApi.mm.getMetaModel().objectTypes[o].Id.toString() === asso["Associated Object Type ID"];
             });
-
+            let otTarget = cwAPI.mm.getObjectTypeById(asso["Associated Object Type ID"]);
+            let id = asso["Associated Object ID"];
+            r.name = ng[otTarget.name][id]["Object Name"];
+            asso.name = ng[otTarget.name][id]["Object Name"];
             if (!$scope.ng.objectTypes[ot].associations[asso["Association Type"]]) {
               $scope.ng.objectTypes[ot].associations[asso["Association Type"]] = asso;
             }
@@ -547,7 +554,11 @@
               }
 
               // Format Associations
-              $scope.ng.backup[objectType][id].Associations = $scope.reFormatAssociations($scope.ng.backup[objectType][id].Associations, objectType);
+              $scope.ng.backup[objectType][id].Associations = $scope.reFormatAssociations(
+                $scope.ng.backup[objectType][id].Associations,
+                objectType,
+                $scope.ng.backup
+              );
               // Format Diagrams
               $scope.ng.backup[objectType][id].Diagrams = $scope.reFormatDiagrams($scope.ng.backup[objectType][id].Diagrams, objects[id]);
             });
@@ -588,7 +599,8 @@
               // Format Associations
               $scope.ng.current[objectType][id].Associations = $scope.reFormatAssociations(
                 $scope.ng.current[objectType][id].Associations,
-                objectType
+                objectType,
+                $scope.ng.current
               );
 
               // Format Diagrams
