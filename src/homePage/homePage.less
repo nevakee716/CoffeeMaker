@@ -24,6 +24,7 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main {
   display: flex;
   width: 100%;
+  align-items: flex-start;
 
   ::-webkit-scrollbar {
     width: 0.3rem;
@@ -48,8 +49,6 @@ body:not(.cw_print) .page-content-wrap .page-top {
   .homePage_column {
     display: flex;
     flex-wrap: wrap;
-    height: 0px;
-
     .homePage_display {
       margin: 0.75rem;
       border: solid 1px @cwColor1;
@@ -187,6 +186,12 @@ body:not(.cw_print) .page-content-wrap .page-top {
         height: inherit;
         display: flex;
         flex-wrap: wrap;
+        & > {
+          .wrap-kendo-mobile,
+          .cwPropertiesTableContainer {
+            margin: 0rem;
+          }
+        }
         & > .cw-list {
           padding-left: 0.5rem;
           padding-right: 0.5rem;

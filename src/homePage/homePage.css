@@ -45,6 +45,7 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main {
   display: flex;
   width: 100%;
+  align-items: flex-start;
   /* Track */
   /* Handle */
   /* Handle on hover */
@@ -65,7 +66,6 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main .homePage_column {
   display: flex;
   flex-wrap: wrap;
-  height: 0px;
 }
 .homePage_main .homePage_column .homePage_display {
   margin: 0.75rem;
@@ -197,6 +197,10 @@ body:not(.cw_print) .page-content-wrap .page-top {
   height: inherit;
   display: flex;
   flex-wrap: wrap;
+}
+.homePage_main .homePage_column .homePage_display .homePage_evolveView .wrap-kendo-mobile,
+.homePage_main .homePage_column .homePage_display .homePage_evolveView .cwPropertiesTableContainer {
+  margin: 0rem;
 }
 .homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list {
   padding-left: 0.5rem;
