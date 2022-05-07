@@ -361,6 +361,7 @@
                 display.objects = o.object.associations;
                 display.object = o.object;
                 if (
+                  // single page without prop
                   v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage" &&
                   Object.keys(v.NodesByID[v.RootNodesId].PropertiesGroups).length == 0 &&
                   c &&
@@ -374,6 +375,18 @@
                     }),
                     true
                   );
+                } else if (v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage" && c && c.length > 0) {
+                  // singlePage with prop on the top
+                  let output = [];
+                  let rootID = cwApi.replaceSpecialCharacters(o.object.objectTypeScriptName);
+                  let object = { associations: {} };
+                  object.associations[rootID] = [o.object];
+                  let nodeSchema = cwApi.ViewSchemaManager.getNode(v, rootID);
+                  cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
+                  cwApi.cwDisplayManager.outputSortedChildren(output, v, nodeSchema.SortedChildren, o.object);
+                  display.html = $sce.trustAsHtml(output.join(""));
+                  $scope.$apply();
+                  cwApi.cwDisplayManager.enableBehaviours(v, object, false);
                 } else {
                   let output = [];
                   let object = o.object;
@@ -457,6 +470,7 @@
               display.xData = event.data;
               cwAPI.CwPopout.hide();
               display.html = null;
+              $scope.$apply();
               $scope.loadView(display);
             });
             document.querySelector(".homePage_main").addEventListener("singleContext from " + display.getContextFrom, function (event) {
