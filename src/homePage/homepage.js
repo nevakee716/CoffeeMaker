@@ -375,11 +375,26 @@
                     }),
                     true
                   );
-                } else if (v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage" && c && c.length > 0) {
-                  // singlePage with prop on the top
+                } else if (v.PageType === 1 && v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage" && c && c.length > 0) {
+                  // singlePage with prop on the top xor diagram
                   let output = [];
-                  let rootID = cwApi.replaceSpecialCharacters(o.object.objectTypeScriptName);
-                  let object = { associations: {} };
+                  let rootID =
+                    v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage"
+                      ? cwApi.replaceSpecialCharacters(o.object.objectTypeScriptName)
+                      : v.RootNodesId[0];
+                  let object = JSON.parse(JSON.stringify(o.object));
+                  object.associations[rootID] = [o.object];
+                  let nodeSchema = cwApi.ViewSchemaManager.getNode(v, rootID);
+                  cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
+                  cwApi.cwDisplayManager.outputSortedChildren(output, v, nodeSchema.SortedChildren, o.object);
+                  display.html = $sce.trustAsHtml(output.join(""));
+                  $scope.$apply();
+                  cwApi.cwDisplayManager.enableBehaviours(v, object, false);
+                } else if (v.PageType === 1 && v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutDiagram") {
+                  // singlePage with diagram auto
+                  let output = [];
+                  let rootID = v.RootNodesId[0];
+                  let object = JSON.parse(JSON.stringify(o.object));
                   object.associations[rootID] = [o.object];
                   let nodeSchema = cwApi.ViewSchemaManager.getNode(v, rootID);
                   cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
