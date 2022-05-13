@@ -156,7 +156,7 @@
     self.associationsColumnList = [];
     this.columns.forEach(function (c) {
       if (c.isAssociationColumn) {
-        let items = ["caramel"];
+        let items = ["caramel" + c.field];
         self.associationsColumnList.push(c.field);
         self.items.forEach(function (item) {
           item.associations[c.field].forEach(function (a) {
@@ -164,7 +164,7 @@
           });
         });
         self.gridItems.forEach(function (gi) {
-          if (gi[c.field] == "") gi[c.field] = "caramel";
+          if (gi[c.field] == "") gi[c.field] = "caramel" + c.field;
         });
         c.filterable.dataSource = items.map(function (i) {
           let r = {};
@@ -466,9 +466,10 @@
     var dataSource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
     if (dataSource && dataSource.filter() && dataSource.filter().filters) {
       dataSource.filter().filters.forEach(function (f) {
-        if (self.associationsColumnList.indexOf(f.field) !== -1 && f.field !== field) {
+        let filter = f.value ? f : f.filters[0];
+        if (self.associationsColumnList.indexOf(filter.field) !== -1 && filter.field !== field) {
           setTimeout(function () {
-            $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
+            $("." + self.nodeSchema.NodeID + " th[data-field='" + filter.field + "'] a.k-grid-filter").addClass("k-state-active");
           }, 500);
         }
       });
@@ -479,7 +480,8 @@
     let self = this;
     if (e.sender.dataSource.filter()) {
       e.sender.dataSource.filter().filters.forEach(function (f) {
-        let value = f.value.replace ? f.value.replace("'", "\\'").replace('"', '\\"') : f.value;
+        let filter = f.value ? f : f.filters[0];
+        let value = filter.value.replace ? filter.value.replace("'", "\\'").replace('"', '\\"') : filter.value;
         if (self.associationsColumnList.indexOf(e.field) !== -1) {
           var checkbox = e.container.find("input[value='" + value + "']");
           if (checkbox[0] && !checkbox[0].checked) {
@@ -773,13 +775,7 @@
       var commonCheckboxTemplate = function (e) {
         //value='#=(data.${e.field}? data.${e.field}:all)#'><span>#=
 
-        return '<div><label><input type="checkbox" name="#= data.'
-          .concat(e.field, '#" value="#= data.all || (data.')
-          .concat(e.field, "?data.")
-          .concat(e.field, ": '')#\"><span>#= data.all || (data.")
-          .concat(e.field, " != 'caramel' ?data.")
-          .concat(e.field, ": 'No Value') # </span></label></div>");
-        //`<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'caramel' ?data.${e.field}: 'No Value') # </span></label></div>`;
+        return `<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'caramel${e.field}' ?data.${e.field}: 'No Value') # </span></label></div>`;
       };
       columnManager.filterable = {
         multi: true,
@@ -837,6 +833,14 @@
       return container.find("td[role='gridcell']:first ");
     } else {
       return container.find("td[role='gridcell']:last ");
+    }
+  };
+
+  cwApi.CwKendoGridToolBar.prototype.varifyAndAppendExportButton = function (itemList) {
+    //no export button on pop up inex page grid
+    var isInDisplay = document.querySelector(".homePage_evolveView") ? true : false;
+    if (((this.pageViewType === "index" && !this.isAssociation) || this.pageViewType === cwApi.CwPageType.Single || isInDisplay) && !cwApi.isIE9()) {
+      itemList.push(this.getExportButton());
     }
   };
 
