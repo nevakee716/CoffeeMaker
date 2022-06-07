@@ -1,0 +1,16 @@
+<div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('hide_print_button')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="ng.config.hidePrintButton" type="checkbox" />
+    </div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('beta_print_button')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="ng.config.betaPrintButton" type="checkbox" />
+    </div>
+  </div>
+
+  <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
+</div>

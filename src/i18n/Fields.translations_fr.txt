@@ -214,3 +214,6 @@ giveSingleContext=Transmettre le contexte single
 getContextFrom=Récuperer le contexte de
 hidden=Invisible
 checkInWebmodeler=Montrer le diagramme dans webModeler
+hide_print_button=Cacher le bouton d'impression
+beta_print_button=Impression Amélioré (beta)
+misc=Divers

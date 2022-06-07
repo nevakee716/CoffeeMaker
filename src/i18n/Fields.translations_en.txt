@@ -214,3 +214,6 @@ giveSingleContext=Give Single Context
 getContextFrom=Get Context From
 hidden=Hidden
 checkInWebmodeler=Check In Webmodeler
+hide_print_button=Hide Print Button
+beta_print_button=Improved Print (beta)
+misc=Miscellanious
