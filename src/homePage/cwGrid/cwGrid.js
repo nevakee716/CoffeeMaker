@@ -13,8 +13,12 @@
     try {
       this.config = JSON.parse(this.options.CustomOptions["configuration"]);
     } catch (e) {
-      this.config = {};
-      console.log(e);
+      try {
+        this.config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("homePage");
+      } catch (e) {
+        this.config = {};
+        console.log(e);
+      }
     }
   };
 
