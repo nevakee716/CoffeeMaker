@@ -225,8 +225,11 @@
 
     itemDisplayName = itemDisplayName.replace("@currentIsoDate", new Date().toISOString());
     itemDisplayName = itemDisplayName.replace("@currentDate", new Date().toLocaleDateString());
-    itemDisplayName = itemDisplayName.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
-    itemDisplayName = itemDisplayName.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
+    if (cwAPI.isLive()) {
+      itemDisplayName = itemDisplayName.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
+      itemDisplayName = itemDisplayName.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
+    }
+
     itemDisplayName = itemDisplayName.replace("@currentTimeStamp", cdsEnhanced.getTimeStamp());
 
     if (itemDisplayName.indexOf("ngDirective") !== -1) itemDisplayName = item.name;
@@ -239,8 +242,11 @@
 
     itemDisplayName = itemDisplayName.replace("@currentIsoDate", new Date().toISOString());
     itemDisplayName = itemDisplayName.replace("@currentDate", new Date().toLocaleDateString());
-    itemDisplayName = itemDisplayName.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
-    itemDisplayName = itemDisplayName.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
+    if (cwAPI.isLive()) {
+      itemDisplayName = itemDisplayName.replace("@currentCwUserName", cwAPI.cwUser.GetCurrentUserFullName());
+      itemDisplayName = itemDisplayName.replace("@currentCwUserId", cwAPI.cwUser.getCurrentUserItem().object_id);
+    }
+
     itemDisplayName = itemDisplayName.replace("@currentTimeStamp", cdsEnhanced.getTimeStamp());
     return itemDisplayName;
   };
