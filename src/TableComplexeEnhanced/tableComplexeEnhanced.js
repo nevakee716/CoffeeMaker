@@ -466,12 +466,14 @@
     var dataSource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
     if (dataSource && dataSource.filter() && dataSource.filter().filters) {
       dataSource.filter().filters.forEach(function (f) {
-        let filter = f.value ? f : f.filters[0];
-        if (self.associationsColumnList.indexOf(filter.field) !== -1 && filter.field !== field) {
-          setTimeout(function () {
-            $("." + self.nodeSchema.NodeID + " th[data-field='" + filter.field + "'] a.k-grid-filter").addClass("k-state-active");
-          }, 500);
-        }
+        try {
+          let filter = f.value || f.value == "" ? f : f.filters[0];
+          if (self.associationsColumnList.indexOf(filter.field) !== -1 && filter.field !== field) {
+            setTimeout(function () {
+              $("." + self.nodeSchema.NodeID + " th[data-field='" + filter.field + "'] a.k-grid-filter").addClass("k-state-active");
+            }, 500);
+          }
+        } catch (e) {}
       });
     }
   };
@@ -480,13 +482,15 @@
     let self = this;
     if (e.sender.dataSource.filter()) {
       e.sender.dataSource.filter().filters.forEach(function (f) {
-        let filter = f.value ? f : f.filters[0];
-        let value = filter.value.replace ? filter.value.replace("'", "\\'").replace('"', '\\"') : filter.value;
         if (self.associationsColumnList.indexOf(e.field) !== -1) {
-          var checkbox = e.container.find("input[value='" + value + "']");
-          if (checkbox[0] && !checkbox[0].checked) {
-            e.container.find("input[value='" + value + "']").click();
-          }
+          try {
+            let filter = f.value ? f : f.filters[0];
+            let value = filter.value.replace ? filter.value.replace("'", "\\'").replace('"', '\\"') : filter.value;
+            var checkbox = e.container.find("input[value='" + value + "']");
+            if (checkbox[0] && !checkbox[0].checked) {
+              e.container.find("input[value='" + value + "']").click();
+            }
+          } catch (e) {}
         }
       });
     }
