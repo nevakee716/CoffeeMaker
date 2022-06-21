@@ -782,7 +782,7 @@
     } else {
       homePage.handleOfflineHomePage(function () {
         cwApi.CwHomePage.outputHomePageCustom();
-        return doActions(callback);
+        return;
       });
     }
     cwApi.CwPopout.init();
