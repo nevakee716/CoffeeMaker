@@ -247,7 +247,8 @@
                 })
               ];
 
-            if (propertyName == "Screenshot") return "<img src=" + ng[ot][id].Properties[propertyName] + ">";
+            if (propertyName == "Screenshot")
+              return "<img src=" + ng[ot][id].Properties[propertyName].replace(/^\/[eE]volve\//g, cwApi.getServerPath()) + ">";
 
             let item = { objectTypeScriptname: objectType.scriptName, properties: {} };
             if (propertyName == "TYPE") {
@@ -406,7 +407,9 @@
         };
 
         $scope.getDiagramImg = function (ng, ot, id, did) {
-          return ng[ot] && ng[ot][id] && ng[ot][id].Diagrams[did] ? ng[ot][id].Diagrams[did].Screenshot + "?" + $scope.getRandom() : "";
+          return ng[ot] && ng[ot][id] && ng[ot][id].Diagrams[did]
+            ? ng[ot][id].Diagrams[did].Screenshot.replace(/^\/[eE]volve\//g, cwApi.getServerPath()) + "?" + $scope.getRandom()
+            : "";
         };
 
         $scope.lastMillis = new Date().getTime();
@@ -419,7 +422,9 @@
         };
 
         $scope.getDiagramImgComp = function (ng, ot, id, did) {
-          return ng[ot] && ng[ot][id] && ng[ot][id].Diagrams[did] ? ng[ot][id].Diagrams[did].ScreenshotComp : "";
+          return ng[ot] && ng[ot][id] && ng[ot][id].Diagrams[did]
+            ? ng[ot][id].Diagrams[did].ScreenshotComp.replace(/^\/[eE]volve\//g, cwApi.getServerPath())
+            : "";
         };
 
         $scope.getDiagramName = function (ng, ot, id, did) {
