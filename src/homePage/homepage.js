@@ -240,7 +240,7 @@
 
           for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
             let layout = cwApi.appliedLayouts[i];
-            if (!cwApi.isUndefined(layout.applyBuiltInJavaScript) && layout.viewSchema.ViewName === display.view) {
+            if (!cwApi.isUndefined(layout?.applyBuiltInJavaScript) && layout?.viewSchema?.ViewName === display.view) {
               layout.applyBuiltInJavaScript(null);
             }
           }
