@@ -24,7 +24,7 @@
     var xmlhttp = new XMLHttpRequest();
     var self = this;
     //replace second argument with the path to your Secret Server webservices
-    xmlhttp.open("POST", window.location.origin + "/evolve/CWObjectExportImport/CWObjectExportImport.asmx", true);
+    xmlhttp.open("POST", window.location.origin + cwAPI.getServerPath() + "CWObjectExportImport/CWObjectExportImport.asmx", true);
 
     //create the SOAP request
     //replace username, password (and org + domain, if necessary) with the appropriate info

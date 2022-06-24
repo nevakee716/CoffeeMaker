@@ -69,7 +69,7 @@
   };
 
   cwLayout.prototype.getUrlForNewDocument = function (uuid, filename) {
-    return window.location.origin + "/evolve/CWFileHandling/Sessions/" + uuid + "/" + filename;
+    return window.location.origin + cwAPI.getServerPath() + "CWFileHandling/Sessions/" + uuid + "/" + filename;
   };
 
   cwLayout.prototype.getDocumentPropertiesHTML = function () {
@@ -113,7 +113,15 @@
         self.documents = JSON.parse(self.cleanJSON(o.properties.documents));
         self.documents.forEach(function (doc) {
           doc.url =
-            "/evolve/cwfilehandling/documents/" + cwApi.cwConfigs.ModelFilename + "/" + o.objectTypeScriptName + "/" + o.object_id + "/" + doc.name;
+            cwAPI.getServerPath() +
+            "cwfilehandling/documents/" +
+            cwApi.cwConfigs.ModelFilename +
+            "/" +
+            o.objectTypeScriptName +
+            "/" +
+            o.object_id +
+            "/" +
+            doc.name;
         });
         if (self.object.associations && self.object.associations[Object.keys(self.object.associations)]) {
           self.task = self.object.associations[Object.keys(self.object.associations)][0];
