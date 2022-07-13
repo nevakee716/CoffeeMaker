@@ -628,7 +628,7 @@
 
   cwLayout.prototype.applyJavaScript = function () {
     let self = this;
-    if (this.object.properties.archive) this.getRefreshDataFromWebService();
+    if (this.object.properties.archive === true) this.getRefreshDataFromWebService();
     else this.loadConfigurator();
   };
 

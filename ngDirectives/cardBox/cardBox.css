@@ -29,7 +29,7 @@ ul.cardbox {
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
-  align-content: start;
+  align-items: start;
 }
 ul.cardbox li:nth-child(2) {
   margin-top: 1.25rem;
