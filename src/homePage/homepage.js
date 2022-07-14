@@ -738,7 +738,8 @@
       if (config.backgroundImageUrl) homeContainer.style.backgroundImage = "url(" + config.backgroundImageUrl + ")";
 
       var asynFunction = [];
-      if (!cwAPI.isWebSocketConnected && cwApi.cwUser.isCurrentUserSocial()) asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
+      if (!cwAPI.isWebSocketConnected && (cwApi.cwUser.isCurrentUserSocial() || !cwApi.isLive()))
+        asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
       cwAPI.customLibs.doActionForAll.activateLinks();
       if (config.columns && config.columns.length > 0) {
         asynFunction.push(function (callback) {
