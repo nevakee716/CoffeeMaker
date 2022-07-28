@@ -253,7 +253,7 @@
             let item = { objectTypeScriptname: objectType.scriptName, properties: {} };
             if (propertyName == "TYPE") {
               property = objectType.properties.type;
-              value = ng[ot][id][property.name.toUpperCase()];
+              value = ng[ot][id][property.name.toUpperCase()] ? ng[ot][id][property.name.toUpperCase()] : ng[ot][id][property.name];
             } else {
               value = ng[ot][id].Properties[property.name];
             }
@@ -263,7 +263,7 @@
                 item.properties[property.scriptName] = value;
                 break;
               case "Boolean":
-                item.properties[property.scriptName] = value !== undefined ? $.i18n.prop("global_true") : $.i18n.prop("global_false");
+                item.properties[property.scriptName] = value !== undefined ? true : false;
                 break;
               case "URL":
                 item.properties[property.scriptName] = value;
