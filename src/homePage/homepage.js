@@ -390,6 +390,27 @@
                   display.html = $sce.trustAsHtml(output.join(""));
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
+                } else if (v.PageType === 1 && v.NodesByID[v.RootNodesId].LayoutName == "cwPivotTable") {
+                  // singlePage with pivot
+                  let output = [];
+                  let rootID =
+                    v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutSinglePage"
+                      ? cwApi.replaceSpecialCharacters(o.object.objectTypeScriptName)
+                      : v.RootNodesId[0];
+                  let object = JSON.parse(JSON.stringify(o.object));
+                  object.associations[rootID] = [o.object];
+                  let nodeSchema = cwApi.ViewSchemaManager.getNode(v, rootID);
+                  cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
+                  display.html = $sce.trustAsHtml(output.join(""));
+                  $scope.$apply();
+                  cwApi.cwDisplayManager.enableBehaviours(v, object, false);
+
+                  for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
+                    let layout = cwApi.appliedLayouts[i];
+                    if (!cwApi.isUndefined(layout?.applyBuiltInJavaScript) && layout?.viewSchema?.ViewName === display.view) {
+                      layout.applyBuiltInJavaScript(null);
+                    }
+                  }
                 } else if (v.PageType === 1 && v.NodesByID[v.RootNodesId].LayoutName == "cwLayoutDiagram") {
                   // singlePage with diagram auto
                   let output = [];
