@@ -10,6 +10,7 @@
     this.configMode = false;
     this.init = false;
     cwApi.appliedLayoutsOriginal = undefined;
+    this.trueNodeID = this.trueNodeID + this.options.LayoutID;
     try {
       this.config = JSON.parse(this.options.CustomOptions["configuration"]);
     } catch (e) {
@@ -31,17 +32,19 @@
       output.push("<h1> Please Install Utils 2.4 or Higher");
     } else {
       var self = this;
-      output.push('<div id="Grid_' + this.nodeID + '" class="Grid cw-visible">');
+      output.push('<div id="Grid_' + this.trueNodeID + '" class="Grid cw-visible">');
       if (this.isUserAbleToSeeConfigurator()) {
         output.push(
           '<div class="gridToolbar" ><a id="GridConfigButton_' +
-            this.nodeID +
+            this.trueNodeID +
             '" class="btn page-action no-text" title="Configurer"><i class="fa fa-cogs"></i></a>'
         );
-        output.push('<a id="GridSaveButton_' + this.nodeID + '" class="btn page-action no-text" title="Save"><i class="fa fa-save"></i></a></div>');
+        output.push(
+          '<a id="GridSaveButton_' + this.trueNodeID + '" class="btn page-action no-text" title="Save"><i class="fa fa-save"></i></a></div>'
+        );
       }
-      output.push('<div id="GridConfiguration_' + this.nodeID + '" class="cw-hidden CoffeeMaker GridConfiguration"></div>');
-      output.push('<div id="GridDisplays_' + this.nodeID + '" class="GridDisplays"></div>');
+      output.push('<div id="GridConfiguration_' + this.trueNodeID + '" class="cw-hidden CoffeeMaker GridConfiguration"></div>');
+      output.push('<div id="GridDisplays_' + this.trueNodeID + '" class="GridDisplays"></div>');
 
       output.push("</div>");
     }
@@ -50,11 +53,11 @@
   cwLayout.prototype.enableConfigurationLayout = function () {
     this.configMode = !this.configMode;
     if (this.configMode === true) {
-      document.getElementById("GridDisplays_" + this.nodeID).classList.add("cw-hidden");
-      document.getElementById("GridConfiguration_" + this.nodeID).classList.remove("cw-hidden");
+      document.getElementById("GridDisplays_" + this.trueNodeID).classList.add("cw-hidden");
+      document.getElementById("GridConfiguration_" + this.trueNodeID).classList.remove("cw-hidden");
     } else {
-      document.getElementById("GridDisplays_" + this.nodeID).classList.remove("cw-hidden");
-      document.getElementById("GridConfiguration_" + this.nodeID).classList.add("cw-hidden");
+      document.getElementById("GridDisplays_" + this.trueNodeID).classList.remove("cw-hidden");
+      document.getElementById("GridConfiguration_" + this.trueNodeID).classList.add("cw-hidden");
     }
   };
 
@@ -71,8 +74,8 @@
     if (this.init === false) {
       this.init = true;
       if (this.isUserAbleToSeeConfigurator()) {
-        document.getElementById("GridConfigButton_" + this.nodeID).addEventListener("click", this.enableConfigurationLayout.bind(this));
-        document.getElementById("GridSaveButton_" + this.nodeID).addEventListener("click", this.saveConfiguration.bind(this));
+        document.getElementById("GridConfigButton_" + this.trueNodeID).addEventListener("click", this.enableConfigurationLayout.bind(this));
+        document.getElementById("GridSaveButton_" + this.trueNodeID).addEventListener("click", this.saveConfiguration.bind(this));
         this.loadConfigurationLayout();
       }
       this.loadDisplayLayout();
@@ -149,12 +152,12 @@
 
   cwLayout.prototype.loadDisplayLayout = function () {
     let self = this;
-    let container = $("#GridDisplays_" + this.nodeID);
+    let container = $("#GridDisplays_" + this.trueNodeID);
     var parentTable = container.parents("div.tab-content");
     var loaded = false;
 
     if (parentTable && parentTable.length === 0) {
-      cwAPI.customLibs.loadHomePage(this.config, "GridDisplays_" + this.nodeID);
+      cwAPI.customLibs.loadHomePage(this.config, "GridDisplays_" + this.trueNodeID);
     } else {
       var tabHidden;
       setInterval(function () {
