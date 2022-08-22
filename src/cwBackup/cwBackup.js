@@ -138,6 +138,22 @@
     return c;
   };
 
+  cwLayout.prototype.parseJSON = function (json) {
+    var r = null;
+    try {
+      var r = JSON.parse(self.cleanJSON(json));
+    } catch (e) {
+      try {
+        var r = JSON.parse(json);
+      } catch (e) {
+        console.log(e);
+        cwAPI.siteLoadingPageFinish();
+        return r;
+      }
+    }
+    return r;
+  };
+
   function deepEqual(object1, object2) {
     var keys1 = Object.keys(object1);
     var keys2 = Object.keys(object2);
@@ -166,10 +182,9 @@
 
   cwLayout.prototype.load = function () {
     var self = this;
-    try {
-      var backupCWProp = JSON.parse(self.cleanJSON(self.object.properties.backupjson));
-    } catch (e) {
-      console.log(e);
+
+    var backupCWProp = self.parseJSON(self.object.properties.backupjson);
+    if (!backupCWProp) {
       cwAPI.siteLoadingPageFinish();
       return;
     }
@@ -191,13 +206,9 @@
         $scope.ng.backupInfo = backupCWProp[0]["JSON Information"][0];
         $scope.ng.backupInfo.name = self.object.name;
         let b = backupCWProp[1].Objects;
-        let c = JSON.parse(self.cleanJSON(self.object.properties.currentjson))[1].Objects;
+        let c = self.parseJSON(self.object.properties.currentjson)[1].Objects;
 
-        try {
-          $scope.ng.config = JSON.parse(self.cleanJSON(self.object.properties.configuration));
-        } catch (e) {
-          $scope.ng.config = cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
-        }
+        $scope.ng.config = self.parseJSON(self.object.properties.configuration) ?? cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
 
         $scope.ng.objectTypes = {};
         $scope.ng.backup = self.sortByKey(b, "Object Type", $scope.ng);
@@ -535,6 +546,12 @@
               $scope.ng.objectTypes[objectType].scriptname = $scope.ng.backup[objectType][id]["Object Type Script-Name"].toLowerCase();
               //check properties
               if (!$scope.ng.objectTypes[objectType].properties) $scope.ng.objectTypes[objectType].properties = {};
+              let description = $scope.ng.backup[objectType][id].Description ?? "";
+              $scope.ng.backup[objectType][id]["Properties"].Description = description
+                .replaceAll("&amp;", "&")
+                .replaceAll("&lt;", "<")
+                .replaceAll("&gt;", ">");
+
               Object.keys($scope.ng.backup[objectType]?.[id]?.["Properties"] ?? []).forEach((pLabel) => {
                 const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
                 $scope.ng.objectTypes[objectType].properties[pLabel] =
@@ -576,6 +593,13 @@
           } else {
             Object.keys($scope.ng.current[objectType]).forEach(function (id, iter) {
               if (!$scope.ng.objectTypes[objectType].properties) $scope.ng.objectTypes[objectType].properties = {};
+
+              // description
+              let description = $scope.ng.current[objectType][id].Description ?? "";
+              $scope.ng.current[objectType][id]["Properties"].Description = description
+                .replaceAll("&amp;", "&")
+                .replaceAll("&lt;", "<")
+                .replaceAll("&gt;", ">");
 
               //check properties
               Object.keys($scope.ng.backup[objectType]?.[id]?.["Properties"] ?? []).forEach((pLabel) => {
@@ -664,11 +688,9 @@
           else c[e] = true;
         };
         $scope.ng = {};
-        try {
-          $scope.ng.config = JSON.parse(self.cleanJSON(self.object.properties.configuration));
-        } catch (e) {
-          $scope.ng.config = cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
-        }
+
+        $scope.ng.config = self.parseJSON(self.object.properties.configuration) ?? cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
+
         $scope.hasKeys = function (o) {
           return Object.keys(o).length > 0;
         };
