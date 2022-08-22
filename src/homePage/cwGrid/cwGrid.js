@@ -10,7 +10,7 @@
     this.configMode = false;
     this.init = false;
     cwApi.appliedLayoutsOriginal = undefined;
-    this.trueNodeID = this.trueNodeID + this.options.LayoutID;
+    this.trueNodeID = this.nodeID + this.options.LayoutID;
     try {
       this.config = JSON.parse(this.options.CustomOptions["configuration"]);
     } catch (e) {
