@@ -192,10 +192,11 @@
           let calcHeight = display.height;
           if (calcHeight && calcHeight.indexOf("vh") !== -1) calcHeight = "calc(" + calcHeight + " - 90px)";
           if (calcHeight && calcHeight.indexOf("%") !== -1 && document.querySelector(".homePage_main")) {
-            calcHeight =
+            calcHeight = Math.floor(
               (parseFloat(calcHeight.split("%")[0]) * (window.innerHeight - document.querySelector(".homePage_main").getBoundingClientRect().y)) /
                 100 -
-              1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+                1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize)
+            );
             if (display.extendable === true) calcHeight -= 45;
             if (!display.noPadding) calcHeight -= 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
             calcHeight += "px";
