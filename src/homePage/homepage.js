@@ -199,6 +199,7 @@
             );
             if (display.extendable === true) calcHeight -= 45;
             if (!display.noPadding) calcHeight -= 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+            calcHeight = Math.floor(calcHeight);
             calcHeight += "px";
           }
 
