@@ -87,7 +87,7 @@
 
     cwApi.CwAsyncLoader.load("angular", function () {
       let loader = cwApi.CwAngularLoader,
-        $container = $("#GridConfiguration_" + self.nodeID);
+        $container = $("#GridConfiguration_" + self.trueNodeID);
       loader.setup();
 
       let templatePath = cwAPI.getCommonContentPath() + "/html/coffee/homePage.ng.html" + "?" + Math.random();
@@ -167,7 +167,7 @@
           loaded = false;
         } else if (!tabHidden && loaded === false) {
           loaded = true;
-          cwAPI.customLibs.loadHomePage(self.config, "GridDisplays_" + self.nodeID);
+          cwAPI.customLibs.loadHomePage(self.config, "GridDisplays_" + self.trueNodeID);
         }
       }, 200);
     }
