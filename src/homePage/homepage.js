@@ -199,7 +199,6 @@
             );
             if (display.extendable === true) calcHeight -= 45;
             if (!display.noPadding) calcHeight -= 1.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
-            calcHeight = Math.floor(calcHeight);
             calcHeight += "px";
           }
 
@@ -239,7 +238,8 @@
           let o = $scope.createHTMLFromJSON(display, sync, rootNodeIDUD, objectpage);
           viewLoaded += 1;
           let schema = cwApi.ViewSchemaManager.getPageSchema(display.view);
-
+          display.loading = false;
+          $scope.$apply();
           for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
             let layout = cwApi.appliedLayouts[i];
             if (!cwApi.isUndefined(layout?.applyBuiltInJavaScript) && layout?.viewSchema?.ViewName === display.view) {
@@ -255,6 +255,7 @@
           if (objectpage) {
             cwApi.cwDisplayManager.enableBehaviours(schema, { associations: o }, false);
           } else cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
+    
         };
 
         $scope.createHTMLFromJSON = function (display, sync, rootNodeIDUD, objectpage) {
@@ -390,6 +391,7 @@
                   cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
                   cwApi.cwDisplayManager.outputSortedChildren(output, v, nodeSchema.SortedChildren, o.object);
                   display.html = $sce.trustAsHtml(output.join(""));
+                  display.loading = false;
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
                 } else if (v.PageType === 1 && v.NodesByID[v.RootNodesId].LayoutName == "cwPivotTable") {
@@ -404,9 +406,10 @@
                   let nodeSchema = cwApi.ViewSchemaManager.getNode(v, rootID);
                   cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
                   display.html = $sce.trustAsHtml(output.join(""));
+                  display.loading = false;
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
-
+                  
                   for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
                     let layout = cwApi.appliedLayouts[i];
                     if (!cwApi.isUndefined(layout?.applyBuiltInJavaScript) && layout?.viewSchema?.ViewName === display.view) {
@@ -423,6 +426,7 @@
                   cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
                   cwApi.cwDisplayManager.outputSortedChildren(output, v, nodeSchema.SortedChildren, o.object);
                   display.html = $sce.trustAsHtml(output.join(""));
+                  display.loading = false;
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
                 } else {
@@ -432,9 +436,12 @@
                   object.associations[rootID] = [o.object];
                   cwApi.cwDisplayManager.outputNode(output, v, rootID, object);
                   display.html = $sce.trustAsHtml(output.join(""));
+                  display.loading = false;
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
                 }
+
+
               }
             },
             cwApi.errorOnLoadPage
@@ -515,9 +522,12 @@
               let schema = cwAPI.getViewsSchemas()[display.view];
 
               if (schema.NodesByID[schema.RootNodesId[0]].ObjectTypeScriptName.toLowerCase() === event.scriptname) {
+                display.loading = true;
                 display.html = null;
                 display.objectLabel = event.label;
                 display.objectId = event.id;
+                display.objectLink = cwApi.getSingleViewHash(event.scriptname,event.id);
+                $scope.$apply();
                 $scope.getHTMLViewForObjectView(display);
               } else {
                 display.dontDisplay = true;
