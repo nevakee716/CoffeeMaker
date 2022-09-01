@@ -858,6 +858,105 @@
     }
   };
 
+  // export in display
+  cwApi.cwKendoGridDataManager.getDataSourceForUpdatedObjects = function (gridObject, gridTemp, isExport, filters, callback, isExportMode) {
+    var dataSource, url, mainItems, propertiesGroup, newGridObject, pageName, currentView, objectId, indexView;
+
+    let isInDisplay = document.querySelector(".homePage_evolveView") ? true : false;
+    if (isInDisplay) {
+      let display = gridTemp[0].parentElement.parentElement.parentElement.parentElement;
+      pageName = display.attributes["data-view"].value;
+
+      if (display.attributes["data-type"].value != "evolve_view") {
+        objectId = display.attributes["data-object_id"].value;
+        url = cwApi.getSingleViewDataUrl(pageName, objectId);
+        indexView = false;
+      } else {
+        url = cwApi.getIndexViewDataUrl(pageName);
+        indexView = true;
+      }
+    } else {
+      currentView = cwApi.getCurrentView();
+      pageName = currentView.cwView;
+      if (currentView.type === "Index") {
+        url = cwApi.getIndexViewDataUrl(pageName);
+        indexView = true;
+      } else {
+        objectId = cwApi.getQueryStringObject().cwid;
+        url = cwApi.getSingleViewDataUrl(pageName, objectId);
+        indexView = false;
+      }
+    }
+
+    propertiesGroup = "BOTH";
+
+    $.getJSON(url, function (updateData) {
+      if (!cwApi.statusIsKo(updateData)) {
+        if (cwApi.isLive() === true && !indexView) {
+          updateData = updateData.object;
+        }
+        if (cwApi.isUndefined(filters)) {
+          cwApi.cwKendoGridFilter.showAddAndSearch(gridObject.mainContainer, gridObject.isAssociationgrid);
+        }
+        if (gridObject.isAssociationgrid) {
+          mainItems = updateData.associations[gridObject.tabID];
+          newGridObject = cwApi.cwKendoGridDataManager.createAndGetAssociationGrid(
+            gridObject,
+            mainItems,
+            gridObject.tabID,
+            updateData,
+            gridObject.parentItem,
+            gridObject.parentNodeShema,
+            false,
+            gridTemp.data("kendoGrid"),
+            true,
+            true,
+            true,
+            isExportMode
+          );
+          dataSource = gridTemp.data("kendoGrid").dataSource;
+        } else {
+          mainItems = updateData[gridObject.tabID];
+          newGridObject = cwApi.cwKendoGridDataManager.createAndGetGrid(
+            gridObject.properties,
+            gridObject,
+            updateData,
+            gridObject.nodeSchema,
+            gridObject.tabID
+          );
+          dataSource = cwApi.cwKendoGridDataManager.loadGridAndGetDataSource(
+            newGridObject,
+            propertiesGroup,
+            gridObject.nodeSchema,
+            mainItems,
+            gridObject.tabID
+          );
+
+          //Fix - Set the current page on clicking cancel button
+          if (!isExport) {
+            dataSource._page = gridTemp.data("kendoGrid").dataSource._page;
+            dataSource._pageSize = gridTemp.data("kendoGrid").dataSource._pageSize;
+          }
+
+          cwApi.cwKendoGridDataManager.setAndReadDataSource(gridTemp.data("kendoGrid"), dataSource, newGridObject, filters);
+        }
+
+        cwApi.cwKendoGridFilter.bindFilterActions(newGridObject);
+
+        if (gridObject.isSearchEngineEnabled) {
+          gridTemp.data("kendoGrid").unbind("edit");
+          gridTemp.data("kendoGrid")._events.edit[0] = newGridObject.editEvent.bind(newGridObject);
+        }
+        if (cwApi.isFunction(callback)) {
+          return callback(dataSource);
+        }
+      } else {
+        cwApi.loadLoginPage(updateData);
+        $(".popout").remove();
+      }
+    });
+  };
+
   if (cwBehaviours.hasOwnProperty("CwKendoGrid") && cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData) {
     cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData = tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData;
     cwBehaviours.CwKendoGrid.prototype.modifyAssociationFilter = tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter;
