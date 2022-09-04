@@ -261,7 +261,7 @@
       let html = '<div class="cw-visible CwPropertiesLayoutHelpText"><span>' + itemLabel + "</span></div>";
       let d = document.createElement("div");
       d.innerHTML = html;
-      return d;
+      return d.firstChild;
     }
     return document.createElement("div");
   };
