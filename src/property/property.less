@@ -1,3 +1,6 @@
+@import "../../_mixins";
+@import "../../_variables";
+
 .scaleImg {
   height: 1rem;
   margin-right: 0.3rem;
@@ -16,4 +19,17 @@
 
 .k-grid-content .spanLookup {
   align-items: center;
+}
+.cwTrueFaIcon {
+  color: green;
+}
+.cwFalseFaIcon {
+  color: red;
+}
+
+.cw-accordion-header .cwTrueFaIcon {
+  color: hsl(hue(green), saturation(green), min(max(100-lightness(@cwGlobalLinkTextColor), 30), 70));
+}
+.cw-accordion-header .cwFalseFaIcon {
+  color: hsl(hue(red), saturation(red), min(max(100-lightness(@cwGlobalLinkTextColor), 30), 70));
 }

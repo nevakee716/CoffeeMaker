@@ -12,9 +12,9 @@
     if (!config || !config.booleanIcon || noIcon) {
       return value !== false ? $.i18n.prop("global_true") : $.i18n.prop("global_false");
     } else if (value !== false) {
-      value = '<i style="color:green" class="fa fa-check"><span class="hidden">' + jQuery.i18n.prop("global_true") + "</span></i>";
+      value = '<i class="fa fa-check cwTrueFaIcon"><span class="hidden">' + jQuery.i18n.prop("global_true") + "</span></i>";
     } else {
-      value = '<i style="color:red" class="fa fa-times"><span class="hidden">' + jQuery.i18n.prop("global_false") + "</span></i>";
+      value = '<i class="fa fa-times cwFalseFaIcon"><span class="hidden">' + jQuery.i18n.prop("global_false") + "</span></i>";
     }
     return value;
   };

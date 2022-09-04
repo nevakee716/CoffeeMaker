@@ -1,3 +1,30 @@
+/* CUSTOM VARIABLES */
+/* GLOBAL */
+/* LOGIN */
+/* DIAGRAM */
+/* HOME PAGE */
+/* MENU LEFT */
+/* MAIN MENU */
+/* SUB MENU */
+/* PAGE TAB */
+/* DROPDOWN NOTIFICATIONS */
+/* SOCIAL */
+/* LIST BOX */
+/* PROPERTIES GROUP */
+/* BUTTONS */
+/* PAGE ACTIONS */
+/* ACCORDIONS */
+/* DISCUSSIONS */
+/* WORLD MAP */
+/* USER ZONE */
+/* POPUP */
+/* BADGES */
+/* TASKS & NOTIFICATIONS */
+/* GLOBAL SEARCH */
+/* TOP BAR */
+/* DIAGRAM TILE */
+/* MATRIX ADVANCED */
+/* DIAGRAM OVERLAY */
 .scaleImg {
   height: 1rem;
   margin-right: 0.3rem;
@@ -14,4 +41,16 @@
 }
 .k-grid-content .spanLookup {
   align-items: center;
+}
+.cwTrueFaIcon {
+  color: green;
+}
+.cwFalseFaIcon {
+  color: red;
+}
+.cw-accordion-header .cwTrueFaIcon {
+  color: hsl(120, 100%, 59.01960784%);
+}
+.cw-accordion-header .cwFalseFaIcon {
+  color: hsl(0, 100%, 59.01960784%);
 }
