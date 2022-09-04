@@ -49,8 +49,8 @@
   color: red;
 }
 .cw-accordion-header .cwTrueFaIcon {
-  color: hsl(120, 100%, 59.01960784%);
+  color: #33c033;
 }
 .cw-accordion-header .cwFalseFaIcon {
-  color: hsl(0, 100%, 59.01960784%);
+  color: #f34848;
 }
