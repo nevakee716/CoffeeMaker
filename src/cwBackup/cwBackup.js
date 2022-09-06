@@ -141,7 +141,7 @@
   cwLayout.prototype.parseJSON = function (json) {
     var r = null;
     try {
-      var r = JSON.parse(self.cleanJSON(json));
+      var r = JSON.parse(this.cleanJSON(json));
     } catch (e) {
       try {
         var r = JSON.parse(json);
