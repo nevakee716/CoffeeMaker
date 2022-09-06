@@ -141,14 +141,18 @@
   cwLayout.prototype.parseJSON = function (json) {
     var r = null;
     try {
-      var r = JSON.parse(this.cleanJSON(json));
+      var r = JSON.parse(this.cleanJSON(this.cleanJSON(json)));
     } catch (e) {
       try {
-        var r = JSON.parse(json);
+        var r = JSON.parse(this.cleanJSON(json));
       } catch (e) {
-        console.log(e);
-        cwAPI.siteLoadingPageFinish();
-        return r;
+        try {
+          var r = JSON.parse(json);
+        } catch (e) {
+          console.log(e);
+          cwAPI.siteLoadingPageFinish();
+          return r;
+        }
       }
     }
     return r;
