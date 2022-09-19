@@ -17,7 +17,7 @@
     $scope.otSelected = $scope.OTs[0].scriptName;
 
     if (!$scope.ng.config.ots) $scope.ng.config.ots = {};
-
+    if (!$scope.ng.config.levelFilter) $scope.ng.config.levelFilter = {};
     $scope.updateConfig = function (c, view) {
       if ($scope.ng.config.ots.hasOwnProperty(view) === true || !$scope.ng.config.ots.hasOwnProperty(view)) {
         $scope.ng.config[view] = {
@@ -40,6 +40,18 @@
       $scope.toggle(c, view);
     };
 
+    $scope.updateFilterDataConfig = function (i, ots) {
+      if (!$scope.ng.config.levelFilter[i]) $scope.ng.config.levelFilter[i] = {};
+      const c = $scope.ng.config.levelFilter[i];
+      if (!c.hasOwnProperty(ots)) {
+        c[ots] = {
+          AssociationTypes: [],
+        };
+      } else {
+        delete c[ots];
+      }
+    };
+
     $scope.getAssociationTargetObjectType = function (otSelected) {
       var assoTypes = $scope.metamodel.objectTypes[otSelected].AssociationTypes;
       if (!assoTypes) return [];
@@ -50,7 +62,11 @@
       });
       $scope.associationTargetOT = Object.keys(r).map((k) => r[k]);
     };
-
+    $scope.getLevelArray = function () {
+      let r = [...Array($scope.ng.config.level).keys()];
+      r.shift();
+      return r;
+    };
     $scope.getAssociationTargetObjectType($scope.otSelected);
     return;
   };
