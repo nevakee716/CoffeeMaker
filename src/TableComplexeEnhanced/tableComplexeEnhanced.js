@@ -957,6 +957,39 @@
     });
   };
 
+  cwBehaviours.cwKendoGridHeader.prototype.createColumnAssociation = function (objectTypeName, objectTypeScriptName, associationScriptName) {
+    var propertyModel, c, propertyObject, that;
+    that = this;
+    var viewSchema = cwApi.getViewsSchemas()[that.properties.PageName];
+    var nodeSchema = cwAPI.ViewSchemaManager.getNodeSchemaById(that.properties.PageName, associationScriptName);
+
+    propertyObject = {};
+    propertyObject.field = associationScriptName;
+    propertyObject.title = cwApi.mapToTranslation(objectTypeName);
+
+    c = cwApi.cwKendoGridColumnManager.loadColumnProperties(this.properties, propertyObject, objectTypeScriptName, false, true, false);
+    var layout = new cwApi.cwLayouts[nodeSchema.LayoutName](nodeSchema.LayoutOptions, viewSchema);
+    layout.disableOutputChildren();
+
+    c.template = function (e) {
+      var name = associationScriptName;
+      var output = [];
+      if (that.gridItemsByID.length > 0 && !cwApi.isUndefined(e.item)) {
+        layout.drawAssociations(output, null, that.gridItemsByID[e.item.object_id], null);
+      }
+
+      return output.join("");
+    };
+
+    propertyModel = this.getPropertyModel(objectTypeScriptName, objectTypeScriptName, "string", true);
+    this.associationsColumnList.push(associationScriptName);
+    propertyModel.IsAssociation = true;
+
+    this.model.fields[associationScriptName] = propertyModel;
+    this.columns.push(c);
+    this.model.id = null;
+  };
+
   if (cwBehaviours.hasOwnProperty("CwKendoGrid") && cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData) {
     cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData = tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData;
     cwBehaviours.CwKendoGrid.prototype.modifyAssociationFilter = tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter;
