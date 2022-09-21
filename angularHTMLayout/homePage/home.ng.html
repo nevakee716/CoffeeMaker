@@ -25,6 +25,7 @@
           </span>
           <span ng-if="display.loading"><i class="loadingDisplay fa fa-circle-o-notch fa-spin"> </i></span>
         </span>
+        <span ng-if="display.view" class="{{display.view}} display_pivotFilter"></span>
         <span ng-if="keys(display.sortProperties).length > 0" class="display_sortProperty">
           <span>{{$root.i18n('sortBy')}}</span>
           <select
