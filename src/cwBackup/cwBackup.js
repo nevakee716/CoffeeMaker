@@ -705,6 +705,19 @@
           });
         };
 
+        $scope.getObjectTypeFromLevelFilter = function (lvlf) {
+          return $scope.getKeys(lvlf).map(cwApi.mm.getObjectType);
+        };
+
+        $scope.getKeys = function (o) {
+          return Object.keys(o).length > 0;
+        };
+
+        $scope.getLevelArray = function () {
+          let r = [...Array($scope.ng.config.levelFilter).keys()];
+          return r;
+        };
+
         $scope.otSelected = $scope.OTs[0].scriptName;
 
         if (!$scope.ng.config.ots) $scope.ng.config.ots = {};

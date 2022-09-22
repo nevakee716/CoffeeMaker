@@ -3,6 +3,17 @@
     {{ng.backupInfo.name}}
     <a target="_blank" download="{{ng.backupInfo.name}}.xml" href="{{ng.backupInfo['Backup File']}}"><span>(Click to download the XML file)</span></a>
   </div>
+  <div ng-class="{active: selectedDataDisplay, 'cw-hidden':!(ng.config.method == 1)}" class="tabs">
+    <div
+      ng-repeat="i in getLevelArray()"
+      ng-class="{active: i == ng.selectedDataFilterLevel}"
+      class="tab-link"
+      ng-click="ng.selectedDataFilterLevel = i"
+    >
+      <div>Level : {{ng.config.levelFilter[i]}}</div>
+      <div ng-repeat="OT in getKeys(ng.config.levelFilter[i]) ">{{OT.name}}</div>
+    </div>
+  </div>
   <ul class="cw-list list cwLayoutList cw-visible cw-accordion-header">
     <li ng-repeat="(OT,v) in ng.objectTypes " class="cw-item cw-accordion-container">
       <div ng-init="analyzeOT(OT)">

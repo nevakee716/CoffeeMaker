@@ -39,7 +39,10 @@
       }
       $scope.toggle(c, view);
     };
-
+    $scope.getSelectedObjectTypeForLevel = function () {
+      let lvl = $scope.ng.config.levelFilter?.[$scope.ng.selectedDataFilterLevel];
+      return lvl == undefined ? [] : Object.keys(lvl).map(cwApi.mm.getObjectType);
+    };
     $scope.updateFilterDataConfig = function (i, ots) {
       if (!$scope.ng.config.levelFilter[i]) $scope.ng.config.levelFilter[i] = {};
       const c = $scope.ng.config.levelFilter[i];
@@ -67,6 +70,7 @@
       r.shift();
       return r;
     };
+
     $scope.getAssociationTargetObjectType($scope.otSelected);
     return;
   };

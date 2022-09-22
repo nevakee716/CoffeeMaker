@@ -144,11 +144,40 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="tabContent" ng-if="selectedDataDisplay == true && !(ng.config.level > 0 && ng.config.method == 1)">
-    <div class="row bootstrap-iso">
-      <div class="row-cell row-cell-label labelTitle">{{$root.i18n('cwbackup_please_select_level_method1')}} :</div>
+
+      <div class="row bootstrap-iso">
+        <div class="row-cell row-cell-label labelTitle">{{$root.i18n('cwbackup_filter_level_association')}} :</div>
+      </div>
+
+      <div class="tabs">
+        <div
+          ng-repeat="ot in getSelectedObjectTypeForLevel()"
+          ng-class="{active: ot.scriptName == ng.selectedDataFilterLevelObjectType}"
+          class="tab-link"
+          ng-click="ng.selectedDataFilterLevelObjectType = ot.scriptName"
+        >
+          {{ot.name}}
+        </div>
+      </div>
+      <div
+        class="tabContent"
+        ng-if="ng.selectedDataFilterLevelObjectType && ng.config.levelFilter[ng.selectedDataFilterLevel][ng.selectedDataFilterLevelObjectType]"
+      >
+        <div class="row bootstrap-iso">
+          <div class="row-cell row-cell-value row-cell-max-width">
+            <div class="cell-content-wrapper filter-wrapper propertieslist">
+              <div class="choiceBox" ng-repeat="a in metamodel.objectTypes[ng.selectedDataFilterLevelObjectType].AssociationTypes">
+                <a
+                  class="btn-add-filter btn page-action"
+                  ng-class="ng.config.levelFilter[ng.selectedDataFilterLevel][ng.selectedDataFilterLevelObjectType].AssociationTypes.indexOf(a.ScriptName) !== -1? ['selected'] : []"
+                  ng-click="toggleArray(ng.config.levelFilter[ng.selectedDataFilterLevel][ng.selectedDataFilterLevelObjectType].AssociationTypes,a.ScriptName)"
+                  >{{a.DisplayName}}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
