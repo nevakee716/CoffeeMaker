@@ -126,7 +126,7 @@
         {{i}}
       </div>
     </div>
-    <div class="tabContent" ng-if="ng.selectedDataFilterLevel">
+    <div class="tabContent" ng-if="ng.selectedDataFilterLevel !== undefined">
       <div class="row bootstrap-iso">
         <div class="row-cell row-cell-label labelTitle">{{$root.i18n('cwbackup_objecttypetodisplay')}} :</div>
       </div>
@@ -161,7 +161,7 @@
       </div>
       <div
         class="tabContent"
-        ng-if="ng.selectedDataFilterLevelObjectType && ng.config.levelFilter[ng.selectedDataFilterLevel][ng.selectedDataFilterLevelObjectType]"
+        ng-if="ng.selectedDataFilterLevelObjectType !== undefined && ng.config.levelFilter[ng.selectedDataFilterLevel][ng.selectedDataFilterLevelObjectType]"
       >
         <div class="row bootstrap-iso">
           <div class="row-cell row-cell-value row-cell-max-width">

@@ -4,7 +4,17 @@
 
 .cwLayoutBackup {
   width: 100%;
-
+  .tabs {
+    border: 0px;
+    background-color: transparent;
+  }
+  .tab-link {
+    display: flex;
+    .fa {
+      margin-left: 20px;
+      font-size: 40px;
+    }
+  }
   .saveButton {
     position: absolute;
     right: 15%;
@@ -77,6 +87,10 @@
     th.different,
     td.different {
       background-color: #ecadad4a !important;
+    }
+
+    td {
+      overflow: hidden;
     }
   }
 

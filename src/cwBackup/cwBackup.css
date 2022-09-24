@@ -28,6 +28,17 @@
 .cwLayoutBackup {
   width: 100%;
 }
+.cwLayoutBackup .tabs {
+  border: 0px;
+  background-color: transparent;
+}
+.cwLayoutBackup .tab-link {
+  display: flex;
+}
+.cwLayoutBackup .tab-link .fa {
+  margin-left: 20px;
+  font-size: 40px;
+}
 .cwLayoutBackup .saveButton {
   position: absolute;
   right: 15%;
@@ -91,6 +102,9 @@
 .cwLayoutBackup table.cw-grid th.different,
 .cwLayoutBackup table.cw-grid td.different {
   background-color: #ecadad4a !important;
+}
+.cwLayoutBackup table.cw-grid td {
+  overflow: hidden;
 }
 .cwLayoutBackup .associationIcon {
   color: #03a0ce;

@@ -67,7 +67,6 @@
     };
     $scope.getLevelArray = function () {
       let r = [...Array($scope.ng.config.level).keys()];
-      r.shift();
       return r;
     };
 

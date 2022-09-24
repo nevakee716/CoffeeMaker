@@ -26,6 +26,9 @@
     //replace second argument with the path to your Secret Server webservices
     xmlhttp.open("POST", window.location.origin + cwAPI.getServerPath() + "CWObjectExportImport/CWObjectExportImport.asmx", true);
 
+    let xml = this.config.method !== "1" ? true : false;
+    let level = this.config.level - 1;
+    let levelFilter = { levelFilter: this.config.levelFilter };
     //create the SOAP request
     //replace username, password (and org + domain, if necessary) with the appropriate info
     var strRequest =
@@ -47,6 +50,20 @@
       "<InstanceId>" +
       this.object.object_id +
       "</InstanceId>" +
+      "<Method>" +
+      this.config.method +
+      "</Method>" +
+      "<DefaultLevel>" +
+      level +
+      "</DefaultLevel>" +
+      "<FiltersJson>" +
+      JSON.stringify(levelFilter)
+        .toUpperCase()
+        .replace(/ASSOCIATIONTYPES/g, "AssociationTypes") +
+      "</FiltersJson>" +
+      "<GenerateXml>" +
+      xml +
+      "</GenerateXml>" +
       "<BackupFolder></BackupFolder>" +
       "</CWErwinBackup>" +
       "</soap12:Body>" +
@@ -190,6 +207,7 @@
     var backupCWProp = self.parseJSON(self.object.properties.backupjson);
     if (!backupCWProp) {
       cwAPI.siteLoadingPageFinish();
+      cwAPI.notificationManager.addError("Empty Backup");
       return;
     }
     cwApi.CwAsyncLoader.load("angular", function () {
@@ -214,9 +232,6 @@
 
         $scope.ng.config = self.parseJSON(self.object.properties.configuration) ?? cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
 
-        $scope.ng.objectTypes = {};
-        $scope.ng.backup = self.sortByKey(b, "Object Type", $scope.ng);
-        $scope.ng.current = self.sortByKey(c, "Object Type", $scope.ng);
         $scope.ng.displayAll = true;
         $scope.getCDSForAssociatedObjects = function (ng, ao) {
           let ot = cwAPI.mm.getObjectTypeById(ao["Associated Object Type ID"]);
@@ -269,6 +284,9 @@
             if (propertyName == "TYPE") {
               property = objectType.properties.type;
               value = ng[ot][id][property.name.toUpperCase()] ? ng[ot][id][property.name.toUpperCase()] : ng[ot][id][property.name];
+            } else if (propertyName.toUpperCase() == "DESCRIPTION") {
+              property = objectType.properties.description;
+              value = ng[ot][id].Properties[property.name];
             } else {
               value = ng[ot][id].Properties[property.name];
             }
@@ -383,7 +401,10 @@
           let ot = cwAPI.mm.getObjectTypeById(ass["Associated Object Type ID"]);
           return $scope.ng.objectTypes[ot.name] !== undefined;
         };
-        $scope.checkOTDiff = function (json1, json2) {
+
+        $scope.checkOTDiff = function (json1_, json2_) {
+          let json1 = JSON.parse(angular.toJson(json1_));
+          let json2 = JSON.parse(angular.toJson(json2_));
           let aa,
             bb,
             r = true;
@@ -399,8 +420,8 @@
 
         $scope.checkJSONDiff = function (json1, json2) {
           return !deepEqual(
-            angular.fromJson(angular.toJson(json1).replaceAll("/BAK_Diagram_", "/CUR_Diagram_")),
-            angular.fromJson(angular.toJson(json2))
+            angular.fromJson(angular.toJson(json1).replace(/BAK_Diagram_/g, "CUR_Diagram_")),
+            angular.fromJson(angular.toJson(json2).replace(/BAK_Diagram_/g, "CUR_Diagram_"))
           );
         };
         $scope.getCategoryLabel = function (ot) {
@@ -425,6 +446,10 @@
           return ng[ot] && ng[ot][id] && ng[ot][id].Diagrams[did]
             ? ng[ot][id].Diagrams[did].Screenshot.replace(/^\/[eE]volve\//g, cwApi.getServerPath()) + "?" + $scope.getRandom()
             : "";
+        };
+        $scope.getLevelArray = function () {
+          let r = [...Array($scope.ng.config.level).keys()];
+          return r;
         };
 
         $scope.lastMillis = new Date().getTime();
@@ -536,7 +561,33 @@
           });*/
         };
 
+        $scope.getObjectTypeFromLevelFilter = function (lvlf) {
+          return $scope.getKeys(lvlf).map(cwApi.mm.getObjectType);
+        };
+
+        $scope.getKeys = function (o) {
+          return Object.keys(o);
+        };
+
+        $scope.cleanByLevel = function (lvl, json) {
+          Object.keys(json).forEach((ots) => {
+            let ot = json[ots];
+            let r = Object.keys(ot).some((oid) => {
+              return ot[oid].Levels.indexOf(lvl) !== -1;
+            });
+            if (r) $scope.ng.objectTypesForCurrentLevel[ots] = {};
+          });
+        };
+
+        $scope.updateDataByFilterLevel = function (lvl) {
+          $scope.ng.selectedDataFilterLevel = lvl;
+          $scope.ng.objectTypesForCurrentLevel = {};
+          $scope.cleanByLevel(lvl, $scope.ng.current);
+          $scope.cleanByLevel(lvl, $scope.ng.backup);
+        };
+
         $scope.analyzeOT = function (objectType) {
+          console.log("Analyse" + objectType);
           let objects = {};
           if (!$scope.ng.objectTypes[objectType]) $scope.ng.objectTypes[objectType] = {};
           if (!$scope.ng.objectTypes[objectType].associations) $scope.ng.objectTypes[objectType].associations = {};
@@ -650,12 +701,24 @@
               return o;
             });
         };
+
+        $scope.init = function () {
+          $scope.ng.objectTypes = {};
+          $scope.ng.backup = self.sortByKey(b, "Object Type", $scope.ng);
+          $scope.ng.current = self.sortByKey(c, "Object Type", $scope.ng);
+          if ($scope.ng.config.method == "1") {
+            $scope.updateDataByFilterLevel(0);
+          }
+        };
+
+        $scope.init();
       });
     });
   };
 
   cwLayout.prototype.applyJavaScript = function () {
     let self = this;
+    this.config = this.parseJSON(this.object.properties.configuration) ?? cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
     if (this.object.properties.archive !== false) this.getRefreshDataFromWebService();
     else this.loadConfigurator();
   };
@@ -705,22 +768,31 @@
           });
         };
 
-        $scope.getObjectTypeFromLevelFilter = function (lvlf) {
-          return $scope.getKeys(lvlf).map(cwApi.mm.getObjectType);
-        };
-
-        $scope.getKeys = function (o) {
-          return Object.keys(o).length > 0;
-        };
-
         $scope.getLevelArray = function () {
-          let r = [...Array($scope.ng.config.levelFilter).keys()];
+          let r = [...Array($scope.ng.config.level).keys()];
           return r;
         };
 
         $scope.otSelected = $scope.OTs[0].scriptName;
 
         if (!$scope.ng.config.ots) $scope.ng.config.ots = {};
+
+        $scope.getSelectedObjectTypeForLevel = function () {
+          let lvl = $scope.ng.config.levelFilter?.[$scope.ng.selectedDataFilterLevel];
+          return lvl == undefined ? [] : Object.keys(lvl).map(cwApi.mm.getObjectType);
+        };
+
+        $scope.updateFilterDataConfig = function (i, ots) {
+          if (!$scope.ng.config.levelFilter[i]) $scope.ng.config.levelFilter[i] = {};
+          const c = $scope.ng.config.levelFilter[i];
+          if (!c.hasOwnProperty(ots)) {
+            c[ots] = {
+              AssociationTypes: [],
+            };
+          } else {
+            delete c[ots];
+          }
+        };
 
         $scope.updateConfig = function (c, view) {
           if ($scope.ng.config.ots.hasOwnProperty(view) === true || !$scope.ng.config.ots.hasOwnProperty(view)) {
