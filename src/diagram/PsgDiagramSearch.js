@@ -235,8 +235,8 @@
     searchBox.on("changed.bs.select", function (e, clickedIndex, newValue, oldValue) {
       var changeSet, id, nodeId, i;
       var groupArray = {};
-      if (clickedIndex !== undefined && $(this).context.children && $(this).context.options[clickedIndex]) {
-        id = $(this).context.options[clickedIndex].id;
+      if (clickedIndex !== undefined && $(this).children() && $(this).children().children()[clickedIndex]) {
+        id = $(this).children().children()[clickedIndex].id
         let shape = diagramViewer.diagramShapesBySequence[id].shape;
 
         diagramViewer.centerShapeOnCanvas(shape);
