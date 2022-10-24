@@ -142,6 +142,40 @@
           cwApi.customLibs.utils.copyToClipboard(str);
         };
 
+        $scope.addSlide = function (display) {
+          if (display.slides === undefined) display.slides = [];
+          display.slides.push({ label: "Slide " + display.slides.length });
+          $scope.selectSlide(display, display.slides.length - 1);
+        };
+
+        $scope.removeSlide = function (display, i) {
+          display.slides.splice(i, 1);
+        };
+
+        $scope.selectSlide = function (display, i) {
+          display.slides.forEach(function (c, ii) {
+            if (i == ii) c.selected = true;
+            else c.selected = false;
+          });
+        };
+        $scope.getSortPropFromOT = function (ot) {
+          let r = [];
+          for (let p in ot.properties) {
+            if (ot.properties.hasOwnProperty(p)) {
+              r.push(ot.properties[p]);
+            }
+          }
+          r.sort(function (pa, pb) {
+            return pa.name.localeCompare(pb.name);
+          });
+          return r;
+        };
+        $scope.reOrderSlides = function () {
+          $scope.ng.config.columns.sort(function (a, b) {
+            return a.order - b.order;
+          });
+        };
+
         $scope.refresh = self.loadDisplayLayout.bind(self);
 
         $scope.monMenuOff = true;
