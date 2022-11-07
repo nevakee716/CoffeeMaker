@@ -7,7 +7,7 @@
       ng-style="getStyleForDisplay(display)"
       class="homePage_display {{display.label}}"
       id="{{display.uuid}}"
-      ng-class="{nextGenCard: nextGenTheme, displayTransparent: display.transparent ,fixWidth:display.fixWidth}"
+      ng-class="{nextGenCard: nextGenTheme, displayTransparent: display.transparent ,fixWidth:display.fixWidth,mergeWithBottom: display.mergeWithBottom}"
       data-type="{{display.type}}"
       data-object_id="{{display.objectId}}"
       data-view="{{display.view}}"
@@ -47,7 +47,7 @@
       <div
         ng-style="getStyleForDisplayContent(display)"
         class="homePage_display_content"
-        ng-class="{rightExpandButtonContent:display.rightExpandButtonStyle, nextGenCard: !nextGenTheme,noPadding: display.noPadding }"
+        ng-class="{rightExpandButtonContent:display.rightExpandButtonStyle, nextGenCard: !nextGenTheme,noPadding: display.noPadding}"
       >
         <div class="homePage_evolveView" ng-if='display.type==="evolve_view"' ng-init="getHTMLView(display)" ng-bind-html="display.html"></div>
         <div class="homePage_evolveView" ng-if='display.type==="object_view"' ng-init="initSingleView(display)" ng-bind-html="display.html"></div>

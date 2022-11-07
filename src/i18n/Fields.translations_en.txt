@@ -203,6 +203,7 @@ template_url = Url Template
 indexPage=Index Page
 objectPage=Object Page
 noPadding=No Padding
+mergeWithBottom=Merge With Next Bottom Display (Beta)
 homepage_image_fontsize=FontSize
 homepage_image_roundshape=Round Shape
 grid_filter_donotcontains=Don't Contain

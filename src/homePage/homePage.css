@@ -83,12 +83,21 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main .homePage_column .homePage_display.noPadding {
   padding: 0rem;
 }
+.homePage_main .homePage_column .homePage_display.mergeWithBottom {
+  margin-bottom: -0.75rem;
+  box-shadow: none;
+}
 .homePage_main .homePage_column .homePage_display.fixWidth {
   flex: 0 0 auto;
 }
 .homePage_main .homePage_column .homePage_display .cwPropertiesTableHeader span.homePage_display_title,
 .homePage_main .homePage_column .homePage_display .fa.expendIcon {
   font-size: 24px;
+}
+.homePage_main .homePage_column .homePage_display .loadingDisplay {
+  font-size: 24px;
+  color: #e91527;
+  margin-left: 4px;
 }
 .homePage_main .homePage_column .homePage_display .extendableTitle {
   display: flex;

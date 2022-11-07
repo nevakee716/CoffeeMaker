@@ -65,6 +65,11 @@ body:not(.cw_print) .page-content-wrap .page-top {
       &.noPadding {
         padding: 0rem;
       }
+      &.mergeWithBottom {
+        margin-bottom: -0.75rem;
+        box-shadow: none;
+      }
+
       &.fixWidth {
         flex: 0 0 auto;
       }
@@ -73,15 +78,14 @@ body:not(.cw_print) .page-content-wrap .page-top {
       .fa.expendIcon {
         font-size: 24px;
       }
-      .loadingDisplay{
+      .loadingDisplay {
         font-size: 24px;
-        color : @cwLoadingIconColor;
-        margin-left : 4px;
+        color: @cwLoadingIconColor;
+        margin-left: 4px;
       }
       .extendableTitle {
         display: flex;
         align-items: center;
-
 
         .homePage_display_title {
           flex: 1;
