@@ -89,6 +89,7 @@
     console.log("cwApi.appliedLayouts " + cwApi.appliedLayouts.length);
     if (!cwApi.appliedLayoutsOriginal) cwApi.appliedLayoutsOriginal = $.extend(true, {}, { appliedLayouts: cwApi.appliedLayouts });
     else cwApi.appliedLayouts = $.extend(true, {}, cwApi.appliedLayoutsOriginal).appliedLayouts;
+    cwApi.CwPopout.hide();
     console.log("cwApi.appliedLayouts " + cwApi.appliedLayouts.length);
     containerId = !containerId ? "cw-home-navigation" : containerId;
     cwApi.CwAsyncLoader.load("angular", function () {
@@ -255,7 +256,6 @@
           if (objectpage) {
             cwApi.cwDisplayManager.enableBehaviours(schema, { associations: o }, false);
           } else cwApi.cwDisplayManager.enableBehaviours(schema, o, false);
-    
         };
 
         $scope.createHTMLFromJSON = function (display, sync, rootNodeIDUD, objectpage) {
@@ -409,7 +409,7 @@
                   display.loading = false;
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
-                  
+
                   for (i = 0; i < cwApi.appliedLayouts.length; i += 1) {
                     let layout = cwApi.appliedLayouts[i];
                     if (!cwApi.isUndefined(layout?.applyBuiltInJavaScript) && layout?.viewSchema?.ViewName === display.view) {
@@ -440,8 +440,6 @@
                   $scope.$apply();
                   cwApi.cwDisplayManager.enableBehaviours(v, object, false);
                 }
-
-
               }
             },
             cwApi.errorOnLoadPage
@@ -526,7 +524,7 @@
                 display.html = null;
                 display.objectLabel = event.label;
                 display.objectId = event.id;
-                display.objectLink = cwApi.getSingleViewHash(event.scriptname,event.id);
+                display.objectLink = cwApi.getSingleViewHash(event.scriptname, event.id);
                 $scope.$apply();
                 $scope.getHTMLViewForObjectView(display);
               } else {
