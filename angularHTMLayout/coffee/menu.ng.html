@@ -1,0 +1,70 @@
+<div>
+  <div ng-if="showDescription" class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-max-width">
+      <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/menu_description.ng.html'"></div>
+    </div>
+  </div>
+  <div class="tabs">
+    <div
+      ng-repeat="(i, menu) in ng.menus | orderBy:'order'"
+      ng-class="{active: menu.selected == true}"
+      class="tab-link tab-{{menu.Id}}"
+      ng-click="selectMenu(i)"
+      data-id="{{menu.Id}}"
+    >
+      {{menu.title}}
+    </div>
+  </div>
+
+  <div class="tabContent" ng-if="menu.selected" ng-repeat="(imenu, menu) in ng.menus">
+    <div class="bootstrap-iso row">
+      <div class="row-cell row-cell-label">{{$root.i18n('applyontotheserole')}} :</div>
+    </div>
+    <div class="rowFlex bootstrap-iso">
+      <div class="row-cell row-cell-value row-cell-max-width">
+        <div class="cell-content-wrapper filter-wrapper propertieslist">
+          <div
+            class="choiceBox"
+            ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById"
+            ng-init="ng.config.menus[menu.title].roles = ng.config.menus[menu.title].roles ? ng.config.menus[menu.title].roles : {}"
+          >
+            <a
+              class="btn-add-filter btn page-action"
+              ng-class="ng.config.menus[menu.title].roles.hasOwnProperty(k) ? ['selected'] : []"
+              ng-click="toggle(ng.config.menus[menu.title].roles,k)"
+              >{{v}}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bootstrap-iso row">
+      <div class="row-cell row-cell-label">{{$root.i18n('dontapplyontotheserole')}} :</div>
+    </div>
+    <div class="rowFlex bootstrap-iso">
+      <div class="row-cell row-cell-value row-cell-max-width">
+        <div class="cell-content-wrapper filter-wrapper propertieslist">
+          <div
+            class="choiceBox"
+            ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById"
+            ng-init="ng.config.menus[menu.title].dontRoles = ng.config.menus[menu.title].dontRoles ? ng.config.menus[menu.title].dontRoles : {}"
+          >
+            <a
+              class="btn-add-filter btn page-action"
+              ng-class="ng.config.menus[menu.title].dontRoles.hasOwnProperty(k) ? ['selected'] : []"
+              ng-click="toggle(ng.config.menus[menu.title].dontRoles,k)"
+              >{{v}}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row bootstrap-iso">
+      <div class="row-cell row-cell-label">{{$root.i18n('link_overwrite')}} :</div>
+      <div class="row-cell largeCell row-cell-value">
+        <input ng-model="ng.config.menus[menu.title].forcedLink" type="text" />
+      </div>
+    </div>
+  </div>
+  <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
+</div>

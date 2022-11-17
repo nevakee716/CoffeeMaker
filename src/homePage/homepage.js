@@ -107,6 +107,12 @@
         $scope.metamodel = cwAPI.mm.getMetaModel();
 
         $scope.checkIfRole = function (display) {
+          if (display.dontRoles && Object.keys(display.dontRoles).length > 0) {
+            var currentUser = cwApi.currentUser;
+            for (var i = 0; i < currentUser.RolesId.length; i++) {
+              if (display.dontRoles.hasOwnProperty(currentUser.RolesId[i])) return false;
+            }
+          }
           if (display.roles && Object.keys(display.roles).length > 0) {
             var currentUser = cwApi.currentUser;
             for (var i = 0; i < currentUser.RolesId.length; i++) {

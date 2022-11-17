@@ -358,6 +358,15 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
 .separatorMenu {
   height: 30px;
 }
+.separatorTextMenu {
+  height: 30px;
+}
+.separatorTextMenu .cw-menu-icon-zone {
+  width: 10px;
+}
+.separatorTextMenu .menuText {
+  font-weight: bolder;
+}
 .separatorMenu::after {
   content: "";
   width: 70%;

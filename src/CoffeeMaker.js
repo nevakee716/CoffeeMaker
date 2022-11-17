@@ -95,10 +95,13 @@
       if (this.config.property === undefined) this.config.property = {};
       if (this.config.cwWorkflow === undefined) this.config.cwWorkflow = {};
       if (this.config.cwBackup === undefined) this.config.cwBackup = {};
+      if (this.config.menu === undefined) this.config.menu = { menus: {} };
       if (this.config.misc === undefined) this.config.misc = {};
-      cwApi.customLibs.utils.customLayoutConfiguration = this.config;
-      cwApi.customLibs.utils.configurationVersionNumber = cwAPI.customLibs.utils.getWorkflowConfigVersionNumber ? cwAPI.customLibs.utils.getWorkflowConfigVersionNumber() : 42;
 
+      cwApi.customLibs.utils.customLayoutConfiguration = this.config;
+      cwApi.customLibs.utils.configurationVersionNumber = cwAPI.customLibs.utils.getWorkflowConfigVersionNumber
+        ? cwAPI.customLibs.utils.getWorkflowConfigVersionNumber()
+        : 42;
     }
   };
 
@@ -123,13 +126,13 @@
 
       output.push(
         '<div data-id="saveconfiguration" id="CoffeeMakerTab_saveconfiguration_"' +
-        self.nodeID +
-        '" class="CoffeeMakerTab"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>'
+          self.nodeID +
+          '" class="CoffeeMakerTab"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>'
       );
       output.push(
         '<div data-id="refresh" id="CoffeeMakerTab_localstorage_' +
-        self.nodeID +
-        '" class="CoffeeMakerTab"><i class="fa fa-refresh" aria-hidden="true"></i></div>'
+          self.nodeID +
+          '" class="CoffeeMakerTab"><i class="fa fa-refresh" aria-hidden="true"></i></div>'
       );
 
       output.push("</div>");
@@ -211,7 +214,7 @@
     cwApi.CwAsyncLoader.load("angular", function () {
       var loader = cwApi.CwAngularLoader;
       // get tab name while loading CwAdvWorkflowConfigurator layout view
-      var tabName = $('li[data-menu-id="CwAdvWorkflowConfigurator"]').find('span').text();
+      var tabName = $('li[data-menu-id="CwAdvWorkflowConfigurator"]').find("span").text();
       registerTabsEvent(loader, self, $container);
       loadTemplate(loader, self, $container, tabName);
       addControlButtons(self);
@@ -370,7 +373,6 @@
     });
   };
 
-
   function loadTemplate(loader, self, $container, tabName) {
     loader.setup();
     var datasetId = "";
@@ -381,8 +383,22 @@
     });
 
     let templatePath = "";
-    if (["redirectEdit", "duplicateButton", "homePage", "cdsEnhanced", "checkEditModel", "pageFilter", "tableComplexeEnhanced", "diagram", "property", "cwBackup", "misc"].indexOf(datasetId) === -1) {
-      templatePath = loader.prefixWithTemplatePath('coffee', datasetId) + "?" + Math.random();
+    if (
+      [
+        "redirectEdit",
+        "duplicateButton",
+        "homePage",
+        "cdsEnhanced",
+        "checkEditModel",
+        "pageFilter",
+        "tableComplexeEnhanced",
+        "diagram",
+        "property",
+        "cwBackup",
+        "misc",
+      ].indexOf(datasetId) === -1
+    ) {
+      templatePath = loader.prefixWithTemplatePath("coffee", datasetId) + "?" + Math.random();
     } else {
       templatePath = cwAPI.getCommonContentPath() + "/html/coffee/" + datasetId + ".ng.html" + "?" + Math.random();
     }
@@ -453,9 +469,7 @@
         };
 
         $scope.getRootObjectTypeFromView = function (view) {
-          return cwApi.mm.getObjectType(
-            cwApi.getViewsSchemas()[view].NodesByID[cwApi.getViewsSchemas()[view].RootNodesId[0]].ObjectTypeScriptName
-          );
+          return cwApi.mm.getObjectType(cwApi.getViewsSchemas()[view].NodesByID[cwApi.getViewsSchemas()[view].RootNodesId[0]].ObjectTypeScriptName);
         };
 
         $scope.addSlide = function (display) {
@@ -502,17 +516,18 @@
           }
         }
 
-
         if (self["controller_" + datasetId] && $scope.ng.config) self["controller_" + datasetId]($container, templatePath, $scope);
       });
     }
   }
 
   function registerTabsEvent(loader, self, $container) {
-    var matches = $('.cw-menu-zone .sub-level').find('a[href="#cwtype=ngsimple&cwview=CwAdvWorkflowConfigurator&cwmodule=ngDiagramEditor&lang=en"]').parent();
+    var matches = $(".cw-menu-zone .sub-level")
+      .find('a[href="#cwtype=ngsimple&cwview=CwAdvWorkflowConfigurator&cwmodule=ngDiagramEditor&lang=en"]')
+      .parent();
     for (let i = 0; i < matches.length; i++) {
       let tab = matches[i];
-      $(tab).off('click'); // to avoid multiple event listener
+      $(tab).off("click"); // to avoid multiple event listener
       $(tab).click(function () {
         let simpleQueryString = cwApi.cwPageManager.parseQueryString(window.location.hash);
         if (simpleQueryString.cwview == "CwAdvWorkflowConfigurator") {
@@ -528,21 +543,22 @@
     let configVersionNoFromServer = cwAPI.customLibs.utils.getWorkflowConfigVersionNumber();
     let configLocalKey = cwAPI.customLibs.utils.getConfigLocalStorageKey(configVersionNoFromServer);
 
-    $('.coffeeMaker-control-btn').remove();
+    $(".coffeeMaker-control-btn").remove();
     //appending Save and Refresh workflow configuration buttons
-    var controlButtons = '<li data-id="saveconfiguration" title="Save Configuration" id="CoffeeMakerTab_saveconfiguration" class="page-top-li coffeeMaker-control-btn">'
-      + '<i class="btn page-action no-text fa fa-floppy-o" aria-hidden="true"></i>'
-      + '</li>'
-      + '<li data-id="refresh" title="Refresh Configuration" id="CoffeeMakerTab_localstorage" class="page-top-li coffeeMaker-control-btn">'
-      + '<i class="btn page-action no-text fa fa-refresh" aria-hidden="true"></i>'
-      + '</li>'
-      + '<li data-id="publishconfiguration" title="Publish Configuration" id="CoffeeMakerTab_publishconfiguration" class="page-top-li coffeeMaker-control-btn">'
-      + '<i class="btn page-action no-text fa fa-upload" aria-hidden="true" title="Publish"></i>'
-      + '</li>';
+    var controlButtons =
+      '<li data-id="saveconfiguration" title="Save Configuration" id="CoffeeMakerTab_saveconfiguration" class="page-top-li coffeeMaker-control-btn">' +
+      '<i class="btn page-action no-text fa fa-floppy-o" aria-hidden="true"></i>' +
+      "</li>" +
+      '<li data-id="refresh" title="Refresh Configuration" id="CoffeeMakerTab_localstorage" class="page-top-li coffeeMaker-control-btn">' +
+      '<i class="btn page-action no-text fa fa-refresh" aria-hidden="true"></i>' +
+      "</li>" +
+      '<li data-id="publishconfiguration" title="Publish Configuration" id="CoffeeMakerTab_publishconfiguration" class="page-top-li coffeeMaker-control-btn">' +
+      '<i class="btn page-action no-text fa fa-upload" aria-hidden="true" title="Publish"></i>' +
+      "</li>";
 
-    $('.page-top-ul').append(controlButtons);
+    $(".page-top-ul").append(controlButtons);
 
-    $('.coffeeMaker-control-btn').click(function () {
+    $(".coffeeMaker-control-btn").click(function () {
       if (this.dataset.id === "saveconfiguration" && self.objectConfigurationId) {
         self.saveConfiguration(angular.toJson(self.config));
       }
@@ -569,15 +585,18 @@
         //remove localConfiguration, Fetch Configuration from API AdvancedWorkflow/GetConfig
         let $container = $(".cw-adv-workflow");
         $container.find(".cw-de-save-dialog").remove();
-        cwApi.outputConfirmationDialog($container, "Your draft changes will be lost. Do you want to continue ?", function () {
-          cwAPI.customLibs.utils.removeLocalConfiguration();
-          window.location.reload(true);
-        }, function () { });
+        cwApi.outputConfirmationDialog(
+          $container,
+          "Your draft changes will be lost. Do you want to continue ?",
+          function () {
+            cwAPI.customLibs.utils.removeLocalConfiguration();
+            window.location.reload(true);
+          },
+          function () {}
+        );
       }
     });
   }
-
-
 
   cwCoffeeMaker.prototype.unselectTabs = function (tabs) {
     let matches = document.querySelectorAll(".CoffeeMakerTab");

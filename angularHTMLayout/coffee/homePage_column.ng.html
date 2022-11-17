@@ -27,6 +27,20 @@
     </div>
   </div>
 </div>
+<div class="bootstrap-iso row">
+  <div class="row-cell row-cell-label">{{$root.i18n('dontapplyontotheserole')}} :</div>
+</div>
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-value row-cell-max-width">
+    <div class="cell-content-wrapper filter-wrapper propertieslist">
+      <div class="choiceBox" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById" ng-init="col.dontRoles = col.dontRoles ? col.dontRoles : {}">
+        <a class="btn-add-filter btn page-action" ng-class="col.dontRoles.hasOwnProperty(k) ? ['selected'] : []" ng-click="toggle(col.dontRoles,k)"
+          >{{v}}</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
 <div class="tabs">
   <div
     ng-repeat="(idisp, display) in col.displays | orderBy:'order'"
@@ -72,6 +86,27 @@
       <div class="cell-content-wrapper filter-wrapper propertieslist">
         <div class="choiceBox" ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById" ng-init="display.roles = display.roles ? display.roles : {}">
           <a class="btn-add-filter btn page-action" ng-class="display.roles.hasOwnProperty(k) ? ['selected'] : []" ng-click="toggle(display.roles,k)"
+            >{{v}}</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bootstrap-iso row">
+    <div class="row-cell row-cell-label">{{$root.i18n('dontapplyontotheserole')}} :</div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-value row-cell-max-width">
+      <div class="cell-content-wrapper filter-wrapper propertieslist">
+        <div
+          class="choiceBox"
+          ng-repeat="(k,v) in cwApi.cwConfigs.RoleNameById"
+          ng-init="display.dontRoles = display.dontRoles ? display.dontRoles : {}"
+        >
+          <a
+            class="btn-add-filter btn page-action"
+            ng-class="display.dontRoles.hasOwnProperty(k) ? ['selected'] : []"
+            ng-click="toggle(display.dontRoles,k)"
             >{{v}}</a
           >
         </div>
