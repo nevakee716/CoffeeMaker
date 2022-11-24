@@ -1,8 +1,8 @@
 <div class="cwNiceList">
   <span class="nameContainerAndTags">
     <span class="name">
-      <a ng-if="!urlPropertiesScriptname" href="{{cwApi.getSingleViewHash(item.objectTypeScriptName,item.object_id)}}"> {{item.name}} </a>
-      <a ng-if="urlPropertiesScriptname != ''" target="_blank" href="{{url}}"> {{item.name}} </a>
+      <a ng-if="urlPropertiesScriptname == undefined" href="{{cwApi.getSingleViewHash(item.objectTypeScriptName,item.object_id)}}"> {{item.name}} </a>
+      <a ng-if="urlPropertiesScriptname !== undefined" target="_blank" href="{{url}}"> {{item.name}} </a>
 
       <span ng-repeat="asso in associationsIcon" ng-if="asso.length > 0" class="icon" aria-hidden="true" ng-bind-html="getCDS(asso[0])"></span>
     </span>
