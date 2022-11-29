@@ -32,8 +32,8 @@
             Object.keys($scope.item.properties).filter(function(p) {
               return ['name'].indexOf(p) === -1 && ['exportflag'].indexOf(p) === -1 && p.indexOf("_id") === -1 && p.indexOf("_abbreviation") === -1 && ['cwaveragerating'].indexOf(p) === -1 && ['cwtotalcomment'].indexOf(p) === -1;
             }).forEach(function(ps){
-            
               let property = cwAPI.mm.getProperty($scope.item.objectTypeScriptName,ps);
+              if(property.type === "Memo") return ;
               if(property.type === "URL") {
                 $scope.urlPropertiesScriptname = ps;
                 $scope.url = $scope.item.properties[$scope.urlPropertiesScriptname]
