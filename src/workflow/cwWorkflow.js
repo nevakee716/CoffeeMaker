@@ -344,6 +344,10 @@
             });
             if (!found) result = 0;
           }
+
+          if (prop && prop.type === "Boolean") {
+            result = $.i18n.prop("global_true").toLowerCase() == result.toLowerCase();
+          }
           if (
             !prop ||
             prop.type === "Boolean" ||
