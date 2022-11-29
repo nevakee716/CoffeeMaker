@@ -346,7 +346,7 @@
           }
 
           if (prop && prop.type === "Boolean") {
-            result = $.i18n.prop("global_true").toLowerCase() == result.toLowerCase();
+            result = "true" == result.toLowerCase() || $.i18n.prop("global_true").toLowerCase() == result.toLowerCase();
           }
           if (
             !prop ||
