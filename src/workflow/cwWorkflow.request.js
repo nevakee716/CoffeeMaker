@@ -100,6 +100,10 @@
         }
       });
 
+
+
+
+
       cwAPI.customLibs.utils.sendRequestToCwFileHandling(
         "CwCreateUpdateObjectWithDocsConnId",
         [
@@ -139,10 +143,22 @@
               });
             } else if (step.createObject && step.shareWorkflow) {
               // create an object and notify a roles
-              $scope.createFinalObject(step, id, $scope.ng.stepmapping[step.stepName]);
+              if (self.objectTypeScriptName === "erwinbackup" && $scope.ng.changeset.properties.locked === true) {
+                self.triggerBackup($scope,() => {
+                  $scope.createFinalObject(step, id, $scope.ng.stepmapping[step.stepName]);
+                });
+              } else {
+                $scope.createFinalObject(step, id, $scope.ng.stepmapping[step.stepName]);
+              }
             } else if (step.createObject) {
               // create an object and notify creator (default)
-              $scope.createFinalObject(step, id);
+              if (self.objectTypeScriptName === "erwinbackup" && $scope.ng.changeset.properties.locked === true) {
+                self.triggerBackup($scope,() => {
+                  $scope.createFinalObject(step, id);
+                });
+              } else {
+                $scope.createFinalObject(step, id);
+              }
             } else if (step.shareWorkflow) {
               // notify
               if (($scope.ng.stepmapping[step.stepName] ^ 0) === $scope.ng.stepmapping[step.stepName]) {
@@ -197,6 +213,9 @@
     };
 
     $scope.createFinalObject = function (step, id, mapping) {
+
+
+
       if (mapping === undefined) mapping = $scope.ng.stepmapping.creator;
       $scope.ng.changeset.associations.anyobjecttoassocwworkflowitemtocwworkflowitem = [{ object_id: id, iProperties: {} }];
 
@@ -331,6 +350,93 @@
       );
     };
   };
+
+
+  cwLayout.prototype.triggerBackup = function (scope,callback) {
+    let jsonFile = cwApi.getObjectPageJsonUrl("erwinbackup_detail", this.changeset.object_id);
+    cwApi.getJSONFile(
+      jsonFile,
+      function (o) {
+        if (cwApi.checkJsonCallback(o)) {
+          let object = o.object;
+          var xmlhttp = new XMLHttpRequest();
+          var self = this;
+          //replace second argument with the path to your Secret Server webservices
+          xmlhttp.open("POST", window.location.origin + cwAPI.getServerPath() + "CWObjectExportImport/CWObjectExportImport.asmx", true);
+
+
+          let schema = cwAPI.getViewsSchemas().erwinbackup_detail;
+          let childNodeId = schema.NodesByID[schema.RootNodesId].SortedChildren[0].NodeId;
+          let lOption = schema.NodesByID[childNodeId].LayoutOptions.CustomOptions;
+
+
+          let config = cwAPI.customLibs.utils.cleanJSON(object.properties.configuration) ?? cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
+          try {
+            config = JSON.parse(config);
+          } catch(e){
+            cwAPI.notificationManager.addError(
+              "Backup configuration is corrupted : \n" + $scope.parseError(response)
+            );
+            callback();
+          }
+          let xml = config.method !== "1" ? true : false;
+          let level = config.level - 1;
+          let levelFilter = { levelFilter: config.levelFilter };
+          //create the SOAP request
+          //replace username, password (and org + domain, if necessary) with the appropriate info
+          var strRequest =
+            '<?xml version="1.0" encoding="utf-8"?>' +
+            '<soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">' +
+            "<soap12:Body>" +
+            '<CWErwinBackup xmlns="http://HawkeyeQ.org/">' +
+            "<ConnectionName></ConnectionName>" +
+            "<Username>" +
+            lOption.login +
+            "</Username>" +
+            "<Password>" +
+            lOption.password +
+            "</Password>" +
+            "<Domain></Domain>" +
+            "<ModelFileName>" +
+            cwApi.mm.getMetaModel().fileName +
+            "</ModelFileName>" +
+            "<InstanceId>" +
+            object.object_id +
+            "</InstanceId>" +
+            "<Method>" +
+            config.method +
+            "</Method>" +
+            "<DefaultLevel>" +
+            level +
+            "</DefaultLevel>" +
+            "<FiltersJson>" +
+            JSON.stringify(levelFilter)
+              .toUpperCase()
+              .replace(/ASSOCIATIONTYPES/g, "AssociationTypes") +
+            "</FiltersJson>" +
+            "<GenerateXml>" +
+            xml +
+            "</GenerateXml>" +
+            "<BackupFolder></BackupFolder>" +
+            "</CWErwinBackup>" +
+            "</soap12:Body>" +
+            "</soap12:Envelope>";
+
+          //specify request headers
+          xmlhttp.setRequestHeader("Content-Type", "application/soap+xml; charset=utf-8");
+          cwAPI.siteLoadingPageStart();
+          xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4) {
+              callback();
+            }
+          };
+          xmlhttp.send(strRequest);
+        }
+      })
+  };
+
+
+
 
   cwApi.cwLayouts.cwWorkflow = cwLayout;
 })(cwAPI, jQuery);
