@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2013 Casewise Systems Ltd (UK) - All rights reserved */
+﻿/* Copyright (c) 2012-2013 Casewise Systems Ltd (UK) - All rights reserved */
 
 /*global cwAPI, jQuery */
 (function (cwApi, $) {
@@ -38,6 +38,7 @@
         associations: {},
       };
 
+       if( self.object.objectTypeScriptName != "cwworkflowitem" )delete $scope.ng.jsonObjects.object_id;
       //fullfill history
       $scope.ng.history[$scope.ng.currentStep.label] = {};
       $scope.ng.history[$scope.ng.currentStep.label].user = cwApi.currentUser.FullName;
@@ -370,15 +371,21 @@
           let lOption = schema.NodesByID[childNodeId].LayoutOptions.CustomOptions;
 
 
-          let config = cwAPI.customLibs.utils.cleanJSON(object.properties.configuration) ?? cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
-          try {
+          let config = cwAPI.customLibs.utils.cleanJSON(object.properties.configuration);
+		  if(config == undefined || config === "") config = cwApi.customLibs.utils.getCustomLayoutConfiguration("cwBackup");
+		  else {
+	          try {
             config = JSON.parse(config);
           } catch(e){
             cwAPI.notificationManager.addError(
               "Backup configuration is corrupted : \n" + $scope.parseError(response)
             );
             callback();
-          }
+          }		  
+			  
+			  
+			  }
+
           let xml = config.method !== "1" ? true : false;
           let level = config.level - 1;
           let levelFilter = { levelFilter: config.levelFilter };
