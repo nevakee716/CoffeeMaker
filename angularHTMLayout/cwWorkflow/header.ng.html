@@ -11,6 +11,11 @@
   {{ng.scenario}} : {{ng.currentStep.label}} {{ng.otherUsers}}</span>
 </div>
 
+  <div class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader" ng-if="ng.changeset.object_id">
+     <a target="_blank" href="{{getObjectPage(ng.changeset)}}">{{$root.i18n('originalObjects')}} :  {{ng.changeset.properties.name}}</a>
+  </div>
+  
+  
 <div ng-if="ng.currentEditRequest && ng.currentEditRequest.length > 0" class="cwPropertiesTableHeader CwPropertiesLayoutTableHeader">
   <div>{{$root.i18n('OtherWorkflowOnTheSameItem')}} : </div>
 
@@ -18,5 +23,7 @@
     <a target="_blank" href="{{wf.url}}">{{wf.name}} - {{wf.step}} ({{wf.user}})</a>
   </div>
 
+
+  
 </div>
 
