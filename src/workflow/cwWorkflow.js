@@ -87,7 +87,7 @@
       if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
         configuration = JSON.parse(JSON.stringify(cwAPI.customLibs.utils.getCustomLayoutConfiguration("cwWorkflow")));
       } else return;
-
+      //edit
       if (!cwApi.isIndexPage() && cwAPI.getCurrentView().rootObjectType === "cwworkflowitem") {
         let o = self.object;
         self.objectTypeScriptName = o.properties.objecttypescriptname;
@@ -162,6 +162,7 @@
         };
         self.creation = true;
 
+        // edit object
         if (!cwApi.isIndexPage()) {
           self.changeset.object_id = self.object.object_id;
 
@@ -249,7 +250,7 @@
               return $scope.ng.stepmapping[$scope.ng.currentStep.label] == r;
             });
           }
-        } else $scope.ng.canEdit = $scope.ng.stepmapping.creator === cwApi.currentUser.ID ? true : false;
+        } else $scope.ng.canEdit = self.creation || $scope.ng.stepmapping.creator === cwApi.currentUser.ID ? true : false;
 
         $scope.ng.canRead =
           $scope.ng.canEdit ||

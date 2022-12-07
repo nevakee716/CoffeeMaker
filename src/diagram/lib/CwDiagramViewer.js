@@ -152,8 +152,27 @@ adding the support and clickable associated region*/
 
   cwApi.Diagrams.CwDiagramViewer.prototype.registerEvents = function () {
     var that = this;
+    let doubleClickThreshold = 250; //ms
+    let lastClick = 0;
+    let isDragging = false;
+    let isDoubleClick = false;
+    let mouseIsDown = false;
     // Catch actions on Canvas
-    this.$canvas.mousemove(that.mouseMove.bind(that));
+    this.$canvas.mousemove(() => {
+      if (mouseIsDown) {
+        isDragging = true;
+      }
+      that.mouseMove.bind(that);
+    });
+
+    this.$canvas.on("mousedown", function () {
+      mouseIsDown = true;
+    });
+
+    this.$canvas.on("mouseUp", function () {
+      isDragging = false;
+      mouseIsDown = false;
+    });
 
     this.$canvas.on("mousewheel", function (e) {
       that.camera.updateMousePositions(e);
@@ -163,18 +182,16 @@ adding the support and clickable associated region*/
     var pendingClick;
     if (!this.isDraftDiagram) {
       this.$canvas.click(function (e) {
-        if (pendingClick) {
-          clearTimeout(pendingClick);
-          pendingClick = null;
+        let thisClick = new Date().getTime();
+        isDoubleClick = thisClick - lastClick < doubleClickThreshold;
+        lastClick = thisClick;
+        if (isDoubleClick) {
           //dbclick
           cwAPI.CwPopout.hide();
           that.goToSelectedObjectLink(e);
         } else {
           //sclick
-          pendingClick = setTimeout(function () {
-            that.clickOnCanvas(e);
-            pendingClick = null;
-          }, 500); // should match OS multi-click speed
+          that.clickOnCanvas(e);
         }
       });
     }
