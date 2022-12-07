@@ -298,6 +298,10 @@
             $scope.ng.stepmapping[stepConfiguration.stepName] = stepConfiguration.cwRole;
         };
 
+        $scope.getObjectPage = function (object) {
+          return cwApi.getSingleViewHash(object.objectTypeScriptname,object.object_id) ;
+        };
+
         $scope.initValue = function (formInput) {
           if (!formInput.value) return;
           let result = formInput.value.toString();
