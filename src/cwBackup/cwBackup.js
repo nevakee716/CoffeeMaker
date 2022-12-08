@@ -272,9 +272,9 @@
             const objectType = cwApi.mm.getObjectType(ng[ot][id]["Object Type Script-Name"]);
             let property =
               objectType.properties[
-                Object.keys(objectType.properties).find((p) => {
-                  return objectType.properties[p].name === propertyName;
-                })
+              Object.keys(objectType.properties).find((p) => {
+                return objectType.properties[p].name === propertyName;
+              })
               ];
 
             if (propertyName == "Screenshot")
@@ -352,11 +352,11 @@
         $scope.getAssociationPropertyValue = function (ass, label, propertyValue) {
           let p;
           const at = cwApi.mm.getObjectType(ass["Association Type Script-Name"]);
-          const property =
+          const property = 
             at.properties[
-              Object.keys(at.properties).find((ps) => {
-                return at.properties[ps].name === label;
-              })
+            Object.keys(at.properties).find((ps) => {
+              return at.properties[ps].name === label || (label === "Description" && ps === "description");
+            })
             ];
 
           if (label == "TYPE") {
@@ -420,8 +420,8 @@
 
         $scope.checkJSONDiff = function (json1, json2) {
           return !deepEqual(
-            angular.fromJson(angular.toJson(json1).replace(/BAK_Diagram_/g, "CUR_Diagram_")),
-            angular.fromJson(angular.toJson(json2).replace(/BAK_Diagram_/g, "CUR_Diagram_"))
+            angular.fromJson(angular.toJson(json1).replace(/BAK_Diagram_/g, "CUR_Diagram_").replace(/,"extended":true/g, "").replace(/,"extended":false/g, "")),
+            angular.fromJson(angular.toJson(json2).replace(/BAK_Diagram_/g, "CUR_Diagram_").replace(/,"extended":true/g, "").replace(/,"extended":false/g, ""))
           );
         };
         $scope.getCategoryLabel = function (ot) {
@@ -477,36 +477,53 @@
 
         $scope.reFormatAssociations = function (associations, ot, ng) {
           let r = {};
-          associations.forEach(function (asso) {
-            if (!r[asso["Association Type"]]) r[asso["Association Type"]] = {};
-            r[asso["Association Type"]][asso["Associated Object ID"]] = asso;
 
-            asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
-              return cwApi.mm.getMetaModel().objectTypes[o].Id.toString() === asso["Associated Object Type ID"];
-            });
-            let otTarget = cwAPI.mm.getObjectTypeById(asso["Associated Object Type ID"]);
-            let id = asso["Associated Object ID"];
-            r.name = ng[otTarget.name][id]["Object Name"];
-            asso.name = ng[otTarget.name][id]["Object Name"];
-            if (!$scope.ng.objectTypes[ot].associations[asso["Association Type"]]) {
-              $scope.ng.objectTypes[ot].associations[asso["Association Type"]] = asso;
+          if (jQuery.isEmptyObject(associations)) return {};
+          if (!Array.isArray(associations)) return associations;
+          associations.forEach(function (asso) {
+            try {
+              if (!r[asso["Association Type"]]) r[asso["Association Type"]] = {};
+              asso.Properties.Description = asso.Description
+              .replaceAll("&amp;", "&")
+              .replaceAll("&lt;", "<")
+              .replaceAll("&gt;", ">");
+              r[asso["Association Type"]][asso["Associated Object ID"]] = asso;
+
+
+              asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
+                return cwApi.mm.getMetaModel().objectTypes[o].Id.toString() === asso["Associated Object Type ID"];
+              });
+              let otTarget = cwAPI.mm.getObjectTypeById(asso["Associated Object Type ID"]);
+              let id = asso["Associated Object ID"];
+              if (!$scope.ng.objectTypes[ot].associations[asso["Association Type"]]) {
+                $scope.ng.objectTypes[ot].associations[asso["Association Type"]] = asso;
+              }
+              // r.name = ng[otTarget.name][id]["Object Name"];
+              asso.name = ng[otTarget.name][id]["Object Name"];
+
             }
+            catch (e) { }
           });
+
           return r;
         };
 
         $scope.reFormatDiagrams = function (diagrams, obj) {
           let r = {};
-          diagrams.forEach(function (d) {
-            r[d["Diagram ID"]] = d;
+          try {
+            diagrams.forEach(function (d) {
+              r[d["Diagram ID"]] = d;
 
-            if (!obj.diagrams) {
-              obj.diagrams = {};
-            }
-            if (!obj.diagrams[d["Diagram ID"]]) {
-              obj.diagrams[d["Diagram ID"]] = d;
-            }
-          });
+              if (!obj.diagrams) {
+                obj.diagrams = {};
+              }
+              if (!obj.diagrams[d["Diagram ID"]]) {
+                obj.diagrams[d["Diagram ID"]] = d;
+              }
+            });
+          } catch (e) {
+
+          }
           return r;
         };
 
@@ -532,7 +549,7 @@
           // public url on Browsers) or Buffers
           imageA: iA,
           imageB: iB,
-
+  
           // Needs to be one of Rembrandt.THRESHOLD_PERCENT or Rembrandt.THRESHOLD_PIXELS
           thresholdType: Rembrandt.THRESHOLD_PERCENT,
           // The maximum threshold (0...1 for THRESHOLD_PERCENT, pixel count for THRESHOLD_PIXELS
@@ -553,7 +570,7 @@
               t.matched = result;
               $scope.$apply();
             }
-
+  
             // Note that `compositionImage` is an Image when Rembrandt.js is run in the browser environment
           })
           .catch(function (e) {
@@ -611,9 +628,9 @@
                 const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
                 $scope.ng.objectTypes[objectType].properties[pLabel] =
                   ot.properties[
-                    Object.keys(ot.properties).find((p) => {
-                      return ot.properties[p].name === pLabel;
-                    })
+                  Object.keys(ot.properties).find((p) => {
+                    return ot.properties[p].name === pLabel;
+                  })
                   ];
               });
 
@@ -630,12 +647,14 @@
                 $scope.ng.objectTypes[objectType].missingObjects = true;
               }
 
+
               // Format Associations
               $scope.ng.backup[objectType][id].Associations = $scope.reFormatAssociations(
                 $scope.ng.backup[objectType][id].Associations,
                 objectType,
                 $scope.ng.backup
               );
+
               // Format Diagrams
               $scope.ng.backup[objectType][id].Diagrams = $scope.reFormatDiagrams($scope.ng.backup[objectType][id].Diagrams, objects[id]);
             });
@@ -661,9 +680,9 @@
                 const ot = cwApi.mm.getObjectType($scope.ng.backup[objectType][id]["Object Type Script-Name"]);
                 $scope.ng.objectTypes[objectType].properties[pLabel] =
                   ot.properties[
-                    Object.keys(ot.properties).find((p) => {
-                      return ot.properties[p].name === pLabel;
-                    })
+                  Object.keys(ot.properties).find((p) => {
+                    return ot.properties[p].name === pLabel;
+                  })
                   ];
               });
 

@@ -13,15 +13,15 @@
       <tr>
         <th class="assoPropertyGroup" colspan="2">Properties</th>
       </tr>
-      <tr ng-repeat="(pLabel,property) in ao.Properties">
+      <tr ng-repeat="pLabel in keys(ao.Properties) | orderBy: pLabel">
         <th>{{pLabel}}</th>
 
         <td class="same">
-          <span ng-bind-html="getAssociationPropertyValue(ao,pLabel,property)"> </span>
+          <span ng-bind-html="getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel])"> </span>
         </td>
       </tr>
 
-      <tr ng-if="ao.Properties[pLabel] === undefined" ng-repeat="(pLabel,property) in getAssociationOfCurrent(OT, vv, assoName, ao)">
+      <tr ng-if="ao.Properties[pLabel] === undefined" ng-repeat="pLabel in keys(getAssociationOfCurrent(OT, vv, assoName, ao)) | orderBy: pLabel">
         <th>{{pLabel}}</th>
         <td>
           <span ng-bind-html="getAssociationPropertyValue(ao,pLabel)"> </span>

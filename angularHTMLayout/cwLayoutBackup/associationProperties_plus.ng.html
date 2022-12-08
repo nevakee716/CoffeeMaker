@@ -14,9 +14,9 @@
       <tr>
         <th class="assoPropertyGroup" colspan="2">Properties</th>
       </tr>
-      <tr ng-repeat="(pLabel,property) in ao.Properties">
+      <tr ng-repeat="pLabel in keys(ao.Properties) | orderBy: pLabel">
         <th>{{pLabel}}</th>
-        <td class="different"><span ng-bind-html="getAssociationPropertyValue(ao,pLabel,property)"> </span></td>
+        <td class="different"><span ng-bind-html="getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel])"> </span></td>
       </tr>
     </tbody>
   </table>
