@@ -1,6 +1,6 @@
 {
   "name": "Custom Layout Configuration",
-  "version": "5.11.3",
+  "version": "5.12.0",
   "description": "Allow you to configure specifics directly in evolve",
   "main": "src/CoffeMaker.js",
   "scripts": {
