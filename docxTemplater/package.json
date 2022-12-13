@@ -40,7 +40,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.19.0",
     "docx-templates": "*",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "isomorphic-fetch": "2.2.1",
     "prettier": "^1.18.2",
     "yaqrcode": "^0.2.1",
