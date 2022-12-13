@@ -253,7 +253,12 @@
       var tasks, task, due, overdue, calendarDate, receivedDate, i;
 
       tasks = cwApi.CwWorkflowTaskManager.getUnreadTaskList();
-      output.push('<li class="list list-tasks cw-menu-zone">');
+      let config;
+      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("menu");
+      }
+
+      output.push(`<li class="list list-tasks cw-menu-zone ${config?.removeMyTasks ? "cw-hidden" : ""} " >`);
       outputMenuZone(
         output,
         "special",
@@ -306,7 +311,14 @@
       var notifications, notification, i, sendDate;
 
       notifications = cwApi.CwWorkflowNotificationManager.getUnreadNotificationList();
-      output.push('<li id="notifications-list" class="list list-notifications cw-menu-zone">');
+
+      let config;
+      if (cwAPI.customLibs.utils && cwAPI.customLibs.utils.getCustomLayoutConfiguration) {
+        config = cwAPI.customLibs.utils.getCustomLayoutConfiguration("menu");
+      }
+
+      output.push(`<li id="notifications-list" class="list list-notifications cw-menu-zone ${config?.removeMyNotifications ? "cw-hidden" : ""} " >`);
+
       outputMenuZone(
         output,
         "special",

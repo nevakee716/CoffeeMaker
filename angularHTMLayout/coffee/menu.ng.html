@@ -4,6 +4,18 @@
       <div class="filter-wrapper propertieslist" ng-include src="'../../common/html/coffee/menu_description.ng.html'"></div>
     </div>
   </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_remove_my_tasks')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="ng.config.removeMyTasks" type="checkbox" />
+    </div>
+  </div>
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('homepage_custom_remove_my_notifications')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input ng-model="ng.config.removeMyNotifications" type="checkbox" />
+    </div>
+  </div>
   <div class="tabs">
     <div
       ng-repeat="(i, menu) in ng.menus | orderBy:'order'"
