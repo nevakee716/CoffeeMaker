@@ -28,7 +28,9 @@
       </div>
     </div>
   </span>
-  <span class="date" ng-if="'30 décembre 1899' != lDate || '30 december 1899' != lDate">{{lDate}}</span>
+  <span class="date" title="{{datePropertiesName}}" ng-if="datePropertiesScriptname && ('30 décembre 1899' != lDate || '30 december 1899' != lDate)"
+    >{{lDate}}</span
+  >
   <span class="action">
     <i ng-if="popout" ng-click="openPopout(popout.name,popout.id)" class="{{popout.class}}" aria-hidden="true"></i>
     <a ng-if="!cwApi.cwUser.isUserSocial()" href="{{cwApi.getSingleViewHash(item.objectTypeScriptName,item.object_id)}}">
