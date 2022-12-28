@@ -299,7 +299,7 @@
         };
 
         $scope.getObjectPage = function (object) {
-          return cwApi.getSingleViewHash(object.objectTypeScriptname,object.object_id) ;
+          return cwApi.getSingleViewHash(object.objectTypeScriptname, object.object_id);
         };
 
         $scope.initValue = function (formInput) {
@@ -673,13 +673,18 @@
     cwApi.CwDataServicesApi.send("flatQuery", editItemquery, function (err, res) {
       self.currentEditRequest = [];
       res.forEach(function (wf) {
-        self.currentEditRequest.push({
-          name: wf.properties.name,
-          step: wf.properties.step,
-          object_id: wf.object_id,
-          user: JSON.parse(self.cleanJSON(wf.properties.history)).creator,
-          url: cwAPI.getSingleViewHash("cwworkflowitem", wf.object_id),
-        });
+        try {
+          let changeset = JSON.parse(cwApi.customLibs.utils.cleanJSON(wf.properties.changeset));
+          if (changeset.object_id == self.object.object_id) {
+            self.currentEditRequest.push({
+              name: wf.properties.name,
+              step: wf.properties.step,
+              object_id: wf.object_id,
+              user: JSON.parse(self.cleanJSON(wf.properties.history)).creator,
+              url: cwAPI.getSingleViewHash("cwworkflowitem", wf.object_id),
+            });
+          }
+        } catch (e) {}
       });
 
       callback();
