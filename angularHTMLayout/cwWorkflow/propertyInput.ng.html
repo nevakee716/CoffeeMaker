@@ -7,6 +7,8 @@
   class="largeCell"
   ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-change="refreshProperties()"
+  ng-model-options="{ debounce: 300 }"
   ng-if="getPropertyDataType(ng.objectType, formInput.scriptname)==='text'"
 />
 <input
@@ -15,6 +17,8 @@
   ng-required="formInput.mandatory"
   ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-change="refreshProperties()"
+  ng-model-options="{ debounce: 300 }"
   type="checkbox"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='checkbox'"
 />
@@ -24,6 +28,8 @@
   ng-required="formInput.mandatory"
   ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-change="refreshProperties()"
+  ng-model-options="{ debounce: 300 }"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='memo'"
 ></textarea>
 
@@ -34,6 +40,8 @@
   class="value"
   type="date"
   ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-change="refreshProperties()"
+  ng-model-options="{ debounce: 300 }"
   format-date
   ng-if="getPropertyDataType(ng.objectType, formInput.scriptname)==='date'"
 />
@@ -42,6 +50,8 @@
   ng-required="formInput.mandatory"
   ng-class="{readonly : !ng.canEdit || formInput.readOnly}"
   ng-model="ng.changeset.properties[formInput.scriptname]"
+  ng-change="refreshProperties()"
+  ng-model-options="{ debounce: 300 }"
   type="number"
   class="value"
   ng-if="getPropertyDataType(ng.objectType, formInput.scriptname)==='number'"
@@ -56,6 +66,8 @@
   id="{{'lookupFilter_' + $index}}"
   ng-if=" getPropertyDataType(ng.objectType, formInput.scriptname)==='lookup'"
   ng-init="initLookup(formInput)"
+  ng-change="refreshProperties()"
+  ng-model-options="{ debounce: 300 }"
 >
   <option ng-if="!formInput.mandatory" value="0">Undefined</option>
   <option

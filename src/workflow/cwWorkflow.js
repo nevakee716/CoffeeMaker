@@ -306,10 +306,12 @@
           if (!formInput.value) return;
           let result = formInput.value.toString();
           let r = formInput.value.toString().match(/{(.*?)}/);
+          let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
 
           while (r !== null) {
             let cds = r[1];
             let v = "";
+
             if (cds.indexOf(".") !== -1) {
               if ($scope.ng.changeset.properties[cds.split(".")[0]]) {
                 v = $scope.ng.changeset.properties[cds.split(".")[0]].properties[cds.split(".")[1]];
@@ -317,11 +319,23 @@
             } else {
               v = $scope.ng.changeset.properties[cds];
             }
+
+            let cdsProp = cwApi.mm.getProperty(self.objectTypeScriptName, cds);
+            // get the value if lookup
+            if (v && cdsProp && cdsProp.type === "Lookup" && (!prop || prop !== "Lookup")) {
+              cdsProp.lookups.some(function (l) {
+                //check the id
+                if (l.id.toString() == v.toString()) {
+                  v = l.name;
+                  return true;
+                }
+              });
+            }
             result = result.replace(r[0], v);
 
             r = result.toString().match(/{(.*?)}/);
           }
-          let prop = cwApi.mm.getProperty(self.objectTypeScriptName, formInput.scriptname);
+
           // get the prop if Date
           if (prop && prop.type === "Date") {
             result = result.replace("@currentDate", new Date().toISOString());
@@ -448,6 +462,7 @@
           $scope.ng.changeset.properties[formInput.scriptname] = formInput.objects[formInput.selectedId];
           $scope.refreshProperties();
         };
+
         $scope.refreshProperties = function () {
           $scope.ng.currentStep.formInput.forEach(function (fi) {
             if (fi.value) $scope.initValue(fi);
