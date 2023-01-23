@@ -436,7 +436,9 @@
       var icon = null;
 
       if (!cwApi.isUndefined(menu.iconClassName) && menu.iconClassName !== "No Icon") {
-        if (menu.iconLibrary === "Evolve Icon Library") {
+        if (menu.forcedimage) {
+          icon = `<img class="cwMenuImage" src="${menu.forcedimage}"/>`;
+        } else if (menu.iconLibrary === "Evolve Icon Library") {
           icon = '<i class="cwf ' + menu.iconClassName + ' cwMenuIcon" style="color:' + menu.iconColor + '"></i>';
         } else if (menu.iconLibrary === "Font Awesome Icon Library") {
           icon = '<i class="fa ' + menu.iconClassName + ' cwMenuIcon" style="color:' + menu.iconColor + '"></i>';
@@ -499,6 +501,7 @@
       var checkIfRole = function (menuConfig, menu) {
         if (!menuConfig) return true;
         if (menuConfig.forcedLink) menu.href = menuConfig.forcedLink;
+        if (menuConfig.forcedimage) menu.forcedimage = menuConfig.forcedimage;
         if (menuConfig.dontRoles && Object.keys(menuConfig.dontRoles).length > 0) {
           var currentUser = cwApi.currentUser;
           for (var i = 0; i < currentUser.RolesId.length; i++) {

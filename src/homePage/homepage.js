@@ -485,6 +485,7 @@
             Where: [{ PropertyScriptName: "ID", Value: display.descriptionObjectID }],
           };
 
+          if (cwApi.isWebSocketConnected === false) window.location.reload();
           cwApi.CwDataServicesApi.send("flatQuery", query, function (err, res) {
             if (err) {
               console.log(err);
@@ -775,8 +776,13 @@
       if (config.backgroundImageUrl) homeContainer.style.backgroundImage = "url(" + config.backgroundImageUrl + ")";
 
       var asynFunction = [];
-      if (!cwAPI.isWebSocketConnected && (cwApi.cwUser.isCurrentUserSocial() || !cwApi.isLive()))
-        asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
+      if (!cwAPI.isWebSocketConnected) {
+        if (cwApi.cwUser.isCurrentUserSocial()) {
+          asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
+        } else {
+          asynFunction.push(cwApi.cwAPI.cwBone.setupWebSocketConnection);
+        }
+      }
       cwAPI.customLibs.doActionForAll.activateLinks();
       if (config.columns && config.columns.length > 0) {
         asynFunction.push(function (callback) {

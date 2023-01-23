@@ -377,6 +377,9 @@ body .main-nav .main-level a.cw-menu-link.activeLink {
   top: -20px;
   margin-left: 15%;
 }
+.cwMenuImage {
+  width: 17px;
+}
 .emptyZone {
   display: flex;
 }

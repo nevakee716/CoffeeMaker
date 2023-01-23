@@ -77,6 +77,12 @@
         <input ng-model="ng.config.menus[menu.title].forcedLink" type="text" />
       </div>
     </div>
+    <div class="row bootstrap-iso">
+      <div class="row-cell row-cell-label">{{$root.i18n('label_imgUrl')}} :</div>
+      <div class="row-cell largeCell row-cell-value">
+        <input ng-model="ng.config.menus[menu.title].forcedimage" type="text" />
+      </div>
+    </div>
   </div>
   <div ng-include src="'../../common/html/coffee/configurationJson.ng.html'"></div>
 </div>
