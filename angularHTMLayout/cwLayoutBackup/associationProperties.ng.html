@@ -23,7 +23,10 @@
         <th class="assoPropertyGroup" colspan="2">Properties</th>
       </tr>
 
-      <tr ng-repeat="pLabel in keys(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties)| orderBy: pLabel">
+      <tr
+        ng-if="pLabel !='Description'"
+        ng-repeat="pLabel in keys(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties)| orderBy: pLabel"
+      >
         <th>{{pLabel}}</th>
         <td
           ng-class="getAssociationPropertyValue(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']],pLabel,ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel])!= getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel]) ? 'different' : 'same'"
@@ -32,14 +35,34 @@
         </td>
       </tr>
 
+      <tr></tr>
+        <th>Description</th>
+        <td
+          ng-class="getAssociationPropertyValue(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']],'Description',ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description'])!= getAssociationPropertyValue(ao,'Description',ao.Properties['Description']) ? 'different' : 'same'"
+        >
+          <span ng-bind-html="getAssociationPropertyValue(ao,'Description',ao.Properties['Description'])"> </span>
+        </td>
+      </tr>
+
       <tr
-        ng-if="!ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel]"
-        ng-repeat="pLabel in  keys(ao.Properties) | orderBy: pLabel">
+        ng-if="pLabel !='Description' && !ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel]"
+        ng-repeat="pLabel in  keys(ao.Properties) | orderBy: pLabel"
+      >
         <th>{{pLabel}}</th>
         <td class="different">
           <span ng-bind-html="getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel])"> </span>
         </td>
       </tr>
+
+      <tr
+      ng-if="!ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description']"
+    >
+      <th>Description</th>
+      <td class="different">
+        <span ng-bind-html="getAssociationPropertyValue(ao,'Description',ao.Properties['Description'])"> </span>
+      </td>
+    </tr>
+
     </tbody>
   </table>
 </div>
