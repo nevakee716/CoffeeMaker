@@ -215,7 +215,10 @@
       if (cwAPI.isDebugMode() === true) {
         self.pushSearchBox(diagramViewer);
       } else {
-        let libToLoad = ["modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
+        let libToLoad =
+          cwAPI.cwConfigs.EnabledVersion.indexOf("v2022") !== -1
+            ? []
+            : ["modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
         // AsyncLoad
         cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
           if (error === null) {
@@ -236,7 +239,7 @@
       var changeSet, id, nodeId, i;
       var groupArray = {};
       if (clickedIndex !== undefined && $(this).children() && $(this).children().children()[clickedIndex]) {
-        id = $(this).children().children()[clickedIndex].id
+        id = $(this).children().children()[clickedIndex].id;
         let shape = diagramViewer.diagramShapesBySequence[id].shape;
 
         diagramViewer.centerShapeOnCanvas(shape);

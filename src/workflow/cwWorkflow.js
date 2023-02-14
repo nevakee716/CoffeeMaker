@@ -626,7 +626,10 @@
       if (cwAPI.isDebugMode() === true) {
         self.checkAlreadyExistingRequest();
       } else {
-        var libToLoad = ["modules/vis/vis.min.js", "modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
+        var libToLoad =
+          cwAPI.cwConfigs.EnabledVersion.indexOf("v2022") !== -1
+            ? []
+            : ["modules/bootstrap/bootstrap.min.js", "modules/bootstrap-select/bootstrap-select.min.js"];
         // AsyncLoad
         cwApi.customLibs.aSyncLayoutLoader.loadUrls(libToLoad, function (error) {
           if (error === null) {
