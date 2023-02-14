@@ -47,7 +47,7 @@
       });
     }
 
-    if (this.urls.length === 0) {
+    if (urls.length === 0) {
       callback(null);
     }
   };
