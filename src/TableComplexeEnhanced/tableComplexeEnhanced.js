@@ -413,6 +413,8 @@
       var datasource = $("." + this.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
       //Clear filters:
       datasource.filter([]);
+      // remove value in cache
+      cwApi.CwLocalStorage.removeGridFilterValues(this.nodeSchema.NodeID);
       var self = this;
       setTimeout(function () {
         var dataSource = $("." + self.nodeSchema.NodeID + ".k-grid").data("kendoGrid").dataSource;
@@ -501,8 +503,11 @@
     if (dataSource.filter == null || dataSource.filter() == null) return;
     dataSource.filter().filters.forEach(function (f) {
       if (self.associationsColumnList.indexOf(f.field) !== -1) {
-        setTimeout(function () {
-          $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
+        let interval = setInterval(() => {
+          if (document.querySelector("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter")) {
+            $("." + self.nodeSchema.NodeID + " th[data-field='" + f.field + "'] a.k-grid-filter").addClass("k-state-active");
+            clearInterval(interval);
+          }
         }, 500);
       }
     });
