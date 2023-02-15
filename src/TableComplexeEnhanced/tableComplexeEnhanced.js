@@ -995,6 +995,41 @@
     this.model.id = null;
   };
 
+  cwApi.cwKendoGridFilter.hideAddAndSearchButton = function (e) {
+    var gridData, toolbar, that;
+    that = this;
+
+    if ($(e.target).parent(".k-filter-menu").length > 0) {
+      setTimeout(function () {
+        if ($(that.mainContainer).find(".k-grid-filter.k-state-active").length > 0) {
+          toolbar = $(that.mainContainer).find(".k-toolbar");
+
+          //remove Add Button when initialise filter
+          toolbar.find(".k-grid-add").addClass("cw_hide_options");
+
+          // remove Search Button, Auto Complete when initialise filter
+          if (that.isAssociationgrid) {
+            toolbar.find(".k-grid-child-search-association").addClass("cw_hide_options");
+            toolbar.find("#cw_grid_autocomplete_search").addClass("cw_hide_options");
+          }
+          cwApi.cwKendoGridFilter.setGridFiltersInLocalStorage(that.properties.NodeID);
+          cwApi.cwKendoGridFilter.addFilterTitle(that.mainContainer);
+        }
+      }, 1500);
+    }
+  };
+
+  cwApi.cwKendoGridFilter.showAddAndSearchButton = function (e) {
+    var that = this;
+    if ($(e.target).parent(".k-filter-menu").length > 0) {
+      cwApi.cwKendoGridFilter.showAddAndSearch(this.mainContainer, this.isAssociationgrid);
+      setTimeout(function () {
+        cwApi.cwKendoGridFilter.setGridFiltersInLocalStorage(that.properties.NodeID);
+        cwApi.cwKendoGridFilter.removeFilterTitle(that.mainContainer);
+      }, 1500);
+    }
+  };
+
   if (cwBehaviours.hasOwnProperty("CwKendoGrid") && cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData) {
     cwBehaviours.CwKendoGrid.prototype.setAnGetKendoGridData = tableComplexeEnhanced.cwKendoGrid.setAnGetKendoGridData;
     cwBehaviours.CwKendoGrid.prototype.modifyAssociationFilter = tableComplexeEnhanced.cwKendoGrid.modifyAssociationFilter;
