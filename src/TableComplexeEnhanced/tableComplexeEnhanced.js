@@ -124,7 +124,6 @@
 
     return result;
   };
-
   // Apply ratio to the height
   var calcHeight = function (height, nodeID) {
     let config;
@@ -156,17 +155,17 @@
     self.associationsColumnList = [];
     this.columns.forEach(function (c) {
       if (c.isAssociationColumn) {
-        let items = ["caramel" + c.field];
+        let items = ["AAcaramel" + c.field];
         self.associationsColumnList.push(c.field);
         self.items.forEach(function (item) {
           item.associations[c.field].forEach(function (a) {
             if (items.indexOf(a.label) === -1) items.push(a.label);
           });
         });
-        self.gridItems.forEach(function (gi) {
-          if (gi[c.field] == "") gi[c.field] = "caramel" + c.field;
+        self.gridItems.forEach((gi) => {
+          if (gi[c.field] == "") gi[c.field] = "AAcaramel" + c.field;
         });
-        c.filterable.dataSource = items.map(function (i) {
+        c.filterable.dataSource = items.sort().map((i) => {
           let r = {};
           r[c.field] = i;
           return r;
@@ -784,7 +783,7 @@
       var commonCheckboxTemplate = function (e) {
         //value='#=(data.${e.field}? data.${e.field}:all)#'><span>#=
 
-        return `<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'caramel${e.field}' ?data.${e.field}: 'No Value') # </span></label></div>`;
+        return `<div><label><input type="checkbox" name="#= data.${e.field}#" value="#= data.all || (data.${e.field}?data.${e.field}: '')#"><span>#= data.all || (data.${e.field} != 'AAcaramel${e.field}' ?data.${e.field}: 'No Value') # </span></label></div>`;
       };
       columnManager.filterable = {
         multi: true,
