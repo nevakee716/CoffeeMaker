@@ -617,7 +617,7 @@
 
     function getEditColumnTemplate(isHidden, addEdit, addDelete, addRemove, isAssociation) {
       output.push(cwApi.cwKendoGridButtons.getActionZoneDiv(isHidden));
-      if (isOpenButtonAvailable(isAssociation)) {
+      if (isOpenButtonAvailable(isAssociation) || document.querySelector(".homePage_evolveView  .k-grid." + e.item.nodeID)) {
         output.push(cwApi.cwKendoGridButtons.getOpenButton());
       }
       if (addEdit) {
