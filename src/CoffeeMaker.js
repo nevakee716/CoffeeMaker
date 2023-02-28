@@ -399,6 +399,7 @@
         "property",
         "cwBackup",
         "misc",
+        "menu",
       ].indexOf(datasetId) === -1
     ) {
       templatePath = loader.prefixWithTemplatePath("coffee", datasetId) + "?" + Math.random();
