@@ -438,6 +438,12 @@
             : false;
         };
 
+
+
+        $scope.mergeUniqAndSort = function(a,b){
+          return [...new Set(a.concat(b))].sort();
+        }
+        
         $scope.getDiagram = function (ng, ot, id, did) {
           return ng[ot] && ng[ot][id] && ng[ot][id].Diagrams[did] ? ng[ot][id].Diagrams[did] : "";
         };
@@ -486,8 +492,11 @@
               asso.Properties.Description = asso.Description
               .replaceAll("&amp;", "&")
               .replaceAll("&lt;", "<")
-              .replaceAll("&gt;", ">");
+              .replaceAll("&gt;", ">").trim();
               r[asso["Association Type"]][asso["Associated Object ID"]] = asso;
+
+              asso.Properties.Category = asso.Category
+
 
 
               asso.targetScriptname = Object.keys(cwApi.mm.getMetaModel().objectTypes).find((o) => {
@@ -502,7 +511,9 @@
               asso.name = ng[otTarget.name][id]["Object Name"];
 
             }
-            catch (e) { }
+            catch (e) { 
+              console.log("Error while reformating association" + e)
+            }
           });
 
           return r;
