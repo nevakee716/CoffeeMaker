@@ -49,6 +49,11 @@
     return "<a " + targetBlank + "href='" + value + "'>" + value + "</a>";
   };
 
+  cwPropertiesGroups.types.checkDateDifference = function (date) {
+    //Check default date for different time zone - different time zones returns different serialised values so we nned to check this way
+    return Math.abs(moment("30/12/1899", cwPropertiesGroups.types.dateFormatForServer).diff(moment(date))) < 1000 * 3600 * 24 * 365 * 10;
+  };
+
   cwPropertiesGroups.getDisplayValue = function (
     objectTypeScriptName,
     propertyScriptName,
