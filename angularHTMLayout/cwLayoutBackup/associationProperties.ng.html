@@ -2,46 +2,55 @@
   <span
     ng-click="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].extended = !ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].extended"
     ng-class="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].extended ? ' fa fa-minus' : ' fa fa-plus'"
-    class="cw-accordion cw-accordion-icon-color"></span>
+    class="cw-accordion cw-accordion-icon-color"
+  ></span>
   <span ng-bind-html="getCDSForAssociatedObjects(ng.current,ao)"></span>
-  <i ng-if="checkJSONDiff(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties, ao.Properties)"
-    class="fa fa-pencil" aria-hidden="true"></i>
+  <i
+    ng-if="checkJSONDiff(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties, ao.Properties)"
+    class="fa fa-pencil"
+    aria-hidden="true"
+  ></i>
 </div>
-<div ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].extended"
-  class="cw-children cw-accordion-content" style="display: block">
+<div
+  ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].extended"
+  class="cw-children cw-accordion-content"
+  style="display: block"
+>
   <table class="cw-grid">
     <thead class="compareTable-header"></thead>
     <tbody>
       <tr>
         <th class="assoPropertyGroup" colspan="2">Properties</th>
       </tr>
-
-      <tr ng-if="pLabel !='Description'"
-        ng-repeat="pLabel in mergeUniqAndSort(keys(ao.Properties),keys(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties))">
+      <tr
+        ng-if="pLabel !='Description'"
+        ng-repeat="pLabel in mergeUniqAndSort(keys(ao.Properties),keys(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties))"
+      >
         <th>{{pLabel}}</th>
-        <td ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel]"
-          ng-class="getAssociationPropertyValue(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']],pLabel,ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel])!= getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel]) ? 'different' : 'same'">
+        <td
+          ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel] !== undefined"
+          ng-class="getAssociationPropertyValue(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']],pLabel,ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel])!= getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel]) ? 'different' : 'same'"
+        >
           <span ng-bind-html="getAssociationPropertyValue(ao,pLabel,ao.Properties[pLabel])"> </span>
         </td>
 
-        <td ng-if="!ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel]"
-          class="different">
+        <td ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties[pLabel] === undefined" class="different">
           <span ng-bind-html="getAssociationPropertyValue(ao,pLabel ,ao.Properties[pLabel])"> </span>
         </td>
       </tr>
 
       <tr>
         <th>Description</th>
-        <td ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description']"
-          ng-class="getAssociationPropertyValue(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']],'Description',ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description'])!= getAssociationPropertyValue(ao,'Description',ao.Properties['Description']) ? 'different' : 'same'">
+        <td
+          ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description'] !== undefined"
+          ng-class="getAssociationPropertyValue(ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']],'Description',ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description'])!= getAssociationPropertyValue(ao,'Description',ao.Properties['Description']) ? 'different' : 'same'"
+        >
           <span ng-bind-html="getAssociationPropertyValue(ao,'Description',ao.Properties['Description'])"> </span>
         </td>
-        <td ng-if="!ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description']"
-          class="different">
+        <td ng-if="ng.backup[OT][vv.id].Associations[assoName][ao['Associated Object ID']].Properties['Description'] === undefined" class="different">
           <span ng-bind-html="getAssociationPropertyValue(ao,'Description',ao.Properties['Description'])"> </span>
         </td>
       </tr>
-
     </tbody>
   </table>
 </div>
