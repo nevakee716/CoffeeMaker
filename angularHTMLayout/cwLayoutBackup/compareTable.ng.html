@@ -22,7 +22,7 @@
         ng-switch-when="true"
         ng-class="getPropertyValue(ng.current,OT,vv.id,'TYPE',true) != getPropertyValue(ng.backup,OT,vv.id,'TYPE',true) ? 'different' : 'same'"
       >
-        <span ng-bind-html="getPropertyValue(ng.backup,OT,vv.id,'TYPE')"> </span>
+        <span ng-bind-html="getPropertyValue(ng.current,OT,vv.id,'TYPE')"> </span>
       </td>
       <td ng-switch-default></td>
     </tr>
