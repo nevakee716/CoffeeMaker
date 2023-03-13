@@ -780,7 +780,7 @@
         if (cwApi.cwUser.isCurrentUserSocial()) {
           asynFunction.push(cwApi.customLibs.utils.setupWebSocketForSocial);
         } else {
-          asynFunction.push(cwApi.cwAPI.cwBone.setupWebSocketConnection);
+          asynFunction.push(cwApi.cwBone.setupWebSocketConnection);
         }
       }
       cwAPI.customLibs.doActionForAll.activateLinks();
