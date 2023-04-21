@@ -1,3 +1,16 @@
+<div class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('autoplay')}} :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input type="checkbox" ng-model="display.autoplay" />
+  </div>
+</div>
+
+<div ng-if="display.autoplay" class="rowFlex bootstrap-iso">
+  <div class="row-cell row-cell-label">{{$root.i18n('speed')}} (ms) :&nbsp;</div>
+  <div class="row-cell row-cell-value">
+    <input type="number" ng-model="display.speed" />
+  </div>
+</div>
 <div class="tabs">
   <div
     ng-repeat=" slide in display.slides | orderBy:'order'"
@@ -13,6 +26,7 @@
     ></a>
   </div>
 </div>
+
 <div class="tabContent" ng-if="slide.selected" ng-repeat="slide in display.slides">
   <div class="remove-operation">
     <a class="btn-remove btn page-action no-text" title="{{$root.i18n('label_remove_operation')}}" ng-click="removeSlide(display,$index)"
@@ -24,6 +38,13 @@
     <div class="row-cell row-cell-label">{{$root.i18n('title')}} :&nbsp;</div>
     <div class="row-cell row-cell-value">
       <input type="text" ng-model="slide.title" />
+    </div>
+  </div>
+
+  <div class="rowFlex bootstrap-iso">
+    <div class="row-cell row-cell-label">{{$root.i18n('link')}} :&nbsp;</div>
+    <div class="row-cell row-cell-value">
+      <input type="text" ng-model="slide.link" />
     </div>
   </div>
 

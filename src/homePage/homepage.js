@@ -168,6 +168,16 @@
         $scope.initCarrousel = function (display) {
           display.slideSelected = 0;
           display.closed = false;
+
+          if (display.autoplay) {
+            setInterval(() => {
+              if (!display.paused) {
+                display.slideSelected = display.slides.length - 1 == display.slideSelected ? 0 : display.slideSelected + 1;
+                console.log("interval " + display.slideSelected);
+                $scope.$apply();
+              }
+            }, display.speed ?? 3000);
+          }
         };
 
         $scope.nextSlide = function (display) {

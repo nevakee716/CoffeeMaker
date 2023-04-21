@@ -127,9 +127,12 @@ body:not(.cw_print) .page-content-wrap .page-top {
         overflow: hidden;
       }
 
+
       .homePage_carrousel {
         .slide {
           display: flex;
+        }
+
           .slidePicture {
             flex-grow: 1;
             height: 220px;
@@ -175,19 +178,34 @@ body:not(.cw_print) .page-content-wrap .page-top {
               margin: 1px;
             }
           }
-          .slideButton {
-            width: 100px;
+          .controller {
             display: flex;
-            justify-content: flex-end;
-            margin-right: 10px;
-            a {
-              margin: 2px;
-              background-color: @cwColor1;
-              color: #ffffff;
-              border: 1px solid @cwColor1;
-              padding: 8px;
-              box-shadow: 1px 1px 1px #bdbdbd;
-              border-radius: 5px;
+            justify-content: end;
+            height: 36px;
+
+            .playPause {
+              display: flex;
+              i {
+                align-self: center;
+              }
+            }
+
+            .slideButton {
+              width: 100px;
+
+              display: flex;
+              justify-content: flex-end;
+              margin-right: 10px;
+
+              a {
+                margin: 2px;
+                background-color: @cwColor1;
+                color: #ffffff;
+                border: 1px solid @cwColor1;
+                padding: 8px;
+                box-shadow: 1px 1px 1px #bdbdbd;
+                border-radius: 5px;
+              }
             }
           }
         }

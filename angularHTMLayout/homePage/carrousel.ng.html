@@ -5,7 +5,8 @@
     </div>
 
     <div class="slideText">
-      <div class="slideTitle">{{slide.title}}</div>
+      <a ng-if="slide.link" href="{{slide.link}}" class="slideTitle">{{slide.title}}</a>
+      <div ng-if="!slide.link" class="slideTitle">{{slide.title}}</div>
       <div class="slideDescription">{{slide.description}}</div>
     </div>
     <div class="rightSlider">
@@ -19,10 +20,28 @@
         <i ng-class="display.slideSelected == $index? ['selected'] : []" class="fa fa-circle" ng-aria-hidden="true"></i>
       </div>
     </div>
-    <div class="slideButton">
-      <a ng-if="display.slideSelected > 0" ng-click="previousSlide(display)" class="emptyLink"> {{$root.i18n('previous')}} </a>
-      <a ng-if="(display.slides.length -1) > display.slideSelected" ng-click="nextSlide(display)" class="emptyLink"> {{$root.i18n('next')}} </a>
-      <a ng-if="false" ng-click="closeSlides(display)" class="emptyLink">{{$root.i18n('close')}} </a>
+    <div class="controller">
+      <div class="slideButton">
+        <a
+          ng-if="display.paused == true || display.autoplay !== true && display.slideSelected > 0"
+          ng-click="previousSlide(display)"
+          class="emptyLink"
+        >
+          {{$root.i18n('previous')}}
+        </a>
+        <a
+          ng-if="display.paused == true || display.autoplay !== true && (display.slides.length -1) > display.slideSelected"
+          ng-click="nextSlide(display)"
+          class="emptyLink"
+        >
+          {{$root.i18n('next')}}
+        </a>
+        <a ng-if="false" ng-click="closeSlides(display)" class="emptyLink">{{$root.i18n('close')}} </a>
+        <a ng-if="display.autoplay === true" class="playPause emptyLink">
+          <i ng-if="display.paused" ng-click="display.paused = false" class="fa fa-play" aria-hidden="true"></i>
+          <i ng-if="!display.paused" ng-click="display.paused = true" class="fa fa-pause" aria-hidden="true"></i>
+        </a>
+      </div>
     </div>
   </div>
 </div>

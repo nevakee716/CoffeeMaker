@@ -186,13 +186,24 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider i {
   margin: 1px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideButton {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller {
+  display: flex;
+  justify-content: end;
+  height: 36px;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .playPause {
+  display: flex;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .playPause i {
+  align-self: center;
+}
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .slideButton {
   width: 100px;
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideButton a {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .slideButton a {
   margin: 2px;
   background-color: #03a0ce;
   color: #ffffff;
