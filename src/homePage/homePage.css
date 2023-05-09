@@ -143,67 +143,67 @@ body:not(.cw_print) .page-content-wrap .page-top {
 .homePage_main .homePage_column .homePage_display .homePage_carrousel .slide {
   display: flex;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slidePicture {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slidePicture {
   flex-grow: 1;
   height: 220px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .leftSlider {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .leftSlider {
   flex-grow: 1;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slideText {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slideText {
   flex-grow: 1;
   margin: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slideText .slideTitle {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slideText .slideTitle {
   font-size: 20px;
   font-weight: bold;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .slideText .slideDescription {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .slideText .slideDescription {
   margin-top: 10px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .slide .rightSlider {
+.homePage_main .homePage_column .homePage_display .homePage_carrousel .rightSlider {
   flex-grow: 1;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar {
+.homePage_main .homePage_column .homePage_display .lowNavBar {
   display: flex;
   justify-content: flex-end;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .emptyLow {
+.homePage_main .homePage_column .homePage_display .lowNavBar .emptyLow {
   flex-grow: 1;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider {
+.homePage_main .homePage_column .homePage_display .lowNavBar .slideslider {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider .selected {
+.homePage_main .homePage_column .homePage_display .lowNavBar .slideslider .selected {
   color: #03a0ce;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .slideslider i {
+.homePage_main .homePage_column .homePage_display .lowNavBar .slideslider i {
   margin: 1px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller {
+.homePage_main .homePage_column .homePage_display .lowNavBar .controller {
   display: flex;
   justify-content: end;
   height: 36px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .playPause {
+.homePage_main .homePage_column .homePage_display .lowNavBar .controller .playPause {
   display: flex;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .playPause i {
+.homePage_main .homePage_column .homePage_display .lowNavBar .controller .playPause i {
   align-self: center;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .slideButton {
+.homePage_main .homePage_column .homePage_display .lowNavBar .controller .slideButton {
   width: 100px;
   display: flex;
   justify-content: flex-end;
   margin-right: 10px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_carrousel .lowNavBar .controller .slideButton a {
+.homePage_main .homePage_column .homePage_display .lowNavBar .controller .slideButton a {
   margin: 2px;
   background-color: #03a0ce;
   color: #ffffff;
@@ -212,68 +212,68 @@ body:not(.cw_print) .page-content-wrap .page-top {
   box-shadow: 1px 1px 1px #bdbdbd;
   border-radius: 5px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView {
+.homePage_main .homePage_column .homePage_evolveView {
   overflow: auto;
   height: inherit;
   display: flex;
   flex-wrap: wrap;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView .wrap-kendo-mobile,
-.homePage_main .homePage_column .homePage_display .homePage_evolveView .cwPropertiesTableContainer {
+.homePage_main .homePage_column .homePage_evolveView .wrap-kendo-mobile,
+.homePage_main .homePage_column .homePage_evolveView .cwPropertiesTableContainer {
   margin: 0rem;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list {
+.homePage_main .homePage_column .homePage_evolveView > .cw-list {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   width: 100%;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView > .cw-list.empty {
+.homePage_main .homePage_column .homePage_evolveView > .cw-list.empty {
   display: none;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView .cw-jvector-map {
+.homePage_main .homePage_column .homePage_evolveView .cw-jvector-map {
   width: 100%;
   height: 100%;
   border: none;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView .tableForPopoutWrapper {
+.homePage_main .homePage_column .homePage_evolveView .tableForPopoutWrapper {
   overflow: unset;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView li.cw-accordion-container {
+.homePage_main .homePage_column .homePage_evolveView li.cw-accordion-container {
   margin: 5px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView.simplified .cwDiagramCamera,
-.homePage_main .homePage_column .homePage_display .homePage_evolveView.simplified .cwDiagramBreadcrumb {
+.homePage_main .homePage_column .homePage_evolveView.simplified .cwDiagramCamera,
+.homePage_main .homePage_column .homePage_evolveView.simplified .cwDiagramBreadcrumb {
   display: none;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView.simplified #cw-dv-fullscreen {
+.homePage_main .homePage_column .homePage_evolveView.simplified #cw-dv-fullscreen {
   display: flex;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone {
+.homePage_main .homePage_column .homePage_evolveView ul.cw-diagram-zone {
   width: 100%;
   height: 100%;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone li.cw-diagram-zone {
+.homePage_main .homePage_column .homePage_evolveView ul.cw-diagram-zone li.cw-diagram-zone {
   margin: 0;
   border: 0px solid;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone {
+.homePage_main .homePage_column .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone {
   display: flex;
   justify-content: space-between;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone .cwDiagramBreadcrumbZoneLeft {
+.homePage_main .homePage_column .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone .cwDiagramBreadcrumbZoneLeft {
   width: unset;
 }
-.homePage_main .homePage_column .homePage_display .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone .cwDiagramBreadcrumbZoneRight {
+.homePage_main .homePage_column .homePage_evolveView ul.cw-diagram-zone .cwDiagramBreadcrumbZone .cwDiagramBreadcrumbZoneRight {
   width: unset;
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc {
+.homePage_main .homePage_column .homePage_links_in_bloc {
   background: transparent;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
   height: inherit;
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox {
+.homePage_main .homePage_column .homePage_links_in_bloc .linkBox {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -284,7 +284,7 @@ body:not(.cw_print) .page-content-wrap .page-top {
   padding-bottom: 0rem;
   margin: auto;
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox .link {
+.homePage_main .homePage_column .homePage_links_in_bloc .linkBox .link {
   padding: 0.2rem;
   font-size: 100%;
   width: 100%;
@@ -297,46 +297,46 @@ body:not(.cw_print) .page-content-wrap .page-top {
   text-align: center;
   align-items: center;
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox img {
+.homePage_main .homePage_column .homePage_links_in_bloc .linkBox img {
   width: 100%;
   height: 100%;
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox .backgroundBlur {
+.homePage_main .homePage_column .homePage_links_in_bloc .linkBox .backgroundBlur {
   position: absolute;
   overflow: hidden;
   z-index: -20;
   padding-top: 20px;
   width: inherit;
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox .backgroundBlur img {
+.homePage_main .homePage_column .homePage_links_in_bloc .linkBox .backgroundBlur img {
   width: inherit;
   height: 100%;
   filter: blur(20px) brightness(50%);
 }
-.homePage_main .homePage_column .homePage_display .homePage_links_in_bloc .linkBox:hover {
+.homePage_main .homePage_column .homePage_links_in_bloc .linkBox:hover {
   background-color: rgba(22, 22, 22, 0.1);
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object {
+.homePage_main .homePage_column .homePage_last_modified_object {
   margin: 5px;
   background: transparent;
   height: inherit;
   overflow: auto;
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object table.cwPropertiesTable td {
+.homePage_main .homePage_column .homePage_last_modified_object table.cwPropertiesTable td {
   width: inherit;
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object div.cwPropertiesTableHeader {
+.homePage_main .homePage_column .homePage_last_modified_object div.cwPropertiesTableHeader {
   display: flex;
   justify-content: space-between;
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .see_more_link {
+.homePage_main .homePage_column .homePage_last_modified_object .see_more_link {
   text-decoration: underline;
   line-height: 33px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .homePageDate {
+.homePage_main .homePage_column .homePage_last_modified_object .homePageDate {
   float: right;
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .filterDate {
+.homePage_main .homePage_column .homePage_last_modified_object .filterDate {
   border-width: 0px 1px 1px;
   border-style: solid;
   border-color: #bfbfbf;
@@ -349,14 +349,14 @@ body:not(.cw_print) .page-content-wrap .page-top {
   border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
-.homePage_main .homePage_column .homePage_display .homePage_last_modified_object .smallCell {
+.homePage_main .homePage_column .homePage_last_modified_object .smallCell {
   width: 60px;
 }
-.homePage_main .homePage_column .homePage_display .homePage_blocks {
+.homePage_main .homePage_column .homePage_blocks {
   overflow: auto;
   height: inherit;
 }
-.homePage_main .homePage_column .homePage_display .homePage_description {
+.homePage_main .homePage_column .homePage_description {
   width: 100%;
   height: 100%;
   overflow: auto;

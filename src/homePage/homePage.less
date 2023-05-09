@@ -127,254 +127,252 @@ body:not(.cw_print) .page-content-wrap .page-top {
         overflow: hidden;
       }
 
-
       .homePage_carrousel {
         .slide {
           display: flex;
         }
 
-          .slidePicture {
-            flex-grow: 1;
-            height: 220px;
-          }
-          .leftSlider {
-            flex-grow: 1;
-          }
-
-          .slideText {
-            flex-grow: 1;
-            margin: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            .slideTitle {
-              font-size: 20px;
-              font-weight: bold;
-            }
-            .slideDescription {
-              margin-top: 10px;
-            }
-          }
-
-          .rightSlider {
-            flex-grow: 1;
-          }
+        .slidePicture {
+          flex-grow: 1;
+          height: 220px;
         }
-        .lowNavBar {
-          display: flex;
-          justify-content: flex-end;
-          .emptyLow {
-            flex-grow: 1;
-          }
-          .slideslider {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            .selected {
-              color: @cwColor2;
-            }
-            i {
-              margin: 1px;
-            }
-          }
-          .controller {
-            display: flex;
-            justify-content: end;
-            height: 36px;
-
-            .playPause {
-              display: flex;
-              i {
-                align-self: center;
-              }
-            }
-
-            .slideButton {
-              width: 100px;
-
-              display: flex;
-              justify-content: flex-end;
-              margin-right: 10px;
-
-              a {
-                margin: 2px;
-                background-color: @cwColor1;
-                color: #ffffff;
-                border: 1px solid @cwColor1;
-                padding: 8px;
-                box-shadow: 1px 1px 1px #bdbdbd;
-                border-radius: 5px;
-              }
-            }
-          }
-        }
-      }
-      .homePage_evolveView {
-        overflow: auto;
-        height: inherit;
-        display: flex;
-        flex-wrap: wrap;
-        & > {
-          .wrap-kendo-mobile,
-          .cwPropertiesTableContainer {
-            margin: 0rem;
-          }
-        }
-        & > .cw-list {
-          padding-left: 0.5rem;
-          padding-right: 0.5rem;
-          width: 100%;
-          &.empty {
-            display: none;
-          }
-        }
-        .cw-jvector-map {
-          width: 100%;
-          height: 100%;
-          border: none;
-        }
-        .tableForPopoutWrapper {
-          overflow: unset;
-        }
-        li.cw-accordion-container {
-          margin: 5px;
+        .leftSlider {
+          flex-grow: 1;
         }
 
-        &.simplified {
-          .cwDiagramCamera,
-          .cwDiagramBreadcrumb {
-            display: none;
-          }
-          #cw-dv-fullscreen {
-            display: flex;
-          }
-        }
-        ul.cw-diagram-zone {
-          width: 100%;
-          height: 100%;
-          li.cw-diagram-zone {
-            margin: 0;
-            border: 0px solid;
-          }
-          .cwDiagramBreadcrumbZone {
-            display: flex;
-            justify-content: space-between;
-            .cwDiagramBreadcrumbZoneLeft {
-              width: unset;
-            }
-            .cwDiagramBreadcrumbZoneRight {
-              width: unset;
-            }
-          }
-        }
-      }
-
-      .homePage_links_in_bloc {
-        background: transparent;
-        display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
-        height: inherit;
-
-        .linkBox {
+        .slideText {
+          flex-grow: 1;
+          margin: 20px;
           display: flex;
           flex-direction: column;
           justify-content: center;
-          align-items: center;
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0rem;
-          padding-bottom: 0rem;
-          margin: auto;
-
-          .link {
-            padding: 0.2rem;
-            font-size: 100%;
-            width: 100%;
-            margin-top: 5px;
-            border-top: 2px solid @cwDiagramBreadCrumbBackgroundColor;
+          .slideTitle {
+            font-size: 20px;
             font-weight: bold;
-            vertical-align: middle;
+          }
+          .slideDescription {
+            margin-top: 10px;
+          }
+        }
+
+        .rightSlider {
+          flex-grow: 1;
+        }
+      }
+      .lowNavBar {
+        display: flex;
+        justify-content: flex-end;
+        .emptyLow {
+          flex-grow: 1;
+        }
+        .slideslider {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .selected {
+            color: @cwColor2;
+          }
+          i {
+            margin: 1px;
+          }
+        }
+        .controller {
+          display: flex;
+          justify-content: end;
+          height: 36px;
+
+          .playPause {
             display: flex;
-            justify-content: center;
-            text-align: center;
-            align-items: center;
+            i {
+              align-self: center;
+            }
           }
 
-          img {
-            width: 100%;
-            height: 100%;
-          }
+          .slideButton {
+            width: 100px;
 
-          .backgroundBlur {
-            position: absolute;
-            overflow: hidden;
-            z-index: -20;
-            padding-top: 20px;
-            width: inherit;
-            img {
-              width: inherit;
-              height: 100%;
-              filter: blur(20px) brightness(50%);
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 10px;
+
+            a {
+              margin: 2px;
+              background-color: @cwColor1;
+              color: #ffffff;
+              border: 1px solid @cwColor1;
+              padding: 8px;
+              box-shadow: 1px 1px 1px #bdbdbd;
+              border-radius: 5px;
             }
           }
         }
-        .linkBox:hover {
-          background-color: rgba(22, 22, 22, 0.1);
+      }
+    }
+    .homePage_evolveView {
+      overflow: auto;
+      height: inherit;
+      display: flex;
+      flex-wrap: wrap;
+      & > {
+        .wrap-kendo-mobile,
+        .cwPropertiesTableContainer {
+          margin: 0rem;
         }
       }
-
-      .homePage_last_modified_object {
-        margin: 5px;
-        background: transparent;
-        height: inherit;
-        overflow: auto;
-        table.cwPropertiesTable td {
-          width: inherit;
-        }
-        div.cwPropertiesTableHeader {
-          display: flex;
-          justify-content: space-between;
-        }
-        .see_more_link {
-          text-decoration: underline;
-          line-height: 33px;
-        }
-        .homePageDate {
-          float: right;
-        }
-
-        .filterDate {
-          border-width: 0px 1px 1px;
-          border-style: solid;
-          border-color: rgb(191, 191, 191);
-          border-image: initial;
-          padding: 5px;
-          white-space: pre-wrap;
-          word-break: break-word;
-          overflow-wrap: break-word;
-          overflow: hidden;
-          border-radius: 6px;
-          border: 1px solid rgba(0, 0, 0, 0.2);
-        }
-
-        .smallCell {
-          width: 60px;
+      & > .cw-list {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        width: 100%;
+        &.empty {
+          display: none;
         }
       }
-
-      .homePage_blocks {
-        overflow: auto;
-        height: inherit;
-      }
-
-      .homePage_description {
+      .cw-jvector-map {
         width: 100%;
         height: 100%;
-        overflow: auto;
-        height: inherit;
+        border: none;
       }
+      .tableForPopoutWrapper {
+        overflow: unset;
+      }
+      li.cw-accordion-container {
+        margin: 5px;
+      }
+
+      &.simplified {
+        .cwDiagramCamera,
+        .cwDiagramBreadcrumb {
+          display: none;
+        }
+        #cw-dv-fullscreen {
+          display: flex;
+        }
+      }
+      ul.cw-diagram-zone {
+        width: 100%;
+        height: 100%;
+        li.cw-diagram-zone {
+          margin: 0;
+          border: 0px solid;
+        }
+        .cwDiagramBreadcrumbZone {
+          display: flex;
+          justify-content: space-between;
+          .cwDiagramBreadcrumbZoneLeft {
+            width: unset;
+          }
+          .cwDiagramBreadcrumbZoneRight {
+            width: unset;
+          }
+        }
+      }
+    }
+
+    .homePage_links_in_bloc {
+      background: transparent;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: hidden;
+      height: inherit;
+
+      .linkBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: 0rem;
+        padding-bottom: 0rem;
+        margin: auto;
+
+        .link {
+          padding: 0.2rem;
+          font-size: 100%;
+          width: 100%;
+          margin-top: 5px;
+          border-top: 2px solid @cwDiagramBreadCrumbBackgroundColor;
+          font-weight: bold;
+          vertical-align: middle;
+          display: flex;
+          justify-content: center;
+          text-align: center;
+          align-items: center;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+
+        .backgroundBlur {
+          position: absolute;
+          overflow: hidden;
+          z-index: -20;
+          padding-top: 20px;
+          width: inherit;
+          img {
+            width: inherit;
+            height: 100%;
+            filter: blur(20px) brightness(50%);
+          }
+        }
+      }
+      .linkBox:hover {
+        background-color: rgba(22, 22, 22, 0.1);
+      }
+    }
+
+    .homePage_last_modified_object {
+      margin: 5px;
+      background: transparent;
+      height: inherit;
+      overflow: auto;
+      table.cwPropertiesTable td {
+        width: inherit;
+      }
+      div.cwPropertiesTableHeader {
+        display: flex;
+        justify-content: space-between;
+      }
+      .see_more_link {
+        text-decoration: underline;
+        line-height: 33px;
+      }
+      .homePageDate {
+        float: right;
+      }
+
+      .filterDate {
+        border-width: 0px 1px 1px;
+        border-style: solid;
+        border-color: rgb(191, 191, 191);
+        border-image: initial;
+        padding: 5px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        border-radius: 6px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .smallCell {
+        width: 60px;
+      }
+    }
+
+    .homePage_blocks {
+      overflow: auto;
+      height: inherit;
+    }
+
+    .homePage_description {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      height: inherit;
     }
   }
 }
